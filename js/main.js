@@ -34,6 +34,37 @@ document.querySelectorAll('a, button, .product-card, .how-card, .path-node').for
   el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
 });
 
+/* ── CINEMATIC HOVER TRACKING (Glint & Tilt) ────────────────────────────── */
+document.querySelectorAll('.how-card, .product-card, .path-node').forEach(card => {
+  card.addEventListener('mousemove', e => {
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    // Set CSS variables for radial gradients (glint)
+    card.style.setProperty('--mouse-x', `${x}px`);
+    card.style.setProperty('--mouse-y', `${y}px`);
+
+    // Only apply 3D tilt to product cards for dramatic effect
+    if (card.classList.contains('product-card')) {
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      
+      // Calculate rotation (-3 to 3 degrees max)
+      const rotateX = ((y - centerY) / centerY) * -3; 
+      const rotateY = ((x - centerX) / centerX) * 3;
+      
+      card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(0)`;
+    }
+  });
+
+  card.addEventListener('mouseleave', () => {
+    if (card.classList.contains('product-card')) {
+      card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0)`;
+    }
+  });
+});
+
 /* Nascondi sulla hero (WebGL) */
 const heroSection = document.querySelector('.hero');
 if (heroSection) {
@@ -95,5 +126,5 @@ const revealObserver = new IntersectionObserver(entries => {
 }, { threshold: 0.08 });
 
 document.querySelectorAll(
-  '.reveal, .product-card, .close-mark, .close-line, .close-sub, .close-cta'
+  '.reveal, .focus-reveal, .product-card, .close-mark, .close-line, .close-sub, .close-cta'
 ).forEach(el => revealObserver.observe(el));
