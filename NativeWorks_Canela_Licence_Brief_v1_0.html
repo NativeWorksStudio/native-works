@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Native Works — Canela Typeface Licence Brief v1.0</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --off-black: #1E1B17;
+    --warm-white: #F4F0E8;
+    --true-north: #8E3B28;
+    --forest: #2B5E2B;
+    --mid-tone: #6B6860;
+    --border: #DED9D0;
+    --surface: #F9F7F2;
+  }
+
+  html { font-size: 16px; }
+  body {
+    font-family: 'DM Sans', -apple-system, sans-serif;
+    background: var(--warm-white);
+    color: var(--off-black);
+    line-height: 1.7;
+  }
+
+  .serif { font-family: Georgia, 'Palatino Linotype', serif; }
+
+  /* ── COVER ── */
+  .cover {
+    background: var(--off-black);
+    color: var(--warm-white);
+    padding: 80px 80px 72px;
+    position: relative;
+  }
+  .cover-mark { margin-bottom: 48px; }
+  .cover-name {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 52px;
+    font-weight: 500;
+    letter-spacing: 8px;
+    color: var(--warm-white);
+    margin-bottom: 12px;
+  }
+  .cover-sub {
+    font-size: 15px;
+    color: #888074;
+    letter-spacing: 1px;
+    margin-bottom: 48px;
+  }
+  .cover-headline {
+    font-family: Georgia, serif;
+    font-size: 22px;
+    font-style: italic;
+    color: var(--true-north);
+    max-width: 560px;
+    line-height: 1.5;
+    margin-bottom: 60px;
+    padding-left: 24px;
+    border-left: 3px solid var(--true-north);
+  }
+  .cover-meta {
+    font-size: 12px;
+    color: #555048;
+    letter-spacing: 2px;
+  }
+  .cover-meta span { color: #888074; }
+
+  /* ── LAYOUT ── */
+  .container { max-width: 900px; margin: 0 auto; padding: 80px 60px; }
+
+  /* ── SECTIONS ── */
+  .section { margin-bottom: 80px; }
+  .section-divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 80px 0;
+  }
+  .section-number {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    color: var(--true-north);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  h1 {
+    font-family: Georgia, serif;
+    font-size: 36px;
+    font-weight: 400;
+    line-height: 1.2;
+    margin-bottom: 28px;
+    color: var(--off-black);
+  }
+  h2 {
+    font-family: Georgia, serif;
+    font-size: 22px;
+    font-weight: 400;
+    margin-bottom: 20px;
+    color: var(--off-black);
+  }
+  h3 {
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--mid-tone);
+    margin-bottom: 16px;
+  }
+
+  p {
+    font-size: 17px;
+    color: #3A3732;
+    margin-bottom: 18px;
+    max-width: 680px;
+    line-height: 1.75;
+  }
+
+  /* ── STATUS BADGE ── */
+  .status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--forest);
+    color: var(--warm-white);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    margin-bottom: 40px;
+  }
+  .status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--warm-white);
+    opacity: 0.7;
+  }
+
+  /* ── META TABLE ── */
+  .meta-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border: 1px solid var(--border);
+    margin-bottom: 48px;
+  }
+  .meta-item {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
+  }
+  .meta-item:nth-child(odd) { border-right: 1px solid var(--border); }
+  .meta-item:nth-last-child(-n+2) { border-bottom: none; }
+  .meta-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--mid-tone);
+    margin-bottom: 4px;
+  }
+  .meta-value {
+    font-size: 14px;
+    color: var(--off-black);
+    font-weight: 400;
+  }
+
+  /* ── DATA TABLE ── */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 32px;
+    font-size: 14px;
+  }
+  .data-table thead tr {
+    background: var(--off-black);
+    color: var(--warm-white);
+  }
+  .data-table th {
+    padding: 12px 16px;
+    text-align: left;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .data-table td {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border);
+    color: #3A3732;
+    line-height: 1.5;
+  }
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table tr:nth-child(even) td { background: var(--surface); }
+  .data-table .bold { font-weight: 500; color: var(--off-black); }
+  .data-table .note { font-size: 13px; color: var(--mid-tone); font-style: italic; }
+
+  /* ── QUESTION BLOCKS ── */
+  .question-block {
+    border-left: 3px solid var(--border);
+    padding: 24px 28px;
+    margin-bottom: 32px;
+    background: var(--surface);
+  }
+  .question-block.critical {
+    border-left-color: var(--true-north);
+  }
+  .question-number {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--true-north);
+    margin-bottom: 10px;
+  }
+  .question-title {
+    font-family: Georgia, serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--off-black);
+    margin-bottom: 14px;
+  }
+  .question-body {
+    font-size: 15px;
+    color: #3A3732;
+    line-height: 1.7;
+    margin-bottom: 14px;
+  }
+  .question-body ul {
+    list-style: none;
+    padding: 0;
+  }
+  .question-body ul li {
+    padding: 5px 0 5px 16px;
+    position: relative;
+    font-size: 15px;
+    color: #3A3732;
+  }
+  .question-body ul li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--mid-tone);
+  }
+  .question-note {
+    font-size: 13px;
+    color: var(--forest);
+    font-weight: 500;
+    padding-top: 10px;
+    border-top: 1px solid var(--border);
+    margin-top: 12px;
+  }
+
+  /* ── CRITICAL NOTE ── */
+  .critical-note {
+    background: var(--off-black);
+    color: var(--warm-white);
+    padding: 24px 28px;
+    margin-bottom: 32px;
+  }
+  .critical-note .label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--true-north);
+    margin-bottom: 10px;
+  }
+  .critical-note p {
+    color: #C8C4BC;
+    margin: 0;
+    font-size: 15px;
+    max-width: none;
+  }
+
+  /* ── CHECKLIST ── */
+  .checklist {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 32px;
+  }
+  .checklist li {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 15px;
+    color: #3A3732;
+    line-height: 1.6;
+  }
+  .checklist li:last-child { border-bottom: none; }
+  .checklist-num {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--mid-tone);
+    margin-top: 1px;
+  }
+
+  /* ── AFTER SECTION ── */
+  .step-list {
+    list-style: none;
+    padding: 0;
+    counter-reset: steps;
+    margin-bottom: 32px;
+  }
+  .step-list li {
+    counter-increment: steps;
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 15px;
+    color: #3A3732;
+    line-height: 1.6;
+  }
+  .step-list li:last-child { border-bottom: none; }
+  .step-list li::before {
+    content: counter(steps, decimal-leading-zero);
+    flex-shrink: 0;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--true-north);
+    letter-spacing: 1px;
+    margin-top: 3px;
+    min-width: 28px;
+  }
+
+  /* ── FOOTER ── */
+  .doc-footer {
+    background: var(--off-black);
+    color: var(--warm-white);
+    padding: 40px 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .footer-left .footer-label {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #888074;
+    margin-bottom: 6px;
+  }
+  .footer-left .footer-title {
+    font-family: Georgia, serif;
+    font-size: 16px;
+    font-style: italic;
+    color: var(--warm-white);
+  }
+  .footer-right {
+    text-align: right;
+    font-size: 12px;
+    color: #555048;
+    letter-spacing: 1px;
+  }
+  .footer-right div { margin-bottom: 4px; }
+
+  @media (max-width: 700px) {
+    .cover { padding: 48px 32px; }
+    .container { padding: 48px 32px; }
+    .meta-grid { grid-template-columns: 1fr; }
+    .meta-item:nth-child(odd) { border-right: none; }
+    .meta-item:nth-last-child(-n+2) { border-bottom: 1px solid var(--border); }
+    .meta-item:last-child { border-bottom: none; }
+    .doc-footer { flex-direction: column; gap: 24px; padding: 40px 32px; }
+    .footer-right { text-align: left; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── COVER ────────────────────────────────────────────────────── -->
+<div class="cover">
+  <div class="cover-mark">
+    <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="18" cy="18" r="16.5" stroke="#F4F0E8" stroke-width="1"/>
+      <line x1="18" y1="2" x2="18" y2="34" stroke="#8E3B28" stroke-width="1.5"/>
+      <line x1="18" y1="34" x2="18" y2="2" stroke="#1E1B17" stroke-width="1.5" stroke-dasharray="16 32"/>
+      <line x1="2" y1="18" x2="34" y2="18" stroke="#F4F0E8" stroke-width="0.75" opacity="0.4"/>
+    </svg>
+  </div>
+  <div class="cover-name">NATIVE WORKS</div>
+  <div class="cover-sub">CANELA TYPEFACE LICENCE — DESIGNER CONSULTATION BRIEF</div>
+  <div class="cover-headline">
+    A licence must be procured correctly, once, before the site goes live.<br>This brief ensures it is.
+  </div>
+  <div class="cover-meta">
+    VERSION 1.0 &nbsp;&nbsp;·&nbsp;&nbsp; APRIL 2026 &nbsp;&nbsp;·&nbsp;&nbsp; <span>INTERNAL — NEO EYES ONLY</span>
+  </div>
+</div>
+
+<!-- ── DOCUMENT META ─────────────────────────────────────────────── -->
+<div class="container">
+
+  <div class="status-badge">
+    <div class="status-dot"></div>
+    Ready for designer consultation
+  </div>
+
+  <div class="meta-grid">
+    <div class="meta-item">
+      <div class="meta-label">Document</div>
+      <div class="meta-value">NativeWorks_Canela_Licence_Brief</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-label">Version</div>
+      <div class="meta-value">1.0</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-label">Date</div>
+      <div class="meta-value">April 2026</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-label">Status</div>
+      <div class="meta-value">Ready for designer consultation</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-label">Owner</div>
+      <div class="meta-value">Neo</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-label">Unblocks</div>
+      <div class="meta-value">Immediate Next Actions Item 15 — site go-live</div>
+    </div>
+  </div>
+
+  <!-- ── PURPOSE ── -->
+  <div class="section">
+    <div class="section-number">Purpose</div>
+    <h1>Why this brief exists</h1>
+    <p>NativeWorks has selected Canela by Commercial Type as the display typeface for the NativeWorks brand. The typeface is locked into the brand identity and is in active use in all delivered brand files. A licence must be procured before nativeworks.studio goes live.</p>
+    <p>This brief sets out what we know, what we need, and what requires the designer's confirmation before any purchase is made. The designer consultation should resolve every open question so that the licence purchase is made correctly the first time.</p>
+  </div>
+
+  <hr class="section-divider">
+
+  <!-- ── WHAT WE KNOW ── -->
+  <div class="section">
+    <div class="section-number">What we know</div>
+    <h1>The typeface and its current usage</h1>
+
+    <h3>The typeface</h3>
+    <p style="margin-bottom:32px;"><strong>Canela</strong> — by Commercial Type (commercialtype.com)</p>
+
+    <h3>Current usage in delivered brand files</h3>
+    <p>Canela is used in the following delivered files, currently served via Georgia/serif fallback for draft purposes:</p>
+
+    <table class="data-table" style="margin-bottom:40px;">
+      <thead>
+        <tr><th>File</th><th>Canela usage</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="bold">NativeWorks_Brand_Identity_v1.html</td>
+          <td>Display specimens, mark wordmark ("NATIVE" element)</td>
+        </tr>
+        <tr>
+          <td class="bold">NativeWorks_MainPage_v1.html</td>
+          <td>All hero copy, section headlines, pull quotes</td>
+        </tr>
+        <tr>
+          <td class="bold">NativeWorks_About_v1.html</td>
+          <td>All display headlines and pull quotes</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Locked type scale — Canela usage</h3>
+    <table class="data-table" style="margin-bottom:40px;">
+      <thead>
+        <tr><th>Role</th><th>Size</th><th>Weight</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="bold">Hero</td><td>64–72px</td><td>Regular</td></tr>
+        <tr><td class="bold">Display</td><td>40–48px</td><td>Regular</td></tr>
+        <tr><td class="bold">Heading</td><td>28–32px</td><td>Regular</td></tr>
+      </tbody>
+    </table>
+    <p>The brand identity specifies <strong>Regular weight</strong> for all display usage. The wordmark uses Canela in the "NATIVE" element. No other weights are currently specified in the locked brand identity.</p>
+
+    <h3 style="margin-top:32px;">What Canela is NOT used for</h3>
+    <p>Body copy, UI elements, navigation, captions, and the "WORKS" wordmark element all use <strong>DM Sans</strong> — which is open source via Google Fonts and requires no licence.</p>
+  </div>
+
+  <hr class="section-divider">
+
+  <!-- ── ENTITY STRUCTURE ── -->
+  <div class="section">
+    <div class="section-number">Entity structure</div>
+    <h1>Context for the licence decision</h1>
+    <p>NativeWorks operates through three legal entities. The licence structure must reflect this correctly.</p>
+
+    <table class="data-table">
+      <thead>
+        <tr><th>Entity</th><th>Role</th><th>Relevance to licence</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="bold">NW Entity HK (PRIMARY HOLDCO)</td>
+          <td>IP owner. Brand owner. Domain owner.</td>
+          <td>Likely the correct entity to hold the master licence.</td>
+        </tr>
+        <tr>
+          <td class="bold">NW Entity UAE (OPERATIONS)</td>
+          <td>Operates platform under licence from HK. Non-EU clients.</td>
+          <td>Uses the brand under HK licence — may need to be covered under the typeface licence.</td>
+        </tr>
+        <tr>
+          <td class="bold">NW Entity Denmark (EU FIAT)</td>
+          <td>Operates platform under licence from HK. EU clients.</td>
+          <td>Uses the brand under HK licence — may need to be covered under the typeface licence.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="critical-note">
+      <div class="label">Critical question</div>
+      <p>Can NW Entity HK hold the master Canela licence as the brand IP owner and extend usage rights to NW Entity UAE and NW Entity Denmark as operating entities under the NativeWorks brand? Or does Commercial Type require each operating entity to hold its own licence? This has cost and structural implications and must be confirmed before purchase.</p>
+    </div>
+  </div>
+
+  <hr class="section-divider">
+
+  <!-- ── QUESTIONS ── -->
+  <div class="section">
+    <div class="section-number">Five questions</div>
+    <h1>What the designer must answer</h1>
+    <p>The following questions must be answered before any licence is purchased. No purchase proceeds until all five are resolved.</p>
+
+    <div class="question-block">
+      <div class="question-number">Question 01</div>
+      <div class="question-title">Which weights are required?</div>
+      <div class="question-body">
+        The brand identity currently specifies Canela Regular only. Before purchasing, confirm:
+        <ul>
+          <li>Is Regular the only weight needed for the current scope — website, wordmark, landing pages?</li>
+          <li>Is Italic required? (Pull quotes, editorial moments — Canela Italic is a separate weight at Commercial Type)</li>
+          <li>Is Light or Deck required for any application?</li>
+          <li>Are any additional weights anticipated for Phase 6–8 product work — dashboards, onboarding flows, documentation?</li>
+        </ul>
+      </div>
+      <div class="question-note">Recommendation: purchase only what is needed now. Additional weights can be added later. Over-purchasing at this stage is unnecessary.</div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-number">Question 02</div>
+      <div class="question-title">Which licence types are required?</div>
+      <div class="question-body">
+        Commercial Type offers the following licence types. Confirm which apply:
+        <br><br>
+      </div>
+      <table class="data-table">
+        <thead>
+          <tr><th>Licence type</th><th>Likely needed?</th><th>Notes</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="bold">Web / Digital licence</td>
+            <td>Yes — required</td>
+            <td>For nativeworks.studio and all product pages. Based on monthly pageview tiers.</td>
+          </tr>
+          <tr>
+            <td class="bold">Desktop licence</td>
+            <td>Possibly — confirm</td>
+            <td>For use in design files, documents, presentations. Based on number of users. Who at NativeWorks will set type in desktop applications?</td>
+          </tr>
+          <tr>
+            <td class="bold">App licence</td>
+            <td>Not currently — confirm</td>
+            <td>No mobile or desktop app in current roadmap. Confirm this is not needed for Phase 6–8 products.</td>
+          </tr>
+          <tr>
+            <td class="bold">Broadcast / video licence</td>
+            <td>Not currently — confirm</td>
+            <td>No video production in current roadmap. Confirm.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="question-block">
+      <div class="question-number">Question 03</div>
+      <div class="question-title">What is the correct web licence tier?</div>
+      <div class="question-body">
+        The web licence is based on monthly pageview volume. Confirm:
+        <ul>
+          <li>What is the appropriate starting pageview tier for nativeworks.studio at launch?</li>
+          <li>Is the licence per domain (nativeworks.studio only) or does it cover subdomains and future product domains?</li>
+          <li>Can the licence be upgraded as traffic grows without purchasing a new licence from scratch?</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="question-block critical">
+      <div class="question-number">Question 04 — Critical</div>
+      <div class="question-title">How does the licence cover three operating entities?</div>
+      <div class="question-body">
+        This is the critical question. Confirm with the designer and if necessary with Commercial Type directly:
+        <ul>
+          <li>Can NW Entity HK hold the master licence as brand IP owner and extend usage rights to NW Entity UAE and NW Entity Denmark as operating entities under the NativeWorks brand?</li>
+          <li>Or does Commercial Type require each entity operating under the brand to hold its own licence independently?</li>
+          <li>If sub-licensing is not permitted, what is the recommended structure — one licence with multiple named entities, or separate licences per entity?</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-number">Question 05</div>
+      <div class="question-title">Does the wordmark require special consideration?</div>
+      <div class="question-body">
+        The "NATIVE" element of the NativeWorks wordmark is set in Canela. Confirm:
+        <ul>
+          <li>Is a standard web and desktop licence sufficient to cover the wordmark as used in SVG and web formats?</li>
+          <li>Is there any additional licence requirement for use of the typeface within a registered or commercially-used wordmark/logo?</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <hr class="section-divider">
+
+  <!-- ── WHAT PURCHASE MUST COVER ── -->
+  <div class="section">
+    <div class="section-number">Minimum coverage</div>
+    <h1>What the licence must cover at minimum</h1>
+    <p>At minimum, the Canela licence must cover the following before nativeworks.studio goes live:</p>
+
+    <ul class="checklist">
+      <li>
+        <div class="checklist-num">01</div>
+        <div>Web use on nativeworks.studio — all current and planned pages (main, /about, /stack, /foundation, future product pages)</div>
+      </li>
+      <li>
+        <div class="checklist-num">02</div>
+        <div>Desktop use for brand, design, and document production across NativeWorks</div>
+      </li>
+      <li>
+        <div class="checklist-num">03</div>
+        <div>The wordmark — NATIVE element in all formats in which it is used (web SVG, HTML, documents)</div>
+      </li>
+      <li>
+        <div class="checklist-num">04</div>
+        <div>All three NativeWorks entities — or a single entity with confirmed coverage of the others under sub-licence</div>
+      </li>
+    </ul>
+  </div>
+
+  <hr class="section-divider">
+
+  <!-- ── CONSULTATION BRIEF ── -->
+  <div class="section">
+    <div class="section-number">Consultation agenda</div>
+    <h1>What to bring to the designer consultation</h1>
+    <p>The designer should come prepared to advise on all six of the following. The output of the consultation is a recommendation Neo can approve before any purchase is made.</p>
+
+    <ul class="checklist">
+      <li><div class="checklist-num">01</div><div>Recommended weight set for current scope and anticipated Phase 6–8 scope</div></li>
+      <li><div class="checklist-num">02</div><div>Recommended licence type combination (web + desktop as minimum)</div></li>
+      <li><div class="checklist-num">03</div><div>Recommended web pageview tier for launch</div></li>
+      <li><div class="checklist-num">04</div><div>Entity structure recommendation — how to structure the licence across three operating entities</div></li>
+      <li><div class="checklist-num">05</div><div>The wordmark question — whether standard licence covers the wordmark use case</div></li>
+      <li><div class="checklist-num">06</div><div>Total cost estimate for recommended licence structure</div></li>
+    </ul>
+  </div>
+
+  <hr class="section-divider">
+
+  <!-- ── AFTER THE CONSULTATION ── -->
+  <div class="section">
+    <div class="section-number">After the consultation</div>
+    <h1>What happens once the designer has answered</h1>
+
+    <ol class="step-list">
+      <li>Neo reviews and approves the recommended licence structure and cost</li>
+      <li>NW Entity HK executes the purchase as the IP-holding entity</li>
+      <li>Licence documentation stored at <code style="font-size:13px; background:var(--surface); padding:2px 6px; color:var(--off-black);">nativeworks/docs/legal/licences/</code></li>
+      <li>Immediate Next Actions Item 15 marked complete</li>
+      <li>Canela TBD flag removed from all relevant documents</li>
+    </ol>
+  </div>
+
+</div>
+
+<!-- ── FOOTER ─────────────────────────────────────────────────────── -->
+<div class="doc-footer">
+  <div class="footer-left">
+    <div class="footer-label">Document</div>
+    <div class="footer-title">Canela Typeface Licence — Designer Consultation Brief</div>
+  </div>
+  <div class="footer-right">
+    <div>nativeworks.studio</div>
+    <div>Canela Licence Brief v1.0 &nbsp;—&nbsp; April 2026</div>
+    <div style="margin-top:8px; color:#888074;">Internal · Neo Eyes Only</div>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Native Works — Own your digital presence</title>
+<meta name="description" content="Native Works is a sovereign digital production studio. Your site. Your audience. Your revenue. Nobody's platform. AI-powered. Owned forever.">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,200;0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet">
+
+<!-- Styles -->
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- Cursore: dot + trailing ring (puro CSS, nessun RAF loop) -->
+<div id="custom-cursor" aria-hidden="true"></div>
+<div id="custom-cursor-ring" aria-hidden="true"></div>
+
+
+<!-- ── NAVIGATION ──────────────────────────────────────────────────────── -->
+<nav id="nav">
+  <a href="/" class="nav-logo" aria-label="Native Works home">
+    <svg width="30" height="30" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <circle cx="16" cy="16" r="14" stroke="#1E1B17" stroke-width="0.75" fill="none"/>
+      <path d="M16,16 L17.2,11 L16,2 L14.8,11 Z" fill="#8E3B28"/>
+      <path d="M16,16 L17,19.5 L16,25 L15,19.5 Z" fill="#1E1B17"/>
+      <circle cx="16" cy="16" r="2" fill="#1E1B17"/>
+    </svg>
+    <div class="nav-wordmark">NATIVE WORKS</div>
+  </a>
+
+  <ul class="nav-links" role="list">
+    <li><a href="#journey">The Path</a></li>
+    <li><a href="#how">How it works</a></li>
+    <li><a href="#products">Products</a></li>
+  </ul>
+
+  <a href="#products" class="nav-cta" id="nav-cta">Own your presence →</a>
+</nav>
+
+
+<!-- ── HERO ────────────────────────────────────────────────────────────── -->
+<section class="hero" aria-label="Hero">
+  <div class="hero-unicorn" id="unicorn-container">
+    <div style="width: 1440px; height: 900px" data-us-project="C8xxOtuZITkJQQyuA3FT"></div>
+    <script type="text/javascript">!function(){var u=window.UnicornStudio;if(u&&u.init){if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",function(){u.init()})}else{u.init()}}else{window.UnicornStudio={isInitialized:!1};var i=document.createElement("script");i.src="https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v2.1.9/dist/unicornStudio.umd.js",i.onload=function(){if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",function(){UnicornStudio.init()})}else{UnicornStudio.init()}},(document.head||document.body).appendChild(i)}}();</script>
+  </div>
+</section>
+
+
+<!-- ── INTRO ──────────────────────────────────────────────────────────── -->
+<section class="intro">
+  <!-- Decorative blueprint SVG -->
+  <svg class="intro-bg-svg" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <circle cx="250" cy="250" r="240" stroke="#1E1B17" stroke-width="0.5"/>
+    <circle cx="250" cy="250" r="180" stroke="#1E1B17" stroke-width="0.5" stroke-dasharray="4 8"/>
+    <circle cx="250" cy="250" r="120" stroke="#8E3B28" stroke-width="0.5" opacity="0.5"/>
+    <circle cx="250" cy="250" r="60"  stroke="#1E1B17" stroke-width="0.5"/>
+    <line x1="10"  y1="250" x2="490" y2="250" stroke="#1E1B17" stroke-width="0.4"/>
+    <line x1="250" y1="10"  x2="250" y2="490" stroke="#1E1B17" stroke-width="0.4"/>
+    <line x1="80"  y1="80"  x2="420" y2="420" stroke="#1E1B17" stroke-width="0.3" stroke-dasharray="2 6"/>
+    <line x1="420" y1="80"  x2="80"  y2="420" stroke="#1E1B17" stroke-width="0.3" stroke-dasharray="2 6"/>
+    <!-- ticks N S E W -->
+    <line x1="250" y1="5"   x2="250" y2="20"  stroke="#8E3B28" stroke-width="1"/>
+    <line x1="250" y1="480" x2="250" y2="495" stroke="#1E1B17" stroke-width="0.5"/>
+    <line x1="5"   y1="250" x2="20"  y2="250" stroke="#1E1B17" stroke-width="0.5"/>
+    <line x1="480" y1="250" x2="495" y2="250" stroke="#1E1B17" stroke-width="0.5"/>
+  </svg>
+
+  <div class="intro-left">
+    <p class="intro-eyebrow">Sovereign Digital Studio</p>
+    <h1 class="intro-headline">Your site. Your audience.<br>Your revenue.<br>Nobody's platform.</h1>
+  </div>
+  <div class="intro-right">
+    <p class="intro-sub">The last digital home you'll ever need.</p>
+    <p class="intro-body">Most digital presence is rented. Yours should be owned. AI-powered production, your content, your audience, your revenue — on infrastructure that answers only to you.</p>
+    <div class="intro-actions">
+      <a href="#products" class="intro-cta-primary" id="hero-cta">Own your presence <span class="arr">→</span></a>
+      <a href="#journey" class="intro-cta-ghost">See the path</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ── MANIFESTO MARQUEE ──────────────────────────────────────────────── -->
+<div class="manifesto-bar" aria-hidden="true">
+  <div class="manifesto-track">
+    <div class="manifesto-item">
+      <span class="manifesto-word">Sovereign</span><span class="manifesto-dot"></span>
+      <span class="manifesto-word">Owned</span><span class="manifesto-dot"></span>
+      <span class="manifesto-word">Unstoppable</span><span class="manifesto-dot"></span>
+      <span class="manifesto-word">Permissionless</span><span class="manifesto-dot"></span>
+      <span class="manifesto-word">Built to last</span><span class="manifesto-dot"></span>
+      <span class="manifesto-word">No landlord</span><span class="manifesto-dot"></span>
+      <span class="manifesto-word">True North</span><span class="manifesto-dot"></span>
+      <span class="manifesto-word">Your infrastructure</span><span class="manifesto-dot"></span>
+      <span class="manifesto-word">AI-powered</span><span class="manifesto-dot"></span>
+      <span class="manifesto-word">Open protocol</span><span class="manifesto-dot"></span>
+    </div>
+    <div class="manifesto-item" aria-hidden="true">
+      <span class="manifesto-word">Sovereign</span><span class="manifesto-dot"></span>
+      <span class="manifesto-word">Owned</span><span class="manifesto-dot"></span>
+      <span class="manifesto-word">Unstoppable</span><span class="manifesto-dot"></span>
+      <span class="manifesto-word">Permissionless</span><span class="manifesto-dot"></span>
+      <span class="manifesto-word">Built to last</span><span class="manifesto-dot"></span>
+      <span class="manifesto-word">No landlord</span><span class="manifesto-dot"></span>
+      <span class="manifesto-word">True North</span><span class="manifesto-dot"></span>
+      <span class="manifesto-word">Your infrastructure</span><span class="manifesto-dot"></span>
+      <span class="manifesto-word">AI-powered</span><span class="manifesto-dot"></span>
+      <span class="manifesto-word">Open protocol</span><span class="manifesto-dot"></span>
+    </div>
+  </div>
+</div>
+
+
+<!-- ── PROBLEM (DARK) ────────────────────────────────────────────────── -->
+<section class="problem">
+  <!--
+    FIX: .problem-grain div removed.
+    The body::after grain already covers this section from above.
+    One unified GPU-composited layer instead of two stacked ones.
+  -->
+  <div class="problem-bg-word" aria-hidden="true">Rented</div>
+  <div class="problem-glow-left"></div>
+  <div class="problem-glow-right"></div>
+
+  <div class="problem-inner">
+    <div class="problem-eyebrow reveal">The reality no one talks about</div>
+
+    <div class="problem-grid reveal">
+      <!-- Left column -->
+      <div class="problem-col">
+        <div class="problem-statement">
+          <div class="problem-item">
+            <span class="problem-item-num">01 — AUDIENCE</span>
+            <p class="problem-item-text">You built your audience on Instagram. <em>Every follower sits on rented land.</em> The algorithm decides who sees you. Tomorrow that could be no one.</p>
+          </div>
+          <div class="problem-item">
+            <span class="problem-item-num">02 — REVENUE</span>
+            <p class="problem-item-text">Your store runs on Shopify. Your newsletter on Substack. Your bookings on Calendly. <em>Three different landlords.</em> Three points of failure.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Animated divider -->
+      <div class="problem-divider">
+        <div class="problem-divider-line"></div>
+        <div class="problem-divider-dot"></div>
+      </div>
+
+      <!-- Right column -->
+      <div class="problem-col">
+        <div class="problem-statement">
+          <div class="problem-item">
+            <span class="problem-item-num">03 — CONTROL</span>
+            <p class="problem-item-text">At some point you noticed. The reach dropped. The fees went up. The rules changed. <em>You built something real on someone else's terms.</em></p>
+          </div>
+          <div class="problem-item">
+            <span class="problem-item-num">04 — PERMANENCE</span>
+            <p class="problem-item-text">What you make should outlast any platform. Your work deserves infrastructure that <em>answers only to you</em> — not to shareholders, not to advertisers.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cinematic pivot -->
+    <div class="problem-pivot-wrap">
+      <p class="problem-pivot reveal reveal-delay-1">There is <span>another way</span> to build.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ── STATS (floating panel) ────────────────────────────────────────── -->
+<div class="stats-wrap">
+  <div class="stats" role="region" aria-label="Key facts">
+    <div class="stat reveal">
+      <span class="stat-num">100%</span>
+      <span class="stat-label">Infrastructure yours</span>
+    </div>
+    <div class="stat reveal reveal-delay-1">
+      <span class="stat-num">0</span>
+      <span class="stat-label">Platform dependencies</span>
+    </div>
+    <div class="stat reveal reveal-delay-2">
+      <span class="stat-num">∞</span>
+      <span class="stat-label">Your ceiling</span>
+    </div>
+  </div>
+</div>
+
+
+<!-- ── OWNERSHIP PATH ─────────────────────────────────────────────────── -->
+<section class="journey" id="journey">
+  <div class="journey-header">
+    <div class="reveal">
+      <div class="journey-label">The Ownership Path</div>
+      <h2 class="journey-title">Where are you<br>right now?</h2>
+    </div>
+    <p class="journey-intro reveal reveal-delay-1">Every person who has ever built a business or a creative practice online starts in the same place. The path forward is the same. The only question is how far along it you want to go.</p>
+  </div>
+
+  <div class="journey-grid reveal">
+    <div class="journey-svg-wrap">
+      <svg viewBox="0 0 500 500" class="w-full h-auto">
+        <!-- Technical blueprint grid background -->
+        <g stroke="rgba(0,0,0,0.04)" stroke-width="1">
+          <line x1="50" y1="0" x2="50" y2="500"/>
+          <line x1="150" y1="0" x2="150" y2="500"/>
+          <line x1="250" y1="0" x2="250" y2="500"/>
+          <line x1="350" y1="0" x2="350" y2="500"/>
+          <line x1="450" y1="0" x2="450" y2="500"/>
+          <line x1="0" y1="100" x2="500" y2="100"/>
+          <line x1="0" y1="200" x2="500" y2="200"/>
+          <line x1="0" y1="300" x2="500" y2="300"/>
+          <line x1="0" y1="400" x2="500" y2="400"/>
+        </g>
+
+        <circle cx="250" cy="250" r="180" fill="none" stroke="rgba(0,0,0,0.03)" stroke-width="1" stroke-dasharray="4 8"/>
+
+        <!-- The Path (grey base) -->
+        <path d="M 50 400 L 150 400 L 250 300 L 350 300 L 450 200" fill="none" stroke="#D8D2C8" stroke-width="2"/>
+
+        <!-- Active Progress Line -->
+        <path id="path-progress-line" d="M 50 400 L 150 400 L 250 300 L 350 300 L 450 200"
+          fill="none" stroke="var(--true-north)" stroke-width="2"
+          stroke-dasharray="483" stroke-dashoffset="483"
+          style="transition: stroke-dashoffset 0.8s cubic-bezier(0.25, 1, 0.25, 1);"/>
+
+        <!-- Nodes -->
+        <g class="path-node active" data-index="0" onclick="updatePath(0)">
+          <circle cx="50" cy="400" r="30" fill="transparent"/>
+          <rect x="35" y="385" width="30" height="30" fill="var(--plaster)" stroke="var(--true-north)" stroke-width="1.5" class="node-bg" transform="rotate(45 50 400)"/>
+          <circle cx="50" cy="400" r="3.5" fill="var(--true-north)" class="node-dot"/>
+          <text x="50" y="430" text-anchor="middle" font-size="10" fill="var(--night)" letter-spacing="1.5">00</text>
+        </g>
+
+        <g class="path-node" data-index="1" onclick="updatePath(1)">
+          <circle cx="150" cy="400" r="30" fill="transparent"/>
+          <rect x="135" y="385" width="30" height="30" fill="var(--plaster)" stroke="#A8A09A" stroke-width="1.5" class="node-bg" transform="rotate(45 150 400)"/>
+          <circle cx="150" cy="400" r="3.5" fill="#A8A09A" class="node-dot"/>
+          <text x="150" y="430" text-anchor="middle" font-size="10" fill="#A8A09A" letter-spacing="1.5">01</text>
+        </g>
+
+        <g class="path-node" data-index="2" onclick="updatePath(2)">
+          <circle cx="250" cy="300" r="30" fill="transparent"/>
+          <rect x="235" y="285" width="30" height="30" fill="var(--plaster)" stroke="#A8A09A" stroke-width="1.5" class="node-bg" transform="rotate(45 250 300)"/>
+          <circle cx="250" cy="300" r="3.5" fill="#A8A09A" class="node-dot"/>
+          <text x="250" y="330" text-anchor="middle" font-size="10" fill="#A8A09A" letter-spacing="1.5">02</text>
+        </g>
+
+        <g class="path-node" data-index="3" onclick="updatePath(3)">
+          <circle cx="350" cy="300" r="30" fill="transparent"/>
+          <rect x="335" y="285" width="30" height="30" fill="var(--plaster)" stroke="#A8A09A" stroke-width="1.5" class="node-bg" transform="rotate(45 350 300)"/>
+          <circle cx="350" cy="300" r="3.5" fill="#A8A09A" class="node-dot"/>
+          <text x="350" y="330" text-anchor="middle" font-size="10" fill="#A8A09A" letter-spacing="1.5">03</text>
+        </g>
+
+        <g class="path-node" data-index="4" onclick="updatePath(4)">
+          <circle cx="450" cy="200" r="30" fill="transparent"/>
+          <rect x="435" y="185" width="30" height="30" fill="var(--plaster)" stroke="#A8A09A" stroke-width="1.5" class="node-bg" transform="rotate(45 450 200)"/>
+          <circle cx="450" cy="200" r="3.5" fill="#A8A09A" class="node-dot"/>
+          <text x="450" y="230" text-anchor="middle" font-size="10" fill="#A8A09A" letter-spacing="1.5">04</text>
+        </g>
+      </svg>
+    </div>
+
+    <div class="path-content-blocks">
+      <div class="path-block active" id="path-block-0">
+        <span class="path-num">00</span>
+        <h3 class="path-name">Dependent</h3>
+        <p class="path-desc">You exist on platforms you don't own. Your audience, your content, your revenue — all of it lives on someone else's infrastructure. One policy change away from starting over.</p>
+      </div>
+      <div class="path-block" id="path-block-1">
+        <span class="path-num">01</span>
+        <h3 class="path-name">Aware</h3>
+        <p class="path-desc">You've felt it. The reach drop. The fee increase. The rule change. You know something is wrong with the way you've been building. You just haven't found the alternative yet.</p>
+      </div>
+      <div class="path-block" id="path-block-2">
+        <span class="path-num">02</span>
+        <h3 class="path-name">Hosted</h3>
+        <p class="path-desc">Your presence is built and running on infrastructure that belongs to you. Not a platform. Not a rental. Native Works runs the servers while you find your feet.</p>
+      </div>
+      <div class="path-block" id="path-block-3">
+        <!-- FIX: inline style="color:var(--true-north)" moved to CSS classes -->
+        <span class="path-num path-num--owner">03</span>
+        <h3 class="path-name path-name--owner">Owner</h3>
+        <p class="path-desc">Your own infrastructure. Your own stack. Zero dependency on any platform or middleman. This is what we built you for.</p>
+      </div>
+      <div class="path-block" id="path-block-4">
+        <span class="path-num path-num--sovereign">04</span>
+        <h3 class="path-name path-name--sovereign">Sovereign</h3>
+        <p class="path-desc">You don't just own your presence. Your presence works for you. Discoverable on merit alone. Part of a network that rewards ownership. No ceiling.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ── HOW IT WORKS (DARK) ───────────────────────────────────────────── -->
+<section class="how" id="how">
+  <!-- Animated background SVG — classes now in CSS for GPU compositing -->
+  <svg class="how-svg-bg" viewBox="0 0 600 600" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <g class="spin-cw">
+      <circle cx="300" cy="300" r="280" stroke="#ffffff" stroke-width="0.5"/>
+      <circle cx="300" cy="300" r="220" stroke="#ffffff" stroke-width="0.4" stroke-dasharray="3 10"/>
+    </g>
+    <g class="spin-ccw">
+      <circle cx="300" cy="300" r="160" stroke="#ffffff" stroke-width="0.5"/>
+      <rect x="170" y="170" width="260" height="260" stroke="#ffffff" stroke-width="0.3" transform="rotate(45 300 300)"/>
+    </g>
+    <circle cx="300" cy="300" r="12" fill="none" stroke="#8E3B28" stroke-width="1" opacity="0.6"/>
+    <line x1="20"  y1="300" x2="580" y2="300" stroke="#ffffff" stroke-width="0.3"/>
+    <line x1="300" y1="20"  x2="300" y2="580" stroke="#ffffff" stroke-width="0.3"/>
+  </svg>
+
+  <div class="how-label reveal">How it works</div>
+  <h2 class="how-title reveal reveal-delay-1">Built sovereign<br>from the ground up.</h2>
+
+  <div class="how-grid">
+    <div class="how-card reveal">
+      <div class="how-step">Step 01</div>
+      <div class="how-card-title">Identity</div>
+      <p class="how-card-body">Your brand, your domain, your digital identity — designed and deployed entirely under your name. No third-party platforms involved in ownership.</p>
+    </div>
+    <div class="how-card reveal reveal-delay-1">
+      <div class="how-step">Step 02</div>
+      <div class="how-card-title">Infrastructure</div>
+      <p class="how-card-body">Your site runs on infrastructure you control. Servers, hosting, payment rails — all set up to answer only to you. AI-powered production, from day one.</p>
+    </div>
+    <div class="how-card reveal reveal-delay-2">
+      <div class="how-step">Step 03</div>
+      <div class="how-card-title">Graduation</div>
+      <p class="how-card-body">Once you're live, the path continues. New protocols. New infrastructure layers. Your ownership deepens with every step — at whatever pace you choose.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ── PRODUCTS ───────────────────────────────────────────────────────── -->
+<section class="products" id="products">
+  <div class="products-header reveal">
+    <div class="products-label">Where to start</div>
+    <h2 class="products-title">Two doors.<br>Same destination.</h2>
+  </div>
+
+  <div class="products-grid">
+    <!-- PRODUCT 01: STACK -->
+    <div class="product-card reveal" id="product-stack">
+      <div class="product-content">
+        <div class="product-tag">For those who already know what they want.</div>
+        <div class="product-name">Stack</div>
+        <p class="product-desc">The complete sovereign setup. Your identity, your infrastructure, your payment rails — owned outright, running from day one. Built for people who are done asking permission.</p>
+        <ul class="product-features">
+          <li>Domain + hosting on your infrastructure</li>
+          <li>Custom site built to your brand</li>
+          <li>AI-powered content production</li>
+          <li>Direct payment integration</li>
+        </ul>
+        <a href="/stack" class="product-cta" id="cta-stack">Build your stack →</a>
+      </div>
+      <div class="product-visual">
+        <div class="visual-bg-glow"></div>
+        <svg viewBox="0 0 400 400" width="100%" height="100%">
+          <g transform="translate(200, 200)">
+            <!-- Isometric Grid base -->
+            <g class="stack-base" stroke="rgba(255,255,255,0.05)" stroke-width="0.5">
+              <line x1="-150" y1="0" x2="150" y2="0" transform="rotate(30)"/>
+              <line x1="-150" y1="0" x2="150" y2="0" transform="rotate(-30)"/>
+              <line x1="0" y1="-150" x2="0" y2="150"/>
+            </g>
+
+            <!-- Outer Ring (Mid) -->
+            <g class="stack-mid">
+              <circle cx="0" cy="0" r="110" fill="none" stroke="#A8A09A" stroke-width="0.5" stroke-dasharray="1 8"/>
+            </g>
+
+            <!-- Core Stack Cylinder (Top layer) -->
+            <g class="stack-top" stroke-width="1" fill="none">
+              <polygon points="0,-120 104,-60 104,60 0,120 -104,60 -104,-60" stroke="#8E3B28" stroke-dasharray="2 6"/>
+              <circle cx="0" cy="0" r="80" stroke="#BEB8AE" opacity="0.3"/>
+              <circle cx="0" cy="0" r="50" stroke="#EAE5DC" stroke-dasharray="4 6"/>
+              <rect x="-40" y="-40" width="80" height="80" stroke="#A8A09A" transform="rotate(45)"/>
+            </g>
+
+            <!-- Fixed core dot -->
+            <g class="stack-core">
+              <circle cx="0" cy="0" r="8" fill="#8E3B28"/>
+              <circle cx="0" cy="0" r="2" fill="#EAE5DC"/>
+            </g>
+          </g>
+        </svg>
+      </div>
+    </div>
+
+    <!-- PRODUCT 02: FOUNDATION -->
+    <div class="product-card reveal reveal-delay-1" id="product-foundation">
+      <div class="product-content">
+        <div class="product-tag">For those building from scratch.</div>
+        <div class="product-name">Foundation</div>
+        <p class="product-desc">A new business, a rebrand, or a presence that has never existed before. Built sovereign from the ground up — website, identity, everything owned — so you never have to migrate later.</p>
+        <ul class="product-features">
+          <li>Brand identity and visual system</li>
+          <li>Full site build, sovereign infrastructure</li>
+          <li>Publishing and distribution setup</li>
+          <li>90 days of guided ownership</li>
+        </ul>
+        <a href="/foundation" class="product-cta" id="cta-foundation">Build your foundation →</a>
+      </div>
+      <div class="product-visual">
+        <div class="visual-bg-glow"></div>
+        <svg viewBox="0 0 400 400" width="100%" height="100%">
+          <g transform="translate(200, 200)">
+            <g class="found-outer">
+              <circle cx="0" cy="0" r="130" fill="none" stroke="#A8A09A" stroke-width="0.5"/>
+              <path d="M 0 -130 L 75 -75 L 130 0 L 75 75 L 0 130 L -75 75 L -130 0 L -75 -75 Z" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+            </g>
+
+            <g class="found-mid">
+              <circle cx="0" cy="0" r="90" fill="none" stroke="#BEB8AE" stroke-width="1" stroke-dasharray="4 8"/>
+            </g>
+
+            <g class="found-inner">
+              <rect x="-65" y="-65" width="130" height="130" fill="none" stroke="#8E3B28" stroke-width="1.5" transform="rotate(45)"/>
+              <rect x="-65" y="-65" width="130" height="130" fill="none" stroke="#EAE5DC" stroke-width="0.5" opacity="0.6"/>
+            </g>
+
+            <!-- Center architectural seed -->
+            <g class="found-core">
+              <path d="M 0 -25 L 25 0 L 0 25 L -25 0 Z" fill="rgba(142,59,40,0.15)" stroke="#8E3B28" stroke-width="1"/>
+              <circle cx="0" cy="0" r="3" fill="#EAE5DC"/>
+            </g>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ── DOCTRINE (plaster + animated compass) ──────────────────────────── -->
+<section class="doctrine">
+  <div class="doctrine-content reveal">
+    <div class="doctrine-label">Why it matters</div>
+    <h2 class="doctrine-title">The natural state<br>of things — returned.</h2>
+    <p class="doctrine-body">In the oldest of times, what you made was yours. A craftsman owned his workshop. A merchant owned her routes. A farmer owned his land. The industrial age changed that. The digital age completed the job.</p>
+    <p class="doctrine-body">Native Works exists to reverse the extraction. Not through ideology — through infrastructure. When you own the tools, the land, and the output, no one can take any of it from you.</p>
+    <div class="doctrine-pivot">Be who you want, unstoppable.</div>
+  </div>
+
+  <div class="doctrine-visual reveal reveal-delay-2">
+    <div class="compass-wrap">
+      <!--
+        FIX: inline style="animation: spincw/spinccw ...; transform-origin: ..."
+        replaced with CSS classes (compass-spin-cw / compass-spin-ccw / compass-spin-slow).
+        This moves animation declarations into the stylesheet where the browser
+        can apply GPU compositing hints and avoid per-frame inline style recalculation.
+      -->
+      <svg width="420" height="420" viewBox="0 0 420 420" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <!-- Outer engraved rim -->
+        <circle cx="210" cy="210" r="205" stroke="#C8C2B8" stroke-width="0.5"/>
+        <circle cx="210" cy="210" r="200" stroke="#D8D2C8" stroke-width="0.8"/>
+
+        <!-- Degree marks — slow rotation -->
+        <g class="compass-spin-slow">
+          <line x1="210" y1="16"  x2="210" y2="28" stroke="#BEB8AE" stroke-width="0.6"/>
+          <line x1="210" y1="16"  x2="210" y2="28" stroke="#BEB8AE" stroke-width="0.6" transform="rotate(30 210 210)"/>
+          <line x1="210" y1="16"  x2="210" y2="28" stroke="#BEB8AE" stroke-width="0.6" transform="rotate(60 210 210)"/>
+          <line x1="210" y1="16"  x2="210" y2="28" stroke="#BEB8AE" stroke-width="0.6" transform="rotate(90 210 210)"/>
+          <line x1="210" y1="16"  x2="210" y2="28" stroke="#BEB8AE" stroke-width="0.6" transform="rotate(120 210 210)"/>
+          <line x1="210" y1="16"  x2="210" y2="28" stroke="#BEB8AE" stroke-width="0.6" transform="rotate(150 210 210)"/>
+          <line x1="210" y1="16"  x2="210" y2="28" stroke="#BEB8AE" stroke-width="0.6" transform="rotate(180 210 210)"/>
+          <line x1="210" y1="16"  x2="210" y2="28" stroke="#BEB8AE" stroke-width="0.6" transform="rotate(210 210 210)"/>
+          <line x1="210" y1="16"  x2="210" y2="28" stroke="#BEB8AE" stroke-width="0.6" transform="rotate(240 210 210)"/>
+          <line x1="210" y1="16"  x2="210" y2="28" stroke="#BEB8AE" stroke-width="0.6" transform="rotate(270 210 210)"/>
+          <line x1="210" y1="16"  x2="210" y2="28" stroke="#BEB8AE" stroke-width="0.6" transform="rotate(300 210 210)"/>
+          <line x1="210" y1="16"  x2="210" y2="28" stroke="#BEB8AE" stroke-width="0.6" transform="rotate(330 210 210)"/>
+        </g>
+
+        <!-- Middle ring — counter-rotating dashed -->
+        <circle cx="210" cy="210" r="165" stroke="#C8C2B8" stroke-width="0.5" stroke-dasharray="3 12"
+          class="compass-spin-ccw"/>
+
+        <!-- Inner geometric web — co-rotating -->
+        <g class="compass-spin-cw">
+          <circle cx="210" cy="210" r="120" stroke="#D4CEC4" stroke-width="0.5"/>
+          <rect x="125" y="125" width="170" height="170" stroke="#D0CAC0" stroke-width="0.4" transform="rotate(45 210 210)"/>
+          <rect x="110" y="110" width="200" height="200" stroke="#C8C2B8" stroke-width="0.3"/>
+        </g>
+
+        <!-- Cardinal lines (fixed) -->
+        <line x1="210" y1="30"  x2="210" y2="100" stroke="#C0B8AE" stroke-width="0.5"/>
+        <line x1="210" y1="320" x2="210" y2="390" stroke="#C0B8AE" stroke-width="0.5"/>
+        <line x1="30"  y1="210" x2="100" y2="210" stroke="#C0B8AE" stroke-width="0.5"/>
+        <line x1="320" y1="210" x2="390" y2="210" stroke="#C0B8AE" stroke-width="0.5"/>
+
+        <!-- Cardinal labels -->
+        <text x="210" y="22" text-anchor="middle" font-family="'Cormorant Garamond', serif" font-size="11" fill="#8E3B28" letter-spacing="1" font-style="italic">N</text>
+        <text x="210" y="407" text-anchor="middle" font-family="'Cormorant Garamond', serif" font-size="9" fill="#A09890" letter-spacing="1">S</text>
+        <text x="406" y="214" text-anchor="middle" font-family="'Cormorant Garamond', serif" font-size="9" fill="#A09890" letter-spacing="1">E</text>
+        <text x="14"  y="214" text-anchor="middle" font-family="'Cormorant Garamond', serif" font-size="9" fill="#A09890" letter-spacing="1">W</text>
+
+        <!-- Compass needle — fixed, pointing N -->
+        <path d="M210,210 L213.5,168 L210,56 L206.5,168 Z" fill="#8E3B28"/>
+        <path d="M210,210 L212.5,235 L210,300 L207.5,235 Z" fill="#1E1B17" opacity="0.45"/>
+
+        <!-- Center bearing -->
+        <circle cx="210" cy="210" r="14" fill="#EAE5DC" stroke="#D0CAC0" stroke-width="1"/>
+        <circle cx="210" cy="210" r="9"  fill="#EAE5DC"/>
+        <circle cx="210" cy="210" r="4"  fill="#1E1B17"/>
+        <circle cx="210" cy="210" r="1.5" fill="#8E3B28"/>
+
+        <!-- Fine cross-hair -->
+        <line x1="210" y1="200" x2="210" y2="206" stroke="#C0B8AE" stroke-width="0.5"/>
+        <line x1="204" y1="210" x2="210" y2="210" stroke="#C0B8AE" stroke-width="0.5"/>
+        <line x1="210" y1="214" x2="210" y2="220" stroke="#C0B8AE" stroke-width="0.5"/>
+        <line x1="216" y1="210" x2="210" y2="210" stroke="#C0B8AE" stroke-width="0.5"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+
+<!-- ── CLOSE (DARK — Cinematic) ──────────────────────────────────────── -->
+<section class="close" id="close">
+  <div class="close-fade-top"></div>
+  <!-- Background geometry -->
+  <svg class="close-bg-svg" viewBox="0 0 1440 700" preserveAspectRatio="xMidYMid slice" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <circle cx="720" cy="350" r="450" stroke="#ffffff" stroke-width="0.5"/>
+    <circle cx="720" cy="350" r="320" stroke="#ffffff" stroke-width="0.4" stroke-dasharray="2 12"/>
+    <circle cx="720" cy="350" r="190" stroke="#8E3B28" stroke-width="0.5" opacity="0.6"/>
+    <line x1="0"    y1="350" x2="1440" y2="350" stroke="#ffffff" stroke-width="0.3"/>
+    <line x1="720"  y1="0"   x2="720"  y2="700" stroke="#ffffff" stroke-width="0.3"/>
+    <line x1="0"    y1="0"   x2="1440" y2="700" stroke="#ffffff" stroke-width="0.2" stroke-dasharray="2 20"/>
+    <line x1="1440" y1="0"   x2="0"    y2="700" stroke="#ffffff" stroke-width="0.2" stroke-dasharray="2 20"/>
+    <!-- FIX: class replaces inline style="animation: spincw ...; transform-origin: ..." -->
+    <circle cx="720" cy="350" r="580" stroke="#ffffff" stroke-width="0.3" stroke-dasharray="1 16"
+      class="close-ring-spin"/>
+  </svg>
+
+  <div class="close-mark">
+    <svg width="100" height="100" viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <circle cx="48" cy="48" r="44" stroke="#F4F0E8" stroke-width="0.75" fill="none" opacity="0.12"/>
+      <circle cx="48" cy="48" r="34" stroke="#F4F0E8" stroke-width="0.5"  fill="none" opacity="0.06"/>
+      <circle cx="48" cy="48" r="24" stroke="#8E3B28" stroke-width="0.5"  fill="none" opacity="0.4"/>
+      <path d="M48,48 L50.5,32 L48,5  L45.5,32 Z" fill="#8E3B28"/>
+      <path d="M48,48 L50,57  L48,74 L46,57 Z"    fill="#F4F0E8" opacity="0.2"/>
+      <circle cx="48" cy="48" r="4.5" fill="#F4F0E8" opacity="0.25"/>
+      <circle cx="48" cy="48" r="1.8" fill="#8E3B28"/>
+    </svg>
+  </div>
+
+  <p class="close-line">In the oldest of times, what you made was yours.<br>We are simply returning things to the natural order.</p>
+  <p class="close-sub">nativeworks.studio · Built sovereign. Owned forever.</p>
+  <a href="#products" class="close-cta" id="close-cta">Own your presence →</a>
+</section>
+
+
+<!-- ── FOOTER ─────────────────────────────────────────────────────────── -->
+<footer>
+  <div>
+    <div class="footer-mark">
+      <div class="footer-logo-wrap">
+        <svg width="16" height="16" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="12" cy="12" r="10.5" stroke="#4A4540" stroke-width="0.75" fill="none"/>
+          <path d="M12,12 L13,8 L12,1.5 L11,8 Z" fill="#8E3B28"/>
+          <path d="M12,12 L13,14.5 L12,19 L11,14.5 Z" fill="#4A4540"/>
+          <circle cx="12" cy="12" r="1.8" fill="#4A4540"/>
+        </svg>
+      </div>
+      <div>
+        <div class="footer-native">NATIVE</div>
+        <div class="footer-works">WORKS</div>
+      </div>
+    </div>
+  </div>
+
+  <nav class="footer-center" aria-label="Footer navigation">
+    <a href="#journey">The Path</a>
+    <a href="#how">How it works</a>
+    <a href="#products">Products</a>
+  </nav>
+
+  <div class="footer-right">
+    <div class="footer-copy">© 2026 Native Works &nbsp;—&nbsp; nativeworks.studio</div>
+  </div>
+</footer>
+
+
+<!-- Scripts — deferred for non-blocking load -->
+<script src="js/main.js" defer></script>
+
+</body>
+</html>

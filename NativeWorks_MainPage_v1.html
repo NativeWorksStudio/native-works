@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Native Works — Own your digital presence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+
+:root {
+  --off-black: #1E1B17;
+  --warm-white: #F4F0E8;
+  --true-north: #8E3B28;
+  --forest: #2B5E2B;
+  --mid: #6B6860;
+  --border: #DED9D0;
+  --surface: #EDE9E0;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', -apple-system, sans-serif;
+  background: var(--warm-white);
+  color: var(--off-black);
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* ── NAVIGATION ──────────────────────────────────── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 22px 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background 0.4s ease, border-bottom 0.4s ease;
+}
+nav.scrolled {
+  background: var(--warm-white);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  text-decoration: none;
+}
+.nav-wordmark { display: flex; flex-direction: column; }
+.nav-native {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 15px;
+  letter-spacing: 4px;
+  color: var(--off-black);
+  line-height: 1.1;
+  font-weight: 400;
+}
+.nav-works {
+  font-size: 9px;
+  letter-spacing: 5px;
+  color: var(--forest);
+  line-height: 1;
+  margin-top: 1px;
+}
+.nav-cta {
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  color: var(--off-black);
+  text-decoration: none;
+  padding: 10px 24px;
+  border: 1px solid var(--border);
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+.nav-cta:hover {
+  background: var(--off-black);
+  border-color: var(--off-black);
+  color: var(--warm-white);
+}
+
+/* ── HERO ────────────────────────────────────────── */
+.hero {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 55fr 45fr;
+  align-items: center;
+  padding: 120px 64px 80px;
+  gap: 40px;
+}
+.hero-content { max-width: 560px; }
+
+.hero-eyebrow {
+  font-size: 10px;
+  letter-spacing: 4px;
+  color: var(--mid);
+  margin-bottom: 36px;
+  opacity: 0;
+  animation: fadeUp 0.9s ease 0.1s forwards;
+}
+.hero-headline {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(38px, 4.2vw, 60px);
+  font-weight: 400;
+  line-height: 1.08;
+  color: var(--off-black);
+  margin-bottom: 28px;
+  opacity: 0;
+  animation: fadeUp 0.9s ease 0.3s forwards;
+  letter-spacing: -0.5px;
+}
+.hero-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-style: italic;
+  color: var(--mid);
+  margin-bottom: 28px;
+  line-height: 1.4;
+  opacity: 0;
+  animation: fadeUp 0.9s ease 0.45s forwards;
+  font-weight: 300;
+}
+.hero-body {
+  font-size: 15px;
+  color: #4A4740;
+  line-height: 1.85;
+  margin-bottom: 44px;
+  max-width: 460px;
+  opacity: 0;
+  animation: fadeUp 0.9s ease 0.55s forwards;
+  font-weight: 300;
+}
+.hero-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: var(--warm-white);
+  background: var(--off-black);
+  padding: 16px 36px;
+  text-decoration: none;
+  transition: background 0.25s;
+  opacity: 0;
+  animation: fadeUp 0.9s ease 0.65s forwards;
+}
+.hero-cta:hover { background: var(--true-north); }
+.hero-cta .arr { display: inline-block; transition: transform 0.2s; }
+.hero-cta:hover .arr { transform: translateX(5px); }
+
+.hero-visual {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 20px;
+  opacity: 0;
+  animation: fadeIn 1.4s ease 0.8s forwards;
+}
+
+/* ── PROBLEM ─────────────────────────────────────── */
+.problem {
+  background: var(--off-black);
+  padding: 130px 64px;
+}
+.problem-inner {
+  max-width: 620px;
+  margin: 0 auto;
+  text-align: center;
+}
+.problem p {
+  font-size: 18px;
+  color: #7A7670;
+  line-height: 1.95;
+  margin-bottom: 32px;
+  font-weight: 300;
+}
+.problem p em {
+  color: #B8B4AE;
+  font-style: normal;
+  font-weight: 400;
+}
+.problem-pivot {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px;
+  font-style: italic;
+  color: var(--true-north);
+  font-weight: 300;
+  margin-top: 8px;
+}
+
+/* ── JOURNEY ─────────────────────────────────────── */
+.journey {
+  padding: 130px 64px;
+}
+.journey-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: end;
+  margin-bottom: 80px;
+}
+.journey-label {
+  font-size: 10px;
+  letter-spacing: 4px;
+  color: var(--mid);
+  margin-bottom: 16px;
+}
+.journey-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(32px, 3.5vw, 48px);
+  font-weight: 400;
+  line-height: 1.1;
+  color: var(--off-black);
+}
+.journey-intro {
+  font-size: 15px;
+  color: #4A4740;
+  line-height: 1.85;
+  font-weight: 300;
+  align-self: end;
+  padding-bottom: 6px;
+}
+
+.levels { max-width: 100%; }
+
+.level {
+  display: grid;
+  grid-template-columns: 72px 1fr;
+  gap: 0 48px;
+  padding: 44px 0;
+  border-top: 1px solid var(--border);
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+.level:last-child { border-bottom: 1px solid var(--border); }
+.level.visible { opacity: 1; transform: translateY(0); }
+
+.level-num {
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--border);
+  padding-top: 8px;
+  font-variant-numeric: tabular-nums;
+}
+.level-body {}
+.level-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 36px;
+  font-weight: 400;
+  line-height: 1;
+  margin-bottom: 12px;
+  transition: color 0.2s;
+}
+.level-desc {
+  font-size: 15px;
+  color: #4A4740;
+  line-height: 1.85;
+  max-width: 560px;
+  font-weight: 300;
+}
+
+.l0 .level-name { color: #A09890; }
+.l0 .level-num  { color: #C8C4BC; }
+.l1 .level-name { color: #706860; }
+.l1 .level-num  { color: #B0ACA4; }
+.l2 .level-name { color: #3A3028; }
+.l2 .level-num  { color: #98948C; }
+.l3 .level-name { color: var(--true-north); }
+.l3 .level-num  { color: var(--true-north); opacity: 0.45; }
+.l4 .level-name { color: var(--forest); }
+.l4 .level-num  { color: var(--forest); opacity: 0.45; }
+
+/* ── PRODUCTS ────────────────────────────────────── */
+.products {
+  background: var(--surface);
+  padding: 130px 64px;
+}
+.products-header { margin-bottom: 64px; }
+.products-label {
+  font-size: 10px;
+  letter-spacing: 4px;
+  color: var(--mid);
+  margin-bottom: 16px;
+}
+.products-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(32px, 3.5vw, 48px);
+  font-weight: 400;
+  line-height: 1.1;
+  color: var(--off-black);
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  max-width: 880px;
+}
+
+.product-card {
+  background: var(--warm-white);
+  border: 1px solid var(--border);
+  padding: 52px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.6s ease, transform 0.6s ease, border-color 0.2s;
+}
+.product-card.visible { opacity: 1; transform: translateY(0); }
+.product-card:hover { border-color: var(--off-black); }
+
+.product-tag {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 16px;
+  font-style: italic;
+  color: var(--mid);
+  font-weight: 300;
+}
+.product-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 52px;
+  font-weight: 400;
+  color: var(--off-black);
+  line-height: 1;
+  letter-spacing: -1px;
+}
+.product-desc {
+  font-size: 15px;
+  color: #4A4740;
+  line-height: 1.85;
+  flex: 1;
+  font-weight: 300;
+}
+.product-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: var(--true-north);
+  text-decoration: none;
+  font-weight: 500;
+  margin-top: 12px;
+  transition: gap 0.2s;
+}
+.product-cta:hover { gap: 16px; }
+
+/* ── CLOSE ───────────────────────────────────────── */
+.close {
+  background: var(--off-black);
+  padding: 180px 64px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.close-mark {
+  margin-bottom: 72px;
+  opacity: 0;
+  transform: scale(0.92);
+  transition: opacity 0.9s ease, transform 0.9s ease;
+}
+.close-mark.visible { opacity: 1; transform: scale(1); }
+.close-line {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(22px, 2.8vw, 36px);
+  font-style: italic;
+  font-weight: 300;
+  color: #C8C4BC;
+  max-width: 560px;
+  line-height: 1.55;
+  margin-bottom: 52px;
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.8s ease 0.2s, transform 0.8s ease 0.2s;
+}
+.close-line.visible { opacity: 1; transform: translateY(0); }
+.close-cta {
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: var(--warm-white);
+  border: 1px solid rgba(244,240,232,0.2);
+  padding: 16px 40px;
+  text-decoration: none;
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.8s ease 0.4s, transform 0.8s ease 0.4s, border-color 0.2s, background 0.2s;
+}
+.close-cta:hover {
+  border-color: var(--true-north);
+  background: rgba(142,59,40,0.12);
+}
+.close-cta.visible { opacity: 1; transform: translateY(0); }
+
+/* ── FOOTER ──────────────────────────────────────── */
+footer {
+  background: var(--off-black);
+  border-top: 1px solid #28251F;
+  padding: 36px 64px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.footer-mark {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.footer-native {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 13px;
+  letter-spacing: 3px;
+  color: #444038;
+  font-weight: 400;
+}
+.footer-copy {
+  font-size: 11px;
+  color: #3A3830;
+  letter-spacing: 1px;
+}
+
+/* ── REVEAL UTILITY ──────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+
+/* ── ANIMATIONS ──────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ── RESPONSIVE ──────────────────────────────────── */
+@media (max-width: 900px) {
+  nav { padding: 20px 28px; }
+  .hero { grid-template-columns: 1fr; padding: 100px 28px 60px; min-height: auto; }
+  .hero-visual { justify-content: center; padding-right: 0; order: -1; padding-top: 20px; }
+  .journey-header { grid-template-columns: 1fr; }
+  .journey { padding: 80px 28px; }
+  .problem { padding: 80px 28px; }
+  .products { padding: 80px 28px; }
+  .products-grid { grid-template-columns: 1fr; }
+  .close { padding: 100px 28px; }
+  .level { grid-template-columns: 48px 1fr; gap: 0 24px; padding: 32px 0; }
+  footer { padding: 28px; flex-direction: column; gap: 10px; text-align: center; }
+}
+
+</style>
+</head>
+<body>
+
+<!-- ── NAVIGATION ──────────────────────────────────────────────── -->
+<nav id="nav">
+  <a href="/" class="nav-logo">
+    <svg width="30" height="30" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="15" cy="15" r="13" stroke="#1E1B17" stroke-width="0.75" fill="none"/>
+      <path d="M15,15 L16.2,10.5 L15,2 L13.8,10.5 Z" fill="#8E3B28"/>
+      <path d="M15,15 L16,18.5 L15,24 L14,18.5 Z" fill="#1E1B17"/>
+      <circle cx="15" cy="15" r="2" fill="#1E1B17"/>
+    </svg>
+    <div class="nav-wordmark">
+      <span class="nav-native">NATIVE</span>
+      <span class="nav-works">WORKS</span>
+    </div>
+  </a>
+  <a href="#products" class="nav-cta">Own your presence →</a>
+</nav>
+
+
+<!-- ── HERO ────────────────────────────────────────────────────── -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-eyebrow">SOVEREIGN DIGITAL STUDIO</div>
+    <h1 class="hero-headline">Your site. Your audience.<br>Your revenue.<br>Nobody&#8217;s platform.</h1>
+    <p class="hero-sub">The last digital home you&#8217;ll ever need.</p>
+    <p class="hero-body">Most digital presence is rented. Yours should be owned. AI-powered production, your content, your audience, your revenue &#8212; on infrastructure that answers only to you.</p>
+    <a href="#products" class="hero-cta">Own your presence <span class="arr">&#8594;</span></a>
+  </div>
+
+  <div class="hero-visual">
+    <svg width="440" height="440" viewBox="0 0 440 440" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="220" cy="220" r="192" stroke="#1E1B17" stroke-width="0.75" fill="none" opacity="0.12"/>
+      <circle cx="220" cy="220" r="158" stroke="#1E1B17" stroke-width="0.5" fill="none" opacity="0.06"/>
+      <path d="M220,220 L224,185 L220,28 L216,185 Z" fill="#8E3B28"/>
+      <path d="M220,220 L223,242 L220,296 L217,242 Z" fill="#1E1B17" opacity="0.65"/>
+      <circle cx="220" cy="220" r="9" fill="#1E1B17"/>
+      <circle cx="220" cy="220" r="4.5" fill="#F4F0E8"/>
+    </svg>
+  </div>
+</section>
+
+
+<!-- ── PROBLEM ──────────────────────────────────────────────────── -->
+<section class="problem">
+  <div class="problem-inner">
+    <p class="reveal"><em>You built your audience on Instagram. Your newsletter on Substack. Your store on Shopify. Your bookings on Calendly.</em> None of it is yours. Any of it can disappear tomorrow.</p>
+    <p class="reveal reveal-delay-1">At some point you noticed. The reach dropped. The fees went up. The rules changed. You built something real on someone else&#8217;s land &#8212; and they reminded you who owns it.</p>
+    <p class="problem-pivot reveal reveal-delay-2">There is another way to build.</p>
+  </div>
+</section>
+
+
+<!-- ── JOURNEY ──────────────────────────────────────────────────── -->
+<section class="journey" id="journey">
+  <div class="journey-header">
+    <div class="reveal">
+      <div class="journey-label">THE OWNERSHIP PATH</div>
+      <h2 class="journey-title">Where are you<br>right now?</h2>
+    </div>
+    <p class="journey-intro reveal reveal-delay-1">Every person who has ever built a business or a creative practice online starts in the same place. The path forward is the same too. The only question is how far along it you want to go.</p>
+  </div>
+
+  <div class="levels" id="levels">
+    <div class="level l0">
+      <span class="level-num">00</span>
+      <div class="level-body">
+        <div class="level-name">Dependent</div>
+        <p class="level-desc">You exist on platforms you don&#8217;t own. Your audience, your content, your revenue &#8212; all of it lives on someone else&#8217;s infrastructure. One policy change away from starting over.</p>
+      </div>
+    </div>
+    <div class="level l1">
+      <span class="level-num">01</span>
+      <div class="level-body">
+        <div class="level-name">Aware</div>
+        <p class="level-desc">You&#8217;ve felt it. The reach drop. The fee increase. The rule change. You know something is wrong with the way you&#8217;ve been building. You just haven&#8217;t found the alternative yet.</p>
+      </div>
+    </div>
+    <div class="level l2">
+      <span class="level-num">02</span>
+      <div class="level-body">
+        <div class="level-name">Hosted</div>
+        <p class="level-desc">Your presence is built and running on infrastructure that belongs to you. Not a platform. Not a rental. Native Works runs the servers while you find your feet.</p>
+      </div>
+    </div>
+    <div class="level l3">
+      <span class="level-num">03</span>
+      <div class="level-body">
+        <div class="level-name">Owner</div>
+        <p class="level-desc">Your own infrastructure. Your own stack. Zero dependency on any platform or middleman. This is what we built you for.</p>
+      </div>
+    </div>
+    <div class="level l4">
+      <span class="level-num">04</span>
+      <div class="level-body">
+        <div class="level-name">Sovereign Participant</div>
+        <p class="level-desc">You don&#8217;t just own your presence. Your presence works for you. Discoverable on merit alone. Part of a network that rewards ownership. No ceiling.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ── PRODUCTS ─────────────────────────────────────────────────── -->
+<section class="products" id="products">
+  <div class="products-header reveal">
+    <div class="products-label">WHERE TO START</div>
+    <h2 class="products-title">Two doors.<br>Same destination.</h2>
+  </div>
+
+  <div class="products-grid">
+    <div class="product-card">
+      <div class="product-tag">For those who already know what they want.</div>
+      <div class="product-name">Stack</div>
+      <p class="product-desc">The complete sovereign setup. Your identity, your infrastructure, your payment rails &#8212; owned outright, running from day one. Built for people who are done asking permission.</p>
+      <a href="/stack" class="product-cta">Build your stack &#8594;</a>
+    </div>
+    <div class="product-card">
+      <div class="product-tag">For those building from scratch.</div>
+      <div class="product-name">Foundation</div>
+      <p class="product-desc">A new business, a rebrand, or a presence that has never existed before. Built sovereign from the ground up &#8212; website, identity, everything owned &#8212; so you never have to migrate later.</p>
+      <a href="/foundation" class="product-cta">Build your foundation &#8594;</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ── CLOSE ─────────────────────────────────────────────────────── -->
+<section class="close" id="close">
+  <div class="close-mark">
+    <svg width="88" height="88" viewBox="0 0 88 88" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="44" cy="44" r="40" stroke="#F4F0E8" stroke-width="0.75" fill="none" opacity="0.2"/>
+      <path d="M44,44 L46,33 L44,4 L42,33 Z" fill="#8E3B28"/>
+      <path d="M44,44 L46,53 L44,68 L42,53 Z" fill="#F4F0E8" opacity="0.3"/>
+      <circle cx="44" cy="44" r="5" fill="#F4F0E8" opacity="0.5"/>
+    </svg>
+  </div>
+  <p class="close-line">In the oldest of times, what you made was yours.<br>We are simply returning things to the natural order.</p>
+  <a href="#products" class="close-cta">Own your presence &#8594;</a>
+</section>
+
+
+<!-- ── FOOTER ────────────────────────────────────────────────────── -->
+<footer>
+  <div class="footer-mark">
+    <svg width="22" height="22" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="11" cy="11" r="9.5" stroke="#444038" stroke-width="0.75" fill="none"/>
+      <path d="M11,11 L12,7.5 L11,1.5 L10,7.5 Z" fill="#6B3020"/>
+      <path d="M11,11 L12,13.5 L11,17 L10,13.5 Z" fill="#444038"/>
+      <circle cx="11" cy="11" r="1.5" fill="#444038"/>
+    </svg>
+    <span class="footer-native">NATIVE WORKS</span>
+  </div>
+  <div class="footer-copy">&#169; 2026 Native Works &nbsp;&mdash;&nbsp; nativeworks.studio</div>
+</footer>
+
+
+<script>
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 50);
+  }, { passive: true });
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.reveal, .product-card, .close-mark, .close-line, .close-cta').forEach(el => io.observe(el));
+
+  const levelsEl = document.getElementById('levels');
+  const levelIo = new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting) {
+      document.querySelectorAll('.level').forEach((el, i) => {
+        setTimeout(() => el.classList.add('visible'), i * 90);
+      });
+      levelIo.disconnect();
+    }
+  }, { threshold: 0.08 });
+  if (levelsEl) levelIo.observe(levelsEl);
+</script>
+
+</body>
+</html>

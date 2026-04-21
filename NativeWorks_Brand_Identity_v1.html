@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Native Works — Brand Identity v1.0</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --off-black: #1E1B17;
+    --warm-white: #F4F0E8;
+    --true-north: #8E3B28;
+    --forest: #2B5E2B;
+    --mid-tone: #6B6860;
+    --border: #DED9D0;
+    --surface: #F9F7F2;
+  }
+
+  html { font-size: 16px; }
+  body {
+    font-family: 'DM Sans', -apple-system, sans-serif;
+    background: var(--warm-white);
+    color: var(--off-black);
+    line-height: 1.7;
+  }
+
+  .serif { font-family: Georgia, 'Palatino Linotype', serif; }
+
+  /* ── COVER ── */
+  .cover {
+    background: var(--off-black);
+    color: var(--warm-white);
+    padding: 80px 80px 72px;
+    position: relative;
+  }
+  .cover-mark { margin-bottom: 48px; }
+  .cover-name {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 52px;
+    font-weight: 500;
+    letter-spacing: 8px;
+    color: var(--warm-white);
+    margin-bottom: 12px;
+  }
+  .cover-sub {
+    font-size: 15px;
+    color: #888074;
+    letter-spacing: 1px;
+    margin-bottom: 48px;
+  }
+  .cover-headline {
+    font-family: Georgia, serif;
+    font-size: 22px;
+    font-style: italic;
+    color: var(--true-north);
+    max-width: 560px;
+    line-height: 1.5;
+    margin-bottom: 60px;
+    padding-left: 24px;
+    border-left: 3px solid var(--true-north);
+  }
+  .cover-meta {
+    font-size: 12px;
+    color: #555048;
+    letter-spacing: 2px;
+  }
+
+  /* ── LAYOUT ── */
+  .container { max-width: 900px; margin: 0 auto; padding: 80px 60px; }
+
+  /* ── SECTIONS ── */
+  .section { margin-bottom: 80px; }
+  .section-divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 80px 0;
+  }
+
+  /* ── HEADINGS ── */
+  .section-number {
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--mid-tone);
+    margin-bottom: 8px;
+    font-weight: 400;
+  }
+  h1 {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 32px;
+    font-weight: 500;
+    color: var(--off-black);
+    margin-bottom: 32px;
+    letter-spacing: -0.5px;
+  }
+  h2 {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--true-north);
+    letter-spacing: 2px;
+    margin-top: 40px;
+    margin-bottom: 12px;
+  }
+
+  /* ── BODY TEXT ── */
+  p { font-size: 15px; color: #2A2720; line-height: 1.8; margin-bottom: 16px; }
+  p:last-child { margin-bottom: 0; }
+
+  /* ── ACCENT BLOCKS ── */
+  .accent-block {
+    border-left: 3px solid var(--true-north);
+    padding: 16px 24px;
+    margin: 24px 0;
+    background: rgba(142, 59, 40, 0.04);
+  }
+  .accent-block p {
+    font-family: Georgia, serif;
+    font-size: 18px;
+    font-style: italic;
+    color: var(--true-north);
+    margin: 0;
+    line-height: 1.6;
+  }
+  .forest-block {
+    border-left: 3px solid var(--forest);
+    padding: 16px 24px;
+    margin: 24px 0;
+    background: rgba(43, 94, 43, 0.04);
+  }
+  .forest-block p {
+    font-family: Georgia, serif;
+    font-size: 18px;
+    font-style: italic;
+    font-weight: 500;
+    color: var(--forest);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  /* ── HERO COPY BLOCK ── */
+  .hero-block {
+    background: var(--off-black);
+    padding: 48px 56px;
+    border-radius: 4px;
+    margin: 32px 0;
+  }
+  .hero-block .hero-headline {
+    font-family: Georgia, serif;
+    font-size: 28px;
+    font-weight: 400;
+    color: var(--warm-white);
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+  .hero-block .hero-sub {
+    font-size: 17px;
+    color: #9B9790;
+    margin-bottom: 20px;
+    font-style: italic;
+  }
+  .hero-block .hero-body {
+    font-size: 14px;
+    color: #6B6860;
+    line-height: 1.8;
+    max-width: 520px;
+    margin-bottom: 24px;
+  }
+  .hero-block .hero-cta {
+    font-size: 13px;
+    letter-spacing: 2px;
+    color: var(--true-north);
+    font-weight: 500;
+  }
+
+  /* ── PALETTE ── */
+  .palette-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin: 24px 0 32px;
+  }
+  .swatch { border-radius: 4px; overflow: hidden; border: 1px solid rgba(0,0,0,0.06); }
+  .swatch-colour { height: 72px; }
+  .swatch-info { padding: 12px 14px; background: white; }
+  .swatch-name { font-size: 13px; font-weight: 500; color: var(--off-black); margin-bottom: 2px; }
+  .swatch-hex { font-size: 11px; font-family: 'Courier New', monospace; color: var(--mid-tone); margin-bottom: 6px; }
+  .swatch-role { font-size: 11px; color: var(--mid-tone); line-height: 1.5; }
+
+  /* ── TABLES ── */
+  .data-table { width: 100%; border-collapse: collapse; margin: 24px 0; font-size: 14px; }
+  .data-table th {
+    background: var(--off-black);
+    color: var(--warm-white);
+    padding: 10px 14px;
+    text-align: left;
+    font-weight: 500;
+    font-size: 12px;
+    letter-spacing: 1px;
+  }
+  .data-table td { padding: 10px 14px; border-bottom: 1px solid var(--border); color: #2A2720; vertical-align: top; line-height: 1.5; }
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table tr:nth-child(even) td { background: var(--surface); }
+  td.bold { font-weight: 500; }
+
+  /* ── THE MARK ── */
+  .mark-display {
+    display: flex;
+    align-items: center;
+    gap: 48px;
+    padding: 48px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    margin: 32px 0;
+  }
+  .mark-dark {
+    padding: 40px;
+    background: var(--off-black);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .mark-label { font-size: 11px; letter-spacing: 2px; color: var(--mid-tone); margin-bottom: 8px; }
+  .mark-wordmark-serif { font-family: Georgia, serif; font-size: 18px; letter-spacing: 4px; color: var(--off-black); }
+  .mark-wordmark-sans { font-size: 11px; letter-spacing: 5px; color: var(--forest); margin-top: 2px; }
+
+  /* ── TYPOGRAPHY SPECIMENS ── */
+  .type-pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 24px 0;
+  }
+  .type-card {
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 28px;
+  }
+  .type-label { font-size: 11px; letter-spacing: 2px; color: var(--mid-tone); margin-bottom: 16px; }
+  .type-specimen { font-size: 56px; line-height: 1; color: var(--off-black); margin-bottom: 16px; font-weight: 400; }
+  .type-name { font-size: 15px; font-weight: 500; color: var(--off-black); margin-bottom: 3px; }
+  .type-source { font-size: 12px; color: var(--mid-tone); margin-bottom: 14px; }
+  .type-uses { font-size: 11px; color: var(--mid-tone); margin-bottom: 14px; letter-spacing: 0.5px; }
+  .type-specimen-text { font-size: 14px; color: #555048; line-height: 1.7; }
+
+  /* ── BULLETS ── */
+  ul { list-style: none; margin: 16px 0; }
+  ul li { font-size: 15px; color: #2A2720; line-height: 1.7; padding-left: 20px; position: relative; margin-bottom: 8px; }
+  ul li::before { content: '\2014'; position: absolute; left: 0; color: var(--true-north); }
+
+  /* ── FOOTER ── */
+  .footer {
+    background: var(--off-black);
+    color: var(--warm-white);
+    padding: 56px 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .footer-left .footer-closing { font-family: Georgia, serif; font-size: 20px; color: var(--warm-white); margin-bottom: 8px; }
+  .footer-left .footer-sub { font-family: Georgia, serif; font-size: 15px; font-style: italic; color: var(--true-north); }
+  .footer-right { text-align: right; }
+  .footer-domain { font-size: 13px; color: #555048; letter-spacing: 1px; }
+  .footer-version { font-size: 11px; color: #444038; margin-top: 4px; letter-spacing: 1px; }
+
+  @media print {
+    body { background: white; }
+    .cover { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .hero-block { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .data-table th { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .footer { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── COVER ─────────────────────────────────────────────────────────── -->
+<div class="cover">
+  <div class="cover-mark">
+    <svg width="72" height="72" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="36" cy="36" r="32" stroke="#F4F0E8" stroke-width="0.75" fill="none"/>
+      <path d="M36,36 L38,25 L36,4 L34,25 Z" fill="#8E3B28"/>
+      <path d="M36,36 L38,43 L36,58 L34,43 Z" fill="#F4F0E8"/>
+      <circle cx="36" cy="36" r="3.5" fill="#F4F0E8"/>
+    </svg>
+  </div>
+  <div class="cover-name">NATIVE WORKS</div>
+  <div class="cover-sub">Brand Identity Document &nbsp;&mdash;&nbsp; Version 1.0 &nbsp;&mdash;&nbsp; April 2026</div>
+  <div class="cover-headline">Your site. Your audience. Your revenue. Nobody&#8217;s platform.</div>
+  <div class="cover-meta">NATIVEWORKS.STUDIO</div>
+</div>
+
+<!-- ── MAIN CONTENT ───────────────────────────────────────────────────── -->
+<div class="container">
+
+  <!-- 1. BRAND OVERVIEW -->
+  <div class="section">
+    <div class="section-number">01</div>
+    <h1>Brand overview</h1>
+    <p>Native Works is a sovereign digital production studio. It builds websites, digital identities, publishing platforms, and commerce systems for businesses and creators who are done renting their digital presence from platforms that can change the rules tomorrow.</p>
+    <p>Every product walks a client toward full ownership of their digital life. The journey begins with something warm and familiar. It ends somewhere most people do not yet know is possible.</p>
+  </div>
+
+  <hr class="section-divider">
+
+  <!-- 2. MISSION & MANIFESTO -->
+  <div class="section">
+    <div class="section-number">02</div>
+    <h1>Mission &amp; manifesto</h1>
+
+    <h2>Compact definition</h2>
+    <div class="accent-block">
+      <p>Native Works produces, publishes, and sells sovereign digital identities, presences, and products &#8212; on open protocols, controlled by no one but their owner.</p>
+    </div>
+
+    <h2>Public manifesto</h2>
+    <p>Native Works is a sovereign digital operation &#8212; an AI-powered factory that produces websites, identities, and autonomous agents; a publishing system that distributes them on open protocols; and a commerce engine that sells them directly. No platform owns it. No middleman controls it. No single point of failure can stop it. Be who you want, unstoppable.</p>
+
+    <h2>Philosophical core</h2>
+    <div class="forest-block">
+      <p>The natural state of things &#8212; returned.</p>
+    </div>
+    <p>This is not a tagline. It is the depth layer. It lives in the about page, in onboarding emails, in the moment after the first sat lands and the client realises what they have actually just joined. It is the reward for those who look deeper.</p>
+  </div>
+
+  <hr class="section-divider">
+
+  <!-- 3. MESSAGING -->
+  <div class="section">
+    <div class="section-number">03</div>
+    <h1>Messaging architecture</h1>
+
+    <div class="hero-block">
+      <div class="hero-headline">Your site. Your audience.<br>Your revenue. Nobody&#8217;s platform.</div>
+      <div class="hero-sub">The last digital home you&#8217;ll ever need.</div>
+      <div class="hero-body">Most digital presence is rented. Yours should be owned. AI-powered production, your content, your audience, your revenue &#8212; on infrastructure that answers only to you.</div>
+      <div class="hero-cta">Own your presence &rarr;</div>
+    </div>
+
+    <h2>Hero headline</h2>
+    <p>The sequence matters. &#8220;Your site&#8221; is presence. &#8220;Your audience&#8221; is distribution. &#8220;Your revenue&#8221; is monetisation. &#8220;Nobody&#8217;s platform&#8221; removes the threat that makes all three fragile. The entire Native Works value proposition in four beats.</p>
+    <p>&#8220;Site&#8221; is deliberately neutral &#8212; it implies every place you exist digitally. Instagram, YouTube, your website. The reader fills in their own blank.</p>
+
+    <h2>Subheadline</h2>
+    <p>&#8220;To move&#8221; was deliberately removed. The subheadline is about permanence, not migration. &#8220;The last digital home you&#8217;ll ever need&#8221; &#8212; the reader supplies the implication.</p>
+
+    <h2>Call to action</h2>
+    <p>&#8220;Own your presence&#8221; names the transformation. It echoes the headline: &#8220;nobody&#8217;s platform&#8221; &#8594; &#8220;own your presence&#8221;. The visitor reads the problem and the answer in under two seconds. The arrow implies a journey, not a transaction.</p>
+
+    <h2>Slogan &amp; tagline</h2>
+    <table class="data-table">
+      <thead><tr><th>Element</th><th>Text</th><th>Usage</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">Slogan</td><td>Be who you want, unstoppable.</td><td>Brand campaigns, packaging, graduation moments</td></tr>
+        <tr><td class="bold">Tagline</td><td>Built sovereign. Owned forever.</td><td>Product descriptions, technical contexts</td></tr>
+        <tr><td class="bold">Philosophical core</td><td>The natural state of things &#8212; returned.</td><td>About page, depth layer, never page one</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <hr class="section-divider">
+
+  <!-- 4. BRAND DOCTRINE -->
+  <div class="section">
+    <div class="section-number">04</div>
+    <h1>Brand doctrine</h1>
+
+    <h2>The Trojan Horse</h2>
+    <p>The front door is warm, modern, AI-forward, and appealing to a mainstream business owner or creator in 2026. It looks and feels like the best version of a premium digital studio. Professional. Accessible. Desirable.</p>
+    <p>It does not say Bitcoin on page one. It does not say Nostr on page one. It does not say sovereign on page one. It says: we build your digital presence, you own everything, AI-powered, looks incredible, works immediately. That is the door.</p>
+    <p>Once they are inside &#8212; once they have bought, once they have felt what ownership feels like, once the Lightning address is live and the first sat lands &#8212; the journey reveals itself. Naturally. Experientially. They do not get converted. They graduate.</p>
+
+    <h2>Two-layer language system</h2>
+    <table class="data-table">
+      <thead><tr><th>Layer</th><th>Audience</th><th>Language</th><th>Feeling</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="bold">Surface</td>
+          <td>Mainstream business, creators</td>
+          <td>Own your IP, platform independence, AI-powered</td>
+          <td><em>&#8220;This is the best studio I&#8217;ve ever seen&#8221;</em></td>
+        </tr>
+        <tr>
+          <td class="bold">Depth</td>
+          <td>Bitcoin natives, sovereign seekers</td>
+          <td>Protocol, permissionless, unstoppable, self-custodied</td>
+          <td><em>&#8220;These people actually get it&#8221;</em></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <hr class="section-divider">
+
+  <!-- 5. THE MARK -->
+  <div class="section">
+    <div class="section-number">05</div>
+    <h1>The mark</h1>
+
+    <div class="mark-display">
+      <div>
+        <div class="mark-label">Light</div>
+        <svg width="80" height="80" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="40" cy="40" r="36" stroke="#1E1B17" stroke-width="0.75" fill="none"/>
+          <path d="M40,40 L42,29 L40,4 L38,29 Z" fill="#8E3B28"/>
+          <path d="M40,40 L42,48 L40,62 L38,48 Z" fill="#1E1B17"/>
+          <circle cx="40" cy="40" r="4" fill="#1E1B17"/>
+        </svg>
+      </div>
+      <div>
+        <div class="mark-label">Dark</div>
+        <div class="mark-dark">
+          <svg width="80" height="80" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="40" cy="40" r="36" stroke="#F4F0E8" stroke-width="0.75" fill="none"/>
+            <path d="M40,40 L42,29 L40,4 L38,29 Z" fill="#8E3B28"/>
+            <path d="M40,40 L42,48 L40,62 L38,48 Z" fill="#F4F0E8"/>
+            <circle cx="40" cy="40" r="4" fill="#F4F0E8"/>
+          </svg>
+        </div>
+      </div>
+      <div>
+        <div class="mark-label">Lockup</div>
+        <div style="display:flex;align-items:center;gap:16px;padding:20px;background:#F9F7F2;border-radius:4px;border:1px solid #E8E4DC;">
+          <svg width="44" height="44" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="22" cy="22" r="20" stroke="#1E1B17" stroke-width="0.75" fill="none"/>
+            <path d="M22,22 L23.5,15 L22,2 L20.5,15 Z" fill="#8E3B28"/>
+            <path d="M22,22 L23.5,27 L22,34 L20.5,27 Z" fill="#1E1B17"/>
+            <circle cx="22" cy="22" r="2.5" fill="#1E1B17"/>
+          </svg>
+          <div>
+            <div class="mark-wordmark-serif">NATIVE</div>
+            <div class="mark-wordmark-sans">WORKS</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h2>The compass</h2>
+    <p>A compass works without permission. A compass works without a platform. A compass works the same in every country, under every regime, in every era. That is Native Works in a single object.</p>
+
+    <h2>The layers</h2>
+    <ul>
+      <li>Surface read &#8212; Direction. Navigation. Confidence. A studio that knows where it is going.</li>
+      <li>Mid read &#8212; Independence. The explorer&#8217;s tool. You find your own way.</li>
+      <li>Deep read &#8212; True North. Sovereignty. A tool that answers only to magnetic north &#8212; not to any platform, algorithm, or landlord.</li>
+    </ul>
+
+    <h2>Usage rules</h2>
+    <ul>
+      <li>The needle always points up. Never rotated.</li>
+      <li>True North (#8E3B28) appears on the north needle only. Never as a background fill.</li>
+      <li>On light backgrounds: ring and south needle in off-black (#1E1B17).</li>
+      <li>On dark backgrounds: ring and south needle in warm white (#F4F0E8). North needle always True North.</li>
+      <li>The mark may stand alone. The wordmark never stands alone without the mark.</li>
+    </ul>
+
+    <h2>The wordmark</h2>
+    <p>Native Works. Two words. &#8220;Native&#8221; in Canela display serif &#8212; the philosophy, the history, the craft. &#8220;Works&#8221; in DM Sans &#8212; the verb, the product, the proof. The contrast between the two typefaces reinforces the brand duality: historic depth, contemporary clarity.</p>
+  </div>
+
+  <hr class="section-divider">
+
+  <!-- 6. COLOUR PALETTE -->
+  <div class="section">
+    <div class="section-number">06</div>
+    <h1>Colour palette</h1>
+    <p>Four colours. Two foundations. Two accents. The foundations carry everything. The accents do specific, deliberate work. They do not compete. They sequence.</p>
+
+    <div class="palette-grid">
+      <div class="swatch">
+        <div class="swatch-colour" style="background:#1E1B17;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Off-black</div>
+          <div class="swatch-hex">#1E1B17</div>
+          <div class="swatch-role">Structure. Authority. The foundation.</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-colour" style="background:#F4F0E8;border-bottom:1px solid #E8E4DC;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Warm white</div>
+          <div class="swatch-hex">#F4F0E8</div>
+          <div class="swatch-role">Space. Breath. The canvas.</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-colour" style="background:#8E3B28;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">True North</div>
+          <div class="swatch-hex">#8E3B28</div>
+          <div class="swatch-role">The needle. Always. Non-negotiable.</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-colour" style="background:#2B5E2B;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Forest</div>
+          <div class="swatch-hex">#2B5E2B</div>
+          <div class="swatch-role">Permanence. Destination. Graduation.</div>
+        </div>
+      </div>
+    </div>
+
+    <table class="data-table">
+      <thead><tr><th>Name</th><th>Hex</th><th>Role</th><th>Usage rule</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">Off-black</td><td style="font-family:monospace;">#1E1B17</td><td>Structure. Authority.</td><td>Headlines, body text, mark on light backgrounds.</td></tr>
+        <tr><td class="bold">Warm white</td><td style="font-family:monospace;">#F4F0E8</td><td>Space. Breath.</td><td>Backgrounds, breathing room, mark on dark backgrounds.</td></tr>
+        <tr><td class="bold">True North</td><td style="font-family:monospace;">#8E3B28</td><td>The needle.</td><td>North needle only. CTA text, links. Never as fill.</td></tr>
+        <tr><td class="bold">Forest</td><td style="font-family:monospace;">#2B5E2B</td><td>Permanence.</td><td>WORKS wordmark. Graduation moments. Ownership confirmations.</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Accent colour rules</h2>
+    <p>True North brings you in. Forest tells you where you are going. They sequence, never compete. Together they read as materials &#8212; fired earth and living wood. Built to last.</p>
+  </div>
+
+  <hr class="section-divider">
+
+  <!-- 7. TYPOGRAPHY -->
+  <div class="section">
+    <div class="section-number">07</div>
+    <h1>Typography</h1>
+
+    <div class="type-pair">
+      <div class="type-card">
+        <div class="type-label">Display</div>
+        <div class="type-specimen serif">Ag</div>
+        <div class="type-name">Canela</div>
+        <div class="type-source">Commercial Type &middot; licensed</div>
+        <div class="type-uses">Headlines &middot; hero &middot; wordmark</div>
+        <div class="type-specimen-text serif" style="font-style:italic;">The natural state of things &#8212; returned.</div>
+      </div>
+      <div class="type-card">
+        <div class="type-label">Body</div>
+        <div class="type-specimen">Ag</div>
+        <div class="type-name">DM Sans</div>
+        <div class="type-source">Google Fonts &middot; open source</div>
+        <div class="type-uses">UI &middot; body copy &middot; navigation</div>
+        <div class="type-specimen-text">Most digital presence is rented. Yours should be owned.</div>
+      </div>
+    </div>
+
+    <h2>Type scale</h2>
+    <table class="data-table">
+      <thead><tr><th>Name</th><th>Size</th><th>Font</th><th>Usage</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">Hero</td><td>64&#8211;72px</td><td>Canela Regular</td><td>Above-fold headline</td></tr>
+        <tr><td class="bold">Display</td><td>40&#8211;48px</td><td>Canela Regular</td><td>Section headlines</td></tr>
+        <tr><td class="bold">Heading</td><td>28&#8211;32px</td><td>Canela Regular</td><td>Sub-sections</td></tr>
+        <tr><td class="bold">Subheading</td><td>20&#8211;24px</td><td>DM Sans 500</td><td>Labels, card titles</td></tr>
+        <tr><td class="bold">Body</td><td>16&#8211;18px</td><td>DM Sans 400</td><td>Paragraph text</td></tr>
+        <tr><td class="bold">Small</td><td>14px</td><td>DM Sans 400</td><td>Captions, meta</td></tr>
+        <tr><td class="bold">Caption</td><td>12px</td><td>DM Sans 400</td><td>Fine print, labels</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <hr class="section-divider">
+
+  <!-- 8. AUDIENCE PERSONAS -->
+  <div class="section">
+    <div class="section-number">08</div>
+    <h1>Audience personas</h1>
+    <p>Native Works serves five distinct personas. The surface language speaks to all. The depth language rewards those who look closer. Each persona hears what they need to hear without the others being excluded.</p>
+
+    <table class="data-table">
+      <thead><tr><th>Persona</th><th>Surface language</th><th>Depth language</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">Mainstream business</td><td>Get found. Look professional. Own your stuff.</td><td>Platform independence. Your IP. Your audience.</td></tr>
+        <tr><td class="bold">Mainstream creator</td><td>Own your audience. Keep your revenue.</td><td>No algorithm. No landlord. No takedowns.</td></tr>
+        <tr><td class="bold">Bitcoin maximalist</td><td>Sovereign. Unstoppable.</td><td>Self-custodied. Permissionless. Bitcoin-native.</td></tr>
+        <tr><td class="bold">Web3 / crypto native</td><td>On-chain identity. Permissionless payments.</td><td>Open protocol. Self-sovereign identity.</td></tr>
+        <tr><td class="bold">Enterprise / institution</td><td>Verified intelligence. Cryptographic proof.</td><td>Bitcoin-settled. Your board will thank you.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<!-- ── FOOTER ─────────────────────────────────────────────────────────── -->
+<div class="footer">
+  <div class="footer-left">
+    <div class="footer-closing">The foundation is complete.</div>
+    <div class="footer-sub">Every wall built from here stands on this.</div>
+  </div>
+  <div class="footer-right">
+    <div class="footer-domain">nativeworks.studio</div>
+    <div class="footer-version">Brand Identity v1.0 &nbsp;&mdash;&nbsp; April 2026</div>
+  </div>
+</div>
+
+</body>
+</html>
