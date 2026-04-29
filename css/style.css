@@ -1019,23 +1019,46 @@ footer::before {
     Use a solid/opaque background instead.
   */
   nav {
-    padding: 18px 24px;
+    position: absolute; /* Changed from fixed - no longer sticks to top */
+    top: 0; left: 0; right: 0;
+    padding: 24px 24px;
     opacity: 1 !important;
     pointer-events: auto !important;
-    background: rgba(234, 229, 220, 0.97);
+    background: transparent; /* Start transparent on mobile absolute nav */
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
-    border-bottom: 1px solid var(--border);
+    border-bottom: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
   /* Nav wordmark: smaller on mobile so it never wraps */
   .nav-wordmark { font-size: 12px; letter-spacing: 1.5px; }
   nav.scrolled {
+    position: absolute; /* Keep absolute so it never sticks to top viewport */
     padding: 14px 24px;
-    /* Keep scrolled state also free of backdrop-filter on mobile */
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
+    background: rgba(234, 229, 220, 0.98);
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
   }
-  .nav-toggle { display: block; }
+  .nav-toggle { 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px; 
+    height: 44px;
+    background: var(--plaster);
+    box-shadow: var(--shadow-raised-sm);
+    border-radius: 4px;
+  }
+  .nav-toggle-line {
+    width: 24px;
+    height: 2px; /* Thicker lines for visibility */
+    left: 10px;
+  }
+  .nav-toggle-line:first-child { top: 17px; }
+  .nav-toggle-line:last-child  { top: 25px; }
 
   /*
     The overlay IS a separate fixed element — it can have backdrop-filter
