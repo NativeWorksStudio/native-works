@@ -1027,6 +1027,8 @@ footer::before {
     -webkit-backdrop-filter: none !important;
     border-bottom: 1px solid var(--border);
   }
+  /* Nav wordmark: smaller on mobile so it never wraps */
+  .nav-wordmark { font-size: 12px; letter-spacing: 1.5px; }
   nav.scrolled {
     padding: 14px 24px;
     /* Keep scrolled state also free of backdrop-filter on mobile */
@@ -1117,12 +1119,15 @@ footer::before {
   /* ── Doctrine ── */
   .doctrine { gap: 48px; }
   .compass-wrap { width: 280px; height: 280px; }
-  /* Compass SVG: scale the SVG element inside to match the smaller wrap */
-  .compass-wrap svg { width: 280px; height: 280px; }
-  .compass-spin-cw   { transform-origin: 140px 140px; }
-  .compass-spin-ccw  { transform-origin: 140px 140px; }
-  .compass-spin-slow { transform-origin: 140px 140px; }
-  .compass-needle    { transform-origin: 140px 140px; }
+  /*
+    SVG transform-origin is always in SVG user-unit coordinates (viewBox space),
+    NOT in CSS pixels of the rendered element. The SVG viewBox is 0 0 420 420,
+    so the center is always at 210 210 regardless of the CSS rendered size.
+    No override needed — keeping the base class values.
+  */
+
+  /* Touch interaction: tapped class triggers the same animation as :hover */
+  .compass-wrap.tapped .compass-needle { transform: rotate(360deg); }
 
   /* ── Close ── */
   .close-line { font-size: clamp(20px, 5vw, 28px); line-height: 1.6; }

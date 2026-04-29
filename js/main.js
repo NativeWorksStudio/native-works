@@ -85,6 +85,23 @@ window.addEventListener('scroll', () => {
   nav.classList.toggle('scrolled', window.scrollY > 60);
 }, { passive: true });
 
+/* ── COMPASS TOUCH INTERACTION ─────────────────────────────────────────── */
+/*
+  On touch devices :hover never fires reliably.
+  Tapping the compass adds .tapped, which CSS uses to trigger the needle
+  rotation (same keyframe as :hover). Class is removed after 1.4s so the
+  animation can be replayed on next tap.
+*/
+const compassWrap = document.querySelector('.compass-wrap');
+if (compassWrap && isTouchDevice) {
+  compassWrap.addEventListener('click', () => {
+    compassWrap.classList.remove('tapped');       // reset if already running
+    void compassWrap.offsetWidth;                 // force reflow to restart transition
+    compassWrap.classList.add('tapped');
+    setTimeout(() => compassWrap.classList.remove('tapped'), 1400);
+  });
+}
+
 
 /* ── PATH LOGIC ─────────────────────────────────────────────────────────── */
 function updatePath(index) {
