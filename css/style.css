@@ -1019,46 +1019,24 @@ footer::before {
     Use a solid/opaque background instead.
   */
   nav {
-    position: fixed; /* User explicitly requested sticky (fisso in alto) */
-    top: 0; left: 0; right: 0;
-    padding: 16px 24px;
+    padding: 18px 24px;
     opacity: 1 !important;
     pointer-events: auto !important;
-    background: rgba(234, 229, 220, 1) !important; /* Solid background requested */
+    background: rgba(234, 229, 220, 1); /* Solid background as requested */
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
-    border-bottom: 1px solid rgba(0,0,0,0.05);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    border-bottom: 1px solid var(--border);
   }
   /* Nav wordmark: smaller on mobile so it never wraps */
   .nav-wordmark { font-size: 12px; letter-spacing: 1.5px; }
   nav.scrolled {
-    position: fixed; 
-    padding: 16px 24px;
-    background: rgba(234, 229, 220, 1) !important;
-    border-bottom: 1px solid rgba(0,0,0,0.05);
+    padding: 14px 24px;
+    background: rgba(234, 229, 220, 1); /* Solid background as requested */
+    /* Keep scrolled state also free of backdrop-filter on mobile */
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
   }
-  .nav-toggle { 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 44px; 
-    height: 44px;
-    background: var(--plaster);
-    box-shadow: var(--shadow-raised-sm);
-    border-radius: 4px;
-  }
-  .nav-toggle-line {
-    width: 24px;
-    height: 2px; /* Thicker lines for visibility */
-    left: 10px;
-  }
-  .nav-toggle-line:first-child { top: 17px; }
-  .nav-toggle-line:last-child  { top: 25px; }
+  .nav-toggle { display: block; }
 
   /*
     The overlay IS a separate fixed element — it can have backdrop-filter
@@ -1085,7 +1063,7 @@ footer::before {
   .nav-cta { width: 100%; max-width: 280px; text-align: center; padding: 16px 24px; font-size: 12px; }
 
   /* ── Hero (UnicornStudio) ── */
-  .hero { height: 45svh; min-height: 320px; }
+  .hero { display: none; /* Hide problematic WebGL canvas on mobile entirely */ }
 
   /* ── Sections spacing ── */
   .intro, .problem, .journey, .how, .products, .doctrine, .close {
