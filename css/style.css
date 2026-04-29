@@ -167,7 +167,7 @@ body.cursor-on-hero #custom-cursor-ring {
 /* ═══════════════════════════════════════════════════════
    NAVIGATION
 ═══════════════════════════════════════════════════════ */
-nav {
+#nav {
   position: fixed; top: 0; left: 0; right: 0;
   z-index: 500; padding: 28px 64px;
   display: flex; align-items: center; justify-content: space-between;
@@ -177,7 +177,7 @@ nav {
   pointer-events: none;
   isolation: isolate;
 }
-nav.scrolled {
+#nav.scrolled {
   background: rgba(234, 229, 220, 0.95);
   backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
   border-bottom: 1px solid var(--border);
@@ -187,8 +187,8 @@ nav.scrolled {
 }
 /* On large viewports keep nav padding bounded */
 @media (min-width: 1600px) {
-  nav { padding: 32px 80px; }
-  nav.scrolled { padding: 20px 80px; }
+  #nav { padding: 32px 80px; }
+  #nav.scrolled { padding: 20px 80px; }
 }
 .nav-logo { display: flex; align-items: center; gap: 14px; text-decoration: none; }
 .nav-wordmark {
@@ -218,8 +218,8 @@ nav.scrolled {
 .nav-toggle-line:last-child  { top: 19px; }
 
 /* Toggle Animation */
-nav.mobile-menu-open .nav-toggle-line:first-child { transform: translateY(3.5px) rotate(45deg); }
-nav.mobile-menu-open .nav-toggle-line:last-child  { transform: translateY(-3.5px) rotate(-45deg); }
+#nav.mobile-menu-open .nav-toggle-line:first-child { transform: translateY(3.5px) rotate(45deg); }
+#nav.mobile-menu-open .nav-toggle-line:last-child  { transform: translateY(-3.5px) rotate(-45deg); }
 
 .nav-links { display: flex; align-items: center; gap: 40px; list-style: none; }
 .nav-links a {
@@ -322,7 +322,7 @@ nav.mobile-menu-open .nav-toggle-line:last-child  { transform: translateY(-3.5px
   position: absolute;
   bottom: 0; left: 0; right: 0;
   height: 80px;
-  background: linear-gradient(to bottom, transparent, rgba(26,23,18,0.06));
+  background: linear-gradient(to bottom, rgba(26,23,18,0), rgba(26,23,18,0.06));
   pointer-events: none;
 }
 
@@ -361,7 +361,7 @@ nav.mobile-menu-open .nav-toggle-line:last-child  { transform: translateY(-3.5px
   content: '';
   position: absolute; top: 0; left: 0; right: 0;
   height: 80px;
-  background: linear-gradient(to bottom, var(--night-2), transparent);
+  background: linear-gradient(to bottom, var(--night-2), rgba(34,30,25,0));
   pointer-events: none; z-index: 0;
 }
 /* Massive ghost typography background */
@@ -424,7 +424,7 @@ nav.mobile-menu-open .nav-toggle-line:last-child  { transform: translateY(-3.5px
 .problem-divider-line {
   position: absolute; top: 0; bottom: 0; left: 50%;
   width: 1px;
-  background: linear-gradient(to bottom, transparent, rgba(142,59,40,0.3) 30%, rgba(142,59,40,0.3) 70%, transparent);
+  background: linear-gradient(to bottom, rgba(142,59,40,0), rgba(142,59,40,0.3) 30%, rgba(142,59,40,0.3) 70%, rgba(142,59,40,0));
 }
 .problem-divider-dot {
   position: absolute; top: 50%; left: 50%;
@@ -592,7 +592,7 @@ nav.mobile-menu-open .nav-toggle-line:last-child  { transform: translateY(-3.5px
 }
 .how-fade-top {
   position: absolute; top: 0; left: 0; right: 0; height: 120px;
-  background: linear-gradient(to bottom, var(--plaster), transparent);
+  background: linear-gradient(to bottom, var(--plaster), rgba(234,229,220,0));
   pointer-events: none; z-index: 1;
 }
 .how-bg-word {
@@ -846,7 +846,7 @@ nav.mobile-menu-open .nav-toggle-line:last-child  { transform: translateY(-3.5px
 }
 .close-fade-top {
   position: absolute; top: 0; left: 0; right: 0; height: 120px;
-  background: linear-gradient(to bottom, var(--plaster), transparent);
+  background: linear-gradient(to bottom, var(--plaster), rgba(234,229,220,0));
   pointer-events: none; z-index: 1;
 }
 /* Ambient glow behind mark */
@@ -904,7 +904,7 @@ footer {
 footer::before {
   content: ''; position: absolute; top: 0; left: 64px; right: 64px;
   height: 1px;
-  background: linear-gradient(to right, transparent, rgba(216, 210, 200, 0.1), transparent);
+  background: linear-gradient(to right, rgba(216,210,200,0), rgba(216, 210, 200, 0.1), rgba(216,210,200,0));
 }
 .footer-mark { display: flex; align-items: center; gap: 18px; }
 .footer-logo-wrap {
@@ -1018,7 +1018,7 @@ footer::before {
     Result: the menu content spills visibly in a tiny strip = "exploded".
     Use a solid/opaque background instead.
   */
-  nav {
+  #nav {
     padding: 18px 24px;
     opacity: 1 !important;
     pointer-events: auto !important;
@@ -1029,7 +1029,7 @@ footer::before {
   }
   /* Nav wordmark: smaller on mobile so it never wraps */
   .nav-wordmark { font-size: 12px; letter-spacing: 1.5px; }
-  nav.scrolled {
+  #nav.scrolled {
     padding: 14px 24px;
     background: rgba(234, 229, 220, 1); /* Solid background as requested */
     /* Keep scrolled state also free of backdrop-filter on mobile */
@@ -1053,7 +1053,7 @@ footer::before {
     z-index: 550;
     pointer-events: none;
   }
-  nav.mobile-menu-open .nav-menu {
+  #nav.mobile-menu-open .nav-menu {
     transform: translateX(0);
     pointer-events: auto;
   }
