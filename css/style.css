@@ -247,21 +247,15 @@ nav.mobile-menu-open .nav-toggle-line:last-child  { transform: translateY(-3.5px
 }
 .hero-unicorn {
   position: absolute; inset: 0; z-index: 0;
-  display: flex; align-items: center; justify-content: center; overflow: hidden;
+  overflow: hidden;
 }
 /*
-  Hero scaling: UnicornStudio embeds a fixed 1440×900 canvas.
-  We scale it down (or up) to always fill the viewport,
-  maintaining the original 1440:900 aspect ratio.
-  CSS transform is GPU-composited — zero layout cost.
+  UnicornStudio renders natively at the container size (100%×100%).
+  No custom JS scaling needed — the WebGL scene adapts to the viewport.
 */
 .hero-unicorn > div {
-  flex-shrink: 0;
-  transform-origin: center center;
-  width: 1440px !important;
-  height: 900px !important;
-  /* Scale so the canvas covers the viewport in both axes */
-  transform: scale(var(--hero-scale, 1));
+  width: 100%;
+  height: 100%;
 }
 
 /* ═══════════════════════════════════════════════════════
@@ -1016,37 +1010,57 @@ footer::before {
 ═══════════════════════════════════════════════════════ */
 @media (max-width: 900px) {
   /* ── Navigation Mobile ── */
+  /*
+    CRITICAL: Do NOT add backdrop-filter or filter to the nav on mobile.
+    Any of those properties create a new "containing block" in CSS,
+    which traps position:fixed children (the .nav-menu overlay) inside
+    the nav's own bounding box (~60px tall) instead of the viewport.
+    Result: the menu content spills visibly in a tiny strip = "exploded".
+    Use a solid/opaque background instead.
+  */
   nav {
     padding: 18px 24px;
-    /* On mobile the hero is full-screen but we always show the nav */
     opacity: 1 !important;
     pointer-events: auto !important;
-    background: rgba(234, 229, 220, 0.96);
-    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    background: rgba(234, 229, 220, 0.97);
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
     border-bottom: 1px solid var(--border);
   }
-  nav.scrolled { padding: 14px 24px; }
+  nav.scrolled {
+    padding: 14px 24px;
+    /* Keep scrolled state also free of backdrop-filter on mobile */
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
   .nav-toggle { display: block; }
 
+  /*
+    The overlay IS a separate fixed element — it can have backdrop-filter
+    safely because it has no fixed-positioned children itself.
+  */
   .nav-menu {
-    position: fixed; top: 0; right: 0; width: 100%; height: 100vh;
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     background: rgba(234, 229, 220, 0.98);
     backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
     flex-direction: column; justify-content: center; align-items: center;
-    padding: 60px 24px; gap: 60px;
-    transform: translateX(100%); transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+    padding: 80px 24px; gap: 48px;
+    transform: translateX(100%);
+    transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
     z-index: 550;
+    pointer-events: none;
+  }
+  nav.mobile-menu-open .nav-menu {
+    transform: translateX(0);
     pointer-events: auto;
   }
-  nav.mobile-menu-open .nav-menu { transform: translateX(0); }
 
-  .nav-links { flex-direction: column; align-items: center; gap: 32px; }
-  .nav-links a { font-size: 20px; letter-spacing: 4px; color: var(--night); }
-  .nav-cta { width: 100%; max-width: 300px; text-align: center; padding: 18px 24px; font-size: 13px; }
+  .nav-links { flex-direction: column; align-items: center; gap: 28px; }
+  .nav-links a { font-size: 18px; letter-spacing: 3px; color: var(--night); }
+  .nav-cta { width: 100%; max-width: 280px; text-align: center; padding: 16px 24px; font-size: 12px; }
 
   /* ── Hero ── */
-  /* Hero must offset the always-visible nav on mobile */
-  .hero { min-height: 100svh; }
+  .hero { height: 100svh; min-height: 500px; }
 
   /* ── Sections spacing ── */
   .intro, .problem, .journey, .how, .products, .doctrine, .close {

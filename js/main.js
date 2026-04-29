@@ -85,31 +85,6 @@ window.addEventListener('scroll', () => {
   nav.classList.toggle('scrolled', window.scrollY > 60);
 }, { passive: true });
 
-/* ── UNICORNSTUDIO SCALE ────────────────────────────────────────────────── */
-/*
-  Set --hero-scale on the .hero element so the CSS rule
-  `.hero-unicorn > div { transform: scale(var(--hero-scale, 1)) }` picks it up.
-  cover-scale = max(vw/1440, vh/900) — the canvas always fills the viewport.
-  Using CSS custom property keeps the transform declaration in the stylesheet
-  (GPU-composited), while JS only writes a single numeric value.
-*/
-function scaleHero() {
-  const hero = document.querySelector('.hero');
-  if (!hero) return;
-  const vw = window.innerWidth;
-  const vh = window.innerHeight;
-  const scale = Math.max(vw / 1440, vh / 900);
-  hero.style.setProperty('--hero-scale', scale);
-}
-
-scaleHero();
-
-/* Debounced resize — avoid excessive recalc during drag-resize */
-let _heroResizeTimer;
-window.addEventListener('resize', () => {
-  clearTimeout(_heroResizeTimer);
-  _heroResizeTimer = setTimeout(scaleHero, 80);
-}, { passive: true });
 
 /* ── PATH LOGIC ─────────────────────────────────────────────────────────── */
 function updatePath(index) {
