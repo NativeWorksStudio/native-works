@@ -9,68 +9,75 @@
 const cursorDot  = document.getElementById('custom-cursor');
 const cursorRing = document.getElementById('custom-cursor-ring');
 
-if (window.matchMedia('(pointer: coarse)').matches) {
+const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
+if (isTouchDevice) {
   document.body.classList.add('touch-device');
 }
 
-document.addEventListener('mousemove', e => {
-  const x = e.clientX;
-  const y = e.clientY;
-  const pos = `translate(${x}px,${y}px) translate(-50%,-50%)`;
+if (!isTouchDevice) {
+  document.addEventListener('mousemove', e => {
+    const x = e.clientX;
+    const y = e.clientY;
+    const pos = `translate(${x}px,${y}px) translate(-50%,-50%)`;
 
-  /* Dot: aggiornamento istantaneo (no transition su transform) */
-  cursorDot.style.transform = pos;
+    /* Dot: aggiornamento istantaneo (no transition su transform) */
+    cursorDot.style.transform = pos;
 
-  /*
-    Ring: stessa posizione target, ma la CSS transition (0.14s) crea
-    automaticamente il trailing — il browser si occupa di tutto.
-  */
-  cursorRing.style.transform = pos;
-});
-
-/* Hover state — classe CSS per dot e ring */
-document.querySelectorAll('a, button, .product-card, .how-card, .path-node').forEach(el => {
-  el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
-  el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
-});
-
-/* ── CINEMATIC HOVER TRACKING (Glint & Tilt) ────────────────────────────── */
-document.querySelectorAll('.how-card, .product-card, .path-node').forEach(card => {
-  card.addEventListener('mousemove', e => {
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    
-    // Set CSS variables for radial gradients (glint)
-    card.style.setProperty('--mouse-x', `${x}px`);
-    card.style.setProperty('--mouse-y', `${y}px`);
-
-    // Only apply 3D tilt to product cards for dramatic effect
-    if (card.classList.contains('product-card')) {
-      const centerX = rect.width / 2;
-      const centerY = rect.height / 2;
-      
-      // Calculate rotation (-3 to 3 degrees max)
-      const rotateX = ((y - centerY) / centerY) * -3; 
-      const rotateY = ((x - centerX) / centerX) * 3;
-      
-      card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(0)`;
-    }
+    /*
+      Ring: stessa posizione target, ma la CSS transition (0.14s) crea
+      automaticamente il trailing — il browser si occupa di tutto.
+    */
+    cursorRing.style.transform = pos;
   });
 
-  card.addEventListener('mouseleave', () => {
-    if (card.classList.contains('product-card')) {
-      card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0)`;
-    }
+  /* Hover state — classe CSS per dot e ring */
+  document.querySelectorAll('a, button, .product-card, .how-card, .path-node').forEach(el => {
+    el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+    el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
   });
-});
 
-/* Nascondi sulla hero (WebGL) */
-const heroSection = document.querySelector('.hero');
-if (heroSection) {
-  heroSection.addEventListener('mouseenter', () => document.body.classList.add('cursor-on-hero'));
-  heroSection.addEventListener('mouseleave', () => document.body.classList.remove('cursor-on-hero'));
+  /* Nascondi sulla hero (WebGL) */
+  const heroSection = document.querySelector('.hero');
+  if (heroSection) {
+    heroSection.addEventListener('mouseenter', () => document.body.classList.add('cursor-on-hero'));
+    heroSection.addEventListener('mouseleave', () => document.body.classList.remove('cursor-on-hero'));
+  }
 }
+
+if (!isTouchDevice) {
+  /* ── CINEMATIC HOVER TRACKING (Glint & Tilt) ────────────────────────────── */
+  document.querySelectorAll('.how-card, .product-card, .path-node').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      
+      // Set CSS variables for radial gradients (glint)
+      card.style.setProperty('--mouse-x', `${x}px`);
+      card.style.setProperty('--mouse-y', `${y}px`);
+
+      // Only apply 3D tilt to product cards for dramatic effect
+      if (card.classList.contains('product-card')) {
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        
+        // Calculate rotation (-3 to 3 degrees max)
+        const rotateX = ((y - centerY) / centerY) * -3; 
+        const rotateY = ((x - centerX) / centerX) * 3;
+        
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(0)`;
+      }
+    });
+
+    card.addEventListener('mouseleave', () => {
+      if (card.classList.contains('product-card')) {
+        card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0)`;
+      }
+    });
+  });
+}
+
+
 
 /* ── NAV SCROLL STATE ──────────────────────────────────────────────────── */
 const nav = document.getElementById('nav');
@@ -79,16 +86,30 @@ window.addEventListener('scroll', () => {
 }, { passive: true });
 
 /* ── UNICORNSTUDIO SCALE ────────────────────────────────────────────────── */
-function scaleUnicorn() {
-  const c = document.getElementById('unicorn-container');
-  if (!c) return;
-  const e = c.querySelector('[data-us-project]');
-  if (!e) return;
-  const scale = Math.max(window.innerWidth / 1440, window.innerHeight / 900);
-  e.style.transform = `scale(${scale})`;
+/*
+  Set --hero-scale on the .hero element so the CSS rule
+  `.hero-unicorn > div { transform: scale(var(--hero-scale, 1)) }` picks it up.
+  cover-scale = max(vw/1440, vh/900) — the canvas always fills the viewport.
+  Using CSS custom property keeps the transform declaration in the stylesheet
+  (GPU-composited), while JS only writes a single numeric value.
+*/
+function scaleHero() {
+  const hero = document.querySelector('.hero');
+  if (!hero) return;
+  const vw = window.innerWidth;
+  const vh = window.innerHeight;
+  const scale = Math.max(vw / 1440, vh / 900);
+  hero.style.setProperty('--hero-scale', scale);
 }
-scaleUnicorn();
-window.addEventListener('resize', scaleUnicorn, { passive: true });
+
+scaleHero();
+
+/* Debounced resize — avoid excessive recalc during drag-resize */
+let _heroResizeTimer;
+window.addEventListener('resize', () => {
+  clearTimeout(_heroResizeTimer);
+  _heroResizeTimer = setTimeout(scaleHero, 80);
+}, { passive: true });
 
 /* ── PATH LOGIC ─────────────────────────────────────────────────────────── */
 function updatePath(index) {
@@ -128,3 +149,25 @@ const revealObserver = new IntersectionObserver(entries => {
 document.querySelectorAll(
   '.reveal, .focus-reveal, .product-card, .close-mark, .close-line, .close-sub, .close-cta'
 ).forEach(el => revealObserver.observe(el));
+
+
+/* ── MOBILE MENU TOGGLE ────────────────────────────────────────────────── */
+const navToggle = document.getElementById('nav-toggle');
+const navLinkItems = document.querySelectorAll('.nav-links a, .nav-cta');
+
+if (navToggle) {
+  navToggle.addEventListener('click', () => {
+    const isOpen = nav.classList.toggle('mobile-menu-open');
+    navToggle.setAttribute('aria-expanded', isOpen);
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  });
+}
+
+// Close menu when clicking a link
+navLinkItems.forEach(link => {
+  link.addEventListener('click', () => {
+    nav.classList.remove('mobile-menu-open');
+    if (navToggle) navToggle.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  });
+});
