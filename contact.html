@@ -57,7 +57,7 @@
       <p class="form-subtitle">Reach out to begin your sovereign digital journey.</p>
     </div>
     
-    <form id="contact-form" onsubmit="handleMailtoSubmit(event)">
+    <form action="send_email.php" method="POST">
 
       <div class="form-group">
         <label for="name" class="form-label">Name</label>
@@ -117,27 +117,6 @@
   </div>
 </footer>
 
-<!-- Mailto Form Logic -->
-<script>
-function handleMailtoSubmit(event) {
-  event.preventDefault();
-  
-  const name = document.getElementById('name').value;
-  const email = document.getElementById('email').value;
-  const discovery = document.getElementById('discovery').value;
-  const message = document.getElementById('message').value;
-  
-  const subject = encodeURIComponent(`New Contact Request from ${name}`);
-  const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\nDiscovered via: ${discovery}\n\nMessage:\n${message}`);
-  
-  window.location.href = `mailto:info@nativeworks.studio?subject=${subject}&body=${body}`;
-  
-  // Opzionale: reindirizza alla pagina di ringraziamento dopo un breve ritardo
-  setTimeout(() => {
-    window.location.href = "thank-you.html";
-  }, 1000);
-}
-</script>
 <script src="js/main.js" defer></script>
 </body>
 </html>
