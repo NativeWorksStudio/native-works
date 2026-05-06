@@ -1158,3 +1158,111 @@ footer::before {
   /* Stats stay centered and readable */
   .stat-num { font-size: 44px; letter-spacing: -1px; }
 }
+
+/* ═══════════════════════════════════════════════════════
+   FORM ELEMENTS
+═══════════════════════════════════════════════════════ */
+.form-section {
+  padding: 160px clamp(24px, 5vw, 80px);
+  background: var(--plaster);
+  min-height: calc(100vh - 200px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form-container {
+  max-width: 600px;
+  width: 100%;
+  background: var(--plaster-light);
+  padding: 60px clamp(30px, 5vw, 60px);
+  box-shadow: var(--shadow-raised);
+  border-radius: 4px;
+}
+
+.form-header {
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.form-title {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 4vw, 48px);
+  font-weight: 400;
+  color: var(--night);
+  margin-bottom: 16px;
+  text-shadow: var(--text-engraved);
+}
+
+.form-subtitle {
+  font-size: 15px;
+  color: #4A4740;
+  font-weight: 300;
+}
+
+.form-group {
+  margin-bottom: 24px;
+  position: relative;
+}
+
+.form-label {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--mid);
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.form-input,
+.form-select,
+.form-textarea {
+  width: 100%;
+  background: var(--plaster);
+  border: 1px solid var(--border);
+  padding: 14px 16px;
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: var(--night);
+  border-radius: 2px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  box-shadow: var(--shadow-engraved-sm);
+  outline: none;
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+  border-color: var(--true-north);
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.form-submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  font-size: 11px;
+  letter-spacing: 2.5px;
+  color: var(--plaster);
+  background: var(--night);
+  padding: 18px 38px;
+  border: none;
+  border-radius: 2px;
+  cursor: none;
+  transition: background 0.3s, transform 0.3s;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-top: 16px;
+}
+
+.form-submit:hover {
+  background: var(--true-north);
+  transform: translateY(-1px);
+}
