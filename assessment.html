@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sovereign Assessment — Native Works</title>
+<meta name="description" content="Evaluate your digital presence and discover how to transition from a tenant on rented platforms to a sovereign owner.">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,200;0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet">
+
+<!-- Styles -->
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- Cursore: dot + trailing ring -->
+<div id="custom-cursor" aria-hidden="true"></div>
+<div id="custom-cursor-ring" aria-hidden="true"></div>
+
+<!-- ── NAVIGATION ──────────────────────────────────────────────────────── -->
+<nav id="nav" class="scrolled" style="opacity: 1 !important; pointer-events: auto !important;">
+  <a href="index.html" class="nav-logo" aria-label="Native Works home">
+    <svg width="30" height="30" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <circle cx="16" cy="16" r="14" stroke="#1E1B17" stroke-width="0.75" fill="none"/>
+      <path d="M16,16 L17.2,11 L16,2 L14.8,11 Z" fill="#8E3B28"/>
+      <path d="M16,16 L17,19.5 L16,25 L15,19.5 Z" fill="#1E1B17"/>
+      <circle cx="16" cy="16" r="2" fill="#1E1B17"/>
+    </svg>
+    <div class="nav-wordmark">NATIVE WORKS</div>
+  </a>
+
+  <!-- Mobile Toggle -->
+  <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+    <span class="nav-toggle-line"></span>
+    <span class="nav-toggle-line"></span>
+  </button>
+
+  <div class="nav-menu" id="nav-menu">
+    <ul class="nav-links" role="list">
+      <li><a href="index.html#journey">The Path</a></li>
+      <li><a href="index.html#how">How it works</a></li>
+      <li><a href="index.html#products">Products</a></li>
+      <li><a href="assessment.html" class="active">Assessment</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+
+    <a href="index.html#products" class="nav-cta" id="nav-cta">Own your presence →</a>
+  </div>
+</nav>
+
+<!-- ── FORM SECTION ────────────────────────────────────────────────────── -->
+<section class="form-section assessment-section">
+  <!-- Immersive blueprint background SVG inside the section -->
+  <svg class="intro-bg-svg" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="opacity: 0.045;">
+    <circle cx="250" cy="250" r="240" stroke="#1E1B17" stroke-width="0.5"/>
+    <circle cx="250" cy="250" r="180" stroke="#1E1B17" stroke-width="0.5" stroke-dasharray="4 8"/>
+    <circle cx="250" cy="250" r="120" stroke="#8E3B28" stroke-width="0.5" opacity="0.5"/>
+    <circle cx="250" cy="250" r="60"  stroke="#1E1B17" stroke-width="0.5"/>
+    <line x1="10"  y1="250" x2="490" y2="250" stroke="#1E1B17" stroke-width="0.4"/>
+    <line x1="250" y1="10"  x2="250" y2="490" stroke="#1E1B17" stroke-width="0.4"/>
+  </svg>
+
+  <div class="form-container assessment-container reveal visible">
+    
+    <!-- Progress tracker -->
+    <div class="assessment-progress-wrapper">
+      <div class="assessment-progress-header">
+        <span class="assessment-step-count" id="step-count">01 / 04</span>
+        <span class="assessment-step-label" id="step-label">Foundation</span>
+      </div>
+      <div class="assessment-progress-bar">
+        <div class="assessment-progress-line" id="progress-line" style="width: 25%;"></div>
+      </div>
+    </div>
+
+    <form id="assessment-form" action="https://formsubmit.co/antonio.visceglia@nativeworks.studio" method="POST">
+      <!-- Hidden config elements for FormSubmit -->
+      <input type="hidden" name="_cc" value="info@nativeworks.studio">
+      <input type="hidden" name="_next" value="https://www.nativeworks.studio/thank-you.html">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_subject" value="New Sovereignty Assessment Result — Native Works">
+      <input type="hidden" name="_template" value="box">
+
+      <!-- Hidden payload fields to send client choices in email -->
+      <input type="hidden" id="payload-scores" name="scores" value="">
+      <input type="hidden" id="payload-recommendation" name="recommendation" value="">
+      <input type="hidden" id="payload-q1" name="q1" value="">
+      <input type="hidden" id="payload-q2" name="q2" value="">
+      <input type="hidden" id="payload-q3" name="q3" value="">
+      <input type="hidden" id="payload-q4" name="q4" value="">
+      <input type="hidden" id="payload-q5" name="q5" value="">
+      <input type="hidden" id="payload-q6" name="q6" value="">
+
+      <!-- STEP 1: AI Familiarity -->
+      <div class="wizard-step active" id="step-1" role="group" aria-labelledby="step-1-title">
+        <div class="wizard-step-header">
+          <span class="wizard-step-num">Step 01</span>
+          <h2 class="wizard-step-title" id="step-1-title">AI Familiarity</h2>
+          <p class="wizard-step-desc">Establish your current relationship with artificial intelligence and automations.</p>
+        </div>
+
+        <div class="wizard-questions-container">
+          <!-- Question 1 -->
+          <div class="wizard-question-block" style="margin-bottom: 48px;">
+            <h3 class="wizard-question-text" id="q1-title" style="font-family: var(--font-display); font-size: clamp(18px, 2.2vw, 23px); font-weight: 400; color: var(--night); margin-bottom: 18px;">How do you use AI tools today?</h3>
+            <div class="options-grid">
+              <label class="option-card" for="q1-a">
+                <input type="radio" id="q1-a" name="q1" value="A" class="visually-hidden" required>
+                <div class="option-card-content">
+                  <span class="option-num">A</span>
+                  <p class="option-desc" style="font-size: 14px; font-weight: 400; color: var(--night); margin: 0; line-height: 1.45;">I don't use AI yet</p>
+                </div>
+              </label>
+
+              <label class="option-card" for="q1-b">
+                <input type="radio" id="q1-b" name="q1" value="B" class="visually-hidden">
+                <div class="option-card-content">
+                  <span class="option-num">B</span>
+                  <p class="option-desc" style="font-size: 14px; font-weight: 400; color: var(--night); margin: 0; line-height: 1.45;">I try things occasionally but nothing sticks</p>
+                </div>
+              </label>
+
+              <label class="option-card" for="q1-c">
+                <input type="radio" id="q1-c" name="q1" value="C" class="visually-hidden">
+                <div class="option-card-content">
+                  <span class="option-num">C</span>
+                  <p class="option-desc" style="font-size: 14px; font-weight: 400; color: var(--night); margin: 0; line-height: 1.45;">I use one or two tools regularly for specific tasks</p>
+                </div>
+              </label>
+
+              <label class="option-card" for="q1-d">
+                <input type="radio" id="q1-d" name="q1" value="D" class="visually-hidden">
+                <div class="option-card-content">
+                  <span class="option-num">D</span>
+                  <p class="option-desc" style="font-size: 14px; font-weight: 400; color: var(--night); margin: 0; line-height: 1.45;">AI is part of how I work every day</p>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Question 2 -->
+          <div class="wizard-question-block">
+            <h3 class="wizard-question-text" id="q2-title" style="font-family: var(--font-display); font-size: clamp(18px, 2.2vw, 23px); font-weight: 400; color: var(--night); margin-bottom: 18px;">Where does AI actually help you right now?</h3>
+            <div class="options-grid">
+              <label class="option-card" for="q2-a">
+                <input type="radio" id="q2-a" name="q2" value="A" class="visually-hidden" required>
+                <div class="option-card-content">
+                  <span class="option-num">A</span>
+                  <p class="option-desc" style="font-size: 14px; font-weight: 400; color: var(--night); margin: 0; line-height: 1.45;">Nowhere, I haven't found a real use yet</p>
+                </div>
+              </label>
+
+              <label class="option-card" for="q2-b">
+                <input type="radio" id="q2-b" name="q2" value="B" class="visually-hidden">
+                <div class="option-card-content">
+                  <span class="option-num">B</span>
+                  <p class="option-desc" style="font-size: 14px; font-weight: 400; color: var(--night); margin: 0; line-height: 1.45;">Writing or editing content</p>
+                </div>
+              </label>
+
+              <label class="option-card" for="q2-c">
+                <input type="radio" id="q2-c" name="q2" value="C" class="visually-hidden">
+                <div class="option-card-content">
+                  <span class="option-num">C</span>
+                  <p class="option-desc" style="font-size: 14px; font-weight: 400; color: var(--night); margin: 0; line-height: 1.45;">Visuals or creative production</p>
+                </div>
+              </label>
+
+              <label class="option-card" for="q2-d">
+                <input type="radio" id="q2-d" name="q2" value="D" class="visually-hidden">
+                <div class="option-card-content">
+                  <span class="option-num">D</span>
+                  <p class="option-desc" style="font-size: 14px; font-weight: 400; color: var(--night); margin: 0; line-height: 1.45;">Automating repetitive tasks</p>
+                </div>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 2: Workflow -->
+      <div class="wizard-step" id="step-2" role="group" aria-labelledby="step-2-title">
+        <div class="wizard-step-header">
+          <span class="wizard-step-num">Step 02</span>
+          <h2 class="wizard-step-title" id="step-2-title">Workflow</h2>
+          <p class="wizard-step-desc">Identifying operational bottlenecks and future automated efficiency gains.</p>
+        </div>
+
+        <div class="wizard-questions-container">
+          <!-- Question 3 -->
+          <div class="wizard-question-block" style="margin-bottom: 48px;">
+            <h3 class="wizard-question-text" id="q3-title" style="font-family: var(--font-display); font-size: clamp(18px, 2.2vw, 23px); font-weight: 400; color: var(--night); margin-bottom: 18px;">What still eats most of your time each week?</h3>
+            <div class="options-grid">
+              <label class="option-card" for="q3-a">
+                <input type="radio" id="q3-a" name="q3" value="A" class="visually-hidden" required>
+                <div class="option-card-content">
+                  <span class="option-num">A</span>
+                  <p class="option-desc" style="font-size: 14px; font-weight: 400; color: var(--night); margin: 0; line-height: 1.45;">Creating content consistently</p>
+                </div>
+              </label>
+
+              <label class="option-card" for="q3-b">
+                <input type="radio" id="q3-b" name="q3" value="B" class="visually-hidden">
+                <div class="option-card-content">
+                  <span class="option-num">B</span>
+                  <p class="option-desc" style="font-size: 14px; font-weight: 400; color: var(--night); margin: 0; line-height: 1.45;">Managing clients or audience communication</p>
+                </div>
+              </label>
+
+              <label class="option-card" for="q3-c">
+                <input type="radio" id="q3-c" name="q3" value="C" class="visually-hidden">
+                <div class="option-card-content">
+                  <span class="option-num">C</span>
+                  <p class="option-desc" style="font-size: 14px; font-weight: 400; color: var(--night); margin: 0; line-height: 1.45;">Running the technical side of my business</p>
+                </div>
+              </label>
+
+              <label class="option-card" for="q3-d">
+                <input type="radio" id="q3-d" name="q3" value="D" class="visually-hidden">
+                <div class="option-card-content">
+                  <span class="option-num">D</span>
+                  <p class="option-desc" style="font-size: 14px; font-weight: 400; color: var(--night); margin: 0; line-height: 1.45;">Juggling too many tools at once</p>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Question 4 -->
+          <div class="wizard-question-block">
+            <h3 class="wizard-question-text" id="q4-title" style="font-family: var(--font-display); font-size: clamp(18px, 2.2vw, 23px); font-weight: 400; color: var(--night); margin-bottom: 18px;">If AI worked perfectly for you tomorrow, what would change first?</h3>
+            <div class="options-grid">
+              <label class="option-card" for="q4-a">
+                <input type="radio" id="q4-a" name="q4" value="A" class="visually-hidden" required>
+                <div class="option-card-content">
+                  <span class="option-num">A</span>
+                  <p class="option-desc" style="font-size: 14px; font-weight: 400; color: var(--night); margin: 0; line-height: 1.45;">I would publish more without burning out</p>
+                </div>
+              </label>
+
+              <label class="option-card" for="q4-b">
+                <input type="radio" id="q4-b" name="q4" value="B" class="visually-hidden">
+                <div class="option-card-content">
+                  <span class="option-num">B</span>
+                  <p class="option-desc" style="font-size: 14px; font-weight: 400; color: var(--night); margin: 0; line-height: 1.45;">I would spend less time on admin</p>
+                </div>
+              </label>
+
+              <label class="option-card" for="q4-c">
+                <input type="radio" id="q4-c" name="q4" value="C" class="visually-hidden">
+                <div class="option-card-content">
+                  <span class="option-num">C</span>
+                  <p class="option-desc" style="font-size: 14px; font-weight: 400; color: var(--night); margin: 0; line-height: 1.45;">I would grow my audience without depending on algorithms</p>
+                </div>
+              </label>
+
+              <label class="option-card" for="q4-d">
+                <input type="radio" id="q4-d" name="q4" value="D" class="visually-hidden">
+                <div class="option-card-content">
+                  <span class="option-num">D</span>
+                  <p class="option-desc" style="font-size: 14px; font-weight: 400; color: var(--night); margin: 0; line-height: 1.45;">My business would run even when I am not online</p>
+                </div>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 3: Digital presence -->
+      <div class="wizard-step" id="step-3" role="group" aria-labelledby="step-3-title">
+        <div class="wizard-step-header">
+          <span class="wizard-step-num">Step 03</span>
+          <h2 class="wizard-step-title" id="step-3-title">Digital presence</h2>
+          <p class="wizard-step-desc">Evaluating where your audience and primary commercial operations live today.</p>
+        </div>
+
+        <div class="wizard-questions-container">
+          <!-- Question 5 -->
+          <div class="wizard-question-block">
+            <h3 class="wizard-question-text" id="q5-title" style="font-family: var(--font-display); font-size: clamp(18px, 2.2vw, 23px); font-weight: 400; color: var(--night); margin-bottom: 18px;">Where does your business live right now?</h3>
+            <div class="options-grid">
+              <label class="option-card" for="q5-a">
+                <input type="radio" id="q5-a" name="q5" value="A" class="visually-hidden" required>
+                <div class="option-card-content">
+                  <span class="option-num">A</span>
+                  <p class="option-desc" style="font-size: 14px; font-weight: 400; color: var(--night); margin: 0; line-height: 1.45;">Mainly on social media</p>
+                </div>
+              </label>
+
+              <label class="option-card" for="q5-b">
+                <input type="radio" id="q5-b" name="q5" value="B" class="visually-hidden">
+                <div class="option-card-content">
+                  <span class="option-num">B</span>
+                  <p class="option-desc" style="font-size: 14px; font-weight: 400; color: var(--night); margin: 0; line-height: 1.45;">On a platform like Shopify, Substack or Squarespace</p>
+                </div>
+              </label>
+
+              <label class="option-card" for="q5-c">
+                <input type="radio" id="q5-c" name="q5" value="C" class="visually-hidden">
+                <div class="option-card-content">
+                  <span class="option-num">C</span>
+                  <p class="option-desc" style="font-size: 14px; font-weight: 400; color: var(--night); margin: 0; line-height: 1.45;">I have a website but still rely on platforms for reach or revenue</p>
+                </div>
+              </label>
+
+              <label class="option-card" for="q5-d">
+                <input type="radio" id="q5-d" name="q5" value="D" class="visually-hidden">
+                <div class="option-card-content">
+                  <span class="option-num">D</span>
+                  <p class="option-desc" style="font-size: 14px; font-weight: 400; color: var(--night); margin: 0; line-height: 1.45;">My own site on my own infrastructure</p>
+                </div>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 4: Sovereignty -->
+      <div class="wizard-step" id="step-4" role="group" aria-labelledby="step-4-title">
+        <div class="wizard-step-header">
+          <span class="wizard-step-num">Step 04</span>
+          <h2 class="wizard-step-title" id="step-4-title">Sovereignty</h2>
+          <p class="wizard-step-desc">Determining your exposure to platform lock-in and unexpected policy shifts.</p>
+        </div>
+
+        <div class="wizard-questions-container">
+          <!-- Question 6 -->
+          <div class="wizard-question-block">
+            <h3 class="wizard-question-text" id="q6-title" style="font-family: var(--font-display); font-size: clamp(18px, 2.2vw, 23px); font-weight: 400; color: var(--night); margin-bottom: 18px;">If one of those platforms changed its rules tomorrow, what would you lose?</h3>
+            <div class="options-grid">
+              <label class="option-card" for="q6-a">
+                <input type="radio" id="q6-a" name="q6" value="A" class="visually-hidden" required>
+                <div class="option-card-content">
+                  <span class="option-num">A</span>
+                  <p class="option-desc" style="font-size: 14px; font-weight: 400; color: var(--night); margin: 0; line-height: 1.45;">Everything, I would have to start over</p>
+                </div>
+              </label>
+
+              <label class="option-card" for="q6-b">
+                <input type="radio" id="q6-b" name="q6" value="B" class="visually-hidden">
+                <div class="option-card-content">
+                  <span class="option-num">B</span>
+                  <p class="option-desc" style="font-size: 14px; font-weight: 400; color: var(--night); margin: 0; line-height: 1.45;">A lot, reach and revenue would take a serious hit</p>
+                </div>
+              </label>
+
+              <label class="option-card" for="q6-c">
+                <input type="radio" id="q6-c" name="q6" value="C" class="visually-hidden">
+                <div class="option-card-content">
+                  <span class="option-num">C</span>
+                  <p class="option-desc" style="font-size: 14px; font-weight: 400; color: var(--night); margin: 0; line-height: 1.45;">Some, I would recover but it would hurt</p>
+                </div>
+              </label>
+
+              <label class="option-card" for="q6-d">
+                <input type="radio" id="q6-d" name="q6" value="D" class="visually-hidden">
+                <div class="option-card-content">
+                  <span class="option-num">D</span>
+                  <p class="option-desc" style="font-size: 14px; font-weight: 400; color: var(--night); margin: 0; line-height: 1.45;">Nothing, I own my infrastructure independently</p>
+                </div>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RESULTS STEP (Generated dynamically) -->
+      <div class="wizard-step" id="step-results" role="region" aria-live="polite" aria-labelledby="results-title">
+        <div class="wizard-step-header" style="margin-bottom: 24px;">
+          <span class="wizard-step-num" id="results-diagnostic-eyebrow">Diagnostic Completed</span>
+          <h2 class="wizard-step-title" id="results-title">Your Sovereignty Path Recommendation</h2>
+          <p class="wizard-step-desc">Based on your answers, we have evaluated your setup and custom-tailored a direct route.</p>
+        </div>
+
+        <!-- Custom Result Box -->
+        <div class="recommendation-card">
+          <div class="recommendation-badge" id="rec-badge">Recommendation</div>
+          <h3 class="recommendation-title" id="rec-title">Analyzing...</h3>
+          <p class="recommendation-desc" id="rec-desc">Calculating your sovereignty score...</p>
+          
+        </div>
+
+        <!-- Lead Capture Form fields -->
+        <div class="results-contact-form" style="margin-top: 40px; border-top: 1px solid var(--border); padding-top: 40px;">
+          <h4 class="form-label" style="font-size: 11px; margin-bottom: 24px; text-align: center; color: var(--night);">Secure Your Custom Proposal</h4>
+          
+          <div class="form-group">
+            <label for="client-name" class="form-label">Full Name</label>
+            <input type="text" id="client-name" name="name" class="form-input" required placeholder="Your name">
+          </div>
+
+          <div class="form-group">
+            <label for="client-email" class="form-label">Email Address</label>
+            <input type="email" id="client-email" name="email" class="form-input" required placeholder="your@email.com">
+          </div>
+
+          <div class="form-group">
+            <label for="client-message" class="form-label">Tell us more about your timeline or brand vision (Optional)</label>
+            <textarea id="client-message" name="message" class="form-textarea" placeholder="Include any links to your current website, social pages, or specific goals..."></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Navigation Buttons -->
+      <div class="wizard-navigation">
+        <button type="button" id="btn-back" class="wizard-nav-btn btn-secondary visually-hidden">← Previous</button>
+        <button type="button" id="btn-next" class="wizard-nav-btn btn-primary" enterkeyhint="next">Next Step →</button>
+        <button type="submit" id="btn-submit" class="wizard-nav-btn btn-submit visually-hidden">Submit & Claim Proposal →</button>
+      </div>
+
+    </form>
+  </div>
+</section>
+
+<!-- ── FOOTER ─────────────────────────────────────────────────────────── -->
+<footer>
+  <div>
+    <div class="footer-mark">
+      <div class="footer-logo-wrap">
+        <svg width="24" height="24" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="16" cy="16" r="14" stroke="#D8D2C8" stroke-width="0.75" fill="none" opacity="0.4"/>
+          <path d="M16,16 L17.2,11 L16,2 L14.8,11 Z" fill="#8E3B28"/>
+          <path d="M16,16 L17,19.5 L16,25 L15,19.5 Z" fill="#D8D2C8"/>
+          <circle cx="16" cy="16" r="2" fill="#D8D2C8"/>
+        </svg>
+      </div>
+      <div class="footer-wordmark">NATIVE WORKS</div>
+    </div>
+  </div>
+
+  <nav class="footer-center" aria-label="Footer navigation">
+    <a href="index.html#journey">The Path</a>
+    <a href="index.html#how">How it works</a>
+    <a href="index.html#products">Products</a>
+    <a href="assessment.html" class="active">Assessment</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+
+  <div class="footer-right">
+    <div class="footer-copy">© 2026 Native Works &nbsp;—&nbsp; nativeworks.studio</div>
+  </div>
+</footer>
+
+<!-- Scripts -->
+<script src="js/main.js" defer></script>
+<script src="js/assessment.js" defer></script>
+</body>
+</html>

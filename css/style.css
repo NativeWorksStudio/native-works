@@ -226,7 +226,8 @@ body.cursor-on-hero #custom-cursor-ring {
   font-size: 11px; letter-spacing: 2px; color: var(--mid);
   text-decoration: none; transition: color 0.2s; text-transform: uppercase;
 }
-.nav-links a:hover { color: var(--night); }
+.nav-links a:hover,
+.nav-links a.active { color: var(--night); font-weight: 500; }
 .nav-cta {
   font-size: 11px; letter-spacing: 2px; color: var(--night); text-transform: uppercase;
   text-decoration: none; padding: 10px 26px;
@@ -924,7 +925,9 @@ footer::before {
   font-size: 11px; letter-spacing: 2px; color: #8A847E; text-decoration: none;
   font-weight: 400; transition: color 0.3s, transform 0.3s; text-transform: uppercase; display: inline-block;
 }
-.footer-center a:hover { color: var(--warm-white); transform: translateY(-1px); }
+.footer-center a:hover,
+.footer-center a.active { color: var(--warm-white); font-weight: 500; }
+.footer-center a:hover { transform: translateY(-1px); }
 .footer-right { text-align: right; }
 .footer-copy { font-size: 11px; color: #7A7468; letter-spacing: 2px; font-weight: 300; text-transform: uppercase; }
 
@@ -1265,4 +1268,734 @@ footer::before {
 .form-submit:hover {
   background: var(--true-north);
   transform: translateY(-1px);
+}
+
+/* ── WIZARD AND ASSESSMENT SYSTEM ───────────────────────────────────────────
+   Coherent with Native Works brand identity and forms
+   - Neumorphic option-card active states
+   - Slide-fade transitions
+   - Results evaluation terminal
+   ────────────────────────────────────────────────────────────────────────── */
+.assessment-section {
+  position: relative;
+  overflow: hidden;
+}
+
+.assessment-container {
+  max-width: 800px;
+  min-height: 520px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Progress Tracker */
+.assessment-progress-wrapper {
+  margin-bottom: 48px;
+}
+
+.assessment-progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.assessment-step-count {
+  font-family: var(--font-body);
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--true-north);
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.assessment-step-label {
+  font-family: var(--font-display);
+  font-size: 14px;
+  letter-spacing: 1px;
+  color: var(--mid);
+  font-style: italic;
+  text-transform: uppercase;
+}
+
+.assessment-progress-bar {
+  width: 100%;
+  height: 6px;
+  background: var(--plaster-dark);
+  box-shadow: var(--shadow-engraved-sm);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.assessment-progress-line {
+  height: 100%;
+  background: var(--true-north);
+  border-radius: 3px;
+  width: 25%;
+  transition: width 0.6s cubic-bezier(0.25, 1, 0.25, 1);
+}
+
+/* Step Layout & Transition */
+.wizard-step {
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  transform: translateY(18px);
+  transition: opacity 0.5s cubic-bezier(0.25, 1, 0.25, 1), 
+              transform 0.5s cubic-bezier(0.25, 1, 0.25, 1), 
+              visibility 0.5s;
+  pointer-events: none;
+}
+
+.wizard-step.active {
+  opacity: 1;
+  visibility: visible;
+  position: relative;
+  transform: translateY(0);
+  z-index: 2;
+  pointer-events: auto;
+}
+
+.wizard-step-header {
+  margin-bottom: 32px;
+}
+
+.wizard-step-num {
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--mid);
+  margin-bottom: 12px;
+  display: block;
+}
+
+.wizard-step-title {
+  font-family: var(--font-display);
+  font-size: clamp(24px, 3.2vw, 36px);
+  font-weight: 400;
+  line-height: 1.15;
+  color: var(--night);
+  margin-bottom: 12px;
+  text-shadow: var(--text-engraved);
+  outline: none;
+}
+
+.wizard-step-desc {
+  font-size: 14px;
+  color: #5A5650;
+  font-weight: 300;
+}
+
+/* Options Grid & Cards */
+.options-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin-top: 32px;
+  will-change: transform;
+}
+
+.option-card {
+  background: var(--plaster-light);
+  border: 1px solid var(--border);
+  padding: 28px 30px;
+  border-radius: 4px;
+  box-shadow: var(--shadow-raised-sm);
+  cursor: none;
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  transition: all 0.4s cubic-bezier(0.25, 1, 0.25, 1);
+  will-change: transform, box-shadow;
+  position: relative;
+}
+
+.option-card:hover {
+  box-shadow: var(--shadow-raised-hover);
+  border-color: rgba(142, 59, 40, 0.25);
+}
+
+.option-card.selected {
+  background: var(--plaster);
+  border-color: var(--true-north);
+  box-shadow: var(--shadow-engraved);
+  transform: translateY(1px);
+}
+
+.option-card.focus-within {
+  outline: 2px solid var(--true-north);
+  outline-offset: 4px;
+}
+
+.option-card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.option-num {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--mid);
+  background: var(--plaster);
+  box-shadow: var(--shadow-raised-sm);
+  border: 1px solid var(--border);
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.option-card.selected .option-num {
+  background: var(--true-north);
+  color: var(--plaster-light);
+  border-color: var(--true-north);
+  box-shadow: none;
+}
+
+.option-title {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--night);
+  letter-spacing: 0.5px;
+}
+
+.option-desc {
+  font-size: 13px;
+  line-height: 1.6;
+  color: #5A5650;
+  font-weight: 300;
+}
+
+/* Wizard Navigation buttons */
+.wizard-navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 48px;
+  border-top: 1px solid var(--border);
+  padding-top: 32px;
+}
+
+/* Keep previous button on the left, next button on the right */
+.wizard-navigation .btn-secondary {
+  margin-right: auto;
+}
+
+.wizard-navigation .btn-primary, 
+.wizard-navigation .btn-submit {
+  margin-left: auto;
+}
+
+.wizard-nav-btn {
+  padding: 16px 36px;
+  font-family: var(--font-body);
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 600;
+  border-radius: 2px;
+  cursor: none;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  outline: none;
+}
+
+.btn-primary {
+  background: var(--night);
+  color: var(--plaster);
+  box-shadow: var(--shadow-raised-sm);
+}
+
+.btn-primary:hover {
+  background: var(--true-north);
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--mid);
+  border: 1px solid var(--border);
+}
+
+.btn-secondary:hover {
+  color: var(--night);
+  border-color: var(--night);
+}
+
+.btn-submit {
+  background: var(--true-north);
+  color: var(--plaster);
+  box-shadow: var(--shadow-raised-sm);
+}
+
+.btn-submit:hover {
+  background: var(--night);
+  transform: translateY(-1px);
+}
+
+/* Recommendation Results Card */
+.recommendation-card {
+  background: var(--plaster-light);
+  border: 1px solid var(--border);
+  padding: clamp(32px, 5vw, 48px);
+  border-radius: 4px;
+  box-shadow: var(--shadow-raised);
+  margin-top: 36px;
+  position: relative;
+}
+
+.recommendation-badge {
+  position: absolute;
+  top: -14px;
+  left: clamp(24px, 4vw, 48px);
+  padding: 6px 18px;
+  font-family: var(--font-body);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  border-radius: 2px;
+  color: var(--plaster-light);
+}
+
+.badge-foundation {
+  background: var(--true-north);
+}
+
+.badge-stack {
+  background: var(--forest);
+}
+
+.recommendation-title {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 4.5vw, 40px);
+  font-weight: 400;
+  color: var(--night);
+  margin-bottom: 16px;
+  text-shadow: var(--text-engraved);
+  margin-top: 8px;
+}
+
+.recommendation-desc {
+  font-size: 15px;
+  color: #4A4740;
+  line-height: 1.85;
+  font-weight: 300;
+  margin-bottom: 32px;
+}
+
+.recommendation-highlight-box {
+  background: var(--plaster);
+  border: 1px solid var(--border);
+  padding: 32px;
+  border-radius: 2px;
+  box-shadow: var(--shadow-engraved-sm);
+}
+
+.highlight-box-title {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--mid);
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.recommendation-features {
+  list-style: none;
+  margin-bottom: 0;
+}
+
+.recommendation-features li {
+  font-size: 14px;
+  color: var(--mid);
+  padding: 12px 0 12px 22px;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  position: relative;
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+.recommendation-features li:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.recommendation-features li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  color: var(--true-north);
+}
+
+.badge-stack ~ .recommendation-highlight-box .recommendation-features li::before {
+  color: var(--forest);
+}
+
+/* Shake animation for errors */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-6px); }
+  75% { transform: translateX(6px); }
+}
+
+/* Mobile responsive styles for wizard */
+@media (max-width: 768px) {
+  .options-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  .option-card {
+    padding: 20px 24px;
+  }
+  
+  .recommendation-card {
+    padding: 32px 24px;
+  }
+}
+
+/* ── ASSESSMENT PROMO SECTION ───────────────────────────────────────────────
+   Bridges products and doctrine, matches Neumorphic raised aesthetics
+   ────────────────────────────────────────────────────────────────────────── */
+.assessment-promo {
+  background: var(--plaster);
+  padding: 120px clamp(24px, 5vw, 80px);
+  position: relative;
+  overflow: hidden;
+  contain: paint;
+}
+
+.assessment-promo-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  background: var(--plaster-light);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-raised);
+  border-radius: 4px;
+  display: grid;
+  grid-template-columns: 1.25fr 0.75fr;
+  gap: clamp(40px, 5vw, 80px);
+  align-items: center;
+  padding: 80px clamp(32px, 5vw, 64px);
+  position: relative;
+}
+
+.assessment-promo-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  z-index: 2;
+}
+
+.assessment-promo-eyebrow {
+  font-size: 10px;
+  letter-spacing: 4px;
+  color: var(--mid);
+  text-transform: uppercase;
+  font-weight: 500;
+  margin-bottom: 24px;
+}
+
+.assessment-promo-title {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 3.5vw, 52px);
+  font-weight: 400;
+  line-height: 1.1;
+  color: var(--night);
+  margin-bottom: 24px;
+  text-shadow: var(--text-engraved);
+}
+
+.assessment-promo-body {
+  font-size: 15px;
+  color: #4A4740;
+  line-height: 1.95;
+  font-weight: 300;
+  margin-bottom: 40px;
+}
+
+.assessment-promo-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 11px;
+  letter-spacing: 2.5px;
+  color: var(--plaster);
+  background: var(--night);
+  padding: 18px 44px;
+  text-decoration: none;
+  border-radius: 2px;
+  box-shadow: var(--shadow-raised-sm);
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.assessment-promo-cta:hover {
+  background: var(--true-north);
+  box-shadow: var(--shadow-engraved-sm);
+  transform: translateY(1px);
+}
+
+.assessment-promo-visual {
+  width: 100%;
+  max-width: 280px;
+  height: 280px;
+  margin: 0 auto;
+  opacity: 0.85;
+  z-index: 2;
+}
+
+/* Mobile responsive for promo */
+@media (max-width: 900px) {
+  .assessment-promo {
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
+  
+  .assessment-promo-inner {
+    grid-template-columns: 1fr;
+    padding: 48px 32px;
+    gap: 40px;
+  }
+  
+  .assessment-promo-visual {
+    max-width: 200px;
+    height: 200px;
+    order: -1;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════
+   ASSESSMENT WIZARD SCREEN COMPACTION
+   Drastically reduces vertical spacing, margins, and sizes 
+   to fit the multi-step form completely above the fold.
+   ═══════════════════════════════════════════════════════ */
+
+/* Section Padding Reduction */
+.assessment-section {
+  padding-top: 100px !important;
+  padding-bottom: 40px !important;
+  min-height: calc(100vh - 100px) !important;
+}
+
+/* Container Padding & Dimensions */
+.assessment-container {
+  max-width: 850px !important;
+  min-height: auto !important;
+  padding: 30px clamp(24px, 4vw, 40px) !important;
+}
+
+/* Progress Tracker Compaction */
+.assessment-container .assessment-progress-wrapper {
+  margin-bottom: 20px !important;
+}
+
+.assessment-container .assessment-progress-header {
+  margin-bottom: 8px !important;
+}
+
+.assessment-container .assessment-progress-bar {
+  height: 4px !important;
+}
+
+/* Step Header Spacing */
+.assessment-container .wizard-step-header {
+  margin-bottom: 20px !important;
+}
+
+.assessment-container .wizard-step-title {
+  font-size: clamp(20px, 2.5vw, 28px) !important;
+  margin-bottom: 6px !important;
+}
+
+.assessment-container .wizard-step-desc {
+  font-size: 13px !important;
+}
+
+/* Question Sizing & Grid Spacing */
+.assessment-container .wizard-question-block {
+  margin-bottom: 20px !important; /* Reduces space between nested Q1 & Q2 / Q3 & Q4 */
+}
+
+.assessment-container .wizard-question-text {
+  font-size: clamp(15px, 1.8vw, 17px) !important;
+  margin-bottom: 8px !important;
+}
+
+.assessment-container .options-grid {
+  gap: 12px !important;
+  margin-top: 10px !important;
+}
+
+/* Compact Option Cards with Custom Minimalist Radio Bullet */
+.assessment-container .option-card {
+  padding: 10px 16px !important;
+  gap: 12px !important; /* Spacing between visual indicator and description */
+  border-radius: 4px !important;
+  display: flex !important;
+  align-items: center !important; /* Vertically center the bullet and text */
+  justify-content: flex-start !important;
+}
+
+/* Custom circular control box (casella di controllo) */
+.assessment-container .option-card::before {
+  content: '' !important;
+  display: block !important;
+  width: 14px !important;
+  height: 14px !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 50% !important;
+  background: var(--plaster) !important;
+  box-shadow: var(--shadow-engraved-sm) !important;
+  flex-shrink: 0 !important;
+  transition: all 0.3s cubic-bezier(0.25, 1, 0.25, 1) !important;
+}
+
+/* Selected state: turns into a solid true-north dot with an elegant hollow inner ring */
+.assessment-container .option-card.selected::before {
+  border-color: var(--true-north) !important;
+  background: var(--true-north) !important;
+  box-shadow: inset 0 0 0 2px var(--plaster-light) !important;
+}
+
+.assessment-container .option-num {
+  display: none !important; /* Keep standard alphabetical lettering hidden */
+}
+
+.assessment-container .option-card-content {
+  flex-grow: 1 !important;
+  display: block !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.assessment-container .option-desc {
+  font-size: 13px !important;
+  line-height: 1.3 !important;
+  margin: 0 !important;
+}
+
+/* Compact Navigation Bar */
+.assessment-container .wizard-navigation {
+  margin-top: 24px !important;
+  padding-top: 16px !important;
+}
+
+.assessment-container .wizard-nav-btn {
+  padding: 10px 24px !important;
+  font-size: 10px !important;
+}
+
+/* Compact Recommendation / Diagnostic Card */
+.assessment-container .recommendation-card {
+  margin-top: 20px !important;
+  padding: 24px 30px !important;
+}
+
+.assessment-container .recommendation-title {
+  font-size: clamp(22px, 3.5vw, 30px) !important;
+  margin-bottom: 8px !important;
+  margin-top: 4px !important;
+}
+
+.assessment-container .recommendation-desc {
+  font-size: 13px !important;
+  line-height: 1.6 !important;
+  margin-bottom: 16px !important;
+}
+
+.assessment-container .recommendation-highlight-box {
+  padding: 18px 24px !important;
+}
+
+.assessment-container .highlight-box-title {
+  margin-bottom: 10px !important;
+}
+
+.assessment-container .recommendation-features li {
+  font-size: 13px !important;
+  padding: 8px 0 8px 18px !important;
+}
+
+/* Contact Lead Form inside Completion Screen */
+.assessment-container .results-contact-form {
+  margin-top: 20px !important;
+  padding-top: 20px !important;
+}
+
+.assessment-container .results-contact-form h4 {
+  margin-bottom: 16px !important;
+}
+
+.assessment-container .form-group {
+  margin-bottom: 12px !important;
+}
+
+.assessment-container .form-input,
+.assessment-container .form-textarea {
+  padding: 10px 12px !important;
+  font-size: 13px !important;
+}
+
+.assessment-container .form-textarea {
+  min-height: 70px !important;
+}
+
+.assessment-container .wizard-error-msg {
+  margin-top: 8px !important;
+}
+
+/* Mobile viewport support overrides for high-density spacing */
+@media (max-width: 768px) {
+  .assessment-section {
+    padding-top: 85px !important;
+    padding-bottom: 24px !important;
+  }
+  
+  .assessment-container {
+    padding: 20px 20px !important;
+  }
+  
+  .assessment-container .options-grid {
+    grid-template-columns: 1fr !important;
+    gap: 8px !important;
+  }
+  
+  .assessment-container .option-card {
+    padding: 10px 14px !important;
+  }
+}
+
+/* ── VISUALLY HIDDEN — Accessible off-screen inputs ─────────────────────────
+   Hides native browser controls (radio, checkbox) from view while keeping them
+   in the DOM and focusable for keyboard / screen-reader users.
+   ────────────────────────────────────────────────────────────────────────── */
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+  appearance: none !important;
+  -webkit-appearance: none !important;
 }
