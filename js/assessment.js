@@ -3,222 +3,182 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!form) return;
 
   let currentStep = 1;
-  const totalSteps = 4; // Step 5 is results
+  const totalSteps = 5;
 
-  // DOM Elements
+  // DOM references
   const stepCountText = document.getElementById('step-count');
   const stepLabelText = document.getElementById('step-label');
-  const progressBar = document.getElementById('progress-line');
-  
+  const progressBar   = document.getElementById('progress-line');
+
   const steps = {
     1: document.getElementById('step-1'),
     2: document.getElementById('step-2'),
     3: document.getElementById('step-3'),
     4: document.getElementById('step-4'),
-    5: document.getElementById('step-results')
+    5: document.getElementById('step-5')
   };
 
-  const btnNext = document.getElementById('btn-next');
-  const btnBack = document.getElementById('btn-back');
+  const btnNext   = document.getElementById('btn-next');
+  const btnBack   = document.getElementById('btn-back');
   const btnSubmit = document.getElementById('btn-submit');
 
-  const optionCards = document.querySelectorAll('.option-card');
-
-  // Step names for progress header
   const stepNames = {
-    1: 'AI Familiarity',
-    2: 'Workflow',
-    3: 'Digital Presence',
-    4: 'Sovereignty',
-    5: 'Sovereign Match'
+    1: 'Why Now',
+    2: 'Your Company',
+    3: 'How Work Moves',
+    4: 'Your Data & AI',
+    5: 'Looking Ahead'
   };
 
-  /* ── OPTION CARDS INTERACTION & STATE ────────────────────────────────────── */
-  
-  // Set initial selected classes on page load (if any are pre-checked)
-  optionCards.forEach(card => {
-    const radio = card.querySelector('input[type="radio"]');
-    
-    // Add selected class if checked
-    if (radio && radio.checked) {
-      card.classList.add('selected');
-    }
+  /* ── OPTION CARD INTERACTION ──────────────────────────────────────── */
 
-    // Connect hover and click events
+  document.querySelectorAll('.option-card').forEach(card => {
+    const radio = card.querySelector('input[type="radio"]');
+    if (!radio) return;
+
+    if (radio.checked) card.classList.add('selected');
+
     card.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
     card.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
-    
+
     card.addEventListener('click', (e) => {
-      // If we clicked the radio itself, let it bubble. Otherwise toggle it programmatically.
-      if (e.target !== radio) {
-        radio.checked = true;
-      }
-      
-      // Update visual selection states
+      if (e.target !== radio) radio.checked = true;
+
+      // Deselect siblings in the same group
       const groupName = radio.getAttribute('name');
-      const siblings = document.querySelectorAll(`.option-card input[name="${groupName}"]`);
-      
-      siblings.forEach(siblingInput => {
-        const siblingCard = siblingInput.closest('.option-card');
-        if (siblingCard) {
-          siblingCard.classList.remove('selected');
-          siblingCard.setAttribute('aria-checked', 'false');
+      document.querySelectorAll(`.option-card input[name="${groupName}"]`).forEach(sib => {
+        const sibCard = sib.closest('.option-card');
+        if (sibCard) {
+          sibCard.classList.remove('selected');
+          sibCard.setAttribute('aria-checked', 'false');
         }
       });
-      
+
       card.classList.add('selected');
       card.setAttribute('aria-checked', 'true');
-
-      // Add a premium cursor hover feedback triggers
       document.body.classList.add('cursor-hover');
       setTimeout(() => document.body.classList.remove('cursor-hover'), 200);
-      
+
+      // Live-validate (silent, no error shown yet)
       validateCurrentStep(false);
     });
 
-    // Keyboard support - since native radios are visually hidden
-    radio.addEventListener('focus', () => {
-      card.classList.add('focus-within');
-    });
+    radio.addEventListener('focus', () => card.classList.add('focus-within'));
+    radio.addEventListener('blur',  () => card.classList.remove('focus-within'));
 
-    radio.addEventListener('blur', () => {
-      card.classList.remove('focus-within');
-    });
-
-    // Support trigger by pressing Enter key on the card label
     card.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
         radio.checked = true;
-        radio.dispatchEvent(new Event('change'));
         card.click();
       }
     });
   });
 
-  /* ── STEP VALIDATION ─────────────────────────────────────────────────────── */
-  
+  /* ── STEP VALIDATION ──────────────────────────────────────────────── */
+
   function validateCurrentStep(showAlert = true) {
     if (currentStep > totalSteps) return true;
-    
-    const stepContainer = steps[currentStep];
-    const radios = stepContainer.querySelectorAll('input[type="radio"]');
-    
-    // Find all distinct group names in this step
+
+    const stepEl = steps[currentStep];
+
+    // Check all radio groups within the step
     const groupNames = new Set();
-    radios.forEach(radio => {
-      const name = radio.getAttribute('name');
-      if (name) groupNames.add(name);
+    stepEl.querySelectorAll('input[type="radio"]').forEach(r => {
+      if (r.name) groupNames.add(r.name);
     });
-    
-    // Verify that every single radio group has a checked button
+
     let allGroupsChecked = true;
-    const uncheckedGroups = [];
-    
     groupNames.forEach(name => {
-      const checkedRadio = stepContainer.querySelector(`input[name="${name}"]:checked`);
-      if (!checkedRadio) {
+      if (!stepEl.querySelector(`input[name="${name}"]:checked`)) {
         allGroupsChecked = false;
-        uncheckedGroups.push(name);
       }
     });
-    
-    if (!allGroupsChecked) {
+
+    // On Step 5 also check required text inputs
+    let allTextFilled = true;
+    if (currentStep === totalSteps) {
+      stepEl.querySelectorAll('input[type="text"][required], input[type="email"][required]').forEach(input => {
+        if (!input.value.trim()) allTextFilled = false;
+      });
+    }
+
+    if (!allGroupsChecked || !allTextFilled) {
       if (showAlert) {
-        // Create an elegant inline validation message
-        let errorMsg = stepContainer.querySelector('.wizard-error-msg');
+        // Error message
+        let errorMsg = stepEl.querySelector('.wizard-error-msg');
         if (!errorMsg) {
           errorMsg = document.createElement('p');
           errorMsg.className = 'wizard-error-msg';
-          errorMsg.style.color = 'var(--true-north)';
-          errorMsg.style.fontSize = '12px';
-          errorMsg.style.marginTop = '16px';
-          errorMsg.style.textAlign = 'center';
-          errorMsg.style.letterSpacing = '1px';
-          errorMsg.style.textTransform = 'uppercase';
-          errorMsg.textContent = 'Please answer all questions to proceed.';
-          
-          const header = stepContainer.querySelector('.wizard-step-header');
-          if (header) {
-            header.appendChild(errorMsg);
-          }
+          errorMsg.style.cssText = 'color:var(--true-north);font-size:12px;margin-top:16px;text-align:center;letter-spacing:1px;text-transform:uppercase;';
+          stepEl.querySelector('.wizard-step-header')?.appendChild(errorMsg);
         }
-        
-        // Shake animation on the option grids for premium feedback
-        const grids = stepContainer.querySelectorAll('.options-grid');
-        grids.forEach(grid => {
-          grid.style.animation = 'none';
-          void grid.offsetWidth; // Force reflow
-          grid.style.animation = 'shake 0.4s ease';
-        });
+        errorMsg.textContent = !allGroupsChecked
+          ? 'Please answer all questions to proceed.'
+          : 'Please fill in your name and email to continue.';
+
+        // Shake radio grids if that's the problem
+        if (!allGroupsChecked) {
+          stepEl.querySelectorAll('.options-grid').forEach(grid => {
+            grid.style.animation = 'none';
+            void grid.offsetWidth;
+            grid.style.animation = 'shake 0.4s ease';
+          });
+        }
+
+        // Highlight empty required text inputs
+        if (!allTextFilled) {
+          stepEl.querySelectorAll('input[type="text"][required], input[type="email"][required]').forEach(input => {
+            if (!input.value.trim()) {
+              input.style.borderColor = 'var(--true-north)';
+              input.addEventListener('input', () => { input.style.borderColor = ''; }, { once: true });
+            }
+          });
+        }
       }
       return false;
     }
-    
-    // Clear validation error if any
-    const errorMsg = stepContainer.querySelector('.wizard-error-msg');
-    if (errorMsg) {
-      errorMsg.remove();
-    }
-    
+
+    stepEl.querySelector('.wizard-error-msg')?.remove();
     return true;
   }
 
-  /* ── NAVIGATION LOGIC ────────────────────────────────────────────────────── */
+  /* ── WIZARD UI UPDATE ─────────────────────────────────────────────── */
 
   function updateWizardUI() {
-    // Hide all steps, activate the current one
-    Object.keys(steps).forEach(stepNum => {
-      const el = steps[stepNum];
-      if (parseInt(stepNum) === currentStep) {
-        el.classList.add('active');
-        // Focus the title for screen-readers
+    // Show / hide steps
+    Object.keys(steps).forEach(num => {
+      const el = steps[num];
+      const active = parseInt(num) === currentStep;
+      el.classList.toggle('active', active);
+      if (active) {
         const title = el.querySelector('.wizard-step-title');
-        if (title) {
-          title.setAttribute('tabindex', '-1');
-          title.focus();
-        }
-      } else {
-        el.classList.remove('active');
+        if (title) { title.setAttribute('tabindex', '-1'); title.focus(); }
       }
     });
 
-    // Update progress header details
-    if (currentStep <= totalSteps) {
-      stepCountText.textContent = `0${currentStep} / 0${totalSteps}`;
-      stepLabelText.textContent = stepNames[currentStep];
-      const percentage = (currentStep / totalSteps) * 100;
-      progressBar.style.width = `${percentage}%`;
-      
-      // Update next button label
-      if (currentStep === totalSteps) {
-        btnNext.textContent = 'Analyze Sovereignty →';
-      } else {
-        btnNext.textContent = 'Next Step →';
-      }
-      
-      btnBack.classList.toggle('visually-hidden', currentStep === 1);
+    // Progress header
+    stepCountText.textContent = `0${currentStep} / 0${totalSteps}`;
+    stepLabelText.textContent = stepNames[currentStep];
+    progressBar.style.width  = `${(currentStep / totalSteps) * 100}%`;
+
+    // Back button
+    btnBack.classList.toggle('visually-hidden', currentStep === 1);
+
+    // Next / Submit buttons
+    if (currentStep < totalSteps) {
+      btnNext.textContent = currentStep === totalSteps - 1 ? 'Final Step →' : 'Next Step →';
       btnNext.classList.remove('visually-hidden');
       btnSubmit.classList.add('visually-hidden');
     } else {
-      // Results step reached
-      stepCountText.textContent = `04 / 04`;
-      stepLabelText.textContent = 'Sovereign Match';
-      progressBar.style.width = '100%';
-      
-      btnBack.classList.add('visually-hidden');
+      // Step 5: populate hidden fields, reveal submit
+      calculateRecommendation();
       btnNext.classList.add('visually-hidden');
       btnSubmit.classList.remove('visually-hidden');
-      
-      // Calculate diagnostics
-      calculateRecommendation();
     }
 
-    // Scroll smoothly to top of form section
-    const formSection = document.querySelector('.form-section');
-    if (formSection) {
-      formSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+    // Scroll to top of form
+    document.querySelector('.form-section')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
   btnNext.addEventListener('click', () => {
@@ -235,169 +195,114 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  /* ── DIAGNOSTIC CALCULATION ALGORITHM ────────────────────────────────────── */
+  /* ── DIAGNOSTIC SCORING & PAYLOAD ────────────────────────────────── */
 
   function calculateRecommendation() {
-    // Retrieve selected values
-    const q1 = form.querySelector('input[name="q1"]:checked')?.value || '';
-    const q2 = form.querySelector('input[name="q2"]:checked')?.value || '';
-    const q3 = form.querySelector('input[name="q3"]:checked')?.value || '';
-    const q4 = form.querySelector('input[name="q4"]:checked')?.value || '';
-    const q5 = form.querySelector('input[name="q5"]:checked')?.value || '';
-    const q6 = form.querySelector('input[name="q6"]:checked')?.value || '';
+    const val = name => form.querySelector(`input[name="${name}"]:checked`)?.value || '';
 
-    // Label maps — full text for each question option
+    const q1  = val('q1');  const q2  = val('q2');  const q3  = val('q3');
+    const q4  = val('q4');  const q5  = val('q5');  const q6  = val('q6');
+    const q7  = val('q7');  const q8  = val('q8');  const q9  = val('q9');
+    const q10 = val('q10'); const q11 = val('q11'); const q12 = val('q12');
+    const q13 = val('q13');
+
+    // Full-text label maps
     const labels = {
-      q1: {
-        A: "I don't use AI yet",
-        B: "I try things occasionally but nothing sticks",
-        C: "I use one or two tools regularly for specific tasks",
-        D: "AI is part of how I work every day"
-      },
-      q2: {
-        A: "Nowhere, I haven't found a real use yet",
-        B: "Writing or editing content",
-        C: "Visuals or creative production",
-        D: "Automating repetitive tasks"
-      },
-      q3: {
-        A: "Creating content consistently",
-        B: "Managing clients or audience communication",
-        C: "Running the technical side of my business",
-        D: "Juggling too many tools at once"
-      },
-      q4: {
-        A: "I would publish more without burning out",
-        B: "I would spend less time on admin",
-        C: "I would grow my audience without depending on algorithms",
-        D: "My business would run even when I am not online"
-      },
-      q5: {
-        A: "Mainly on social media",
-        B: "On a platform like Shopify, Substack or Squarespace",
-        C: "I have a website but still rely on platforms for reach or revenue",
-        D: "My own site on my own infrastructure"
-      },
-      q6: {
-        A: "Everything, I would have to start over",
-        B: "A lot, reach and revenue would take a serious hit",
-        C: "Some, I would recover but it would hurt",
-        D: "Nothing, I own my infrastructure independently"
-      }
+      q1:  { A: "We're behind and we know it",                         B: "We've started experimenting and want a real plan",   C: "We're doing well and want to do better",                          D: "We're not sure — we want an outside read" },
+      q2:  { A: "A competitor moved and we noticed",                   B: "Our team is stretched thin",                        C: "Leadership decided AI is a priority this year",                   D: "Nothing specific — the timing just feels right" },
+      q3:  { A: "Under 50 people",                                     B: "50 to 250 people",                                  C: "250 to 1,000 people",                                             D: "Over 1,000 people" },
+      q4:  { A: "Makes or moves physical things",                      B: "Sells professional services or expertise",          C: "Serves consumers directly",                                       D: "Builds technology or media" },
+      q5:  { A: "One city or region",                                  B: "National",                                          C: "European or cross-border",                                        D: "Global" },
+      q6:  { A: "Centralised — one team, one place, one playbook",     B: "Decentralised — multiple teams running their own way", C: "Outsourced — most operational work sits with partners",        D: "Mixed — some inside, some outside, depending on the task" },
+      q7:  { A: "Front office — sales, marketing, client communication", B: "Back office — admin, finance, reporting, HR",     C: "Operations — production, logistics, service delivery",            D: "Across the board — repetition everywhere" },
+      q8:  { A: "We don't know where to start",                        B: "We've tried things and they didn't stick",          C: "Leadership is open, the team isn't ready",                        D: "We're ready, we just need the right plan" },
+      q9:  { A: "A public AI is fine — convenience matters more than privacy", B: "A public AI is acceptable for non-sensitive work", C: "A private setup for anything that touches our business",   D: "Fully in-house, on our infrastructure, with maximum privacy" },
+      q10: { A: "Mostly in spreadsheets and email",                    B: "Across business tools that don't really talk to each other", C: "In a central system most of the company uses",           D: "In a unified data layer we own and control" },
+      q11: { A: "Several, and we're not entirely sure who has what",   B: "A few, clearly scoped",                             C: "Rarely, and only under contract",                                 D: "None" },
+      q12: { A: "Clearer on what AI can and can't do for us",          B: "Two or three concrete things working in production", C: "AI woven into how the company runs",                             D: "Fully sovereign — our AI, our data, our infrastructure" },
+      q13: { A: "Email is fine",                                       B: "A short call to start",                             C: "A video meeting",                                                 D: "In person, when it makes sense" }
     };
 
-    // Hidden input updates — full text labels for a readable email
-    document.getElementById('payload-q1').value = labels.q1[q1] || q1;
-    document.getElementById('payload-q2').value = labels.q2[q2] || q2;
-    document.getElementById('payload-q3').value = labels.q3[q3] || q3;
-    document.getElementById('payload-q4').value = labels.q4[q4] || q4;
-    document.getElementById('payload-q5').value = labels.q5[q5] || q5;
-    document.getElementById('payload-q6').value = labels.q6[q6] || q6;
+    // Populate hidden payload fields with full-text answers
+    document.getElementById('payload-q1').value  = labels.q1[q1]   || q1;
+    document.getElementById('payload-q2').value  = labels.q2[q2]   || q2;
+    document.getElementById('payload-q3').value  = labels.q3[q3]   || q3;
+    document.getElementById('payload-q4').value  = labels.q4[q4]   || q4;
+    document.getElementById('payload-q5').value  = labels.q5[q5]   || q5;
+    document.getElementById('payload-q6').value  = labels.q6[q6]   || q6;
+    document.getElementById('payload-q7').value  = labels.q7[q7]   || q7;
+    document.getElementById('payload-q8').value  = labels.q8[q8]   || q8;
+    document.getElementById('payload-q9').value  = labels.q9[q9]   || q9;
+    document.getElementById('payload-q10').value = labels.q10[q10] || q10;
+    document.getElementById('payload-q11').value = labels.q11[q11] || q11;
+    document.getElementById('payload-q12').value = labels.q12[q12] || q12;
+    document.getElementById('payload-q13').value = labels.q13[q13] || q13;
 
-    // Weight variables
-    let scoreAI = 0;
-    let scoreVuln = 0;
+    // ── AI READINESS SCORE (Q1, Q2, Q8, Q12) — max 11 ──────────────
+    let scoreReadiness = 0;
+    if      (q1 === 'A') scoreReadiness += 1;
+    else if (q1 === 'B') scoreReadiness += 2;
+    else if (q1 === 'C') scoreReadiness += 3;
+    else if (q1 === 'D') scoreReadiness += 1;
 
-    // AI Familiarity Indices
-    // Q1: How do you use AI tools today?
-    if (q1 === 'A') scoreAI += 0;
-    else if (q1 === 'B') scoreAI += 1;
-    else if (q1 === 'C') scoreAI += 3;
-    else if (q1 === 'D') scoreAI += 5;
+    if      (q2 === 'A') scoreReadiness += 2;
+    else if (q2 === 'B') scoreReadiness += 1;
+    else if (q2 === 'C') scoreReadiness += 3;
+    // q2 === 'D' → +0
 
-    // Q2: Where does AI actually help you right now?
-    if (q2 === 'A') scoreAI += 0;
-    else if (q2 === 'B') scoreAI += 2;
-    else if (q2 === 'C') scoreAI += 3;
-    else if (q2 === 'D') scoreAI += 5;
+    if      (q8 === 'B') scoreReadiness += 1;
+    else if (q8 === 'C') scoreReadiness += 2;
+    else if (q8 === 'D') scoreReadiness += 3;
+    // q8 === 'A' → +0
 
-    // Platform Vulnerability Indices
-    // Q4: If AI worked perfectly for you tomorrow, what would change first?
-    if (q4 === 'C') scoreVuln += 2;
+    if      (q12 === 'B') scoreReadiness += 1;
+    else if (q12 === 'C') scoreReadiness += 2;
+    else if (q12 === 'D') scoreReadiness += 2;
+    // q12 === 'A' → +0
 
-    // Q5: Where does your business live right now?
-    if (q5 === 'A') scoreVuln += 5;
-    else if (q5 === 'B') scoreVuln += 4;
-    else if (q5 === 'C') scoreVuln += 2;
-    else if (q5 === 'D') scoreVuln += 0;
+    // ── DATA SOVEREIGNTY SCORE (Q9, Q10, Q11) — max 12 ─────────────
+    let scoreSovereignty = 0;
+    if      (q9 === 'B') scoreSovereignty += 1;
+    else if (q9 === 'C') scoreSovereignty += 3;
+    else if (q9 === 'D') scoreSovereignty += 4;
 
-    // Q6: If one of those platforms changed its rules tomorrow, what would you lose?
-    if (q6 === 'A') scoreVuln += 5;
-    else if (q6 === 'B') scoreVuln += 4;
-    else if (q6 === 'C') scoreVuln += 2;
-    else if (q6 === 'D') scoreVuln += 0;
+    if      (q10 === 'B') scoreSovereignty += 1;
+    else if (q10 === 'C') scoreSovereignty += 2;
+    else if (q10 === 'D') scoreSovereignty += 4;
 
-    // Determine matrix profile
-    const isHighAI = scoreAI > 4;
-    const isHighVuln = scoreVuln >= 5;
+    if      (q11 === 'B') scoreSovereignty += 1;
+    else if (q11 === 'C') scoreSovereignty += 3;
+    else if (q11 === 'D') scoreSovereignty += 4;
 
-    let recType = '';
-    let recBadgeClass = '';
-    let recBadgeText = '';
-    let recTitleText = '';
-    let recDescText = '';
+    // ── PROFILE MATRIX ───────────────────────────────────────────────
+    const highReadiness   = scoreReadiness   > 5;
+    const highSovereignty = scoreSovereignty >= 6;
 
-    if (isHighVuln && !isHighAI) {
-      recType = 'starter';
-      recBadgeClass = 'badge-foundation';
-      recBadgeText = 'Sovereign AI Starter';
-      recTitleText = 'Sovereign AI Starter Profile';
-      recDescText = 'You currently operate on high platform dependency with minimal AI integration. This leaves your reach and revenue vulnerable to sudden algorithmic shifts or policy changes, while manual workflows consume your valuable time. We have received your assessment and our strategist will reach out within 24 hours to schedule a custom digital audit. On our call, we will design a step-by-step roadmap to transition your audience onto owned channels with simple, intuitive tools that require no technical complexity.';
-    } else if (isHighVuln && isHighAI) {
-      recType = 'powerhouse';
-      recBadgeClass = 'badge-stack';
-      recBadgeText = 'Sovereign AI Powerhouse';
-      recTitleText = 'Sovereign AI Powerhouse Profile';
-      recDescText = 'You are an active AI user, but your business still resides on rented land — social media, proprietary e-commerce hosts, or SaaS distribution platforms. While you leverage automation, you are heavily exposed to platform fees and sudden distribution filters. We have received your assessment. Our strategist will contact you to map out a programmatic migration and outline how to build self-hosted engines that bypass platform rent-seeking entirely.';
-    } else if (!isHighVuln && !isHighAI) {
-      recType = 'optimizer';
-      recBadgeClass = 'badge-foundation';
-      recBadgeText = 'Sovereign AI Optimizer';
-      recTitleText = 'Sovereign AI Optimizer Profile';
-      recDescText = 'You have successfully built an independent infrastructure — your own website, self-managed tools, or independent hosting — which is highly secure and resilient. However, you are not yet leveraging the time-saving power of automated intelligence, meaning too many hours go to manual administrative tasks. Our architect will reach out shortly to discuss integrating lightweight AI agents into your existing sovereign system without compromising your privacy or control.';
-    } else {
-      recType = 'autonomous';
-      recBadgeClass = 'badge-stack';
-      recBadgeText = 'Autonomous Sovereign';
-      recTitleText = 'Autonomous Sovereign Profile';
-      recDescText = 'You represent the vanguard of the digital economy: you own your infrastructure independently and are highly fluent in AI. You are primed for absolute operational freedom. Our lead architect will contact you to schedule an advanced technical design session focused on deploying self-custodied containerized AI agents, offline local model runners, and automated multi-channel publication loops directly on your own hardware.';
-    }
+    let recType;
+    if      (!highReadiness && !highSovereignty) recType = 'AI FOUNDATIONS';
+    else if (!highReadiness &&  highSovereignty) recType = 'PRIVATE AI PIONEER';
+    else if ( highReadiness && !highSovereignty) recType = 'AI SCALE-UP';
+    else                                         recType = 'AUTONOMOUS ENTERPRISE';
 
-    // UI Elements to modify
-    const recBadge = document.getElementById('rec-badge');
-    const recTitle = document.getElementById('rec-title');
-    const recDesc = document.getElementById('rec-desc');
-
-    // Build hidden data payloads for submission
-    document.getElementById('payload-scores').value = `AI score: ${scoreAI}/10, Vulnerability score: ${scoreVuln}/12`;
-    document.getElementById('payload-recommendation').value = recType.toUpperCase();
-
-    // Set UI elements dynamically
-    if (recBadge) {
-      recBadge.textContent = recBadgeText;
-      recBadge.className = `recommendation-badge ${recBadgeClass}`;
-    }
-    if (recTitle) {
-      recTitle.textContent = recTitleText;
-    }
-    if (recDesc) {
-      recDesc.textContent = recDescText;
-    }
+    document.getElementById('payload-scores').value          = `Readiness: ${scoreReadiness}/11 — Sovereignty: ${scoreSovereignty}/12`;
+    document.getElementById('payload-recommendation').value  = recType;
   }
 
+  /* ── PRE-SUBMIT: enrich email subject ────────────────────────────── */
 
-  // Pre-submit validation to compile full body values
-  form.addEventListener('submit', (e) => {
-    // Subject customization based on result
-    const recType = document.getElementById('payload-recommendation').value;
-    const clientName = document.getElementById('client-name').value;
-    const emailSubjectInput = form.querySelector('input[name="_subject"]');
-    
-    if (emailSubjectInput) {
-      emailSubjectInput.value = `Sovereignty Assessment [${recType}] — ${clientName}`;
+  form.addEventListener('submit', () => {
+    // Re-run to capture final Q12/Q13 selections
+    calculateRecommendation();
+
+    const recType    = document.getElementById('payload-recommendation').value;
+    const clientName = document.getElementById('client-name')?.value    || '';
+    const clientCo   = document.getElementById('client-company')?.value || '';
+    const subjectEl  = form.querySelector('input[name="_subject"]');
+
+    if (subjectEl && recType) {
+      const co = clientCo ? ` — ${clientCo}` : '';
+      subjectEl.value = `AI Assessment [${recType}]${co} — ${clientName}`;
     }
-    
-    // Let the form submit naturally to FormSubmit.co
   });
-});
 
+});

@@ -1999,3 +1999,30 @@ footer::before {
   appearance: none !important;
   -webkit-appearance: none !important;
 }
+
+/* ── CONTACT FIELDS GRID (Step 5) ────────────────────────────────────────── */
+.assessment-container .contact-fields-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.assessment-container .contact-block {
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 16px 0;
+}
+
+.assessment-container .contact-fields-grid .form-group {
+  margin-bottom: 0 !important;
+}
+
+@media (max-width: 560px) {
+  .assessment-container .contact-fields-grid {
+    grid-template-columns: 1fr;
+  }
+  .assessment-container .contact-fields-grid .form-group[style*="grid-column"] {
+    grid-column: 1 !important;
+  }
+}

@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sovereign Assessment — Native Works</title>
-<meta name="description" content="Evaluate your digital presence and discover how to transition from a tenant on rented platforms to a sovereign owner.">
+<title>AI Readiness Assessment — Native Works</title>
+<meta name="description" content="A structured five-part diagnostic to evaluate where your organisation stands with AI and what your next move should be.">
 
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -53,7 +53,7 @@
 
 <!-- ── FORM SECTION ────────────────────────────────────────────────────── -->
 <section class="form-section assessment-section">
-  <!-- Immersive blueprint background SVG inside the section -->
+  <!-- Immersive blueprint background SVG -->
   <svg class="intro-bg-svg" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="opacity: 0.045;">
     <circle cx="250" cy="250" r="240" stroke="#1E1B17" stroke-width="0.5"/>
     <circle cx="250" cy="250" r="180" stroke="#1E1B17" stroke-width="0.5" stroke-dasharray="4 8"/>
@@ -64,350 +64,438 @@
   </svg>
 
   <div class="form-container assessment-container reveal visible">
-    
+
     <!-- Progress tracker -->
     <div class="assessment-progress-wrapper">
       <div class="assessment-progress-header">
-        <span class="assessment-step-count" id="step-count">01 / 04</span>
-        <span class="assessment-step-label" id="step-label">Foundation</span>
+        <span class="assessment-step-count" id="step-count">01 / 05</span>
+        <span class="assessment-step-label" id="step-label">Why Now</span>
       </div>
       <div class="assessment-progress-bar">
-        <div class="assessment-progress-line" id="progress-line" style="width: 25%;"></div>
+        <div class="assessment-progress-line" id="progress-line" style="width: 20%;"></div>
       </div>
     </div>
 
     <form id="assessment-form" action="https://formsubmit.co/antonio.visceglia@nativeworks.studio" method="POST">
-      <!-- Hidden config elements for FormSubmit -->
-      <input type="hidden" name="_cc" value="info@nativeworks.studio">
-      <input type="hidden" name="_next" value="https://www.nativeworks.studio/thank-you.html">
-      <input type="hidden" name="_captcha" value="false">
-      <input type="hidden" name="_subject" value="New Sovereignty Assessment Result — Native Works">
+      <!-- FormSubmit config -->
+      <input type="hidden" name="_cc"       value="info@nativeworks.studio">
+      <input type="hidden" name="_next"     value="https://www.nativeworks.studio/thank-you.html">
+      <input type="hidden" name="_captcha"  value="false">
+      <input type="hidden" name="_subject"  value="New AI Readiness Assessment — Native Works">
       <input type="hidden" name="_template" value="box">
 
-      <!-- Hidden payload fields to send client choices in email -->
-      <input type="hidden" id="payload-scores" name="scores" value="">
-      <input type="hidden" id="payload-recommendation" name="recommendation" value="">
-      <input type="hidden" id="payload-q1" name="q1" value="">
-      <input type="hidden" id="payload-q2" name="q2" value="">
-      <input type="hidden" id="payload-q3" name="q3" value="">
-      <input type="hidden" id="payload-q4" name="q4" value="">
-      <input type="hidden" id="payload-q5" name="q5" value="">
-      <input type="hidden" id="payload-q6" name="q6" value="">
+      <!-- Hidden payload fields — populated by JS before submit -->
+      <input type="hidden" id="payload-scores"          name="scores"         value="">
+      <input type="hidden" id="payload-recommendation"  name="recommendation" value="">
+      <input type="hidden" id="payload-q1"  name="q1"  value="">
+      <input type="hidden" id="payload-q2"  name="q2"  value="">
+      <input type="hidden" id="payload-q3"  name="q3"  value="">
+      <input type="hidden" id="payload-q4"  name="q4"  value="">
+      <input type="hidden" id="payload-q5"  name="q5"  value="">
+      <input type="hidden" id="payload-q6"  name="q6"  value="">
+      <input type="hidden" id="payload-q7"  name="q7"  value="">
+      <input type="hidden" id="payload-q8"  name="q8"  value="">
+      <input type="hidden" id="payload-q9"  name="q9"  value="">
+      <input type="hidden" id="payload-q10" name="q10" value="">
+      <input type="hidden" id="payload-q11" name="q11" value="">
+      <input type="hidden" id="payload-q12" name="q12" value="">
+      <input type="hidden" id="payload-q13" name="q13" value="">
 
-      <!-- STEP 1: AI Familiarity -->
+      <!-- ═══ STEP 1 — Why now ════════════════════════════════════════ -->
       <div class="wizard-step active" id="step-1" role="group" aria-labelledby="step-1-title">
         <div class="wizard-step-header">
           <span class="wizard-step-num">Step 01</span>
-          <h2 class="wizard-step-title" id="step-1-title">AI Familiarity</h2>
-          <p class="wizard-step-desc">Establish your current relationship with artificial intelligence and automations.</p>
+          <h2 class="wizard-step-title" id="step-1-title">Why now</h2>
+          <p class="wizard-step-desc">The reason behind your interest.</p>
         </div>
 
         <div class="wizard-questions-container">
-          <!-- Question 1 -->
-          <div class="wizard-question-block" style="margin-bottom: 48px;">
-            <h3 class="wizard-question-text" id="q1-title" style="font-family: var(--font-display); font-size: clamp(18px, 2.2vw, 23px); font-weight: 400; color: var(--night); margin-bottom: 18px;">How do you use AI tools today?</h3>
+          <!-- Q1 -->
+          <div class="wizard-question-block">
+            <h3 class="wizard-question-text" id="q1-title">What brought you here today?</h3>
             <div class="options-grid">
               <label class="option-card" for="q1-a">
                 <input type="radio" id="q1-a" name="q1" value="A" class="visually-hidden" required>
-                <div class="option-card-content">
-                  <span class="option-num">A</span>
-                  <p class="option-desc" style="font-size: 14px; font-weight: 400; color: var(--night); margin: 0; line-height: 1.45;">I don't use AI yet</p>
-                </div>
+                <div class="option-card-content"><span class="option-num">A</span><p class="option-desc">We're behind and we know it</p></div>
               </label>
-
               <label class="option-card" for="q1-b">
                 <input type="radio" id="q1-b" name="q1" value="B" class="visually-hidden">
-                <div class="option-card-content">
-                  <span class="option-num">B</span>
-                  <p class="option-desc" style="font-size: 14px; font-weight: 400; color: var(--night); margin: 0; line-height: 1.45;">I try things occasionally but nothing sticks</p>
-                </div>
+                <div class="option-card-content"><span class="option-num">B</span><p class="option-desc">We've started experimenting and want a real plan</p></div>
               </label>
-
               <label class="option-card" for="q1-c">
                 <input type="radio" id="q1-c" name="q1" value="C" class="visually-hidden">
-                <div class="option-card-content">
-                  <span class="option-num">C</span>
-                  <p class="option-desc" style="font-size: 14px; font-weight: 400; color: var(--night); margin: 0; line-height: 1.45;">I use one or two tools regularly for specific tasks</p>
-                </div>
+                <div class="option-card-content"><span class="option-num">C</span><p class="option-desc">We're doing well and want to do better</p></div>
               </label>
-
               <label class="option-card" for="q1-d">
                 <input type="radio" id="q1-d" name="q1" value="D" class="visually-hidden">
-                <div class="option-card-content">
-                  <span class="option-num">D</span>
-                  <p class="option-desc" style="font-size: 14px; font-weight: 400; color: var(--night); margin: 0; line-height: 1.45;">AI is part of how I work every day</p>
-                </div>
+                <div class="option-card-content"><span class="option-num">D</span><p class="option-desc">We're not sure — we want an outside read</p></div>
               </label>
             </div>
           </div>
 
-          <!-- Question 2 -->
+          <!-- Q2 -->
           <div class="wizard-question-block">
-            <h3 class="wizard-question-text" id="q2-title" style="font-family: var(--font-display); font-size: clamp(18px, 2.2vw, 23px); font-weight: 400; color: var(--night); margin-bottom: 18px;">Where does AI actually help you right now?</h3>
+            <h3 class="wizard-question-text" id="q2-title">What changed recently?</h3>
             <div class="options-grid">
               <label class="option-card" for="q2-a">
                 <input type="radio" id="q2-a" name="q2" value="A" class="visually-hidden" required>
-                <div class="option-card-content">
-                  <span class="option-num">A</span>
-                  <p class="option-desc" style="font-size: 14px; font-weight: 400; color: var(--night); margin: 0; line-height: 1.45;">Nowhere, I haven't found a real use yet</p>
-                </div>
+                <div class="option-card-content"><span class="option-num">A</span><p class="option-desc">A competitor moved and we noticed</p></div>
               </label>
-
               <label class="option-card" for="q2-b">
                 <input type="radio" id="q2-b" name="q2" value="B" class="visually-hidden">
-                <div class="option-card-content">
-                  <span class="option-num">B</span>
-                  <p class="option-desc" style="font-size: 14px; font-weight: 400; color: var(--night); margin: 0; line-height: 1.45;">Writing or editing content</p>
-                </div>
+                <div class="option-card-content"><span class="option-num">B</span><p class="option-desc">Our team is stretched thin</p></div>
               </label>
-
               <label class="option-card" for="q2-c">
                 <input type="radio" id="q2-c" name="q2" value="C" class="visually-hidden">
-                <div class="option-card-content">
-                  <span class="option-num">C</span>
-                  <p class="option-desc" style="font-size: 14px; font-weight: 400; color: var(--night); margin: 0; line-height: 1.45;">Visuals or creative production</p>
-                </div>
+                <div class="option-card-content"><span class="option-num">C</span><p class="option-desc">Leadership decided AI is a priority this year</p></div>
               </label>
-
               <label class="option-card" for="q2-d">
                 <input type="radio" id="q2-d" name="q2" value="D" class="visually-hidden">
-                <div class="option-card-content">
-                  <span class="option-num">D</span>
-                  <p class="option-desc" style="font-size: 14px; font-weight: 400; color: var(--night); margin: 0; line-height: 1.45;">Automating repetitive tasks</p>
-                </div>
+                <div class="option-card-content"><span class="option-num">D</span><p class="option-desc">Nothing specific — the timing just feels right</p></div>
               </label>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- STEP 2: Workflow -->
+      <!-- ═══ STEP 2 — Your company ═══════════════════════════════════ -->
       <div class="wizard-step" id="step-2" role="group" aria-labelledby="step-2-title">
         <div class="wizard-step-header">
           <span class="wizard-step-num">Step 02</span>
-          <h2 class="wizard-step-title" id="step-2-title">Workflow</h2>
-          <p class="wizard-step-desc">Identifying operational bottlenecks and future automated efficiency gains.</p>
+          <h2 class="wizard-step-title" id="step-2-title">Your company</h2>
+          <p class="wizard-step-desc">The shape of the business we'd be looking at.</p>
         </div>
 
         <div class="wizard-questions-container">
-          <!-- Question 3 -->
-          <div class="wizard-question-block" style="margin-bottom: 48px;">
-            <h3 class="wizard-question-text" id="q3-title" style="font-family: var(--font-display); font-size: clamp(18px, 2.2vw, 23px); font-weight: 400; color: var(--night); margin-bottom: 18px;">What still eats most of your time each week?</h3>
+          <!-- Q3 -->
+          <div class="wizard-question-block">
+            <h3 class="wizard-question-text" id="q3-title">How big is your company?</h3>
             <div class="options-grid">
               <label class="option-card" for="q3-a">
                 <input type="radio" id="q3-a" name="q3" value="A" class="visually-hidden" required>
-                <div class="option-card-content">
-                  <span class="option-num">A</span>
-                  <p class="option-desc" style="font-size: 14px; font-weight: 400; color: var(--night); margin: 0; line-height: 1.45;">Creating content consistently</p>
-                </div>
+                <div class="option-card-content"><span class="option-num">A</span><p class="option-desc">Under 50 people</p></div>
               </label>
-
               <label class="option-card" for="q3-b">
                 <input type="radio" id="q3-b" name="q3" value="B" class="visually-hidden">
-                <div class="option-card-content">
-                  <span class="option-num">B</span>
-                  <p class="option-desc" style="font-size: 14px; font-weight: 400; color: var(--night); margin: 0; line-height: 1.45;">Managing clients or audience communication</p>
-                </div>
+                <div class="option-card-content"><span class="option-num">B</span><p class="option-desc">50 to 250 people</p></div>
               </label>
-
               <label class="option-card" for="q3-c">
                 <input type="radio" id="q3-c" name="q3" value="C" class="visually-hidden">
-                <div class="option-card-content">
-                  <span class="option-num">C</span>
-                  <p class="option-desc" style="font-size: 14px; font-weight: 400; color: var(--night); margin: 0; line-height: 1.45;">Running the technical side of my business</p>
-                </div>
+                <div class="option-card-content"><span class="option-num">C</span><p class="option-desc">250 to 1,000 people</p></div>
               </label>
-
               <label class="option-card" for="q3-d">
                 <input type="radio" id="q3-d" name="q3" value="D" class="visually-hidden">
-                <div class="option-card-content">
-                  <span class="option-num">D</span>
-                  <p class="option-desc" style="font-size: 14px; font-weight: 400; color: var(--night); margin: 0; line-height: 1.45;">Juggling too many tools at once</p>
-                </div>
+                <div class="option-card-content"><span class="option-num">D</span><p class="option-desc">Over 1,000 people</p></div>
               </label>
             </div>
           </div>
 
-          <!-- Question 4 -->
+          <!-- Q4 -->
           <div class="wizard-question-block">
-            <h3 class="wizard-question-text" id="q4-title" style="font-family: var(--font-display); font-size: clamp(18px, 2.2vw, 23px); font-weight: 400; color: var(--night); margin-bottom: 18px;">If AI worked perfectly for you tomorrow, what would change first?</h3>
+            <h3 class="wizard-question-text" id="q4-title">What does your company do?</h3>
             <div class="options-grid">
               <label class="option-card" for="q4-a">
                 <input type="radio" id="q4-a" name="q4" value="A" class="visually-hidden" required>
-                <div class="option-card-content">
-                  <span class="option-num">A</span>
-                  <p class="option-desc" style="font-size: 14px; font-weight: 400; color: var(--night); margin: 0; line-height: 1.45;">I would publish more without burning out</p>
-                </div>
+                <div class="option-card-content"><span class="option-num">A</span><p class="option-desc">Makes or moves physical things</p></div>
               </label>
-
               <label class="option-card" for="q4-b">
                 <input type="radio" id="q4-b" name="q4" value="B" class="visually-hidden">
-                <div class="option-card-content">
-                  <span class="option-num">B</span>
-                  <p class="option-desc" style="font-size: 14px; font-weight: 400; color: var(--night); margin: 0; line-height: 1.45;">I would spend less time on admin</p>
-                </div>
+                <div class="option-card-content"><span class="option-num">B</span><p class="option-desc">Sells professional services or expertise</p></div>
               </label>
-
               <label class="option-card" for="q4-c">
                 <input type="radio" id="q4-c" name="q4" value="C" class="visually-hidden">
-                <div class="option-card-content">
-                  <span class="option-num">C</span>
-                  <p class="option-desc" style="font-size: 14px; font-weight: 400; color: var(--night); margin: 0; line-height: 1.45;">I would grow my audience without depending on algorithms</p>
-                </div>
+                <div class="option-card-content"><span class="option-num">C</span><p class="option-desc">Serves consumers directly</p></div>
               </label>
-
               <label class="option-card" for="q4-d">
                 <input type="radio" id="q4-d" name="q4" value="D" class="visually-hidden">
-                <div class="option-card-content">
-                  <span class="option-num">D</span>
-                  <p class="option-desc" style="font-size: 14px; font-weight: 400; color: var(--night); margin: 0; line-height: 1.45;">My business would run even when I am not online</p>
-                </div>
+                <div class="option-card-content"><span class="option-num">D</span><p class="option-desc">Builds technology or media</p></div>
               </label>
             </div>
           </div>
-        </div>
-      </div>
 
-      <!-- STEP 3: Digital presence -->
-      <div class="wizard-step" id="step-3" role="group" aria-labelledby="step-3-title">
-        <div class="wizard-step-header">
-          <span class="wizard-step-num">Step 03</span>
-          <h2 class="wizard-step-title" id="step-3-title">Digital presence</h2>
-          <p class="wizard-step-desc">Evaluating where your audience and primary commercial operations live today.</p>
-        </div>
-
-        <div class="wizard-questions-container">
-          <!-- Question 5 -->
+          <!-- Q5 -->
           <div class="wizard-question-block">
-            <h3 class="wizard-question-text" id="q5-title" style="font-family: var(--font-display); font-size: clamp(18px, 2.2vw, 23px); font-weight: 400; color: var(--night); margin-bottom: 18px;">Where does your business live right now?</h3>
+            <h3 class="wizard-question-text" id="q5-title">Where does your company operate?</h3>
             <div class="options-grid">
               <label class="option-card" for="q5-a">
                 <input type="radio" id="q5-a" name="q5" value="A" class="visually-hidden" required>
-                <div class="option-card-content">
-                  <span class="option-num">A</span>
-                  <p class="option-desc" style="font-size: 14px; font-weight: 400; color: var(--night); margin: 0; line-height: 1.45;">Mainly on social media</p>
-                </div>
+                <div class="option-card-content"><span class="option-num">A</span><p class="option-desc">One city or region</p></div>
               </label>
-
               <label class="option-card" for="q5-b">
                 <input type="radio" id="q5-b" name="q5" value="B" class="visually-hidden">
-                <div class="option-card-content">
-                  <span class="option-num">B</span>
-                  <p class="option-desc" style="font-size: 14px; font-weight: 400; color: var(--night); margin: 0; line-height: 1.45;">On a platform like Shopify, Substack or Squarespace</p>
-                </div>
+                <div class="option-card-content"><span class="option-num">B</span><p class="option-desc">National</p></div>
               </label>
-
               <label class="option-card" for="q5-c">
                 <input type="radio" id="q5-c" name="q5" value="C" class="visually-hidden">
-                <div class="option-card-content">
-                  <span class="option-num">C</span>
-                  <p class="option-desc" style="font-size: 14px; font-weight: 400; color: var(--night); margin: 0; line-height: 1.45;">I have a website but still rely on platforms for reach or revenue</p>
-                </div>
+                <div class="option-card-content"><span class="option-num">C</span><p class="option-desc">European or cross-border</p></div>
               </label>
-
               <label class="option-card" for="q5-d">
                 <input type="radio" id="q5-d" name="q5" value="D" class="visually-hidden">
-                <div class="option-card-content">
-                  <span class="option-num">D</span>
-                  <p class="option-desc" style="font-size: 14px; font-weight: 400; color: var(--night); margin: 0; line-height: 1.45;">My own site on my own infrastructure</p>
-                </div>
+                <div class="option-card-content"><span class="option-num">D</span><p class="option-desc">Global</p></div>
               </label>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- STEP 4: Sovereignty -->
-      <div class="wizard-step" id="step-4" role="group" aria-labelledby="step-4-title">
+      <!-- ═══ STEP 3 — How work moves ══════════════════════════════════ -->
+      <div class="wizard-step" id="step-3" role="group" aria-labelledby="step-3-title">
         <div class="wizard-step-header">
-          <span class="wizard-step-num">Step 04</span>
-          <h2 class="wizard-step-title" id="step-4-title">Sovereignty</h2>
-          <p class="wizard-step-desc">Determining your exposure to platform lock-in and unexpected policy shifts.</p>
+          <span class="wizard-step-num">Step 03</span>
+          <h2 class="wizard-step-title" id="step-3-title">How work moves</h2>
+          <p class="wizard-step-desc">Where the friction is, and where AI could meet it.</p>
         </div>
 
         <div class="wizard-questions-container">
-          <!-- Question 6 -->
+          <!-- Q6 -->
           <div class="wizard-question-block">
-            <h3 class="wizard-question-text" id="q6-title" style="font-family: var(--font-display); font-size: clamp(18px, 2.2vw, 23px); font-weight: 400; color: var(--night); margin-bottom: 18px;">If one of those platforms changed its rules tomorrow, what would you lose?</h3>
+            <h3 class="wizard-question-text" id="q6-title">How is your business organised today?</h3>
             <div class="options-grid">
               <label class="option-card" for="q6-a">
                 <input type="radio" id="q6-a" name="q6" value="A" class="visually-hidden" required>
-                <div class="option-card-content">
-                  <span class="option-num">A</span>
-                  <p class="option-desc" style="font-size: 14px; font-weight: 400; color: var(--night); margin: 0; line-height: 1.45;">Everything, I would have to start over</p>
-                </div>
+                <div class="option-card-content"><span class="option-num">A</span><p class="option-desc">Centralised — one team, one place, one playbook</p></div>
               </label>
-
               <label class="option-card" for="q6-b">
                 <input type="radio" id="q6-b" name="q6" value="B" class="visually-hidden">
-                <div class="option-card-content">
-                  <span class="option-num">B</span>
-                  <p class="option-desc" style="font-size: 14px; font-weight: 400; color: var(--night); margin: 0; line-height: 1.45;">A lot, reach and revenue would take a serious hit</p>
-                </div>
+                <div class="option-card-content"><span class="option-num">B</span><p class="option-desc">Decentralised — multiple teams running their own way</p></div>
               </label>
-
               <label class="option-card" for="q6-c">
                 <input type="radio" id="q6-c" name="q6" value="C" class="visually-hidden">
-                <div class="option-card-content">
-                  <span class="option-num">C</span>
-                  <p class="option-desc" style="font-size: 14px; font-weight: 400; color: var(--night); margin: 0; line-height: 1.45;">Some, I would recover but it would hurt</p>
-                </div>
+                <div class="option-card-content"><span class="option-num">C</span><p class="option-desc">Outsourced — most operational work sits with partners</p></div>
               </label>
-
               <label class="option-card" for="q6-d">
                 <input type="radio" id="q6-d" name="q6" value="D" class="visually-hidden">
-                <div class="option-card-content">
-                  <span class="option-num">D</span>
-                  <p class="option-desc" style="font-size: 14px; font-weight: 400; color: var(--night); margin: 0; line-height: 1.45;">Nothing, I own my infrastructure independently</p>
-                </div>
+                <div class="option-card-content"><span class="option-num">D</span><p class="option-desc">Mixed — some inside, some outside, depending on the task</p></div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Q7 -->
+          <div class="wizard-question-block">
+            <h3 class="wizard-question-text" id="q7-title">Where does most of the friction live?</h3>
+            <div class="options-grid">
+              <label class="option-card" for="q7-a">
+                <input type="radio" id="q7-a" name="q7" value="A" class="visually-hidden" required>
+                <div class="option-card-content"><span class="option-num">A</span><p class="option-desc">Front office — sales, marketing, client communication</p></div>
+              </label>
+              <label class="option-card" for="q7-b">
+                <input type="radio" id="q7-b" name="q7" value="B" class="visually-hidden">
+                <div class="option-card-content"><span class="option-num">B</span><p class="option-desc">Back office — admin, finance, reporting, HR</p></div>
+              </label>
+              <label class="option-card" for="q7-c">
+                <input type="radio" id="q7-c" name="q7" value="C" class="visually-hidden">
+                <div class="option-card-content"><span class="option-num">C</span><p class="option-desc">Operations — production, logistics, service delivery</p></div>
+              </label>
+              <label class="option-card" for="q7-d">
+                <input type="radio" id="q7-d" name="q7" value="D" class="visually-hidden">
+                <div class="option-card-content"><span class="option-num">D</span><p class="option-desc">Across the board — repetition everywhere</p></div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Q8 -->
+          <div class="wizard-question-block">
+            <h3 class="wizard-question-text" id="q8-title">What's holding the change back?</h3>
+            <div class="options-grid">
+              <label class="option-card" for="q8-a">
+                <input type="radio" id="q8-a" name="q8" value="A" class="visually-hidden" required>
+                <div class="option-card-content"><span class="option-num">A</span><p class="option-desc">We don't know where to start</p></div>
+              </label>
+              <label class="option-card" for="q8-b">
+                <input type="radio" id="q8-b" name="q8" value="B" class="visually-hidden">
+                <div class="option-card-content"><span class="option-num">B</span><p class="option-desc">We've tried things and they didn't stick</p></div>
+              </label>
+              <label class="option-card" for="q8-c">
+                <input type="radio" id="q8-c" name="q8" value="C" class="visually-hidden">
+                <div class="option-card-content"><span class="option-num">C</span><p class="option-desc">Leadership is open, the team isn't ready</p></div>
+              </label>
+              <label class="option-card" for="q8-d">
+                <input type="radio" id="q8-d" name="q8" value="D" class="visually-hidden">
+                <div class="option-card-content"><span class="option-num">D</span><p class="option-desc">We're ready, we just need the right plan</p></div>
               </label>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- RESULTS STEP (Generated dynamically) -->
-      <div class="wizard-step" id="step-results" role="region" aria-live="polite" aria-labelledby="results-title">
-        <div class="wizard-step-header" style="margin-bottom: 24px;">
-          <span class="wizard-step-num" id="results-diagnostic-eyebrow">Diagnostic Completed</span>
-          <h2 class="wizard-step-title" id="results-title">Your Sovereignty Path Recommendation</h2>
-          <p class="wizard-step-desc">Based on your answers, we have evaluated your setup and custom-tailored a direct route.</p>
+      <!-- ═══ STEP 4 — Your data and your AI ══════════════════════════ -->
+      <div class="wizard-step" id="step-4" role="group" aria-labelledby="step-4-title">
+        <div class="wizard-step-header">
+          <span class="wizard-step-num">Step 04</span>
+          <h2 class="wizard-step-title" id="step-4-title">Your data and your AI</h2>
+          <p class="wizard-step-desc">Where your data lives, and how you want AI to work with it.</p>
         </div>
 
-        <!-- Custom Result Box -->
-        <div class="recommendation-card">
-          <div class="recommendation-badge" id="rec-badge">Recommendation</div>
-          <h3 class="recommendation-title" id="rec-title">Analyzing...</h3>
-          <p class="recommendation-desc" id="rec-desc">Calculating your sovereignty score...</p>
-          
-        </div>
-
-        <!-- Lead Capture Form fields -->
-        <div class="results-contact-form" style="margin-top: 40px; border-top: 1px solid var(--border); padding-top: 40px;">
-          <h4 class="form-label" style="font-size: 11px; margin-bottom: 24px; text-align: center; color: var(--night);">Secure Your Custom Proposal</h4>
-          
-          <div class="form-group">
-            <label for="client-name" class="form-label">Full Name</label>
-            <input type="text" id="client-name" name="name" class="form-input" required placeholder="Your name">
+        <div class="wizard-questions-container">
+          <!-- Q9 -->
+          <div class="wizard-question-block">
+            <h3 class="wizard-question-text" id="q9-title">How do you want to run your AI?</h3>
+            <div class="options-grid">
+              <label class="option-card" for="q9-a">
+                <input type="radio" id="q9-a" name="q9" value="A" class="visually-hidden" required>
+                <div class="option-card-content"><span class="option-num">A</span><p class="option-desc">A public AI is fine — convenience matters more than privacy</p></div>
+              </label>
+              <label class="option-card" for="q9-b">
+                <input type="radio" id="q9-b" name="q9" value="B" class="visually-hidden">
+                <div class="option-card-content"><span class="option-num">B</span><p class="option-desc">A public AI is acceptable for non-sensitive work</p></div>
+              </label>
+              <label class="option-card" for="q9-c">
+                <input type="radio" id="q9-c" name="q9" value="C" class="visually-hidden">
+                <div class="option-card-content"><span class="option-num">C</span><p class="option-desc">A private setup for anything that touches our business</p></div>
+              </label>
+              <label class="option-card" for="q9-d">
+                <input type="radio" id="q9-d" name="q9" value="D" class="visually-hidden">
+                <div class="option-card-content"><span class="option-num">D</span><p class="option-desc">Fully in-house, on our infrastructure, with maximum privacy</p></div>
+              </label>
+            </div>
           </div>
 
-          <div class="form-group">
-            <label for="client-email" class="form-label">Email Address</label>
-            <input type="email" id="client-email" name="email" class="form-input" required placeholder="your@email.com">
+          <!-- Q10 -->
+          <div class="wizard-question-block">
+            <h3 class="wizard-question-text" id="q10-title">Where does your business data live?</h3>
+            <div class="options-grid">
+              <label class="option-card" for="q10-a">
+                <input type="radio" id="q10-a" name="q10" value="A" class="visually-hidden" required>
+                <div class="option-card-content"><span class="option-num">A</span><p class="option-desc">Mostly in spreadsheets and email</p></div>
+              </label>
+              <label class="option-card" for="q10-b">
+                <input type="radio" id="q10-b" name="q10" value="B" class="visually-hidden">
+                <div class="option-card-content"><span class="option-num">B</span><p class="option-desc">Across business tools that don't really talk to each other</p></div>
+              </label>
+              <label class="option-card" for="q10-c">
+                <input type="radio" id="q10-c" name="q10" value="C" class="visually-hidden">
+                <div class="option-card-content"><span class="option-num">C</span><p class="option-desc">In a central system most of the company uses</p></div>
+              </label>
+              <label class="option-card" for="q10-d">
+                <input type="radio" id="q10-d" name="q10" value="D" class="visually-hidden">
+                <div class="option-card-content"><span class="option-num">D</span><p class="option-desc">In a unified data layer we own and control</p></div>
+              </label>
+            </div>
           </div>
 
-          <div class="form-group">
-            <label for="client-message" class="form-label">Tell us more about your timeline or brand vision (Optional)</label>
-            <textarea id="client-message" name="message" class="form-textarea" placeholder="Include any links to your current website, social pages, or specific goals..."></textarea>
+          <!-- Q11 -->
+          <div class="wizard-question-block">
+            <h3 class="wizard-question-text" id="q11-title">Do third parties have access to your data?</h3>
+            <div class="options-grid">
+              <label class="option-card" for="q11-a">
+                <input type="radio" id="q11-a" name="q11" value="A" class="visually-hidden" required>
+                <div class="option-card-content"><span class="option-num">A</span><p class="option-desc">Several, and we're not entirely sure who has what</p></div>
+              </label>
+              <label class="option-card" for="q11-b">
+                <input type="radio" id="q11-b" name="q11" value="B" class="visually-hidden">
+                <div class="option-card-content"><span class="option-num">B</span><p class="option-desc">A few, clearly scoped</p></div>
+              </label>
+              <label class="option-card" for="q11-c">
+                <input type="radio" id="q11-c" name="q11" value="C" class="visually-hidden">
+                <div class="option-card-content"><span class="option-num">C</span><p class="option-desc">Rarely, and only under contract</p></div>
+              </label>
+              <label class="option-card" for="q11-d">
+                <input type="radio" id="q11-d" name="q11" value="D" class="visually-hidden">
+                <div class="option-card-content"><span class="option-num">D</span><p class="option-desc">None</p></div>
+              </label>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- Action Navigation Buttons -->
+      <!-- ═══ STEP 5 — Looking ahead, and getting in touch ════════════ -->
+      <div class="wizard-step" id="step-5" role="group" aria-labelledby="step-5-title">
+        <div class="wizard-step-header">
+          <span class="wizard-step-num">Step 05</span>
+          <h2 class="wizard-step-title" id="step-5-title">Looking ahead</h2>
+          <p class="wizard-step-desc">Where you want to be, and how we should reach you.</p>
+        </div>
+
+        <div class="wizard-questions-container">
+
+          <!-- Q12 -->
+          <div class="wizard-question-block">
+            <h3 class="wizard-question-text" id="q12-title">Where would you like to be twelve months from now?</h3>
+            <div class="options-grid">
+              <label class="option-card" for="q12-a">
+                <input type="radio" id="q12-a" name="q12" value="A" class="visually-hidden" required>
+                <div class="option-card-content"><span class="option-num">A</span><p class="option-desc">Clearer on what AI can and can't do for us</p></div>
+              </label>
+              <label class="option-card" for="q12-b">
+                <input type="radio" id="q12-b" name="q12" value="B" class="visually-hidden">
+                <div class="option-card-content"><span class="option-num">B</span><p class="option-desc">Two or three concrete things working in production</p></div>
+              </label>
+              <label class="option-card" for="q12-c">
+                <input type="radio" id="q12-c" name="q12" value="C" class="visually-hidden">
+                <div class="option-card-content"><span class="option-num">C</span><p class="option-desc">AI woven into how the company runs</p></div>
+              </label>
+              <label class="option-card" for="q12-d">
+                <input type="radio" id="q12-d" name="q12" value="D" class="visually-hidden">
+                <div class="option-card-content"><span class="option-num">D</span><p class="option-desc">Fully sovereign — our AI, our data, our infrastructure</p></div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Contact fields -->
+          <div class="wizard-question-block contact-block">
+            <div class="contact-fields-grid">
+              <div class="form-group">
+                <label for="client-name" class="form-label">Name *</label>
+                <input type="text" id="client-name" name="name" class="form-input" required placeholder="Your name">
+              </div>
+              <div class="form-group">
+                <label for="client-role" class="form-label">Role</label>
+                <input type="text" id="client-role" name="role" class="form-input" placeholder="Your role">
+              </div>
+              <div class="form-group">
+                <label for="client-company" class="form-label">Company</label>
+                <input type="text" id="client-company" name="company" class="form-input" placeholder="Company name">
+              </div>
+              <div class="form-group">
+                <label for="client-email" class="form-label">Email *</label>
+                <input type="email" id="client-email" name="email" class="form-input" required placeholder="your@email.com">
+              </div>
+              <div class="form-group" style="grid-column: 1 / -1;">
+                <label for="client-phone" class="form-label">Phone (optional)</label>
+                <input type="tel" id="client-phone" name="phone" class="form-input" placeholder="+39 ...">
+              </div>
+            </div>
+          </div>
+
+          <!-- Q13 -->
+          <div class="wizard-question-block">
+            <h3 class="wizard-question-text" id="q13-title">How would you like us to reach out?</h3>
+            <div class="options-grid">
+              <label class="option-card" for="q13-a">
+                <input type="radio" id="q13-a" name="q13" value="A" class="visually-hidden" required>
+                <div class="option-card-content"><span class="option-num">A</span><p class="option-desc">Email is fine</p></div>
+              </label>
+              <label class="option-card" for="q13-b">
+                <input type="radio" id="q13-b" name="q13" value="B" class="visually-hidden">
+                <div class="option-card-content"><span class="option-num">B</span><p class="option-desc">A short call to start</p></div>
+              </label>
+              <label class="option-card" for="q13-c">
+                <input type="radio" id="q13-c" name="q13" value="C" class="visually-hidden">
+                <div class="option-card-content"><span class="option-num">C</span><p class="option-desc">A video meeting</p></div>
+              </label>
+              <label class="option-card" for="q13-d">
+                <input type="radio" id="q13-d" name="q13" value="D" class="visually-hidden">
+                <div class="option-card-content"><span class="option-num">D</span><p class="option-desc">In person, when it makes sense</p></div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Optional note -->
+          <div class="wizard-question-block" style="margin-bottom: 0;">
+            <div class="form-group" style="margin-bottom: 0;">
+              <label for="client-message" class="form-label">Anything we should know before we get in touch? (Optional)</label>
+              <textarea id="client-message" name="message" class="form-textarea" placeholder="Context, constraints, or specific questions..."></textarea>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Navigation Buttons -->
       <div class="wizard-navigation">
-        <button type="button" id="btn-back" class="wizard-nav-btn btn-secondary visually-hidden">← Previous</button>
-        <button type="button" id="btn-next" class="wizard-nav-btn btn-primary" enterkeyhint="next">Next Step →</button>
-        <button type="submit" id="btn-submit" class="wizard-nav-btn btn-submit visually-hidden">Submit & Claim Proposal →</button>
+        <button type="button" id="btn-back"   class="wizard-nav-btn btn-secondary visually-hidden">← Previous</button>
+        <button type="button" id="btn-next"   class="wizard-nav-btn btn-primary" enterkeyhint="next">Next Step →</button>
+        <button type="submit" id="btn-submit" class="wizard-nav-btn btn-submit visually-hidden">Submit Assessment →</button>
       </div>
 
     </form>
