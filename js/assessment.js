@@ -301,7 +301,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (subjectEl && recType) {
       const co = clientCo ? ` — ${clientCo}` : '';
-      subjectEl.value = `AI Assessment [${recType}]${co} — ${clientName}`;
+      subjectEl.value = `Assessment [${recType}]${co} — ${clientName}`;
     }
   });
 
