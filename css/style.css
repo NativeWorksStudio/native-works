@@ -1803,7 +1803,8 @@ footer::before {
 
 /* Progress Tracker Compaction */
 .assessment-container .assessment-progress-wrapper {
-  margin-bottom: 20px !important;
+  margin-top: 10px !important;
+  margin-bottom: 18px !important;
 }
 
 .assessment-container .assessment-progress-header {

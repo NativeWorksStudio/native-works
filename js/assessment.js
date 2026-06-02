@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const stepCountText = document.getElementById('step-count');
   const stepLabelText = document.getElementById('step-label');
   const progressBar   = document.getElementById('progress-line');
+  const progressWrapper = document.querySelector('.assessment-progress-wrapper');
 
   const steps = {
     1: document.getElementById('step-1'),
@@ -262,7 +263,13 @@ document.addEventListener('DOMContentLoaded', () => {
       el.classList.toggle('active', active);
       if (active) {
         const title = el.querySelector('.wizard-step-title');
-        if (title) { title.setAttribute('tabindex', '-1'); title.focus(); }
+        if (title) { 
+          title.setAttribute('tabindex', '-1'); 
+          title.focus(); 
+          if (progressWrapper) {
+            title.after(progressWrapper);
+          }
+        }
       }
     });
 
