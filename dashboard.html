@@ -656,7 +656,7 @@
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
     import { getFirestore, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-    import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+    import { getAuth, signInWithRedirect, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
     // ── FIREBASE CONFIGURATION BLOCK ───────────────────────────────────────────
     // Fill in your project credentials from Firebase Console (Settings > Project Settings > Web App)
@@ -718,9 +718,9 @@
 
     // Google Sign-In Action
     btnLogin.addEventListener('click', () => {
-      signInWithPopup(auth, provider).catch(err => {
+      signInWithRedirect(auth, provider).catch(err => {
         console.error("Authentication Error:", err);
-        errorBox.innerText = "Failed to sign in. Please verify popup permissions.";
+        errorBox.innerText = "Failed to sign in. Please try again.";
         errorBox.style.display = 'block';
       });
     });
