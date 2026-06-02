@@ -1,0 +1,11 @@
+{
+  "name": "native-works-assessment",
+  "version": "1.0.0",
+  "description": "NativeWorks Assessment Platform",
+  "main": "index.html",
+  "scripts": {
+    "build": "node inject-env.js"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}

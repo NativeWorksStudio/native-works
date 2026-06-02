@@ -1,3 +1,26 @@
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+// ── FIREBASE CONFIGURATION BLOCK ───────────────────────────────────────────
+// Replace with your project credentials from Firebase Console (Project Settings > Web App)
+const firebaseConfig = {
+  apiKey: "PLACEHOLDER_API_KEY",
+  authDomain: "PLACEHOLDER_AUTH_DOMAIN",
+  projectId: "PLACEHOLDER_PROJECT_ID",
+  storageBucket: "PLACEHOLDER_STORAGE_BUCKET",
+  messagingSenderId: "PLACEHOLDER_MESSAGING_SENDER_ID",
+  appId: "PLACEHOLDER_APP_ID",
+  measurementId: "PLACEHOLDER_MEASUREMENT_ID"
+};
+
+let db = null;
+try {
+  const app = initializeApp(firebaseConfig);
+  db = getFirestore(app);
+} catch (err) {
+  console.warn("Firebase initialization skipped or failed:", err);
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('assessment-form');
   if (!form) return;
@@ -616,7 +639,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* ── FORM SUBMIT LOGIC ──────────────────────────────────────────── */
 
-  form.addEventListener('submit', () => {
+  form.addEventListener('submit', (e) => {
     // Compile routing results before submit
     calculateRouting();
 
@@ -628,6 +651,39 @@ document.addEventListener('DOMContentLoaded', () => {
     if (subjectEl && recType) {
       const co = clientCo ? ` — ${clientCo}` : '';
       subjectEl.value = `Assessment [${selectedTrack.toUpperCase()}: ${recType}]${co} — ${clientName}`;
+    }
+
+    // Capture answers payload for Firestore
+    const answers = {};
+    for (let i = 1; i <= 17; i++) {
+      answers[`q${i}`] = document.getElementById(`payload-q${i}`)?.value || '';
+    }
+
+    // Prevent immediate native submission to allow background Firestore write
+    e.preventDefault();
+
+    if (db) {
+      addDoc(collection(db, "submissions"), {
+        timestamp: new Date().toISOString(),
+        track: selectedTrack,
+        name: clientName,
+        email: document.getElementById('client-email')?.value || '',
+        role: document.getElementById('client-role')?.value || '',
+        company: clientCo,
+        phone: document.getElementById('client-phone')?.value || '',
+        message: document.getElementById('client-message')?.value || '',
+        scores: document.getElementById('payload-scores')?.value || '',
+        recommendation: recType,
+        answers: answers
+      }).catch(err => {
+        console.warn("Firestore database write failed:", err);
+      }).finally(() => {
+        // Proceed to natively submit the form to FormSubmit.co
+        form.submit();
+      });
+    } else {
+      console.warn("Firestore database not initialized. Submitting form directly.");
+      form.submit();
     }
   });
 

@@ -1390,11 +1390,11 @@ footer::before {
 
 /* Options Grid & Cards */
 .options-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 24px;
-  margin-top: 32px;
-  will-change: transform;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-top: 5px;
+    will-change: transform;
 }
 
 .option-card {

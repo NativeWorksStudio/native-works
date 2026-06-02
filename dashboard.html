@@ -1,41 +1,3 @@
-<?php
-session_start();
-
-$password_hash = '$2y$10$wE8w9N6K1h/R7D331d2Qj.b4.kC.Z12PZ/E/n3YdC8UuP/cI1aEoq'; // Bcrypt hash of 'SOVREIGNITY'
-// Support both 'SOVREIGNITY' and 'SOVEREIGNTY' case-insensitively
-$valid_passwords = ['sovreignity', 'sovereignty'];
-
-if (isset($_POST['action']) && $_POST['action'] == 'login') {
-    $pass = strtolower(trim($_POST['password'] ?? ''));
-    if (in_array($pass, $valid_passwords)) {
-        $_SESSION['kenneth_auth'] = true;
-    } else {
-        $error = "Incorrect passcode. Security violation logged.";
-    }
-}
-
-if (isset($_GET['action']) && $_GET['action'] == 'logout') {
-    $_SESSION['kenneth_auth'] = false;
-    session_destroy();
-    header("Location: dashboard.php");
-    exit;
-}
-
-$authenticated = $_SESSION['kenneth_auth'] ?? false;
-
-// Read Database Submissions
-define('SECURE_ARCHIVE', true);
-$db_file = __DIR__ . '/submissions_db.php';
-$submissions = [];
-if (file_exists($db_file)) {
-    $submissions = include $db_file;
-}
-if (!is_array($submissions)) {
-    $submissions = [];
-}
-// Reverse to show newest first
-$submissions = array_reverse($submissions);
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -59,7 +21,6 @@ $submissions = array_reverse($submissions);
     --shadow-engraved: inset 0 2px 5px rgba(18, 16, 14, 0.05);
     --font-display: 'Cormorant Garamond', serif;
     --font-body: 'DM Sans', sans-serif;
-    --font-mono: 'Share Tech Tech', monospace;
   }
 
   body {
@@ -72,8 +33,8 @@ $submissions = array_reverse($submissions);
   }
 
   /* ── AUTH PANEL ── */
-  .login-container {
-    max-width: 420px;
+  .auth-container {
+    max-width: 440px;
     margin: 120px auto;
     padding: 40px;
     background: var(--plaster);
@@ -83,11 +44,11 @@ $submissions = array_reverse($submissions);
     text-align: center;
   }
 
-  .login-logo {
+  .auth-logo {
     margin-bottom: 24px;
   }
 
-  .login-title {
+  .auth-title {
     font-family: var(--font-display);
     font-size: 28px;
     font-weight: 400;
@@ -96,79 +57,53 @@ $submissions = array_reverse($submissions);
     letter-spacing: 1px;
   }
 
-  .login-subtitle {
+  .auth-subtitle {
     font-size: 13px;
     color: var(--mid);
     margin-bottom: 30px;
   }
 
-  .form-group {
-    text-align: left;
-    margin-bottom: 20px;
-  }
-
-  .form-label {
-    display: block;
-    font-size: 10px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    font-weight: 600;
-    color: var(--mid);
-    margin-bottom: 8px;
-  }
-
-  .form-input {
-    width: 100%;
-    box-sizing: border-box;
-    padding: 14px;
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    background: var(--plaster-light);
-    color: var(--night);
-    font-size: 14px;
-    letter-spacing: 3px;
-    text-align: center;
-    outline: none;
-    transition: all 0.3s ease;
-  }
-
-  .form-input:focus {
-    border-color: var(--true-north);
-    box-shadow: var(--shadow-engraved);
-  }
-
-  .btn-submit {
+  .btn-google {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
     width: 100%;
     padding: 16px;
-    background: var(--night);
-    color: var(--plaster-light);
-    border: none;
+    background: #ffffff;
+    color: #333333;
+    border: 1px solid rgba(0,0,0,0.12);
     border-radius: 4px;
-    font-size: 11px;
-    letter-spacing: 2.5px;
-    text-transform: uppercase;
+    font-size: 13px;
     font-weight: 600;
     cursor: pointer;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
     transition: all 0.3s ease;
   }
 
-  .btn-submit:hover {
-    background: var(--true-north);
+  .btn-google:hover {
+    background: #f7f7f7;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    transform: translateY(-1px);
   }
 
   .error-message {
-    font-size: 12px;
+    font-size: 13px;
     color: var(--true-north);
-    margin-top: 16px;
+    margin-top: 20px;
     font-weight: 500;
+    line-height: 1.5;
   }
 
   /* ── DASHBOARD PANEL ── */
+  #dashboard-view {
+    display: none; /* Revealed only upon valid whitelisted login */
+  }
+
   .dashboard-header {
     background: var(--night);
     color: var(--plaster-light);
-    padding: 24px clamp(16px, 4vw, 40px);
+    padding: 20px clamp(16px, 4vw, 40px);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -197,6 +132,8 @@ $submissions = array_reverse($submissions);
     border: 1px solid rgba(234, 230, 223, 0.2);
     padding: 8px 16px;
     border-radius: 4px;
+    cursor: pointer;
+    background: transparent;
     transition: all 0.3s ease;
   }
 
@@ -565,6 +502,13 @@ $submissions = array_reverse($submissions);
     color: var(--mid);
   }
 
+  .loading-state {
+    text-align: center;
+    padding: 40px;
+    font-size: 14px;
+    color: var(--mid);
+  }
+
   /* Responsive styles */
   @media (max-width: 768px) {
     .lead-card {
@@ -585,10 +529,9 @@ $submissions = array_reverse($submissions);
 </head>
 <body>
 
-<?php if (!$authenticated): ?>
   <!-- ── SECURITY AUTHENTICATION ROOM ── -->
-  <div class="login-container">
-    <div class="login-logo">
+  <div class="auth-container" id="login-view">
+    <div class="auth-logo">
       <svg width="48" height="48" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
         <circle cx="16" cy="16" r="14" stroke="#1E1B17" stroke-width="0.75" fill="none"/>
         <path d="M16,16 L17.2,11 L16,2 L14.8,11 Z" fill="#8E3B28"/>
@@ -596,153 +539,59 @@ $submissions = array_reverse($submissions);
         <circle cx="16" cy="16" r="2" fill="#1E1B17"/>
       </svg>
     </div>
-    <h1 class="login-title">Kenneth's Desk</h1>
-    <p class="login-subtitle">Sales Briefings & Sovereign Auditing Panel</p>
+    <h1 class="auth-title">Kenneth's Desk</h1>
+    <p class="auth-subtitle">Sales Briefings & Sovereign Auditing Panel</p>
 
-    <form method="POST" action="dashboard.php">
-      <input type="hidden" name="action" value="login">
-      <div class="form-group">
-        <label for="password" class="form-label">Sovereign Key passcode</label>
-        <input type="password" id="password" name="password" class="form-input" required placeholder="••••••••" autofocus autocomplete="current-password">
-      </div>
-      <button type="submit" class="btn-submit">Unlock brief list</button>
-    </form>
+    <button id="btn-login" class="btn-google">
+      <svg width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+        <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+        <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l3.66-2.85z" fill="#FBBC05"/>
+        <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.85c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+      </svg>
+      Sign in with Google
+    </button>
 
-    <?php if (isset($error)): ?>
-      <p class="error-message"><?php echo htmlspecialchars($error); ?></p>
-    <?php endif; ?>
+    <p class="error-message" id="error-box" style="display: none;"></p>
   </div>
 
-<?php else: ?>
   <!-- ── SOVEREIGN BRIEFINGS DASHBOARD ── -->
-  <header class="dashboard-header">
-    <div class="logo-wrap">
-      <svg width="24" height="24" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="16" cy="16" r="14" stroke="#D8D2C8" stroke-width="0.75" fill="none" opacity="0.4"/>
-        <path d="M16,16 L17.2,11 L16,2 L14.8,11 Z" fill="#8E3B28"/>
-        <path d="M16,16 L17,19.5 L16,25 L15,19.5 Z" fill="#D8D2C8"/>
-        <circle cx="16" cy="16" r="2" fill="#D8D2C8"/>
-      </svg>
-      <span class="dashboard-wordmark">NATIVE WORKS</span>
-    </div>
-    <a href="dashboard.php?action=logout" class="btn-logout">Lock Panel</a>
-  </header>
-
-  <main class="main-content">
-    <div class="dashboard-title-bar">
-      <div>
-        <h1 class="dashboard-title">Briefing Room</h1>
-        <span class="lead-count">Kenneth's dynamic sales directory</span>
+  <div id="dashboard-view">
+    <header class="dashboard-header">
+      <div class="logo-wrap">
+        <svg width="24" height="24" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="16" cy="16" r="14" stroke="#D8D2C8" stroke-width="0.75" fill="none" opacity="0.4"/>
+          <path d="M16,16 L17.2,11 L16,2 L14.8,11 Z" fill="#8E3B28"/>
+          <path d="M16,16 L17,19.5 L16,25 L15,19.5 Z" fill="#D8D2C8"/>
+          <circle cx="16" cy="16" r="2" fill="#D8D2C8"/>
+        </svg>
+        <span class="dashboard-wordmark">NATIVE WORKS</span>
       </div>
-      <span class="lead-count"><?php echo count($submissions); ?> total prospects loaded</span>
-    </div>
+      <button class="btn-logout" id="btn-logout">Lock Panel</button>
+    </header>
 
-    <!-- Filters -->
-    <div class="filters-bar">
-      <button class="filter-btn active" onclick="filterLeads('all', this)">All Tracks</button>
-      <button class="filter-btn" onclick="filterLeads('business', this)">Business</button>
-      <button class="filter-btn" onclick="filterLeads('creator', this)">Creator</button>
-    </div>
-
-    <!-- Lead List -->
-    <div class="leads-list">
-      <?php if (empty($submissions)): ?>
-        <div class="empty-state">
-          <h3>No submissions archived yet</h3>
-          <p>Submit your assessment questionnaire on the website to see it appear here dynamically.</p>
+    <main class="main-content">
+      <div class="dashboard-title-bar">
+        <div>
+          <h1 class="dashboard-title">Briefing Room</h1>
+          <span class="lead-count">Kenneth's dynamic sales directory</span>
         </div>
-      <?php else: ?>
-        <?php foreach ($submissions as $lead): 
-          $track = strtolower($lead['track'] ?? 'business');
-          $pname = htmlspecialchars($lead['name'] ?? 'N/A');
-          $pcompany = htmlspecialchars($lead['company'] ?? 'N/A');
-          $prole = htmlspecialchars($lead['role'] ?? 'N/A');
-          $pemail = htmlspecialchars($lead['email'] ?? 'N/A');
-          $pphone = htmlspecialchars($lead['phone'] ?? 'N/A');
-          $pmessage = htmlspecialchars($lead['message'] ?? 'N/A');
-          $pscores = $lead['scores'] ?? '';
-          $prec = htmlspecialchars($lead['recommendation'] ?? 'N/A');
-          $pdate = date('M d, Y — H:i', strtotime($lead['timestamp'] ?? 'now'));
-          
-          // Parse score string: "URGENCY: 3/4 — SOPHISTICATION: 2/4"
-          $parsed_scores = [];
-          $parts = explode(' — ', $pscores);
-          foreach ($parts as $p) {
-              $pair = explode(': ', $p);
-              if (count($pair) == 2) {
-                  $parsed_scores[strtolower($pair[0])] = (int)explode('/', $pair[1])[0];
-              }
-          }
-          
-          // Encode answers and data safely for JavaScript modal injection
-          $js_data = htmlspecialchars(json_encode([
-              "track" => $track,
-              "name" => $pname,
-              "company" => $pcompany,
-              "role" => $prole,
-              "email" => $pemail,
-              "phone" => $pphone,
-              "message" => $pmessage,
-              "scores" => $parsed_scores,
-              "recommendation" => $prec,
-              "date" => $pdate,
-              "answers" => $lead['answers'] ?? []
-          ]), ENT_QUOTES, 'UTF-8');
-        ?>
-          <div class="lead-card" data-track="<?php echo $track; ?>">
-            <div class="lead-main">
-              <div class="lead-header-info">
-                <span class="lead-track-badge <?php echo ($track == 'business') ? 'track-business' : 'track-creator'; ?>">
-                  <?php echo $track; ?>
-                </span>
-                <h3 class="lead-name"><?php echo $pname; ?></h3>
-                <span style="color:var(--mid);font-size:14px;">at <strong><?php echo $pcompany; ?></strong> (<?php echo $prole; ?>)</span>
-              </div>
+        <span class="lead-count" id="count-box">Loading submissions...</span>
+      </div>
 
-              <div class="lead-meta">
-                <span>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-                  <?php echo $pemail; ?>
-                </span>
-                <?php if (!empty($pphone)): ?>
-                  <span>
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                    <?php echo $pphone; ?>
-                  </span>
-                <?php endif; ?>
-                <span>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                  <?php echo $pdate; ?>
-                </span>
-              </div>
+      <!-- Filters -->
+      <div class="filters-bar">
+        <button class="filter-btn active" id="btn-filter-all">All Tracks</button>
+        <button class="filter-btn" id="btn-filter-business">Business</button>
+        <button class="filter-btn" id="btn-filter-creator">Creator</button>
+      </div>
 
-              <!-- Signal vector visualization -->
-              <div class="vectors-bar-row">
-                <?php foreach ($parsed_scores as $vecName => $score): 
-                  $class = 'level-low';
-                  if ($score >= 3) $class = 'level-high';
-                  elseif ($score == 2) $class = 'level-mid';
-                ?>
-                  <div class="vector-pill">
-                    <span class="vector-dot <?php echo $class; ?>"></span>
-                    <span style="text-transform:capitalize;"><?php echo $vecName; ?>: <strong><?php echo $score; ?>/4</strong></span>
-                  </div>
-                <?php endforeach; ?>
-              </div>
-            </div>
-
-            <div class="lead-right">
-              <div class="rec-badge-box">
-                <span class="rec-label">Lead Suggestion</span>
-                <span class="rec-product"><?php echo explode(' [', $prec)[0]; ?></span>
-              </div>
-              <button class="btn-brief" onclick="openBriefPlaybook(<?php echo $js_data; ?>)">Playbook Brief →</button>
-            </div>
-          </div>
-        <?php endforeach; ?>
-      <?php endif; ?>
-    </div>
-  </main>
+      <!-- Lead List -->
+      <div class="leads-list" id="leads-container">
+        <div class="loading-state">Fetching cloud records...</div>
+      </div>
+    </main>
+  </div>
 
   <!-- ── PLAYBOOK BRIEF MODAL ── -->
   <div class="brief-modal" id="brief-modal">
@@ -752,7 +601,7 @@ $submissions = array_reverse($submissions);
           <h2 id="m-prospect-name">Name</h2>
           <p id="m-prospect-meta">Briefing meta info</p>
         </div>
-        <button class="btn-close-modal" onclick="closeBriefPlaybook()">✕</button>
+        <button class="btn-close-modal" id="btn-close-modal">✕</button>
       </header>
 
       <div class="modal-body">
@@ -803,45 +652,243 @@ $submissions = array_reverse($submissions);
     </div>
   </div>
 
-  <script>
-    function filterLeads(track, btn) {
-      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
+  <!-- Firebase Scripts -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getFirestore, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
-      document.querySelectorAll('.lead-card').forEach(card => {
-        if (track === 'all' || card.dataset.track === track) {
-          card.style.display = 'grid';
+    // ── FIREBASE CONFIGURATION BLOCK ───────────────────────────────────────────
+    // Fill in your project credentials from Firebase Console (Settings > Project Settings > Web App)
+    const firebaseConfig = {
+      apiKey: "PLACEHOLDER_API_KEY",
+      authDomain: "PLACEHOLDER_AUTH_DOMAIN",
+      projectId: "PLACEHOLDER_PROJECT_ID",
+      storageBucket: "PLACEHOLDER_STORAGE_BUCKET",
+      messagingSenderId: "PLACEHOLDER_MESSAGING_SENDER_ID",
+      appId: "PLACEHOLDER_APP_ID",
+      measurementId: "PLACEHOLDER_MEASUREMENT_ID"
+    };
+
+    // ── SECURE EMAIL WHITELIST ──
+    const authorizedEmails = [
+      "antonio.visceglia@nativeworks.studio",
+      "info@nativeworks.studio",
+      "antonio@nativeworks.studio",
+      "kenneth@nativeworks.studio" // Added Kenneth's email as standard fallback
+    ];
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const auth = getAuth(app);
+    const provider = new GoogleAuthProvider();
+
+    const loginView = document.getElementById('login-view');
+    const dashboardView = document.getElementById('dashboard-view');
+    const btnLogin = document.getElementById('btn-login');
+    const btnLogout = document.getElementById('btn-logout');
+    const errorBox = document.getElementById('error-box');
+
+    let allLeads = [];
+    let currentFilter = 'all';
+
+    // Handle Authentication State Change
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const userEmail = user.email.toLowerCase();
+        if (authorizedEmails.includes(userEmail)) {
+          // Grant access
+          loginView.style.display = 'none';
+          dashboardView.style.display = 'block';
+          errorBox.style.display = 'none';
+          loadSubmissions();
         } else {
-          card.style.display = 'none';
+          // Reject and sign out
+          signOut(auth);
+          errorBox.innerText = `Access Denied: Email [${user.email}] is not whitelisted.`;
+          errorBox.style.display = 'block';
+          loginView.style.display = 'block';
+          dashboardView.style.display = 'none';
         }
+      } else {
+        loginView.style.display = 'block';
+        dashboardView.style.display = 'none';
+      }
+    });
+
+    // Google Sign-In Action
+    btnLogin.addEventListener('click', () => {
+      signInWithPopup(auth, provider).catch(err => {
+        console.error("Authentication Error:", err);
+        errorBox.innerText = "Failed to sign in. Please verify popup permissions.";
+        errorBox.style.display = 'block';
+      });
+    });
+
+    // Sign-out Action
+    btnLogout.addEventListener('click', () => {
+      signOut(auth);
+    });
+
+    // Load Submissions from Firestore
+    async function loadSubmissions() {
+      const leadsContainer = document.getElementById('leads-container');
+      const countBox = document.getElementById('count-box');
+      
+      try {
+        leadsContainer.innerHTML = '<div class="loading-state">Syncing secure data stream...</div>';
+        
+        const q = query(collection(db, "submissions"), orderBy("timestamp", "desc"));
+        const snapshot = await getDocs(q);
+        
+        allLeads = [];
+        snapshot.forEach(doc => {
+          allLeads.push({ id: doc.id, ...doc.data() });
+        });
+
+        countBox.innerText = `${allLeads.length} total prospects loaded`;
+        renderLeads();
+      } catch (err) {
+        console.error("Firestore loading error:", err);
+        leadsContainer.innerHTML = `<div class="empty-state"><h3>Firestore Connection Error</h3><p>Please confirm your Firebase Config credentials and Firestore Security Rules allow read access.</p></div>`;
+      }
+    }
+
+    // Render Leads List based on active filter
+    function renderLeads() {
+      const container = document.getElementById('leads-container');
+      container.innerHTML = '';
+
+      const filtered = allLeads.filter(lead => {
+        if (currentFilter === 'all') return true;
+        return (lead.track || '').toLowerCase() === currentFilter;
+      });
+
+      if (filtered.length === 0) {
+        container.innerHTML = '<div class="empty-state"><h3>No records found for this track</h3></div>';
+        return;
+      }
+
+      filtered.forEach(lead => {
+        const track = (lead.track || 'business').toLowerCase();
+        const pScores = lead.scores || '';
+        
+        // Parse scores into structured map
+        const parsedScores = {};
+        pScores.split(' — ').forEach(p => {
+          const pair = p.split(': ');
+          if (pair.length === 2) {
+            parsedScores[pair[0].toLowerCase()] = parseInt(pair[1].split('/')[0]) || 0;
+          }
+        });
+
+        // Pill layout
+        let pillHtml = '';
+        Object.keys(parsedScores).forEach(key => {
+          const score = parsedScores[key];
+          let colorClass = 'level-low';
+          if (score >= 3) colorClass = 'level-high';
+          else if (score == 2) colorClass = 'level-mid';
+          pillHtml += `
+            <div class="vector-pill">
+              <span class="vector-dot ${colorClass}"></span>
+              <span style="text-transform:capitalize;">${key}: <strong>${score}/4</strong></span>
+            </div>
+          `;
+        });
+
+        const card = document.createElement('div');
+        card.className = 'lead-card';
+        card.innerHTML = `
+          <div class="lead-main">
+            <div class="lead-header-info">
+              <span class="lead-track-badge ${track === 'business' ? 'track-business' : 'track-creator'}">
+                ${track}
+              </span>
+              <h3 class="lead-name">${lead.name || 'N/A'}</h3>
+              <span style="color:var(--mid);font-size:14px;">at <strong>${lead.company || 'N/A'}</strong> (${lead.role || 'N/A'})</span>
+            </div>
+
+            <div class="lead-meta">
+              <span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                ${lead.email || 'N/A'}
+              </span>
+              ${lead.phone ? `
+                <span>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                  ${lead.phone}
+                </span>
+              ` : ''}
+              <span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                ${lead.timestamp ? new Date(lead.timestamp).toLocaleDateString(undefined, {month:'short', day:'numeric', hour:'numeric', minute:'numeric'}) : 'N/A'}
+              </span>
+            </div>
+
+            <div class="vectors-bar-row">
+              ${pillHtml}
+            </div>
+          </div>
+
+          <div class="lead-right">
+            <div class="rec-badge-box">
+              <span class="rec-label">Lead Suggestion</span>
+              <span class="rec-product">${(lead.recommendation || 'N/A').split(' [')[0]}</span>
+            </div>
+            <button class="btn-brief" id="btn-brief-${lead.id}">Playbook Brief →</button>
+          </div>
+        `;
+
+        container.appendChild(card);
+
+        // Bind click to reveal Modal
+        card.querySelector(`#btn-brief-${lead.id}`).addEventListener('click', () => {
+          openBriefPlaybook(lead, parsedScores);
+        });
       });
     }
 
-    function openBriefPlaybook(data) {
-      document.getElementById('m-prospect-name').innerText = data.name;
-      document.getElementById('m-prospect-meta').innerText = `${data.company} (${data.role}) — ${data.date}`;
+    // Filter Navigation
+    const btnAll = document.getElementById('btn-filter-all');
+    const btnBiz = document.getElementById('btn-filter-business');
+    const btnCre = document.getElementById('btn-filter-creator');
 
-      // Populate Signal Vector pill scores
-      document.getElementById('m-urgency').innerText = `${data.scores.urgency || 0}/4`;
-      document.getElementById('m-soph').innerText = `${data.scores.sophistication || 0}/4`;
-      document.getElementById('m-sov').innerText = `${data.scores.sovereignty || 0}/4`;
-      document.getElementById('m-auto').innerText = `${data.scores.automation || 0}/4`;
+    function setActiveFilter(filter, activeBtn) {
+      currentFilter = filter;
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      activeBtn.classList.add('active');
+      renderLeads();
+    }
 
-      const isBusiness = data.track === 'business';
+    btnAll.addEventListener('click', () => setActiveFilter('all', btnAll));
+    btnBiz.addEventListener('click', () => setActiveFilter('business', btnBiz));
+    btnCre.addEventListener('click', () => setActiveFilter('creator', btnCre));
+
+    // Playbook brief modal compiler
+    function openBriefPlaybook(lead, scores) {
+      document.getElementById('m-prospect-name').innerText = lead.name || 'N/A';
+      document.getElementById('m-prospect-meta').innerText = `${lead.company || 'N/A'} (${lead.role || 'N/A'}) — ${new Date(lead.timestamp).toLocaleDateString()}`;
+
+      // Set Vector Scores
+      document.getElementById('m-urgency').innerText = `${scores.urgency || 0}/4`;
+      document.getElementById('m-soph').innerText = `${scores.sophistication || 0}/4`;
+      document.getElementById('m-sov').innerText = `${scores.sovereignty || 0}/4`;
+      document.getElementById('m-auto').innerText = `${scores.automation || 0}/4`;
+
+      const isBusiness = (lead.track || '').toLowerCase() === 'business';
       document.getElementById('m-fifth-label').innerText = isBusiness ? 'Budget' : 'Earning';
-      document.getElementById('m-fifth-val').innerText = isBusiness ? `${data.scores.budget || 0}/4` : `${data.scores.earning || 0}/4`;
+      document.getElementById('m-fifth-val').innerText = isBusiness ? `${scores.budget || 0}/4` : `${scores.earning || 0}/4`;
 
-      // ── PLAYBOOK COMPILATION LOGIC ──
       let openingLine = '';
       let bridgeLine = '';
       let fragilityLine = '';
       let sovereigntyLine = '';
       let closeLine = '';
 
-      const answers = data.answers || {};
+      const answers = lead.answers || {};
 
       if (isBusiness) {
-        // Section 1 Opening
         const q16 = answers.q16 || '';
         if (q16.includes('clarity')) {
           openingLine = `"You told us you want clarity in twelve months. Let's get you there in this conversation."`;
@@ -853,7 +900,6 @@ $submissions = array_reverse($submissions);
           openingLine = `"You told us you want full sovereignty in twelve months. That tells us a lot about what kind of partner you're looking for. Let's start there."`;
         }
 
-        // Section 2 Bridge
         const q2 = answers.q2 || '';
         if (q2.includes('competitor')) {
           bridgeLine = `"Tell me about the competitor. What did they do, and how did your team find out?"`;
@@ -865,14 +911,12 @@ $submissions = array_reverse($submissions);
           bridgeLine = `"What's been on your mind lately about the way your business runs?"`;
         }
 
-        // Section 3 Fragility
         const q7 = answers.q7 || '';
         const q10 = answers.q10 || '';
         let area = q7.toLowerCase().includes('back office') ? 'the back office' : 'your operations';
         let treadmill = q10.toLowerCase().includes('drafting') ? 'drafting' : 'messages triage';
         fragilityLine = `"You said most of the friction lives in ${area}, and that ${treadmill} feels most like a treadmill. Before I tell you what we'd do about that, walk me through a typical week — where does the time actually go?"`;
 
-        // Section 4 Sovereignty
         const q13 = answers.q13 || '';
         if (q13.includes('in-house')) {
           sovereigntyLine = `[Sold Case] "Based on your focus on maximum infrastructure privacy, you're already sold on sovereignty. Let me skip the standard pitch and show you what this actually looks like."`;
@@ -886,8 +930,6 @@ $submissions = array_reverse($submissions);
 
       } else {
         // CREATOR TRACK
-
-        // Section 1 Opening
         const q16 = answers.q16 || '';
         if (q16.includes('anxious')) {
           openingLine = `"You told us you want to feel less anxious in twelve months. That's an honest answer and we take it seriously. Let's talk about what would actually make that true."`;
@@ -899,7 +941,6 @@ $submissions = array_reverse($submissions);
           openingLine = `"You told us you want full sovereignty. That tells us a lot about what kind of partner you're looking for. Let's start there."`;
         }
 
-        // Section 2 Bridge
         const q2 = answers.q2 || '';
         if (q2.includes('dropped')) {
           bridgeLine = `"Tell me about the reach drop. When did it start, what changed, and what have you tried?"`;
@@ -911,12 +952,10 @@ $submissions = array_reverse($submissions);
           bridgeLine = `"What's been on your mind lately about your situation?"`;
         }
 
-        // Section 3 Fragility
         const q8 = answers.q8 || '';
         let fragType = q8.includes('account') ? 'my account itself' : (q8.includes('reach') ? 'my reach' : 'my contact with my audience');
         fragilityLine = `"You told us ${fragType} is the most fragile part of your operation. Walk me through that. What does fragility actually look like in your day-to-day?"`;
 
-        // Section 4 Sovereignty
         const q13 = answers.q13 || '';
         if (q13.includes('Almost nothing')) {
           sovereigntyLine = `"That's the honest answer most creators don't say out loud. The good news is — it's fixable. The bad news is — it doesn't fix itself. Let me show you what fixing it actually looks like."`;
@@ -929,13 +968,12 @@ $submissions = array_reverse($submissions);
         }
       }
 
-      // Section 5 Recommendation
-      const cleanRec = data.recommendation.split(' [Posture:')[0];
-      const posture = data.recommendation.includes('Posture:') ? data.recommendation.split('Posture: ')[1].replace(']', '') : 'Standard matching posture.';
+      // Recommendation & closing close
+      const cleanRec = (lead.recommendation || 'N/A').split(' [Posture:')[0];
+      const posture = (lead.recommendation || '').includes('Posture:') ? (lead.recommendation || '').split('Posture: ')[1].replace(']', '') : 'Standard matching posture.';
       document.getElementById('play-recommendation-line').innerHTML = `<strong>Lead Product Pitch:</strong> ${cleanRec}<br><span style="display:block;margin-top:8px;font-size:13.5px;color:var(--mid);font-style:italic;"><strong>Sales Posture:</strong> ${posture}</span>`;
 
-      // Section 6 Close (based on urgency)
-      const uScore = data.scores.urgency || 0;
+      const uScore = scores.urgency || 0;
       if (uScore >= 3) {
         closeLine = `"What does it take to start in the next two weeks?"`;
       } else if (uScore == 2) {
@@ -953,10 +991,10 @@ $submissions = array_reverse($submissions);
       document.getElementById('brief-modal').style.display = 'flex';
     }
 
-    function closeBriefPlaybook() {
+    // Close Modal Event Bind
+    document.getElementById('btn-close-modal').addEventListener('click', () => {
       document.getElementById('brief-modal').style.display = 'none';
-    }
+    });
   </script>
-<?php endif; ?>
 </body>
 </html>
