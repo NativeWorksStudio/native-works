@@ -1383,9 +1383,7 @@ footer::before {
 }
 
 .wizard-step-desc {
-  font-size: 14px;
-  color: #5A5650;
-  font-weight: 300;
+  display: none !important;
 }
 
 /* Options Grid & Cards */
@@ -1840,7 +1838,7 @@ footer::before {
 
 .assessment-container .wizard-question-text {
   font-size: 13.5px !important;
-  margin-bottom: 5px !important;
+  margin-bottom: 10px !important;
   font-weight: 600 !important;
 }
 
