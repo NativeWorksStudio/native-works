@@ -656,7 +656,7 @@
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
     import { getFirestore, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-    import { getAuth, signInWithRedirect, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+    import { getAuth, signInWithPopup, signInWithRedirect, getRedirectResult, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
     // ── FIREBASE CONFIGURATION BLOCK ───────────────────────────────────────────
     // Fill in your project credentials from Firebase Console (Settings > Project Settings > Web App)
@@ -716,13 +716,35 @@
       }
     });
 
-    // Google Sign-In Action
-    btnLogin.addEventListener('click', () => {
-      signInWithRedirect(auth, provider).catch(err => {
-        console.error("Authentication Error:", err);
-        errorBox.innerText = "Failed to sign in. Please try again.";
+    // Resolve redirect sign-in results if returning from a redirect
+    getRedirectResult(auth)
+      .then((result) => {
+        if (result && result.user) {
+          console.log("Redirect login successful:", result.user.email);
+        }
+      })
+      .catch((err) => {
+        console.error("Redirect resolution error:", err);
+        errorBox.innerText = `Sign-in redirect failed: ${err.message}. Please try again.`;
         errorBox.style.display = 'block';
       });
+
+    // Google Sign-In Action (Hybrid Popup with automatic Redirect fallback)
+    btnLogin.addEventListener('click', () => {
+      errorBox.style.display = 'none';
+      signInWithPopup(auth, provider)
+        .then((result) => {
+          console.log("Popup login successful:", result.user.email);
+        })
+        .catch(err => {
+          console.warn("Popup blocked or failed, trying redirect fallback:", err);
+          // If popup is blocked, cancelled, or fails, fallback immediately to redirect
+          signInWithRedirect(auth, provider).catch(redirectErr => {
+            console.error("Redirect fallback error:", redirectErr);
+            errorBox.innerText = "Authentication failed. Please verify browser third-party cookie permissions.";
+            errorBox.style.display = 'block';
+          });
+        });
     });
 
     // Sign-out Action
