@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const trackRadios = document.querySelectorAll('input[name="track_select"]');
   trackRadios.forEach(radio => {
-    const card = radio.closest('.path-card');
+    const card = document.querySelector(`label[for="${radio.id}"]`);
     if (!card) return;
 
     if (radio.checked) {
