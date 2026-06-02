@@ -25,6 +25,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('assessment-form');
   if (!form) return;
 
+  // Remove native 'required' attribute from all radio inputs to prevent browser validation from blocking submit on hidden steps
+  document.querySelectorAll('input[type="radio"]').forEach(radio => {
+    radio.removeAttribute('required');
+  });
+
   let currentStep = 1;
   const totalSteps = 7;
   let selectedTrack = null; // 'business' | 'creator'
