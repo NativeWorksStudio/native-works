@@ -666,6 +666,17 @@ document.addEventListener('DOMContentLoaded', () => {
       subjectEl.value = `Assessment [${selectedTrack.toUpperCase()}: ${recType}]${co} — ${clientName}`;
     }
 
+    // Dynamic local redirect for _next during testing
+    const nextEl = form.querySelector('input[name="_next"]');
+    if (nextEl) {
+      const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+      if (isLocal) {
+        const currentPath = window.location.pathname;
+        const dirPath = currentPath.substring(0, currentPath.lastIndexOf('/'));
+        nextEl.value = `${window.location.origin}${dirPath}/thank-you.html`;
+      }
+    }
+
     // Capture answers payload for Firestore
     const answers = {};
     for (let i = 1; i <= 17; i++) {
