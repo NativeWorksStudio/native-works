@@ -1,8 +1,25 @@
 const fs = require('fs');
 const path = require('path');
 
+// Helper to recursively copy directories
+function copyFolderSync(from, to) {
+  if (!fs.existsSync(from)) return;
+  if (!fs.existsSync(to)) {
+    fs.mkdirSync(to, { recursive: true });
+  }
+  fs.readdirSync(from).forEach(element => {
+    const stat = fs.lstatSync(path.join(from, element));
+    if (stat.isFile()) {
+      fs.copyFileSync(path.join(from, element), path.join(to, element));
+    } else if (stat.isDirectory()) {
+      copyFolderSync(path.join(from, element), path.join(to, element));
+    }
+  });
+}
+
+console.log("🚀 Starting build-time environment variable injection...");
+
 // ── ENV CONFIGURATION MAP ──────────────────────────────────────────────────
-// Maps Firebase config keys to environment variable names.
 const firebaseKeys = {
   apiKey: process.env.FIREBASE_API_KEY,
   authDomain: process.env.FIREBASE_AUTH_DOMAIN,
@@ -13,13 +30,13 @@ const firebaseKeys = {
   measurementId: process.env.FIREBASE_MEASUREMENT_ID
 };
 
-// Validate that critical env variables are provided
+// Validate critical keys
 if (!firebaseKeys.apiKey || !firebaseKeys.projectId) {
   console.error("❌ Error: FIREBASE_API_KEY and FIREBASE_PROJECT_ID env variables must be set!");
   process.exit(1);
 }
 
-// Generate the configuration block string
+// Generate the configuration block
 const configBlock = `const firebaseConfig = {
   apiKey: "${firebaseKeys.apiKey}",
   authDomain: "${firebaseKeys.authDomain || ''}",
@@ -30,13 +47,45 @@ const configBlock = `const firebaseConfig = {
   measurementId: "${firebaseKeys.measurementId || ''}"
 };`;
 
+// Define the public output folder for Vercel
+const publicDir = path.join(__dirname, 'public');
+if (!fs.existsSync(publicDir)) {
+  fs.mkdirSync(publicDir, { recursive: true });
+}
+
+// 1. Copy all static files & folders from the root to public
+const filesToCopy = [
+  'index.html',
+  'assessment.html',
+  'contact.html',
+  'thank-you.html',
+  'dashboard.html',
+  'NativeWorks_Brand_Identity_v1.html',
+  'NativeWorks_Canela_Licence_Brief_v1_0.html',
+  'NativeWorks_MainPage_v1.html'
+];
+
+filesToCopy.forEach(file => {
+  const src = path.join(__dirname, file);
+  if (fs.existsSync(src)) {
+    fs.copyFileSync(src, path.join(publicDir, file));
+  }
+});
+
+// Copy directories
+copyFolderSync(path.join(__dirname, 'css'), path.join(publicDir, 'css'));
+copyFolderSync(path.join(__dirname, 'js'), path.join(publicDir, 'js'));
+
+console.log("✅ Successfully copied all static assets to the 'public' directory.");
+
+// 2. Inject Firebase credentials into the copied files in 'public'
 const filesToInject = [
   {
-    path: path.join(__dirname, 'js', 'assessment.js'),
+    path: path.join(publicDir, 'js', 'assessment.js'),
     pattern: /const\s+firebaseConfig\s*=\s*\{[\s\S]*?\};/
   },
   {
-    path: path.join(__dirname, 'dashboard.html'),
+    path: path.join(publicDir, 'dashboard.html'),
     pattern: /const\s+firebaseConfig\s*=\s*\{[\s\S]*?\};/
   }
 ];
@@ -47,11 +96,13 @@ filesToInject.forEach(fileInfo => {
     if (fileInfo.pattern.test(content)) {
       content = content.replace(fileInfo.pattern, configBlock);
       fs.writeFileSync(fileInfo.path, content, 'utf8');
-      console.log(`✅ Injected Firebase config successfully into: ${path.basename(fileInfo.path)}`);
+      console.log(`✅ Injected Firebase config successfully into: public/${path.basename(fileInfo.path)}`);
     } else {
-      console.warn(`⚠️ Could not find firebaseConfig declaration pattern in: ${path.basename(fileInfo.path)}`);
+      console.warn(`⚠️ Could not find firebaseConfig declaration pattern in: public/${path.basename(fileInfo.path)}`);
     }
   } else {
     console.error(`❌ File not found: ${fileInfo.path}`);
   }
 });
+
+console.log("🎉 Build completed successfully!");
