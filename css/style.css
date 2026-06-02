@@ -1789,77 +1789,83 @@ footer::before {
 
 /* Section Padding Reduction */
 .assessment-section {
-  padding-top: 100px !important;
-  padding-bottom: 40px !important;
-  min-height: calc(100vh - 100px) !important;
+  padding-top: 70px !important;
+  padding-bottom: 15px !important;
+  min-height: calc(100vh - 70px) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
 }
 
 /* Container Padding & Dimensions */
 .assessment-container {
   max-width: 850px !important;
   min-height: auto !important;
-  padding: 30px clamp(24px, 4vw, 40px) !important;
+  padding: 18px 24px !important;
 }
 
 /* Progress Tracker Compaction */
 .assessment-container .assessment-progress-wrapper {
-  margin-top: 10px !important;
-  margin-bottom: 18px !important;
+  margin-top: 4px !important;
+  margin-bottom: 10px !important;
 }
 
 .assessment-container .assessment-progress-header {
-  margin-bottom: 8px !important;
+  margin-bottom: 6px !important;
 }
 
 .assessment-container .assessment-progress-bar {
-  height: 4px !important;
+  height: 3px !important;
 }
 
 /* Step Header Spacing */
 .assessment-container .wizard-step-header {
-  margin-bottom: 20px !important;
+  margin-bottom: 12px !important;
 }
 
 .assessment-container .wizard-step-title {
-  font-size: clamp(20px, 2.5vw, 28px) !important;
-  margin-bottom: 6px !important;
+  font-size: 24px !important;
+  margin-bottom: 2px !important;
 }
 
 .assessment-container .wizard-step-desc {
-  font-size: 13px !important;
+  font-size: 12px !important;
+  opacity: 0.8;
 }
 
 /* Question Sizing & Grid Spacing */
 .assessment-container .wizard-question-block {
-  margin-bottom: 20px !important; /* Reduces space between nested Q1 & Q2 / Q3 & Q4 */
+  margin-bottom: 12px !important; /* Reduces space between nested Q1 & Q2 / Q3 & Q4 */
 }
 
 .assessment-container .wizard-question-text {
-  font-size: clamp(15px, 1.8vw, 17px) !important;
-  margin-bottom: 8px !important;
+  font-size: 13.5px !important;
+  margin-bottom: 5px !important;
+  font-weight: 600 !important;
 }
 
 .assessment-container .options-grid {
-  gap: 12px !important;
-  margin-top: 10px !important;
+  gap: 8px !important;
+  margin-top: 6px !important;
 }
 
 /* Compact Option Cards with Custom Minimalist Radio Bullet */
 .assessment-container .option-card {
-  padding: 10px 16px !important;
-  gap: 12px !important; /* Spacing between visual indicator and description */
+  padding: 8px 12px !important;
+  gap: 10px !important; /* Spacing between visual indicator and description */
   border-radius: 4px !important;
   display: flex !important;
   align-items: center !important; /* Vertically center the bullet and text */
   justify-content: flex-start !important;
+  min-height: 40px !important;
 }
 
 /* Custom circular control box (casella di controllo) */
 .assessment-container .option-card::before {
   content: '' !important;
   display: block !important;
-  width: 14px !important;
-  height: 14px !important;
+  width: 12px !important;
+  height: 12px !important;
   border: 1px solid var(--border) !important;
   border-radius: 50% !important;
   background: var(--plaster) !important;
@@ -1887,8 +1893,8 @@ footer::before {
 }
 
 .assessment-container .option-desc {
-  font-size: 13px !important;
-  line-height: 1.3 !important;
+  font-size: 12px !important;
+  line-height: 1.25 !important;
   margin: 0 !important;
 }
 
