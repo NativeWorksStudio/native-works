@@ -3,7 +3,8 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!form) return;
 
   let currentStep = 1;
-  const totalSteps = 5;
+  const totalSteps = 7;
+  let selectedTrack = null; // 'business' | 'creator'
 
   // DOM references
   const stepCountText = document.getElementById('step-count');
@@ -15,7 +16,9 @@ document.addEventListener('DOMContentLoaded', () => {
     2: document.getElementById('step-2'),
     3: document.getElementById('step-3'),
     4: document.getElementById('step-4'),
-    5: document.getElementById('step-5')
+    5: document.getElementById('step-5'),
+    6: document.getElementById('step-6'),
+    7: document.getElementById('step-7')
   };
 
   const btnNext   = document.getElementById('btn-next');
@@ -23,14 +26,94 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnSubmit = document.getElementById('btn-submit');
 
   const stepNames = {
-    1: 'Why Now',
-    2: 'Your Company',
-    3: 'How Work Moves',
-    4: 'Your Data & AI',
-    5: 'Looking Ahead'
+    1: 'Choose Track',
+    2: 'Why Now',
+    3: 'Your Profile',
+    4: 'Operations',
+    5: 'AI & Workflows',
+    6: 'Data & Sovereignty',
+    7: 'Looking Ahead'
   };
 
-  /* ── OPTION CARD INTERACTION ──────────────────────────────────────── */
+  /* ── TRACK SWITCHER INITIALISATION ──────────────────────────────── */
+
+  const trackRadios = document.querySelectorAll('input[name="track_select"]');
+  trackRadios.forEach(radio => {
+    const card = radio.closest('.path-card');
+    if (!card) return;
+
+    if (radio.checked) {
+      selectedTrack = radio.value;
+      card.classList.add('selected');
+    }
+
+    card.addEventListener('click', () => {
+      radio.checked = true;
+      selectedTrack = radio.value;
+      
+      // Update UI selection classes
+      document.querySelectorAll('.path-card').forEach(c => c.classList.remove('selected'));
+      card.classList.add('selected');
+
+      // Update dynamics for rest of questionnaire
+      updateTrackVisibility();
+    });
+
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        card.click();
+      }
+    });
+  });
+
+  function updateTrackVisibility() {
+    if (!selectedTrack) return;
+
+    // Toggle conditional visual groups
+    document.querySelectorAll('.business-only').forEach(el => {
+      el.style.display = selectedTrack === 'business' ? 'block' : 'none';
+    });
+    document.querySelectorAll('.creator-only').forEach(el => {
+      el.style.display = selectedTrack === 'creator' ? 'block' : 'none';
+    });
+
+    // Toggle 'required' constraints dynamically so hidden tracks don't prevent submit
+    document.querySelectorAll('.business-only input[type="radio"]').forEach(r => {
+      if (selectedTrack === 'business') {
+        r.setAttribute('required', 'required');
+      } else {
+        r.removeAttribute('required');
+      }
+    });
+    document.querySelectorAll('.creator-only input[type="radio"]').forEach(r => {
+      if (selectedTrack === 'creator') {
+        r.setAttribute('required', 'required');
+      } else {
+        r.removeAttribute('required');
+      }
+    });
+
+    // Update Contact fields labels / requirements dynamically
+    const labelRole = document.getElementById('label-role');
+    const labelCompany = document.getElementById('label-company');
+    const inputRole = document.getElementById('client-role');
+    const inputCompany = document.getElementById('client-company');
+
+    if (selectedTrack === 'creator') {
+      if (labelRole) labelRole.innerHTML = 'Primary Medium / Niche';
+      if (inputRole) inputRole.placeholder = 'e.g. Technology writer, Video creator';
+      if (labelCompany) labelCompany.innerHTML = 'Channel or Brand Name *';
+      if (inputCompany) inputCompany.placeholder = 'Your channel / newsletter name';
+    } else {
+      if (labelRole) labelRole.innerHTML = 'Role *';
+      if (inputRole) inputRole.placeholder = 'Your role';
+      if (labelCompany) labelCompany.innerHTML = 'Company *';
+      if (inputCompany) inputCompany.placeholder = 'Company name';
+    }
+  }
+
+  /* ── CARD INTERACTION (Wizard Radios) ───────────────────────────── */
 
   document.querySelectorAll('.option-card').forEach(card => {
     const radio = card.querySelector('input[type="radio"]');
@@ -59,7 +142,7 @@ document.addEventListener('DOMContentLoaded', () => {
       document.body.classList.add('cursor-hover');
       setTimeout(() => document.body.classList.remove('cursor-hover'), 200);
 
-      // Live-validate (silent, no error shown yet)
+      // Validate step silently
       validateCurrentStep(false);
     });
 
@@ -75,78 +158,104 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  /* ── STEP VALIDATION ──────────────────────────────────────────────── */
+  /* ── STEP VALIDATION ────────────────────────────────────────────── */
 
   function validateCurrentStep(showAlert = true) {
     if (currentStep > totalSteps) return true;
 
     const stepEl = steps[currentStep];
 
-    // Check all radio groups within the step
-    const groupNames = new Set();
-    stepEl.querySelectorAll('input[type="radio"]').forEach(r => {
-      if (r.name) groupNames.add(r.name);
-    });
+    // Validate track selector on Step 1
+    if (currentStep === 1) {
+      if (!selectedTrack) {
+        if (showAlert) {
+          showErrorMessage(stepEl, 'Please select a track to begin.');
+        }
+        return false;
+      }
+      clearErrorMessage(stepEl);
+      return true;
+    }
+
+    // Validate active track radios inside current step
+    const trackClass = selectedTrack === 'business' ? '.business-only' : '.creator-only';
+    const activeSection = stepEl.querySelector(trackClass);
 
     let allGroupsChecked = true;
-    groupNames.forEach(name => {
-      if (!stepEl.querySelector(`input[name="${name}"]:checked`)) {
-        allGroupsChecked = false;
-      }
-    });
+    if (activeSection) {
+      const groupNames = new Set();
+      activeSection.querySelectorAll('input[type="radio"]').forEach(r => {
+        if (r.name) groupNames.add(r.name);
+      });
 
-    // On Step 5 also check required text inputs
+      groupNames.forEach(name => {
+        if (!activeSection.querySelector(`input[name="${name}"]:checked`)) {
+          allGroupsChecked = false;
+        }
+      });
+    }
+
+    // On Step 7, also validate required text / email fields
     let allTextFilled = true;
     if (currentStep === totalSteps) {
+      // Step 7 questions validation first
+      const q16Checked = stepEl.querySelector(`input[name="${selectedTrack}_q16"]:checked`);
+      const q17Checked = stepEl.querySelector(`input[name="${selectedTrack}_q17"]:checked`);
+      if (!q16Checked || !q17Checked) {
+        allGroupsChecked = false;
+      }
+
       stepEl.querySelectorAll('input[type="text"][required], input[type="email"][required]').forEach(input => {
-        if (!input.value.trim()) allTextFilled = false;
+        if (!input.value.trim()) {
+          allTextFilled = false;
+          if (showAlert) {
+            input.style.borderColor = 'var(--true-north)';
+            input.addEventListener('input', () => { input.style.borderColor = ''; }, { once: true });
+          }
+        }
       });
     }
 
     if (!allGroupsChecked || !allTextFilled) {
       if (showAlert) {
-        // Error message
-        let errorMsg = stepEl.querySelector('.wizard-error-msg');
-        if (!errorMsg) {
-          errorMsg = document.createElement('p');
-          errorMsg.className = 'wizard-error-msg';
-          errorMsg.style.cssText = 'color:var(--true-north);font-size:12px;margin-top:16px;text-align:center;letter-spacing:1px;text-transform:uppercase;';
-          stepEl.querySelector('.wizard-step-header')?.appendChild(errorMsg);
-        }
-        errorMsg.textContent = !allGroupsChecked
-          ? 'Please answer all questions to proceed.'
-          : 'Please fill in your name and email to continue.';
+        const msg = !allGroupsChecked 
+          ? 'Please answer all questions to proceed.' 
+          : 'Please fill in your name, company and contact info to continue.';
+        showErrorMessage(stepEl, msg);
 
-        // Shake radio grids if that's the problem
-        if (!allGroupsChecked) {
-          stepEl.querySelectorAll('.options-grid').forEach(grid => {
+        if (!allGroupsChecked && activeSection) {
+          activeSection.querySelectorAll('.options-grid').forEach(grid => {
             grid.style.animation = 'none';
             void grid.offsetWidth;
             grid.style.animation = 'shake 0.4s ease';
-          });
-        }
-
-        // Highlight empty required text inputs
-        if (!allTextFilled) {
-          stepEl.querySelectorAll('input[type="text"][required], input[type="email"][required]').forEach(input => {
-            if (!input.value.trim()) {
-              input.style.borderColor = 'var(--true-north)';
-              input.addEventListener('input', () => { input.style.borderColor = ''; }, { once: true });
-            }
           });
         }
       }
       return false;
     }
 
-    stepEl.querySelector('.wizard-error-msg')?.remove();
+    clearErrorMessage(stepEl);
     return true;
   }
 
-  /* ── WIZARD UI UPDATE ─────────────────────────────────────────────── */
+  function showErrorMessage(stepEl, message) {
+    let errorMsg = stepEl.querySelector('.wizard-error-msg');
+    if (!errorMsg) {
+      errorMsg = document.createElement('p');
+      errorMsg.className = 'wizard-error-msg';
+      errorMsg.style.cssText = 'color:var(--true-north);font-size:12px;margin-top:16px;text-align:center;letter-spacing:1px;text-transform:uppercase;';
+      stepEl.querySelector('.wizard-step-header')?.appendChild(errorMsg);
+    }
+    errorMsg.textContent = message;
+  }
+
+  function clearErrorMessage(stepEl) {
+    stepEl.querySelector('.wizard-error-msg')?.remove();
+  }
+
+  /* ── WIZARD NAVIGATION & UI UPDATES ─────────────────────────────── */
 
   function updateWizardUI() {
-    // Show / hide steps
     Object.keys(steps).forEach(num => {
       const el = steps[num];
       const active = parseInt(num) === currentStep;
@@ -157,27 +266,34 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    // Progress header
+    // Step tracker
     stepCountText.textContent = `0${currentStep} / 0${totalSteps}`;
-    stepLabelText.textContent = stepNames[currentStep];
+    
+    // Dynamic Step label
+    let label = stepNames[currentStep];
+    if (currentStep === 3) {
+      label = selectedTrack === 'business' ? 'Your Company' : 'Audience & Tenure';
+    } else if (currentStep === 4) {
+      label = selectedTrack === 'business' ? 'How Work Moves' : 'Income & Fragility';
+    }
+    stepLabelText.textContent = label;
     progressBar.style.width  = `${(currentStep / totalSteps) * 100}%`;
 
     // Back button
     btnBack.classList.toggle('visually-hidden', currentStep === 1);
 
-    // Next / Submit buttons
+    // Next / Submit controls
     if (currentStep < totalSteps) {
       btnNext.textContent = currentStep === totalSteps - 1 ? 'Final Step →' : 'Next Step →';
       btnNext.classList.remove('visually-hidden');
       btnSubmit.classList.add('visually-hidden');
     } else {
-      // Step 5: populate hidden fields, reveal submit
-      calculateRecommendation();
+      calculateRouting();
       btnNext.classList.add('visually-hidden');
       btnSubmit.classList.remove('visually-hidden');
     }
 
-    // Scroll to top of form
+    // Smooth scroll to top of container
     document.querySelector('.form-section')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
@@ -195,104 +311,307 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  /* ── DIAGNOSTIC SCORING & PAYLOAD ────────────────────────────────── */
+  /* ── ROUTING & SCORING LOGIC ────────────────────────────────────── */
 
-  function calculateRecommendation() {
-    const val = name => form.querySelector(`input[name="${name}"]:checked`)?.value || '';
+  // Helper to extract radio value
+  const radioVal = name => form.querySelector(`input[name="${name}"]:checked`)?.value || '';
 
-    const q1  = val('q1');  const q2  = val('q2');  const q3  = val('q3');
-    const q4  = val('q4');  const q5  = val('q5');  const q6  = val('q6');
-    const q7  = val('q7');  const q8  = val('q8');  const q9  = val('q9');
-    const q10 = val('q10'); const q11 = val('q11'); const q12 = val('q12');
-    const q13 = val('q13');
+  // Labels for payload translation
+  const businessLabels = {
+    q1:  { A: "We're behind and we know it", B: "We've started experimenting and want a real plan", C: "We're doing well and want to do better", D: "We're not sure — we want an outside read" },
+    q2:  { A: "A competitor moved and we noticed", B: "Our team is stretched thin", C: "Leadership decided AI is a priority this year", D: "Nothing specific — the timing just feels right" },
+    q3:  { A: "Under 50 people", B: "50 to 250 people", C: "250 to 1,000 people", D: "Over 1,000 people" },
+    q4:  { A: "Makes or moves physical things", B: "Sells professional services or expertise", C: "Serves consumers directly", D: "Builds technology or media" },
+    q5:  { A: "One city or region", B: "National", C: "European or cross-border", D: "Global" },
+    q6:  { A: "Centralised — one team, one place, one playbook", B: "Decentralised — multiple teams running their own way", C: "Outsourced — most operational work sits with partners", D: "Mixed — some inside, some outside, depending on the task" },
+    q7:  { A: "Front office — sales, marketing, client communication", B: "Back office — admin, finance, reporting, HR", C: "Operations — production, logistics, service delivery", D: "Across the board — repetition everywhere" },
+    q8:  { A: "We don't know where to start", B: "We've tried things and they didn't stick", C: "Leadership is open, the team isn't ready", D: "We're ready, we just need the right plan" },
+    q9:  { A: "Communication & Reporting", B: "Customer service", C: "Logistics & Scheduling", D: "Content creation" },
+    q10: { A: "Drafting emails & documents", B: "Triaging messages & tasks", C: "Data entry & copy-pasting", D: "Searching for files & info" },
+    q11: { A: "Nothing yet", B: "Individuals on the team use AI tools on their own", C: "We've run pilots on specific use cases", D: "AI is already woven into how we work" },
+    q12: { A: "Give the team back time for higher-value work", B: "Help us scale without hiring proportionally", C: "Improve consistency across the company", D: "Run the operational layer of our business for us" },
+    q13: { A: "Public AI is fine — convenience matters more than privacy", B: "Public AI is acceptable for non-sensitive work", C: "Private setup for anything that touches our business", D: "Fully in-house, on our infrastructure, with maximum privacy" },
+    q14: { A: "Mostly spreadsheets and email", B: "Across business tools that don't really talk", C: "Central system most of the company uses", D: "Unified data layer we own and control" },
+    q15: { A: "Several, not entirely sure who has what", B: "A few, clearly scoped", C: "Rarely, under contract", D: "None" },
+    q16: { A: "Clearer on what AI can and can't do for us", B: "Two or three concrete things working in production", C: "AI woven into how the company runs", D: "Fully sovereign — our AI, our data, our infrastructure" },
+    q17: { A: "Email is fine", B: "A short call to start", C: "A video meeting", D: "In person, when it makes sense" }
+  };
 
-    // Full-text label maps
-    const labels = {
-      q1:  { A: "We're behind and we know it",                         B: "We've started experimenting and want a real plan",   C: "We're doing well and want to do better",                          D: "We're not sure — we want an outside read" },
-      q2:  { A: "A competitor moved and we noticed",                   B: "Our team is stretched thin",                        C: "Leadership decided AI is a priority this year",                   D: "Nothing specific — the timing just feels right" },
-      q3:  { A: "Under 50 people",                                     B: "50 to 250 people",                                  C: "250 to 1,000 people",                                             D: "Over 1,000 people" },
-      q4:  { A: "Makes or moves physical things",                      B: "Sells professional services or expertise",          C: "Serves consumers directly",                                       D: "Builds technology or media" },
-      q5:  { A: "One city or region",                                  B: "National",                                          C: "European or cross-border",                                        D: "Global" },
-      q6:  { A: "Centralised — one team, one place, one playbook",     B: "Decentralised — multiple teams running their own way", C: "Outsourced — most operational work sits with partners",        D: "Mixed — some inside, some outside, depending on the task" },
-      q7:  { A: "Front office — sales, marketing, client communication", B: "Back office — admin, finance, reporting, HR",     C: "Operations — production, logistics, service delivery",            D: "Across the board — repetition everywhere" },
-      q8:  { A: "We don't know where to start",                        B: "We've tried things and they didn't stick",          C: "Leadership is open, the team isn't ready",                        D: "We're ready, we just need the right plan" },
-      q9:  { A: "A public AI is fine — convenience matters more than privacy", B: "A public AI is acceptable for non-sensitive work", C: "A private setup for anything that touches our business",   D: "Fully in-house, on our infrastructure, with maximum privacy" },
-      q10: { A: "Mostly in spreadsheets and email",                    B: "Across business tools that don't really talk to each other", C: "In a central system most of the company uses",           D: "In a unified data layer we own and control" },
-      q11: { A: "Several, and we're not entirely sure who has what",   B: "A few, clearly scoped",                             C: "Rarely, and only under contract",                                 D: "None" },
-      q12: { A: "Clearer on what AI can and can't do for us",          B: "Two or three concrete things working in production", C: "AI woven into how the company runs",                             D: "Fully sovereign — our AI, our data, our infrastructure" },
-      q13: { A: "Email is fine",                                       B: "A short call to start",                             C: "A video meeting",                                                 D: "In person, when it makes sense" }
-    };
+  const creatorLabels = {
+    q1:  { A: "A platform did something that scared me", B: "I'm growing and I can feel the dependency tightening", C: "I want to take ownership before something happens", D: "I'm curious — I've been hearing about this" },
+    q2:  { A: "Reach dropped without explanation", B: "A platform changed its rules or its cut", C: "Someone I follow lost their account", D: "Nothing specific — the timing just feels right" },
+    q3:  { A: "Video-centric (YouTube, TikTok)", B: "Audio-centric (Podcasts, Spotify)", C: "Text-centric (Substack, Newsletter)", D: "Multi-channel mix" },
+    q4:  { A: "Under 5,000", B: "5,000 to 50,000", C: "50,000 to 500,000", D: "Over 500,000" },
+    q5:  { A: "Under a year", B: "One to three years", C: "Three to seven years", D: "Long enough that the platforms have changed under me" },
+    q6:  { A: "Platform ad revenue or platform payouts", B: "Brand deals and sponsorships", C: "Direct support from my audience — subscriptions, memberships, tips", D: "Products or services I sell directly" },
+    q7:  { A: "Heavily — if one platform goes down, my income goes with it", B: "Moderately — some direct sales, but heavily reliant on platform traffic", C: "Minimally — my income comes from channels I control directly" },
+    q8:  { A: "My account itself — one strike and it's over", B: "My reach — the algorithm decides whether I exist", C: "My contact with my audience — I don't own the relationship", D: "My payments and payouts — I rely on platform processors" },
+    q9:  { A: "Everything around the content (logistics)", B: "Talking to my audience", C: "Running the business", D: "Making the core content" },
+    q10: { A: "Repurposing content", B: "Replying to DMs and comments", C: "Reporting & analytics", D: "None, each day is unique" },
+    q11: { A: "Nothing yet — I haven't found the right way in", B: "Writing and editing tools, occasionally", C: "Production tools — visuals, voice, transcripts", D: "I'm building real workflows around AI already" },
+    q12: { A: "Give me back time to make better work", B: "Help me stay consistent without burning out", C: "Let me reply to my audience properly without it eating my life", D: "Run the operational layer of my business for me" },
+    q13: { A: "Almost nothing — my audience lives there", B: "My subscriber emails, if I've been collecting them", C: "Most of it — I have backups and direct channels", D: "Everything — my platform is one channel among many I control" },
+    q14: { A: "They're necessary, and I try not to think about it", B: "I'd leave if there were somewhere to go", C: "I'm actively trying to reduce my exposure", D: "I want to own my presence end to end" },
+    q15: { A: "Public AI is fine", B: "Fully mine — my AI, my data, on infrastructure I control" },
+    q16: { A: "Less anxious about the platforms I depend on", B: "Earning more directly from my audience", C: "Running my own publishing and payment infrastructure", D: "Fully sovereign — my audience, my keys, my rules" },
+    q17: { A: "Email is fine", B: "A short call to start", C: "A video meeting", D: "In person, when it makes sense" }
+  };
 
-    // Populate hidden payload fields with full-text answers
-    document.getElementById('payload-q1').value  = labels.q1[q1]   || q1;
-    document.getElementById('payload-q2').value  = labels.q2[q2]   || q2;
-    document.getElementById('payload-q3').value  = labels.q3[q3]   || q3;
-    document.getElementById('payload-q4').value  = labels.q4[q4]   || q4;
-    document.getElementById('payload-q5').value  = labels.q5[q5]   || q5;
-    document.getElementById('payload-q6').value  = labels.q6[q6]   || q6;
-    document.getElementById('payload-q7').value  = labels.q7[q7]   || q7;
-    document.getElementById('payload-q8').value  = labels.q8[q8]   || q8;
-    document.getElementById('payload-q9').value  = labels.q9[q9]   || q9;
-    document.getElementById('payload-q10').value = labels.q10[q10] || q10;
-    document.getElementById('payload-q11').value = labels.q11[q11] || q11;
-    document.getElementById('payload-q12').value = labels.q12[q12] || q12;
-    document.getElementById('payload-q13').value = labels.q13[q13] || q13;
+  function calculateRouting() {
+    if (!selectedTrack) return;
 
-    // ── AI READINESS SCORE (Q1, Q2, Q8, Q12) — max 11 ──────────────
-    let scoreReadiness = 0;
-    if      (q1 === 'A') scoreReadiness += 1;
-    else if (q1 === 'B') scoreReadiness += 2;
-    else if (q1 === 'C') scoreReadiness += 3;
-    else if (q1 === 'D') scoreReadiness += 1;
+    // Track hidden field
+    document.getElementById('payload-track').value = selectedTrack.toUpperCase();
 
-    if      (q2 === 'A') scoreReadiness += 2;
-    else if (q2 === 'B') scoreReadiness += 1;
-    else if (q2 === 'C') scoreReadiness += 3;
-    // q2 === 'D' → +0
+    let scores = {};
+    let recProduct = '';
+    let recPosture = '';
 
-    if      (q8 === 'B') scoreReadiness += 1;
-    else if (q8 === 'C') scoreReadiness += 2;
-    else if (q8 === 'D') scoreReadiness += 3;
-    // q8 === 'A' → +0
+    if (selectedTrack === 'business') {
+      const q1  = radioVal('business_q1');
+      const q2  = radioVal('business_q2');
+      const q3  = radioVal('business_q3');
+      const q4  = radioVal('business_q4');
+      const q5  = radioVal('business_q5');
+      const q6  = radioVal('business_q6');
+      const q7  = radioVal('business_q7');
+      const q8  = radioVal('business_q8');
+      const q9  = radioVal('business_q9');
+      const q10 = radioVal('business_q10');
+      const q11 = radioVal('business_q11');
+      const q12 = radioVal('business_q12');
+      const q13 = radioVal('business_q13');
+      const q14 = radioVal('business_q14');
+      const q15 = radioVal('business_q15');
+      const q16 = radioVal('business_q16');
+      const q17 = radioVal('business_q17');
 
-    if      (q12 === 'B') scoreReadiness += 1;
-    else if (q12 === 'C') scoreReadiness += 2;
-    else if (q12 === 'D') scoreReadiness += 2;
-    // q12 === 'A' → +0
+      // Populate hidden answers payload
+      document.getElementById('payload-q1').value  = businessLabels.q1[q1]   || q1;
+      document.getElementById('payload-q2').value  = businessLabels.q2[q2]   || q2;
+      document.getElementById('payload-q3').value  = businessLabels.q3[q3]   || q3;
+      document.getElementById('payload-q4').value  = businessLabels.q4[q4]   || q4;
+      document.getElementById('payload-q5').value  = businessLabels.q5[q5]   || q5;
+      document.getElementById('payload-q6').value  = businessLabels.q6[q6]   || q6;
+      document.getElementById('payload-q7').value  = businessLabels.q7[q7]   || q7;
+      document.getElementById('payload-q8').value  = businessLabels.q8[q8]   || q8;
+      document.getElementById('payload-q9').value  = businessLabels.q9[q9]   || q9;
+      document.getElementById('payload-q10').value = businessLabels.q10[q10] || q10;
+      document.getElementById('payload-q11').value = businessLabels.q11[q11] || q11;
+      document.getElementById('payload-q12').value = businessLabels.q12[q12] || q12;
+      document.getElementById('payload-q13').value = businessLabels.q13[q13] || q13;
+      document.getElementById('payload-q14').value = businessLabels.q14[q14] || q14;
+      document.getElementById('payload-q15').value = businessLabels.q15[q15] || q15;
+      document.getElementById('payload-q16').value = businessLabels.q16[q16] || q16;
+      document.getElementById('payload-q17').value = businessLabels.q17[q17] || q17;
 
-    // ── DATA SOVEREIGNTY SCORE (Q9, Q10, Q11) — max 12 ─────────────
-    let scoreSovereignty = 0;
-    if      (q9 === 'B') scoreSovereignty += 1;
-    else if (q9 === 'C') scoreSovereignty += 3;
-    else if (q9 === 'D') scoreSovereignty += 4;
+      // ── BUSINESS SCORING VECTORS ──
+      
+      // 1. Urgency (inputs: Q1, Q2, Q8)
+      let uScore = 0;
+      if (q1 === 'A') uScore += 2; else if (q1 === 'B') uScore += 1; else if (q1 === 'C') uScore += 1;
+      if (q2 === 'A') uScore += 2; else if (q2 === 'B') uScore += 1; else if (q2 === 'C') uScore += 2;
+      if (q8 === 'D') uScore += 1; else if (q8 === 'A') uScore -= 1;
+      scores.urgency = Math.min(4, Math.max(0, uScore));
 
-    if      (q10 === 'B') scoreSovereignty += 1;
-    else if (q10 === 'C') scoreSovereignty += 2;
-    else if (q10 === 'D') scoreSovereignty += 4;
+      // 2. Sophistication (inputs: Q11, Q14, Q15)
+      let sScore = 0;
+      if (q11 === 'D') sScore += 2; else if (q11 === 'C') sScore += 1; else if (q11 === 'B') sScore += 1;
+      if (q14 === 'D') sScore += 1; else if (q14 === 'C') sScore += 1;
+      if (q15 === 'D') sScore += 1; else if (q15 === 'A') sScore -= 1;
+      scores.sophistication = Math.min(4, Math.max(0, sScore));
 
-    if      (q11 === 'B') scoreSovereignty += 1;
-    else if (q11 === 'C') scoreSovereignty += 3;
-    else if (q11 === 'D') scoreSovereignty += 4;
+      // 3. Sovereignty (inputs: Q13, Q16)
+      let sovScore = 0;
+      if (q13 === 'D') sovScore += 2; else if (q13 === 'C') sovScore += 1; else if (q13 === 'A') sovScore -= 1;
+      if (q16 === 'D') sovScore += 2; else if (q16 === 'C') sovScore += 1; else if (q16 === 'B') sovScore += 1;
+      scores.sovereignty = Math.min(4, Math.max(0, sovScore));
 
-    // ── PROFILE MATRIX ───────────────────────────────────────────────
-    const highReadiness   = scoreReadiness   > 5;
-    const highSovereignty = scoreSovereignty >= 6;
+      // 4. Automation (inputs: Q7, Q9, Q10, Q12)
+      let aScore = 0;
+      if (q12 === 'D') aScore += 2; else if (q12 === 'C') aScore += 1; else if (q12 === 'B') aScore += 1; else if (q12 === 'A') aScore += 1;
+      if (q7 === 'D') aScore += 1;
+      if (q9 === 'A') aScore += 1;
+      if (q10 === 'A' || q10 === 'B' || q10 === 'C') aScore += 1;
+      scores.automation = Math.min(4, Math.max(0, aScore));
 
-    let recType;
-    if      (!highReadiness && !highSovereignty) recType = 'AI FOUNDATIONS';
-    else if (!highReadiness &&  highSovereignty) recType = 'PRIVATE AI PIONEER';
-    else if ( highReadiness && !highSovereignty) recType = 'AI SCALE-UP';
-    else                                         recType = 'AUTONOMOUS ENTERPRISE';
+      // 5. Budget (inputs: Q3, Q5, Q4, Role field)
+      let bScore = 0;
+      if (q3 === 'D') bScore += 2; else if (q3 === 'C') bScore += 1; else if (q3 === 'B') bScore += 1;
+      if (q5 === 'D') bScore += 1; else if (q5 === 'C') bScore += 1;
+      if (q4 === 'B' || q4 === 'D') bScore += 1;
+      
+      const roleText = (document.getElementById('client-role')?.value || '').toLowerCase();
+      const highAuthority = ['ceo', 'cto', 'coo', 'founder', 'owner', 'partner', 'director'];
+      const midAuthority = ['manager', 'lead', 'head of'];
+      const lowAuthority = ['analyst', 'coordinator', 'intern', 'student'];
+      
+      if (highAuthority.some(k => roleText.includes(k))) bScore += 1;
+      else if (lowAuthority.some(k => roleText.includes(k))) bScore -= 1;
+      scores.budget = Math.min(4, Math.max(0, bScore));
 
-    document.getElementById('payload-scores').value          = `Readiness: ${scoreReadiness}/11 — Sovereignty: ${scoreSovereignty}/12`;
-    document.getElementById('payload-recommendation').value  = recType;
+      // ── BUSINESS RECOMMENDATION MAPPING ──
+      
+      if (scores.sovereignty >= 3 && scores.budget >= 3 && scores.sophistication >= 3 && q3 === 'D') {
+        recProduct = 'Empire';
+        recPosture = 'Long sales cycle, enterprise-grade pitch';
+      } else if (scores.sovereignty >= 3 && scores.budget >= 3) {
+        recProduct = 'Stack + Sovereign';
+        recPosture = 'Lead with sovereignty pitch directly. They\'re already there.';
+      } else if (scores.sovereignty >= 3 && scores.budget >= 1) {
+        recProduct = 'Stack';
+        recPosture = 'Sovereignty without enterprise pricing';
+      } else if (scores.automation >= 3 && scores.sovereignty <= 2 && scores.budget >= 2) {
+        recProduct = 'Foundation + Agent';
+        recPosture = 'Lead with automation ROI. Sovereignty as the why-NativeWorks-not-someone-else.';
+      } else if (scores.automation >= 3 && scores.sovereignty <= 2 && scores.budget <= 1) {
+        recProduct = 'Foundation';
+        recPosture = 'Get them in. Show value. Earn the sovereignty conversation.';
+      } else if (scores.urgency >= 3 && scores.sophistication <= 2 && scores.sovereignty <= 2 && scores.budget <= 2) {
+        recProduct = 'Foundation (free trial of an automation idea)';
+        recPosture = 'Fast prospect, unclear product fit. Discovery call is the product for now.';
+      } else if (scores.sophistication >= 3 && scores.sovereignty <= 1) {
+        recProduct = 'Discovery only, no pitch';
+        recPosture = 'They know AI. They\'re not yet sold on sovereignty. Sell them on sovereignty, not on automation.';
+      } else if (scores.budget === 0 && lowAuthority.some(k => roleText.includes(k))) {
+        recProduct = 'No call. Send public resources.';
+        recPosture = 'Researchers, not buyers. Help them, don\'t sell.';
+      } else if (scores.urgency <= 1 && scores.sovereignty <= 1 && scores.budget <= 1) {
+        recProduct = 'Nurture';
+        recPosture = 'Curious browsers. Don\'t burn a call.';
+      } else if (Object.values(scores).every(v => v <= 1)) {
+        recProduct = 'No call. Polite acknowledgment.';
+        recPosture = 'Form-filling tourists. Save the team\'s time.';
+      } else {
+        recProduct = 'Foundation + Agent';
+        recPosture = 'Standard balanced business engagement path.';
+      }
+
+    } else if (selectedTrack === 'creator') {
+      const q1  = radioVal('creator_q1');
+      const q2  = radioVal('creator_q2');
+      const q3  = radioVal('creator_q3');
+      const q4  = radioVal('creator_q4');
+      const q5  = radioVal('creator_q5');
+      const q6  = radioVal('creator_q6');
+      const q7  = radioVal('creator_q7');
+      const q8  = radioVal('creator_q8');
+      const q9  = radioVal('creator_q9');
+      const q10 = radioVal('creator_q10');
+      const q11 = radioVal('creator_q11');
+      const q12 = radioVal('creator_q12');
+      const q13 = radioVal('creator_q13');
+      const q14 = radioVal('creator_q14');
+      const q15 = radioVal('creator_q15');
+      const q16 = radioVal('creator_q16');
+      const q17 = radioVal('creator_q17');
+
+      // Populate hidden answers payload
+      document.getElementById('payload-q1').value  = creatorLabels.q1[q1]   || q1;
+      document.getElementById('payload-q2').value  = creatorLabels.q2[q2]   || q2;
+      document.getElementById('payload-q3').value  = creatorLabels.q3[q3]   || q3;
+      document.getElementById('payload-q4').value  = creatorLabels.q4[q4]   || q4;
+      document.getElementById('payload-q5').value  = creatorLabels.q5[q5]   || q5;
+      document.getElementById('payload-q6').value  = creatorLabels.q6[q6]   || q6;
+      document.getElementById('payload-q7').value  = creatorLabels.q7[q7]   || q7;
+      document.getElementById('payload-q8').value  = creatorLabels.q8[q8]   || q8;
+      document.getElementById('payload-q9').value  = creatorLabels.q9[q9]   || q9;
+      document.getElementById('payload-q10').value = creatorLabels.q10[q10] || q10;
+      document.getElementById('payload-q11').value = creatorLabels.q11[q11] || q11;
+      document.getElementById('payload-q12').value = creatorLabels.q12[q12] || q12;
+      document.getElementById('payload-q13').value = creatorLabels.q13[q13] || q13;
+      document.getElementById('payload-q14').value = creatorLabels.q14[q14] || q14;
+      document.getElementById('payload-q15').value = creatorLabels.q15[q15] || q15;
+      document.getElementById('payload-q16').value = creatorLabels.q16[q16] || q16;
+      document.getElementById('payload-q17').value = creatorLabels.q17[q17] || q17;
+
+      // ── CREATOR SCORING VECTORS ──
+
+      // 1. Urgency (inputs: Q1, Q2, Q8)
+      let uScore = 0;
+      if (q1 === 'A') uScore += 2; else if (q1 === 'B') uScore += 1; else if (q1 === 'C') uScore += 1;
+      if (q2 === 'A') uScore += 2; else if (q2 === 'B') uScore += 2; else if (q2 === 'C') uScore += 1;
+      if (q8 === 'A' || q8 === 'B') uScore += 1;
+      scores.urgency = Math.min(4, Math.max(0, uScore));
+
+      // 2. Sophistication (inputs: Q5, Q11)
+      let sScore = 0;
+      if (q11 === 'D') sScore += 2; else if (q11 === 'C') sScore += 1; else if (q11 === 'B') sScore += 1;
+      if (q5 === 'D' || q5 === 'C') sScore += 1;
+      scores.sophistication = Math.min(4, Math.max(0, sScore));
+
+      // 3. Sovereignty (inputs: Q13, Q14, Q15, Q16)
+      let sovScore = 0;
+      if (q13 === 'D') sovScore += 2; else if (q13 === 'C') sovScore += 1;
+      if (q14 === 'D') sovScore += 2; else if (q14 === 'C') sovScore += 1; else if (q14 === 'B') sovScore += 1; else if (q14 === 'A') sovScore -= 1;
+      if (q15 === 'B') sovScore += 1; else if (q15 === 'A') sovScore -= 1;
+      if (q16 === 'D') sovScore += 2; else if (q16 === 'C') sovScore += 1;
+      scores.sovereignty = Math.min(4, Math.max(0, sovScore));
+
+      // 4. Automation (inputs: Q9, Q10, Q12)
+      let aScore = 0;
+      if (q12 === 'D' || q12 === 'C') aScore += 2; else if (q12 === 'B' || q12 === 'A') aScore += 1;
+      if (q9 === 'A' || q9 === 'B' || q9 === 'C') aScore += 1;
+      if (q10 === 'A' || q10 === 'B' || q10 === 'C') aScore += 1;
+      scores.automation = Math.min(4, Math.max(0, aScore));
+
+      // 5. Earning (inputs: Q4, Q6, Q7)
+      let eScore = 0;
+      if (q4 === 'D') eScore += 2; else if (q4 === 'C' || q4 === 'B') eScore += 1;
+      if (q6 === 'D' || q6 === 'C' || q6 === 'B') eScore += 1;
+      if (q7 === 'C') eScore += 1;
+      scores.earning = Math.min(4, Math.max(0, eScore));
+
+      // ── CREATOR RECOMMENDATION MAPPING ──
+
+      if (scores.sovereignty >= 3 && scores.sophistication >= 3 && scores.earning >= 3) {
+        recProduct = 'Stack + Chain';
+        recPosture = 'Peer-to-peer pitch. They\'re already sovereign-fluent.';
+      } else if (scores.sovereignty >= 3 && scores.sophistication <= 2 && scores.earning >= 2) {
+        recProduct = 'Publisher + Sovereign Ready';
+        recPosture = 'Guided onboarding. Lead with the platform-fear answer.';
+      } else if (scores.sovereignty >= 3 && scores.sophistication <= 2 && scores.earning <= 1) {
+        recProduct = 'Publisher';
+        recPosture = 'Affordable entry. Establish the relationship.';
+      } else if (scores.automation >= 3 && scores.sovereignty <= 2 && scores.earning >= 2) {
+        recProduct = 'Publisher + Agent';
+        recPosture = 'Lead with automation. Sovereignty as the "and by the way."';
+      } else if (scores.urgency === 4 && scores.earning >= 2) {
+        recProduct = 'Foundation / Publisher (stops the bleeding)';
+        recPosture = 'They\'re scared. The product is whatever stops the platform bleeding fastest.';
+      } else if (q6 === 'D' && scores.earning >= 3) {
+        recProduct = 'Till + Stack + Publisher';
+        recPosture = 'They already sell. Add sovereign payments and identity, then graduate.';
+      } else if (q6 === 'C' && scores.sovereignty >= 3) {
+        recProduct = 'Publisher + Stack';
+        recPosture = 'The classic creator-to-sovereign migration. High conversion.';
+      } else if (q4 === 'D' && scores.sophistication >= 3) {
+        recProduct = 'Empire (creator edition)';
+        recPosture = 'Top-tier creators with team and infrastructure needs.';
+      } else if (scores.urgency <= 1 && scores.sovereignty <= 1 && scores.earning <= 1) {
+        recProduct = 'Nurture';
+        recPosture = 'Aspiring creators, curious browsers. Don\'t burn the team\'s time.';
+      } else if (Object.values(scores).every(v => v <= 1)) {
+        recProduct = 'No call. Polite acknowledgment.';
+        recPosture = 'Tourists.';
+      } else {
+        recProduct = 'Publisher + Sovereign Ready';
+        recPosture = 'Standard balanced creator engagement path.';
+      }
+    }
+
+    // Serialize scores output
+    let scoreStr = Object.keys(scores).map(v => `${v.toUpperCase()}: ${scores[v]}/4`).join(' — ');
+
+    document.getElementById('payload-scores').value          = scoreStr;
+    document.getElementById('payload-recommendation').value  = `${recProduct} [Posture: ${recPosture}]`;
   }
 
-  /* ── PRE-SUBMIT: enrich email subject ────────────────────────────── */
+  /* ── FORM SUBMIT LOGIC ──────────────────────────────────────────── */
 
   form.addEventListener('submit', () => {
-    // Re-run to capture final Q12/Q13 selections
-    calculateRecommendation();
+    // Compile routing results before submit
+    calculateRouting();
 
     const recType    = document.getElementById('payload-recommendation').value;
     const clientName = document.getElementById('client-name')?.value    || '';
@@ -301,7 +620,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (subjectEl && recType) {
       const co = clientCo ? ` — ${clientCo}` : '';
-      subjectEl.value = `Assessment [${recType}]${co} — ${clientName}`;
+      subjectEl.value = `Assessment [${selectedTrack.toUpperCase()}: ${recType}]${co} — ${clientName}`;
     }
   });
 

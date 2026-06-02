@@ -58,25 +58,20 @@
     <circle cx="250" cy="250" r="240" stroke="#1E1B17" stroke-width="0.5"/>
     <circle cx="250" cy="250" r="180" stroke="#1E1B17" stroke-width="0.5" stroke-dasharray="4 8"/>
     <circle cx="250" cy="250" r="120" stroke="#8E3B28" stroke-width="0.5" opacity="0.5"/>
-    <circle cx="250" cy="250" r="60"  stroke="#1E1B17" stroke-width="0.5"/>
-    <line x1="10"  y1="250" x2="490" y2="250" stroke="#1E1B17" stroke-width="0.4"/>
-    <line x1="250" y1="10"  x2="250" y2="490" stroke="#1E1B17" stroke-width="0.4"/>
-  </svg>
-
-  <div class="form-container assessment-container reveal visible">
+    <circle cx="250" c  <div class="form-container assessment-container reveal visible">
 
     <!-- Progress tracker -->
     <div class="assessment-progress-wrapper">
       <div class="assessment-progress-header">
-        <span class="assessment-step-count" id="step-count">01 / 05</span>
-        <span class="assessment-step-label" id="step-label">Why Now</span>
+        <span class="assessment-step-count" id="step-count">01 / 07</span>
+        <span class="assessment-step-label" id="step-label">Choose Track</span>
       </div>
       <div class="assessment-progress-bar">
-        <div class="assessment-progress-line" id="progress-line" style="width: 20%;"></div>
+        <div class="assessment-progress-line" id="progress-line" style="width: 14.28%;"></div>
       </div>
     </div>
 
-    <form id="assessment-form" action="https://formsubmit.co/antonio.visceglia@nativeworks.studio" method="POST">
+    <form id="assessment-form" action="submit_assessment.php" method="POST">
       <!-- FormSubmit config -->
       <input type="hidden" name="_cc"       value="info@nativeworks.studio">
       <input type="hidden" name="_next"     value="https://www.nativeworks.studio/thank-you.html">
@@ -85,6 +80,7 @@
       <input type="hidden" name="_template" value="box">
 
       <!-- Hidden payload fields — populated by JS before submit -->
+      <input type="hidden" id="payload-track"           name="track"          value="">
       <input type="hidden" id="payload-scores"          name="scores"         value="">
       <input type="hidden" id="payload-recommendation"  name="recommendation" value="">
       <input type="hidden" id="payload-q1"  name="q1"  value="">
@@ -100,334 +96,894 @@
       <input type="hidden" id="payload-q11" name="q11" value="">
       <input type="hidden" id="payload-q12" name="q12" value="">
       <input type="hidden" id="payload-q13" name="q13" value="">
+      <input type="hidden" id="payload-q14" name="q14" value="">
+      <input type="hidden" id="payload-q15" name="q15" value="">
+      <input type="hidden" id="payload-q16" name="q16" value="">
+      <input type="hidden" id="payload-q17" name="q17" value="">
 
-      <!-- ═══ STEP 1 — Why now ════════════════════════════════════════ -->
+      <!-- ═══ STEP 1 — Track Selection ════════════════════════════════ -->
       <div class="wizard-step active" id="step-1" role="group" aria-labelledby="step-1-title">
         <div class="wizard-step-header">
           <span class="wizard-step-num">Step 01</span>
-          <h2 class="wizard-step-title" id="step-1-title">Why now</h2>
-          <p class="wizard-step-desc">The reason behind your interest.</p>
+          <h2 class="wizard-step-title" id="step-1-title">Choose your path</h2>
+          <p class="wizard-step-desc">Select the path that matches your current focus.</p>
         </div>
 
-        <div class="wizard-questions-container">
-          <!-- Q1 -->
-          <div class="wizard-question-block">
-            <h3 class="wizard-question-text" id="q1-title">What brought you here today?</h3>
-            <div class="options-grid">
-              <label class="option-card" for="q1-a">
-                <input type="radio" id="q1-a" name="q1" value="A" class="visually-hidden" required>
-                <div class="option-card-content"><span class="option-num">A</span><p class="option-desc">We're behind and we know it</p></div>
-              </label>
-              <label class="option-card" for="q1-b">
-                <input type="radio" id="q1-b" name="q1" value="B" class="visually-hidden">
-                <div class="option-card-content"><span class="option-num">B</span><p class="option-desc">We've started experimenting and want a real plan</p></div>
-              </label>
-              <label class="option-card" for="q1-c">
-                <input type="radio" id="q1-c" name="q1" value="C" class="visually-hidden">
-                <div class="option-card-content"><span class="option-num">C</span><p class="option-desc">We're doing well and want to do better</p></div>
-              </label>
-              <label class="option-card" for="q1-d">
-                <input type="radio" id="q1-d" name="q1" value="D" class="visually-hidden">
-                <div class="option-card-content"><span class="option-num">D</span><p class="option-desc">We're not sure — we want an outside read</p></div>
-              </label>
+        <div class="path-selection-grid">
+          <!-- Hidden inputs to submit selection -->
+          <input type="radio" id="track-business" name="track_select" value="business" class="visually-hidden" required>
+          <label class="path-card" for="track-business" tabindex="0">
+            <div class="path-card-icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                <path d="M2 12h20"/>
+              </svg>
             </div>
-          </div>
+            <h3>Business Track</h3>
+            <p>For companies, agencies, or enterprise teams evaluating sovereign AI infrastructure and back-office automation pipelines.</p>
+          </label>
 
-          <!-- Q2 -->
-          <div class="wizard-question-block">
-            <h3 class="wizard-question-text" id="q2-title">What changed recently?</h3>
-            <div class="options-grid">
-              <label class="option-card" for="q2-a">
-                <input type="radio" id="q2-a" name="q2" value="A" class="visually-hidden" required>
-                <div class="option-card-content"><span class="option-num">A</span><p class="option-desc">A competitor moved and we noticed</p></div>
-              </label>
-              <label class="option-card" for="q2-b">
-                <input type="radio" id="q2-b" name="q2" value="B" class="visually-hidden">
-                <div class="option-card-content"><span class="option-num">B</span><p class="option-desc">Our team is stretched thin</p></div>
-              </label>
-              <label class="option-card" for="q2-c">
-                <input type="radio" id="q2-c" name="q2" value="C" class="visually-hidden">
-                <div class="option-card-content"><span class="option-num">C</span><p class="option-desc">Leadership decided AI is a priority this year</p></div>
-              </label>
-              <label class="option-card" for="q2-d">
-                <input type="radio" id="q2-d" name="q2" value="D" class="visually-hidden">
-                <div class="option-card-content"><span class="option-num">D</span><p class="option-desc">Nothing specific — the timing just feels right</p></div>
-              </label>
+          <input type="radio" id="track-creator" name="track_select" value="creator" class="visually-hidden">
+          <label class="path-card" for="track-creator" tabindex="0">
+            <div class="path-card-icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"/>
+                <line x1="16" y1="8" x2="2" y2="22"/>
+                <line x1="17.5" y1="15" x2="9" y2="15"/>
+              </svg>
             </div>
-          </div>
+            <h3>Creator Track</h3>
+            <p>For independent creators, writers, or artists evaluating audience ownership, direct monetization, and community automation.</p>
+          </label>
         </div>
       </div>
 
-      <!-- ═══ STEP 2 — Your company ═══════════════════════════════════ -->
+      <!-- ═══ STEP 2 — Why Now ════════════════════════════════════════ -->
       <div class="wizard-step" id="step-2" role="group" aria-labelledby="step-2-title">
         <div class="wizard-step-header">
           <span class="wizard-step-num">Step 02</span>
-          <h2 class="wizard-step-title" id="step-2-title">Your company</h2>
-          <p class="wizard-step-desc">The shape of the business we'd be looking at.</p>
+          <h2 class="wizard-step-title" id="step-2-title">Why Now</h2>
+          <p class="wizard-step-desc">The context behind your interest.</p>
         </div>
 
         <div class="wizard-questions-container">
-          <!-- Q3 -->
-          <div class="wizard-question-block">
-            <h3 class="wizard-question-text" id="q3-title">How big is your company?</h3>
-            <div class="options-grid">
-              <label class="option-card" for="q3-a">
-                <input type="radio" id="q3-a" name="q3" value="A" class="visually-hidden" required>
-                <div class="option-card-content"><span class="option-num">A</span><p class="option-desc">Under 50 people</p></div>
-              </label>
-              <label class="option-card" for="q3-b">
-                <input type="radio" id="q3-b" name="q3" value="B" class="visually-hidden">
-                <div class="option-card-content"><span class="option-num">B</span><p class="option-desc">50 to 250 people</p></div>
-              </label>
-              <label class="option-card" for="q3-c">
-                <input type="radio" id="q3-c" name="q3" value="C" class="visually-hidden">
-                <div class="option-card-content"><span class="option-num">C</span><p class="option-desc">250 to 1,000 people</p></div>
-              </label>
-              <label class="option-card" for="q3-d">
-                <input type="radio" id="q3-d" name="q3" value="D" class="visually-hidden">
-                <div class="option-card-content"><span class="option-num">D</span><p class="option-desc">Over 1,000 people</p></div>
-              </label>
+          <!-- Business Track Q1 & Q2 -->
+          <div class="business-only">
+            <!-- Q1 -->
+            <div class="wizard-question-block">
+              <h3 class="wizard-question-text">What brought you here today?</h3>
+              <div class="options-grid">
+                <label class="option-card" for="b-q1-a">
+                  <input type="radio" id="b-q1-a" name="business_q1" value="A" class="visually-hidden" required>
+                  <div class="option-card-content"><p class="option-desc">We're behind and we know it</p></div>
+                </label>
+                <label class="option-card" for="b-q1-b">
+                  <input type="radio" id="b-q1-b" name="business_q1" value="B" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">We've started experimenting and want a real plan</p></div>
+                </label>
+                <label class="option-card" for="b-q1-c">
+                  <input type="radio" id="b-q1-c" name="business_q1" value="C" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">We're doing well and want to do better</p></div>
+                </label>
+                <label class="option-card" for="b-q1-d">
+                  <input type="radio" id="b-q1-d" name="business_q1" value="D" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">We're not sure — we want an outside read</p></div>
+                </label>
+              </div>
+            </div>
+            <!-- Q2 -->
+            <div class="wizard-question-block">
+              <h3 class="wizard-question-text">What changed recently?</h3>
+              <div class="options-grid">
+                <label class="option-card" for="b-q2-a">
+                  <input type="radio" id="b-q2-a" name="business_q2" value="A" class="visually-hidden" required>
+                  <div class="option-card-content"><p class="option-desc">A competitor moved and we noticed</p></div>
+                </label>
+                <label class="option-card" for="b-q2-b">
+                  <input type="radio" id="b-q2-b" name="business_q2" value="B" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">Our team is stretched thin</p></div>
+                </label>
+                <label class="option-card" for="b-q2-c">
+                  <input type="radio" id="b-q2-c" name="business_q2" value="C" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">Leadership decided AI is a priority this year</p></div>
+                </label>
+                <label class="option-card" for="b-q2-d">
+                  <input type="radio" id="b-q2-d" name="business_q2" value="D" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">Nothing specific — the timing just feels right</p></div>
+                </label>
+              </div>
             </div>
           </div>
 
-          <!-- Q4 -->
-          <div class="wizard-question-block">
-            <h3 class="wizard-question-text" id="q4-title">What does your company do?</h3>
-            <div class="options-grid">
-              <label class="option-card" for="q4-a">
-                <input type="radio" id="q4-a" name="q4" value="A" class="visually-hidden" required>
-                <div class="option-card-content"><span class="option-num">A</span><p class="option-desc">Makes or moves physical things</p></div>
-              </label>
-              <label class="option-card" for="q4-b">
-                <input type="radio" id="q4-b" name="q4" value="B" class="visually-hidden">
-                <div class="option-card-content"><span class="option-num">B</span><p class="option-desc">Sells professional services or expertise</p></div>
-              </label>
-              <label class="option-card" for="q4-c">
-                <input type="radio" id="q4-c" name="q4" value="C" class="visually-hidden">
-                <div class="option-card-content"><span class="option-num">C</span><p class="option-desc">Serves consumers directly</p></div>
-              </label>
-              <label class="option-card" for="q4-d">
-                <input type="radio" id="q4-d" name="q4" value="D" class="visually-hidden">
-                <div class="option-card-content"><span class="option-num">D</span><p class="option-desc">Builds technology or media</p></div>
-              </label>
+          <!-- Creator Track Q1 & Q2 -->
+          <div class="creator-only">
+            <!-- Q1 -->
+            <div class="wizard-question-block">
+              <h3 class="wizard-question-text">What brought you here today?</h3>
+              <div class="options-grid">
+                <label class="option-card" for="c-q1-a">
+                  <input type="radio" id="c-q1-a" name="creator_q1" value="A" class="visually-hidden" required>
+                  <div class="option-card-content"><p class="option-desc">A platform did something that scared me</p></div>
+                </label>
+                <label class="option-card" for="c-q1-b">
+                  <input type="radio" id="c-q1-b" name="creator_q1" value="B" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">I'm growing and I can feel the dependency tightening</p></div>
+                </label>
+                <label class="option-card" for="c-q1-c">
+                  <input type="radio" id="c-q1-c" name="creator_q1" value="C" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">I want to take ownership before something happens</p></div>
+                </label>
+                <label class="option-card" for="c-q1-d">
+                  <input type="radio" id="c-q1-d" name="creator_q1" value="D" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">I'm curious — I've been hearing about this</p></div>
+                </label>
+              </div>
             </div>
-          </div>
-
-          <!-- Q5 -->
-          <div class="wizard-question-block">
-            <h3 class="wizard-question-text" id="q5-title">Where does your company operate?</h3>
-            <div class="options-grid">
-              <label class="option-card" for="q5-a">
-                <input type="radio" id="q5-a" name="q5" value="A" class="visually-hidden" required>
-                <div class="option-card-content"><span class="option-num">A</span><p class="option-desc">One city or region</p></div>
-              </label>
-              <label class="option-card" for="q5-b">
-                <input type="radio" id="q5-b" name="q5" value="B" class="visually-hidden">
-                <div class="option-card-content"><span class="option-num">B</span><p class="option-desc">National</p></div>
-              </label>
-              <label class="option-card" for="q5-c">
-                <input type="radio" id="q5-c" name="q5" value="C" class="visually-hidden">
-                <div class="option-card-content"><span class="option-num">C</span><p class="option-desc">European or cross-border</p></div>
-              </label>
-              <label class="option-card" for="q5-d">
-                <input type="radio" id="q5-d" name="q5" value="D" class="visually-hidden">
-                <div class="option-card-content"><span class="option-num">D</span><p class="option-desc">Global</p></div>
-              </label>
+            <!-- Q2 -->
+            <div class="wizard-question-block">
+              <h3 class="wizard-question-text">What changed recently?</h3>
+              <div class="options-grid">
+                <label class="option-card" for="c-q2-a">
+                  <input type="radio" id="c-q2-a" name="creator_q2" value="A" class="visually-hidden" required>
+                  <div class="option-card-content"><p class="option-desc">Reach dropped without explanation</p></div>
+                </label>
+                <label class="option-card" for="c-q2-b">
+                  <input type="radio" id="c-q2-b" name="creator_q2" value="B" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">A platform changed its rules or its cut</p></div>
+                </label>
+                <label class="option-card" for="c-q2-c">
+                  <input type="radio" id="c-q2-c" name="creator_q2" value="C" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">Someone I follow lost their account</p></div>
+                </label>
+                <label class="option-card" for="c-q2-d">
+                  <input type="radio" id="c-q2-d" name="creator_q2" value="D" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">Nothing specific — the timing just feels right</p></div>
+                </label>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- ═══ STEP 3 — How work moves ══════════════════════════════════ -->
+      <!-- ═══ STEP 3 — Your Profile ═══════════════════════════════════ -->
       <div class="wizard-step" id="step-3" role="group" aria-labelledby="step-3-title">
         <div class="wizard-step-header">
           <span class="wizard-step-num">Step 03</span>
-          <h2 class="wizard-step-title" id="step-3-title">How work moves</h2>
-          <p class="wizard-step-desc">Where the friction is, and where AI could meet it.</p>
+          <h2 class="wizard-step-title" id="step-3-title">Your Profile</h2>
+          <p class="wizard-step-desc">The size and scope of your business or creative work.</p>
         </div>
 
         <div class="wizard-questions-container">
-          <!-- Q6 -->
-          <div class="wizard-question-block">
-            <h3 class="wizard-question-text" id="q6-title">How is your business organised today?</h3>
-            <div class="options-grid">
-              <label class="option-card" for="q6-a">
-                <input type="radio" id="q6-a" name="q6" value="A" class="visually-hidden" required>
-                <div class="option-card-content"><span class="option-num">A</span><p class="option-desc">Centralised — one team, one place, one playbook</p></div>
-              </label>
-              <label class="option-card" for="q6-b">
-                <input type="radio" id="q6-b" name="q6" value="B" class="visually-hidden">
-                <div class="option-card-content"><span class="option-num">B</span><p class="option-desc">Decentralised — multiple teams running their own way</p></div>
-              </label>
-              <label class="option-card" for="q6-c">
-                <input type="radio" id="q6-c" name="q6" value="C" class="visually-hidden">
-                <div class="option-card-content"><span class="option-num">C</span><p class="option-desc">Outsourced — most operational work sits with partners</p></div>
-              </label>
-              <label class="option-card" for="q6-d">
-                <input type="radio" id="q6-d" name="q6" value="D" class="visually-hidden">
-                <div class="option-card-content"><span class="option-num">D</span><p class="option-desc">Mixed — some inside, some outside, depending on the task</p></div>
-              </label>
+          <!-- Business Track Q3, Q4, Q5 -->
+          <div class="business-only">
+            <!-- Q3 -->
+            <div class="wizard-question-block">
+              <h3 class="wizard-question-text">How big is your company?</h3>
+              <div class="options-grid">
+                <label class="option-card" for="b-q3-a">
+                  <input type="radio" id="b-q3-a" name="business_q3" value="A" class="visually-hidden" required>
+                  <div class="option-card-content"><p class="option-desc">Under 50 people</p></div>
+                </label>
+                <label class="option-card" for="b-q3-b">
+                  <input type="radio" id="b-q3-b" name="business_q3" value="B" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">50 to 250 people</p></div>
+                </label>
+                <label class="option-card" for="b-q3-c">
+                  <input type="radio" id="b-q3-c" name="business_q3" value="C" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">250 to 1,000 people</p></div>
+                </label>
+                <label class="option-card" for="b-q3-d">
+                  <input type="radio" id="b-q3-d" name="business_q3" value="D" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">Over 1,000 people</p></div>
+                </label>
+              </div>
+            </div>
+            <!-- Q4 -->
+            <div class="wizard-question-block">
+              <h3 class="wizard-question-text">What does your company do?</h3>
+              <div class="options-grid">
+                <label class="option-card" for="b-q4-a">
+                  <input type="radio" id="b-q4-a" name="business_q4" value="A" class="visually-hidden" required>
+                  <div class="option-card-content"><p class="option-desc">Makes or moves physical things</p></div>
+                </label>
+                <label class="option-card" for="b-q4-b">
+                  <input type="radio" id="b-q4-b" name="business_q4" value="B" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">Sells professional services or expertise</p></div>
+                </label>
+                <label class="option-card" for="b-q4-c">
+                  <input type="radio" id="b-q4-c" name="business_q4" value="C" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">Serves consumers directly</p></div>
+                </label>
+                <label class="option-card" for="b-q4-d">
+                  <input type="radio" id="b-q4-d" name="business_q4" value="D" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">Builds technology or media</p></div>
+                </label>
+              </div>
+            </div>
+            <!-- Q5 -->
+            <div class="wizard-question-block">
+              <h3 class="wizard-question-text">Where does your company operate?</h3>
+              <div class="options-grid">
+                <label class="option-card" for="b-q5-a">
+                  <input type="radio" id="b-q5-a" name="business_q5" value="A" class="visually-hidden" required>
+                  <div class="option-card-content"><p class="option-desc">One city or region</p></div>
+                </label>
+                <label class="option-card" for="b-q5-b">
+                  <input type="radio" id="b-q5-b" name="business_q5" value="B" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">National</p></div>
+                </label>
+                <label class="option-card" for="b-q5-c">
+                  <input type="radio" id="b-q5-c" name="business_q5" value="C" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">European or cross-border</p></div>
+                </label>
+                <label class="option-card" for="b-q5-d">
+                  <input type="radio" id="b-q5-d" name="business_q5" value="D" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">Global</p></div>
+                </label>
+              </div>
             </div>
           </div>
 
-          <!-- Q7 -->
-          <div class="wizard-question-block">
-            <h3 class="wizard-question-text" id="q7-title">Where does most of the friction live?</h3>
-            <div class="options-grid">
-              <label class="option-card" for="q7-a">
-                <input type="radio" id="q7-a" name="q7" value="A" class="visually-hidden" required>
-                <div class="option-card-content"><span class="option-num">A</span><p class="option-desc">Front office — sales, marketing, client communication</p></div>
-              </label>
-              <label class="option-card" for="q7-b">
-                <input type="radio" id="q7-b" name="q7" value="B" class="visually-hidden">
-                <div class="option-card-content"><span class="option-num">B</span><p class="option-desc">Back office — admin, finance, reporting, HR</p></div>
-              </label>
-              <label class="option-card" for="q7-c">
-                <input type="radio" id="q7-c" name="q7" value="C" class="visually-hidden">
-                <div class="option-card-content"><span class="option-num">C</span><p class="option-desc">Operations — production, logistics, service delivery</p></div>
-              </label>
-              <label class="option-card" for="q7-d">
-                <input type="radio" id="q7-d" name="q7" value="D" class="visually-hidden">
-                <div class="option-card-content"><span class="option-num">D</span><p class="option-desc">Across the board — repetition everywhere</p></div>
-              </label>
+          <!-- Creator Track Q3, Q4, Q5 -->
+          <div class="creator-only">
+            <!-- Q3 -->
+            <div class="wizard-question-block">
+              <h3 class="wizard-question-text">What is your primary platform or medium?</h3>
+              <div class="options-grid">
+                <label class="option-card" for="c-q3-a">
+                  <input type="radio" id="c-q3-a" name="creator_q3" value="A" class="visually-hidden" required>
+                  <div class="option-card-content"><p class="option-desc">Video-centric (YouTube, TikTok)</p></div>
+                </label>
+                <label class="option-card" for="c-q3-b">
+                  <input type="radio" id="c-q3-b" name="creator_q3" value="B" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">Audio-centric (Podcasts, Spotify)</p></div>
+                </label>
+                <label class="option-card" for="c-q3-c">
+                  <input type="radio" id="c-q3-c" name="creator_q3" value="C" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">Text-centric (Substack, Newsletter)</p></div>
+                </label>
+                <label class="option-card" for="c-q3-d">
+                  <input type="radio" id="c-q3-d" name="creator_q3" value="D" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">Multi-channel mix</p></div>
+                </label>
+              </div>
             </div>
-          </div>
-
-          <!-- Q8 -->
-          <div class="wizard-question-block">
-            <h3 class="wizard-question-text" id="q8-title">What's holding the change back?</h3>
-            <div class="options-grid">
-              <label class="option-card" for="q8-a">
-                <input type="radio" id="q8-a" name="q8" value="A" class="visually-hidden" required>
-                <div class="option-card-content"><span class="option-num">A</span><p class="option-desc">We don't know where to start</p></div>
-              </label>
-              <label class="option-card" for="q8-b">
-                <input type="radio" id="q8-b" name="q8" value="B" class="visually-hidden">
-                <div class="option-card-content"><span class="option-num">B</span><p class="option-desc">We've tried things and they didn't stick</p></div>
-              </label>
-              <label class="option-card" for="q8-c">
-                <input type="radio" id="q8-c" name="q8" value="C" class="visually-hidden">
-                <div class="option-card-content"><span class="option-num">C</span><p class="option-desc">Leadership is open, the team isn't ready</p></div>
-              </label>
-              <label class="option-card" for="q8-d">
-                <input type="radio" id="q8-d" name="q8" value="D" class="visually-hidden">
-                <div class="option-card-content"><span class="option-num">D</span><p class="option-desc">We're ready, we just need the right plan</p></div>
-              </label>
+            <!-- Q4 -->
+            <div class="wizard-question-block">
+              <h3 class="wizard-question-text">How large is your audience?</h3>
+              <div class="options-grid">
+                <label class="option-card" for="c-q4-a">
+                  <input type="radio" id="c-q4-a" name="creator_q4" value="A" class="visually-hidden" required>
+                  <div class="option-card-content"><p class="option-desc">Under 5,000</p></div>
+                </label>
+                <label class="option-card" for="c-q4-b">
+                  <input type="radio" id="c-q4-b" name="creator_q4" value="B" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">5,000 to 50,000</p></div>
+                </label>
+                <label class="option-card" for="c-q4-c">
+                  <input type="radio" id="c-q4-c" name="creator_q4" value="C" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">50,000 to 500,000</p></div>
+                </label>
+                <label class="option-card" for="c-q4-d">
+                  <input type="radio" id="c-q4-d" name="creator_q4" value="D" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">Over 500,000</p></div>
+                </label>
+              </div>
+            </div>
+            <!-- Q5 -->
+            <div class="wizard-question-block">
+              <h3 class="wizard-question-text">How long have you been creating?</h3>
+              <div class="options-grid">
+                <label class="option-card" for="c-q5-a">
+                  <input type="radio" id="c-q5-a" name="creator_q5" value="A" class="visually-hidden" required>
+                  <div class="option-card-content"><p class="option-desc">Under a year</p></div>
+                </label>
+                <label class="option-card" for="c-q5-b">
+                  <input type="radio" id="c-q5-b" name="creator_q5" value="B" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">One to three years</p></div>
+                </label>
+                <label class="option-card" for="c-q5-c">
+                  <input type="radio" id="c-q5-c" name="creator_q5" value="C" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">Three to seven years</p></div>
+                </label>
+                <label class="option-card" for="c-q5-d">
+                  <input type="radio" id="c-q5-d" name="creator_q5" value="D" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">Long enough that the platforms have changed under me</p></div>
+                </label>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- ═══ STEP 4 — Your data and your AI ══════════════════════════ -->
+      <!-- ═══ STEP 4 — Operations ════════════════════════════════════ -->
       <div class="wizard-step" id="step-4" role="group" aria-labelledby="step-4-title">
         <div class="wizard-step-header">
           <span class="wizard-step-num">Step 04</span>
-          <h2 class="wizard-step-title" id="step-4-title">Your data and your AI</h2>
-          <p class="wizard-step-desc">Where your data lives, and how you want AI to work with it.</p>
+          <h2 class="wizard-step-title" id="step-4-title">Operations</h2>
+          <p class="wizard-step-desc">How your work moves and where the friction lives.</p>
         </div>
 
         <div class="wizard-questions-container">
-          <!-- Q9 -->
-          <div class="wizard-question-block">
-            <h3 class="wizard-question-text" id="q9-title">How do you want to run your AI?</h3>
-            <div class="options-grid">
-              <label class="option-card" for="q9-a">
-                <input type="radio" id="q9-a" name="q9" value="A" class="visually-hidden" required>
-                <div class="option-card-content"><span class="option-num">A</span><p class="option-desc">A public AI is fine — convenience matters more than privacy</p></div>
-              </label>
-              <label class="option-card" for="q9-b">
-                <input type="radio" id="q9-b" name="q9" value="B" class="visually-hidden">
-                <div class="option-card-content"><span class="option-num">B</span><p class="option-desc">A public AI is acceptable for non-sensitive work</p></div>
-              </label>
-              <label class="option-card" for="q9-c">
-                <input type="radio" id="q9-c" name="q9" value="C" class="visually-hidden">
-                <div class="option-card-content"><span class="option-num">C</span><p class="option-desc">A private setup for anything that touches our business</p></div>
-              </label>
-              <label class="option-card" for="q9-d">
-                <input type="radio" id="q9-d" name="q9" value="D" class="visually-hidden">
-                <div class="option-card-content"><span class="option-num">D</span><p class="option-desc">Fully in-house, on our infrastructure, with maximum privacy</p></div>
-              </label>
+          <!-- Business Track Q6, Q7, Q8 -->
+          <div class="business-only">
+            <!-- Q6 -->
+            <div class="wizard-question-block">
+              <h3 class="wizard-question-text">How is your business organised today?</h3>
+              <div class="options-grid">
+                <label class="option-card" for="b-q6-a">
+                  <input type="radio" id="b-q6-a" name="business_q6" value="A" class="visually-hidden" required>
+                  <div class="option-card-content"><p class="option-desc">Centralised — one team, one place, one playbook</p></div>
+                </label>
+                <label class="option-card" for="b-q6-b">
+                  <input type="radio" id="b-q6-b" name="business_q6" value="B" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">Decentralised — multiple teams running their own way</p></div>
+                </label>
+                <label class="option-card" for="b-q6-c">
+                  <input type="radio" id="b-q6-c" name="business_q6" value="C" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">Outsourced — most operational work sits with partners</p></div>
+                </label>
+                <label class="option-card" for="b-q6-d">
+                  <input type="radio" id="b-q6-d" name="business_q6" value="D" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">Mixed — some inside, some outside, depending on the task</p></div>
+                </label>
+              </div>
+            </div>
+            <!-- Q7 -->
+            <div class="wizard-question-block">
+              <h3 class="wizard-question-text">Where does most of the friction live?</h3>
+              <div class="options-grid">
+                <label class="option-card" for="b-q7-a">
+                  <input type="radio" id="b-q7-a" name="business_q7" value="A" class="visually-hidden" required>
+                  <div class="option-card-content"><p class="option-desc">Front office — sales, marketing, client communication</p></div>
+                </label>
+                <label class="option-card" for="b-q7-b">
+                  <input type="radio" id="b-q7-b" name="business_q7" value="B" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">Back office — admin, finance, reporting, HR</p></div>
+                </label>
+                <label class="option-card" for="b-q7-c">
+                  <input type="radio" id="b-q7-c" name="business_q7" value="C" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">Operations — production, logistics, service delivery</p></div>
+                </label>
+                <label class="option-card" for="b-q7-d">
+                  <input type="radio" id="b-q7-d" name="business_q7" value="D" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">Across the board — repetition everywhere</p></div>
+                </label>
+              </div>
+            </div>
+            <!-- Q8 -->
+            <div class="wizard-question-block">
+              <h3 class="wizard-question-text">What's holding the change back?</h3>
+              <div class="options-grid">
+                <label class="option-card" for="b-q8-a">
+                  <input type="radio" id="b-q8-a" name="business_q8" value="A" class="visually-hidden" required>
+                  <div class="option-card-content"><p class="option-desc">We don't know where to start</p></div>
+                </label>
+                <label class="option-card" for="b-q8-b">
+                  <input type="radio" id="b-q8-b" name="business_q8" value="B" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">We've tried things and they didn't stick</p></div>
+                </label>
+                <label class="option-card" for="b-q8-c">
+                  <input type="radio" id="b-q8-c" name="business_q8" value="C" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">Leadership is open, the team isn't ready</p></div>
+                </label>
+                <label class="option-card" for="b-q8-d">
+                  <input type="radio" id="b-q8-d" name="business_q8" value="D" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">We're ready, we just need the right plan</p></div>
+                </label>
+              </div>
             </div>
           </div>
 
-          <!-- Q10 -->
-          <div class="wizard-question-block">
-            <h3 class="wizard-question-text" id="q10-title">Where does your business data live?</h3>
-            <div class="options-grid">
-              <label class="option-card" for="q10-a">
-                <input type="radio" id="q10-a" name="q10" value="A" class="visually-hidden" required>
-                <div class="option-card-content"><span class="option-num">A</span><p class="option-desc">Mostly in spreadsheets and email</p></div>
-              </label>
-              <label class="option-card" for="q10-b">
-                <input type="radio" id="q10-b" name="q10" value="B" class="visually-hidden">
-                <div class="option-card-content"><span class="option-num">B</span><p class="option-desc">Across business tools that don't really talk to each other</p></div>
-              </label>
-              <label class="option-card" for="q10-c">
-                <input type="radio" id="q10-c" name="q10" value="C" class="visually-hidden">
-                <div class="option-card-content"><span class="option-num">C</span><p class="option-desc">In a central system most of the company uses</p></div>
-              </label>
-              <label class="option-card" for="q10-d">
-                <input type="radio" id="q10-d" name="q10" value="D" class="visually-hidden">
-                <div class="option-card-content"><span class="option-num">D</span><p class="option-desc">In a unified data layer we own and control</p></div>
-              </label>
+          <!-- Creator Track Q6, Q7, Q8 -->
+          <div class="creator-only">
+            <!-- Q6 -->
+            <div class="wizard-question-block">
+              <h3 class="wizard-question-text">Where does most of your income come from?</h3>
+              <div class="options-grid">
+                <label class="option-card" for="c-q6-a">
+                  <input type="radio" id="c-q6-a" name="creator_q6" value="A" class="visually-hidden" required>
+                  <div class="option-card-content"><p class="option-desc">Platform ad revenue or platform payouts</p></div>
+                </label>
+                <label class="option-card" for="c-q6-b">
+                  <input type="radio" id="c-q6-b" name="creator_q6" value="B" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">Brand deals and sponsorships</p></div>
+                </label>
+                <label class="option-card" for="c-q6-c">
+                  <input type="radio" id="c-q6-c" name="creator_q6" value="C" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">Direct support from my audience — subscriptions, memberships, tips</p></div>
+                </label>
+                <label class="option-card" for="c-q6-d">
+                  <input type="radio" id="c-q6-d" name="creator_q6" value="D" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">Products or services I sell directly</p></div>
+                </label>
+              </div>
             </div>
-          </div>
-
-          <!-- Q11 -->
-          <div class="wizard-question-block">
-            <h3 class="wizard-question-text" id="q11-title">Do third parties have access to your data?</h3>
-            <div class="options-grid">
-              <label class="option-card" for="q11-a">
-                <input type="radio" id="q11-a" name="q11" value="A" class="visually-hidden" required>
-                <div class="option-card-content"><span class="option-num">A</span><p class="option-desc">Several, and we're not entirely sure who has what</p></div>
-              </label>
-              <label class="option-card" for="q11-b">
-                <input type="radio" id="q11-b" name="q11" value="B" class="visually-hidden">
-                <div class="option-card-content"><span class="option-num">B</span><p class="option-desc">A few, clearly scoped</p></div>
-              </label>
-              <label class="option-card" for="q11-c">
-                <input type="radio" id="q11-c" name="q11" value="C" class="visually-hidden">
-                <div class="option-card-content"><span class="option-num">C</span><p class="option-desc">Rarely, and only under contract</p></div>
-              </label>
-              <label class="option-card" for="q11-d">
-                <input type="radio" id="q11-d" name="q11" value="D" class="visually-hidden">
-                <div class="option-card-content"><span class="option-num">D</span><p class="option-desc">None</p></div>
-              </label>
+            <!-- Q7 -->
+            <div class="wizard-question-block">
+              <h3 class="wizard-question-text">How exposed is your income to platform policy changes?</h3>
+              <div class="options-grid">
+                <label class="option-card" for="c-q7-a">
+                  <input type="radio" id="c-q7-a" name="creator_q7" value="A" class="visually-hidden" required>
+                  <div class="option-card-content"><p class="option-desc">Heavily — if one platform goes down, my income goes with it</p></div>
+                </label>
+                <label class="option-card" for="c-q7-b">
+                  <input type="radio" id="c-q7-b" name="creator_q7" value="B" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">Moderately — some direct sales, but heavily reliant on platform traffic</p></div>
+                </label>
+                <label class="option-card" for="c-q7-c">
+                  <input type="radio" id="c-q7-c" name="creator_q7" value="C" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">Minimally — my income comes from channels I control directly</p></div>
+                </label>
+              </div>
+            </div>
+            <!-- Q8 -->
+            <div class="wizard-question-block">
+              <h3 class="wizard-question-text">What is the most fragile part of your operation?</h3>
+              <div class="options-grid">
+                <label class="option-card" for="c-q8-a">
+                  <input type="radio" id="c-q8-a" name="creator_q8" value="A" class="visually-hidden" required>
+                  <div class="option-card-content"><p class="option-desc">My account itself — one strike and it's over</p></div>
+                </label>
+                <label class="option-card" for="c-q8-b">
+                  <input type="radio" id="c-q8-b" name="creator_q8" value="B" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">My reach — the algorithm decides whether I exist</p></div>
+                </label>
+                <label class="option-card" for="c-q8-c">
+                  <input type="radio" id="c-q8-c" name="creator_q8" value="C" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">My contact with my audience — I don't own the relationship</p></div>
+                </label>
+                <label class="option-card" for="c-q8-d">
+                  <input type="radio" id="c-q8-d" name="creator_q8" value="D" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">My payments and payouts — I rely on platform processors</p></div>
+                </label>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- ═══ STEP 5 — Looking ahead, and getting in touch ════════════ -->
+      <!-- ═══ STEP 5 — AI & Workflows ════════════════════════════════ -->
       <div class="wizard-step" id="step-5" role="group" aria-labelledby="step-5-title">
         <div class="wizard-step-header">
           <span class="wizard-step-num">Step 05</span>
-          <h2 class="wizard-step-title" id="step-5-title">Looking ahead</h2>
+          <h2 class="wizard-step-title" id="step-5-title">AI & Workflows</h2>
+          <p class="wizard-step-desc">Your current AI maturity and automation desires.</p>
+        </div>
+
+        <div class="wizard-questions-container">
+          <!-- Business Track Q9, Q10, Q11, Q12 -->
+          <div class="business-only">
+            <!-- Q9 -->
+            <div class="wizard-question-block">
+              <h3 class="wizard-question-text">Which task area contains the most repetitive work?</h3>
+              <div class="options-grid">
+                <label class="option-card" for="b-q9-a">
+                  <input type="radio" id="b-q9-a" name="business_q9" value="A" class="visually-hidden" required>
+                  <div class="option-card-content"><p class="option-desc">Communication & Reporting</p></div>
+                </label>
+                <label class="option-card" for="b-q9-b">
+                  <input type="radio" id="b-q9-b" name="business_q9" value="B" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">Customer service</p></div>
+                </label>
+                <label class="option-card" for="b-q9-c">
+                  <input type="radio" id="b-q9-c" name="business_q9" value="C" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">Logistics & Scheduling</p></div>
+                </label>
+                <label class="option-card" for="b-q9-d">
+                  <input type="radio" id="b-q9-d" name="business_q9" value="D" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">Content creation</p></div>
+                </label>
+              </div>
+            </div>
+            <!-- Q10 -->
+            <div class="wizard-question-block">
+              <h3 class="wizard-question-text">Which daily task is the biggest treadmill for your team?</h3>
+              <div class="options-grid">
+                <label class="option-card" for="b-q10-a">
+                  <input type="radio" id="b-q10-a" name="business_q10" value="A" class="visually-hidden" required>
+                  <div class="option-card-content"><p class="option-desc">Drafting emails & documents</p></div>
+                </label>
+                <label class="option-card" for="b-q10-b">
+                  <input type="radio" id="b-q10-b" name="business_q10" value="B" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">Triaging messages & tasks</p></div>
+                </label>
+                <label class="option-card" for="b-q10-c">
+                  <input type="radio" id="b-q10-c" name="business_q10" value="C" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">Data entry & copy-pasting</p></div>
+                </label>
+                <label class="option-card" for="b-q10-d">
+                  <input type="radio" id="b-q10-d" name="business_q10" value="D" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">Searching for files & info</p></div>
+                </label>
+              </div>
+            </div>
+            <!-- Q11 -->
+            <div class="wizard-question-block">
+              <h3 class="wizard-question-text">What is your current experience with AI tools?</h3>
+              <div class="options-grid">
+                <label class="option-card" for="b-q11-a">
+                  <input type="radio" id="b-q11-a" name="business_q11" value="A" class="visually-hidden" required>
+                  <div class="option-card-content"><p class="option-desc">Nothing yet</p></div>
+                </label>
+                <label class="option-card" for="b-q11-b">
+                  <input type="radio" id="b-q11-b" name="business_q11" value="B" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">Individuals on the team use AI tools on their own</p></div>
+                </label>
+                <label class="option-card" for="b-q11-c">
+                  <input type="radio" id="b-q11-c" name="business_q11" value="C" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">We've run pilots on specific use cases</p></div>
+                </label>
+                <label class="option-card" for="b-q11-d">
+                  <input type="radio" id="b-q11-d" name="business_q11" value="D" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">AI is already woven into how we work</p></div>
+                </label>
+              </div>
+            </div>
+            <!-- Q12 -->
+            <div class="wizard-question-block">
+              <h3 class="wizard-question-text">What would you want AI to do for your business ideally?</h3>
+              <div class="options-grid">
+                <label class="option-card" for="b-q12-a">
+                  <input type="radio" id="b-q12-a" name="business_q12" value="A" class="visually-hidden" required>
+                  <div class="option-card-content"><p class="option-desc">Give the team back time for higher-value work</p></div>
+                </label>
+                <label class="option-card" for="b-q12-b">
+                  <input type="radio" id="b-q12-b" name="business_q12" value="B" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">Help us scale without hiring proportionally</p></div>
+                </label>
+                <label class="option-card" for="b-q12-c">
+                  <input type="radio" id="b-q12-c" name="business_q12" value="C" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">Improve consistency across the company</p></div>
+                </label>
+                <label class="option-card" for="b-q12-d">
+                  <input type="radio" id="b-q12-d" name="business_q12" value="D" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">Run the operational layer of our business for us</p></div>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Creator Track Q9, Q10, Q11, Q12 -->
+          <div class="creator-only">
+            <!-- Q9 -->
+            <div class="wizard-question-block">
+              <h3 class="wizard-question-text">Which part of your creative process is most time-consuming?</h3>
+              <div class="options-grid">
+                <label class="option-card" for="c-q9-a">
+                  <input type="radio" id="c-q9-a" name="creator_q9" value="A" class="visually-hidden" required>
+                  <div class="option-card-content"><p class="option-desc">Everything around the content (logistics)</p></div>
+                </label>
+                <label class="option-card" for="c-q9-b">
+                  <input type="radio" id="c-q9-b" name="creator_q9" value="B" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">Talking to my audience</p></div>
+                </label>
+                <label class="option-card" for="c-q9-c">
+                  <input type="radio" id="c-q9-c" name="creator_q9" value="C" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">Running the business</p></div>
+                </label>
+                <label class="option-card" for="c-q9-d">
+                  <input type="radio" id="c-q9-d" name="creator_q9" value="D" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">Making the core content</p></div>
+                </label>
+              </div>
+            </div>
+            <!-- Q10 -->
+            <div class="wizard-question-block">
+              <h3 class="wizard-question-text">Which daily/weekly task do you find most repetitive?</h3>
+              <div class="options-grid">
+                <label class="option-card" for="c-q10-a">
+                  <input type="radio" id="c-q10-a" name="creator_q10" value="A" class="visually-hidden" required>
+                  <div class="option-card-content"><p class="option-desc">Repurposing content</p></div>
+                </label>
+                <label class="option-card" for="c-q10-b">
+                  <input type="radio" id="c-q10-b" name="creator_q10" value="B" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">Replying to DMs and comments</p></div>
+                </label>
+                <label class="option-card" for="c-q10-c">
+                  <input type="radio" id="c-q10-c" name="creator_q10" value="C" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">Reporting & analytics</p></div>
+                </label>
+                <label class="option-card" for="c-q10-d">
+                  <input type="radio" id="c-q10-d" name="creator_q10" value="D" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">None, each day is unique</p></div>
+                </label>
+              </div>
+            </div>
+            <!-- Q11 -->
+            <div class="wizard-question-block">
+              <h3 class="wizard-question-text">What is your current experience with AI tools?</h3>
+              <div class="options-grid">
+                <label class="option-card" for="c-q11-a">
+                  <input type="radio" id="c-q11-a" name="creator_q11" value="A" class="visually-hidden" required>
+                  <div class="option-card-content"><p class="option-desc">Nothing yet — I haven't found the right way in</p></div>
+                </label>
+                <label class="option-card" for="c-q11-b">
+                  <input type="radio" id="c-q11-b" name="creator_q11" value="B" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">Writing and editing tools, occasionally</p></div>
+                </label>
+                <label class="option-card" for="c-q11-c">
+                  <input type="radio" id="c-q11-c" name="creator_q11" value="C" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">Production tools — visuals, voice, transcripts</p></div>
+                </label>
+                <label class="option-card" for="c-q11-d">
+                  <input type="radio" id="c-q11-d" name="creator_q11" value="D" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">I'm building real workflows around AI already</p></div>
+                </label>
+              </div>
+            </div>
+            <!-- Q12 -->
+            <div class="wizard-question-block">
+              <h3 class="wizard-question-text">Where would automation help you most?</h3>
+              <div class="options-grid">
+                <label class="option-card" for="c-q12-a">
+                  <input type="radio" id="c-q12-a" name="creator_q12" value="A" class="visually-hidden" required>
+                  <div class="option-card-content"><p class="option-desc">Give me back time to make better work</p></div>
+                </label>
+                <label class="option-card" for="c-q12-b">
+                  <input type="radio" id="c-q12-b" name="creator_q12" value="B" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">Help me stay consistent without burning out</p></div>
+                </label>
+                <label class="option-card" for="c-q12-c">
+                  <input type="radio" id="c-q12-c" name="creator_q12" value="C" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">Let me reply to my audience properly without it eating my life</p></div>
+                </label>
+                <label class="option-card" for="c-q12-d">
+                  <input type="radio" id="c-q12-d" name="creator_q12" value="D" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">Run the operational layer of my business for me</p></div>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ STEP 6 — Sovereignty ═══════════════════════════════════ -->
+      <div class="wizard-step" id="step-6" role="group" aria-labelledby="step-6-title">
+        <div class="wizard-step-header">
+          <span class="wizard-step-num">Step 06</span>
+          <h2 class="wizard-step-title" id="step-6-title">Data & Sovereignty</h2>
+          <p class="wizard-step-desc">Your posture towards data ownership and infrastructural autonomy.</p>
+        </div>
+
+        <div class="wizard-questions-container">
+          <!-- Business Track Q13, Q14, Q15 -->
+          <div class="business-only">
+            <!-- Q13 -->
+            <div class="wizard-question-block">
+              <h3 class="wizard-question-text">How do you want to run your AI?</h3>
+              <div class="options-grid">
+                <label class="option-card" for="b-q13-a">
+                  <input type="radio" id="b-q13-a" name="business_q13" value="A" class="visually-hidden" required>
+                  <div class="option-card-content"><p class="option-desc">Public AI is fine — convenience matters more than privacy</p></div>
+                </label>
+                <label class="option-card" for="b-q13-b">
+                  <input type="radio" id="b-q13-b" name="business_q13" value="B" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">Public AI is acceptable for non-sensitive work</p></div>
+                </label>
+                <label class="option-card" for="b-q13-c">
+                  <input type="radio" id="b-q13-c" name="business_q13" value="C" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">Private setup for anything that touches our business</p></div>
+                </label>
+                <label class="option-card" for="b-q13-d">
+                  <input type="radio" id="b-q13-d" name="business_q13" value="D" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">Fully in-house, on our infrastructure, with maximum privacy</p></div>
+                </label>
+              </div>
+            </div>
+            <!-- Q14 -->
+            <div class="wizard-question-block">
+              <h3 class="wizard-question-text">Where does your business data live?</h3>
+              <div class="options-grid">
+                <label class="option-card" for="b-q14-a">
+                  <input type="radio" id="b-q14-a" name="business_q14" value="A" class="visually-hidden" required>
+                  <div class="option-card-content"><p class="option-desc">Mostly spreadsheets and email</p></div>
+                </label>
+                <label class="option-card" for="b-q14-b">
+                  <input type="radio" id="b-q14-b" name="business_q14" value="B" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">Across business tools that don't really talk</p></div>
+                </label>
+                <label class="option-card" for="b-q14-c">
+                  <input type="radio" id="b-q14-c" name="business_q14" value="C" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">Central system most of the company uses</p></div>
+                </label>
+                <label class="option-card" for="b-q14-d">
+                  <input type="radio" id="b-q14-d" name="business_q14" value="D" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">Unified data layer we own and control</p></div>
+                </label>
+              </div>
+            </div>
+            <!-- Q15 -->
+            <div class="wizard-question-block">
+              <h3 class="wizard-question-text">Do third parties have access to your data?</h3>
+              <div class="options-grid">
+                <label class="option-card" for="b-q15-a">
+                  <input type="radio" id="b-q15-a" name="business_q15" value="A" class="visually-hidden" required>
+                  <div class="option-card-content"><p class="option-desc">Several, not entirely sure who has what</p></div>
+                </label>
+                <label class="option-card" for="b-q15-b">
+                  <input type="radio" id="b-q15-b" name="business_q15" value="B" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">A few, clearly scoped</p></div>
+                </label>
+                <label class="option-card" for="b-q15-c">
+                  <input type="radio" id="b-q15-c" name="business_q15" value="C" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">Rarely, under contract</p></div>
+                </label>
+                <label class="option-card" for="b-q15-d">
+                  <input type="radio" id="b-q15-d" name="business_q15" value="D" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">None</p></div>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Creator Track Q13, Q14, Q15 -->
+          <div class="creator-only">
+            <!-- Q13 -->
+            <div class="wizard-question-block">
+              <h3 class="wizard-question-text">If your main platform shut you down tomorrow, what could you keep?</h3>
+              <div class="options-grid">
+                <label class="option-card" for="c-q13-a">
+                  <input type="radio" id="c-q13-a" name="creator_q13" value="A" class="visually-hidden" required>
+                  <div class="option-card-content"><p class="option-desc">Almost nothing — my audience lives there</p></div>
+                </label>
+                <label class="option-card" for="c-q13-b">
+                  <input type="radio" id="c-q13-b" name="creator_q13" value="B" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">My subscriber emails, if I've been collecting them</p></div>
+                </label>
+                <label class="option-card" for="c-q13-c">
+                  <input type="radio" id="c-q13-c" name="creator_q13" value="C" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">Most of it — I have backups and direct channels</p></div>
+                </label>
+                <label class="option-card" for="c-q13-d">
+                  <input type="radio" id="c-q13-d" name="creator_q13" value="D" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">Everything — my platform is one channel among many I control</p></div>
+                </label>
+              </div>
+            </div>
+            <!-- Q14 -->
+            <div class="wizard-question-block">
+              <h3 class="wizard-question-text">How do you feel about your dependence on major platforms?</h3>
+              <div class="options-grid">
+                <label class="option-card" for="c-q14-a">
+                  <input type="radio" id="c-q14-a" name="creator_q14" value="A" class="visually-hidden" required>
+                  <div class="option-card-content"><p class="option-desc">They're necessary, and I try not to think about it</p></div>
+                </label>
+                <label class="option-card" for="c-q14-b">
+                  <input type="radio" id="c-q14-b" name="creator_q14" value="B" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">I'd leave if there were somewhere to go</p></div>
+                </label>
+                <label class="option-card" for="c-q14-c">
+                  <input type="radio" id="c-q14-c" name="creator_q14" value="C" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">I'm actively trying to reduce my exposure</p></div>
+                </label>
+                <label class="option-card" for="c-q14-d">
+                  <input type="radio" id="c-q14-d" name="creator_q14" value="D" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">I want to own my presence end to end</p></div>
+                </label>
+              </div>
+            </div>
+            <!-- Q15 -->
+            <div class="wizard-question-block">
+              <h3 class="wizard-question-text">How do you want to manage your audience data and AI?</h3>
+              <div class="options-grid" style="grid-template-columns: 1fr 1fr;">
+                <label class="option-card" for="c-q15-a">
+                  <input type="radio" id="c-q15-a" name="creator_q15" value="A" class="visually-hidden" required>
+                  <div class="option-card-content"><p class="option-desc">Public AI is fine</p></div>
+                </label>
+                <label class="option-card" for="c-q15-b">
+                  <input type="radio" id="c-q15-b" name="creator_q15" value="B" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">Fully mine — my AI, my data, on infrastructure I control</p></div>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ STEP 7 — Looking Ahead & Contact ═══════════════════════ -->
+      <div class="wizard-step" id="step-7" role="group" aria-labelledby="step-7-title">
+        <div class="wizard-step-header">
+          <span class="wizard-step-num">Step 07</span>
+          <h2 class="wizard-step-title" id="step-7-title">Looking Ahead</h2>
           <p class="wizard-step-desc">Where you want to be, and how we should reach you.</p>
         </div>
 
         <div class="wizard-questions-container">
+          <!-- Business Track Q16 & Q17 -->
+          <div class="business-only">
+            <!-- Q16 -->
+            <div class="wizard-question-block">
+              <h3 class="wizard-question-text">Where would you like to be twelve months from now?</h3>
+              <div class="options-grid">
+                <label class="option-card" for="b-q16-a">
+                  <input type="radio" id="b-q16-a" name="business_q16" value="A" class="visually-hidden" required>
+                  <div class="option-card-content"><p class="option-desc">Clearer on what AI can and can't do for us</p></div>
+                </label>
+                <label class="option-card" for="b-q16-b">
+                  <input type="radio" id="b-q16-b" name="business_q16" value="B" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">Two or three concrete things working in production</p></div>
+                </label>
+                <label class="option-card" for="b-q16-c">
+                  <input type="radio" id="b-q16-c" name="business_q16" value="C" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">AI woven into how the company runs</p></div>
+                </label>
+                <label class="option-card" for="b-q16-d">
+                  <input type="radio" id="b-q16-d" name="business_q16" value="D" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">Fully sovereign — our AI, our data, our infrastructure</p></div>
+                </label>
+              </div>
+            </div>
+            <!-- Q17 -->
+            <div class="wizard-question-block">
+              <h3 class="wizard-question-text">How would you like us to reach out?</h3>
+              <div class="options-grid">
+                <label class="option-card" for="b-q17-a">
+                  <input type="radio" id="b-q17-a" name="business_q17" value="A" class="visually-hidden" required>
+                  <div class="option-card-content"><p class="option-desc">Email is fine</p></div>
+                </label>
+                <label class="option-card" for="b-q17-b">
+                  <input type="radio" id="b-q17-b" name="business_q17" value="B" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">A short call to start</p></div>
+                </label>
+                <label class="option-card" for="b-q17-c">
+                  <input type="radio" id="b-q17-c" name="business_q17" value="C" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">A video meeting</p></div>
+                </label>
+                <label class="option-card" for="b-q17-d">
+                  <input type="radio" id="b-q17-d" name="business_q17" value="D" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">In person, when it makes sense</p></div>
+                </label>
+              </div>
+            </div>
+          </div>
 
-          <!-- Q12 -->
-          <div class="wizard-question-block">
-            <h3 class="wizard-question-text" id="q12-title">Where would you like to be twelve months from now?</h3>
-            <div class="options-grid">
-              <label class="option-card" for="q12-a">
-                <input type="radio" id="q12-a" name="q12" value="A" class="visually-hidden" required>
-                <div class="option-card-content"><span class="option-num">A</span><p class="option-desc">Clearer on what AI can and can't do for us</p></div>
-              </label>
-              <label class="option-card" for="q12-b">
-                <input type="radio" id="q12-b" name="q12" value="B" class="visually-hidden">
-                <div class="option-card-content"><span class="option-num">B</span><p class="option-desc">Two or three concrete things working in production</p></div>
-              </label>
-              <label class="option-card" for="q12-c">
-                <input type="radio" id="q12-c" name="q12" value="C" class="visually-hidden">
-                <div class="option-card-content"><span class="option-num">C</span><p class="option-desc">AI woven into how the company runs</p></div>
-              </label>
-              <label class="option-card" for="q12-d">
-                <input type="radio" id="q12-d" name="q12" value="D" class="visually-hidden">
-                <div class="option-card-content"><span class="option-num">D</span><p class="option-desc">Fully sovereign — our AI, our data, our infrastructure</p></div>
-              </label>
+          <!-- Creator Track Q16 & Q17 -->
+          <div class="creator-only">
+            <!-- Q16 -->
+            <div class="wizard-question-block">
+              <h3 class="wizard-question-text">Where would you like to be twelve months from now?</h3>
+              <div class="options-grid">
+                <label class="option-card" for="c-q16-a">
+                  <input type="radio" id="c-q16-a" name="creator_q16" value="A" class="visually-hidden" required>
+                  <div class="option-card-content"><p class="option-desc">Less anxious about the platforms I depend on</p></div>
+                </label>
+                <label class="option-card" for="c-q16-b">
+                  <input type="radio" id="c-q16-b" name="creator_q16" value="B" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">Earning more directly from my audience</p></div>
+                </label>
+                <label class="option-card" for="c-q16-c">
+                  <input type="radio" id="c-q16-c" name="creator_q16" value="C" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">Running my own publishing and payment infrastructure</p></div>
+                </label>
+                <label class="option-card" for="c-q16-d">
+                  <input type="radio" id="c-q16-d" name="creator_q16" value="D" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">Fully sovereign — my audience, my keys, my rules</p></div>
+                </label>
+              </div>
+            </div>
+            <!-- Q17 -->
+            <div class="wizard-question-block">
+              <h3 class="wizard-question-text">How would you like us to reach out?</h3>
+              <div class="options-grid">
+                <label class="option-card" for="c-q17-a">
+                  <input type="radio" id="c-q17-a" name="creator_q17" value="A" class="visually-hidden" required>
+                  <div class="option-card-content"><p class="option-desc">Email is fine</p></div>
+                </label>
+                <label class="option-card" for="c-q17-b">
+                  <input type="radio" id="c-q17-b" name="creator_q17" value="B" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">A short call to start</p></div>
+                </label>
+                <label class="option-card" for="c-q17-c">
+                  <input type="radio" id="c-q17-c" name="creator_q17" value="C" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">A video meeting</p></div>
+                </label>
+                <label class="option-card" for="c-q17-d">
+                  <input type="radio" id="c-q17-d" name="creator_q17" value="D" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">In person, when it makes sense</p></div>
+                </label>
+              </div>
             </div>
           </div>
 
@@ -439,12 +995,12 @@
                 <input type="text" id="client-name" name="name" class="form-input" required placeholder="Your name">
               </div>
               <div class="form-group">
-                <label for="client-role" class="form-label">Role</label>
-                <input type="text" id="client-role" name="role" class="form-input" placeholder="Your role">
+                <label for="client-role" class="form-label" id="label-role">Role *</label>
+                <input type="text" id="client-role" name="role" class="form-input" required placeholder="Your role">
               </div>
               <div class="form-group">
-                <label for="client-company" class="form-label">Company</label>
-                <input type="text" id="client-company" name="company" class="form-input" placeholder="Company name">
+                <label for="client-company" class="form-label" id="label-company">Company *</label>
+                <input type="text" id="client-company" name="company" class="form-input" required placeholder="Company name">
               </div>
               <div class="form-group">
                 <label for="client-email" class="form-label">Email *</label>
@@ -457,30 +1013,7 @@
             </div>
           </div>
 
-          <!-- Q13 -->
-          <div class="wizard-question-block">
-            <h3 class="wizard-question-text" id="q13-title">How would you like us to reach out?</h3>
-            <div class="options-grid">
-              <label class="option-card" for="q13-a">
-                <input type="radio" id="q13-a" name="q13" value="A" class="visually-hidden" required>
-                <div class="option-card-content"><span class="option-num">A</span><p class="option-desc">Email is fine</p></div>
-              </label>
-              <label class="option-card" for="q13-b">
-                <input type="radio" id="q13-b" name="q13" value="B" class="visually-hidden">
-                <div class="option-card-content"><span class="option-num">B</span><p class="option-desc">A short call to start</p></div>
-              </label>
-              <label class="option-card" for="q13-c">
-                <input type="radio" id="q13-c" name="q13" value="C" class="visually-hidden">
-                <div class="option-card-content"><span class="option-num">C</span><p class="option-desc">A video meeting</p></div>
-              </label>
-              <label class="option-card" for="q13-d">
-                <input type="radio" id="q13-d" name="q13" value="D" class="visually-hidden">
-                <div class="option-card-content"><span class="option-num">D</span><p class="option-desc">In person, when it makes sense</p></div>
-              </label>
-            </div>
-          </div>
-
-          <!-- Optional note -->
+          <!-- Optional message note -->
           <div class="wizard-question-block" style="margin-bottom: 0;">
             <div class="form-group" style="margin-bottom: 0;">
               <label for="client-message" class="form-label">Anything we should know before we get in touch? (Optional)</label>
