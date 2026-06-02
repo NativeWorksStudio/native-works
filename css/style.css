@@ -2125,6 +2125,13 @@ footer::before {
   }
 }
 
+/* Force-hide utility for wizard nav buttons — wins over any position:fixed / display rule */
+.wizard-btn-hidden {
+  display: none !important;
+  pointer-events: none !important;
+  visibility: hidden !important;
+}
+
 @media (min-width: 1025px) {
   .wizard-navigation {
     border-top: none !important;
@@ -2141,7 +2148,7 @@ footer::before {
     height: 64px;
     border-radius: 50% !important;
     padding: 0 !important;
-    display: inline-flex !important;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
     box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);

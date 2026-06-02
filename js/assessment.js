@@ -314,19 +314,18 @@ document.addEventListener('DOMContentLoaded', () => {
     stepLabelText.textContent = label;
     progressBar.style.width  = `${(currentStep / totalSteps) * 100}%`;
 
-    // Back button — use display toggle instead of .visually-hidden to avoid
-    // position:absolute !important overriding position:fixed on desktop
-    btnBack.style.display = currentStep === 1 ? 'none' : '';
+    // Back button
+    btnBack.classList.toggle('wizard-btn-hidden', currentStep === 1);
 
     // Next / Submit controls
     if (currentStep < totalSteps) {
       btnNext.textContent = currentStep === totalSteps - 1 ? 'Final Step →' : 'Next Step →';
-      btnNext.style.display = '';
-      btnSubmit.style.display = 'none';
+      btnNext.classList.remove('wizard-btn-hidden');
+      btnSubmit.classList.add('wizard-btn-hidden');
     } else {
       calculateRouting();
-      btnNext.style.display = 'none';
-      btnSubmit.style.display = '';
+      btnNext.classList.add('wizard-btn-hidden');
+      btnSubmit.classList.remove('wizard-btn-hidden');
     }
 
     // Smooth scroll to top of container
