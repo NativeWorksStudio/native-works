@@ -692,4 +692,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  // Initialize the wizard UI to ensure progress bar is correctly placed on Step 1 on page load
+  updateWizardUI();
+
 });
