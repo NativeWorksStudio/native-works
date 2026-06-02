@@ -12,13 +12,21 @@ const firebaseConfig = {
   appId: "PLACEHOLDER_APP_ID",
   measurementId: "PLACEHOLDER_MEASUREMENT_ID"
 };
+// ↑ Sostituisci i valori sopra con le credenziali reali da Firebase Console
+// (Project Settings > Your apps > SDK setup and configuration)
+// Le chiavi Firebase web sono sicure nel client — protette dalle Security Rules.
+
+// Only init Firebase if credentials have been replaced from placeholders
+const firebaseReady = !Object.values(firebaseConfig).some(v => v.startsWith('PLACEHOLDER'));
 
 let db = null;
-try {
-  const app = initializeApp(firebaseConfig);
-  db = getFirestore(app);
-} catch (err) {
-  console.warn("Firebase initialization skipped or failed:", err);
+if (firebaseReady) {
+  try {
+    const app = initializeApp(firebaseConfig);
+    db = getFirestore(app);
+  } catch (err) {
+    console.warn("Firebase initialization failed:", err);
+  }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -667,7 +675,20 @@ document.addEventListener('DOMContentLoaded', () => {
     // Prevent immediate native submission to allow background Firestore write
     e.preventDefault();
 
+    let submitted = false;
+    const submitForm = () => {
+      if (submitted) return;
+      submitted = true;
+      form.submit();
+    };
+
     if (db) {
+      // Safety timeout: if Firestore doesn't respond in 4s, submit anyway
+      const submitFallback = setTimeout(() => {
+        console.warn("Firestore timeout — submitting form directly.");
+        submitForm();
+      }, 4000);
+
       addDoc(collection(db, "submissions"), {
         timestamp: new Date().toISOString(),
         track: selectedTrack,
@@ -681,14 +702,13 @@ document.addEventListener('DOMContentLoaded', () => {
         recommendation: recType,
         answers: answers
       }).catch(err => {
-        console.warn("Firestore database write failed:", err);
+        console.warn("Firestore write failed:", err);
       }).finally(() => {
-        // Proceed to natively submit the form to FormSubmit.co
-        form.submit();
+        clearTimeout(submitFallback);
+        submitForm();
       });
     } else {
-      console.warn("Firestore database not initialized. Submitting form directly.");
-      form.submit();
+      submitForm();
     }
   });
 

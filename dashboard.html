@@ -680,10 +680,24 @@
       "kenneth.berthelsen@nativeworks.studio"
     ];
 
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-    const auth = getAuth(app);
-    const provider = new GoogleAuthProvider();
+    const firebaseReady = !Object.values(firebaseConfig).some(v => v.startsWith('PLACEHOLDER'));
+
+    let db = null;
+    let auth = null;
+    let provider = null;
+
+    if (firebaseReady) {
+      try {
+        const app = initializeApp(firebaseConfig);
+        db = getFirestore(app);
+        auth = getAuth(app);
+        provider = new GoogleAuthProvider();
+      } catch (err) {
+        console.error("Firebase initialization failed:", err);
+      }
+    } else {
+      console.warn("Firebase not configured. Admin panel will operate in offline/placeholder mode.");
+    }
 
     const loginView = document.getElementById('login-view');
     const dashboardView = document.getElementById('dashboard-view');
@@ -695,64 +709,83 @@
     let currentFilter = 'all';
 
     // Handle Authentication State Change
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        const userEmail = user.email.toLowerCase();
-        if (authorizedEmails.includes(userEmail)) {
-          // Grant access
-          loginView.style.display = 'none';
-          dashboardView.style.display = 'block';
-          errorBox.style.display = 'none';
-          loadSubmissions();
+    if (auth) {
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          const userEmail = user.email.toLowerCase();
+          if (authorizedEmails.includes(userEmail)) {
+            // Grant access
+            loginView.style.display = 'none';
+            dashboardView.style.display = 'block';
+            errorBox.style.display = 'none';
+            loadSubmissions();
+          } else {
+            // Reject and sign out
+            signOut(auth);
+            errorBox.innerText = `Access Denied: Email [${user.email}] is not whitelisted.`;
+            errorBox.style.display = 'block';
+            loginView.style.display = 'block';
+            dashboardView.style.display = 'none';
+          }
         } else {
-          // Reject and sign out
-          signOut(auth);
-          errorBox.innerText = `Access Denied: Email [${user.email}] is not whitelisted.`;
-          errorBox.style.display = 'block';
           loginView.style.display = 'block';
           dashboardView.style.display = 'none';
         }
-      } else {
-        loginView.style.display = 'block';
-        dashboardView.style.display = 'none';
+      });
+    } else {
+      // Firebase not configured - show placeholder state or warning
+      if (loginView) loginView.style.display = 'none';
+      if (dashboardView) dashboardView.style.display = 'block';
+      const countBox = document.getElementById('count-box');
+      if (countBox) countBox.innerText = "Firebase not configured";
+      const leadsContainer = document.getElementById('leads-container');
+      if (leadsContainer) {
+        leadsContainer.innerHTML = `
+          <div class="empty-state">
+            <h3>Firebase not configured</h3>
+            <p>Admin panel is operating in offline/demo mode. Please replace the placeholders in <code>firebaseConfig</code> with your real credentials to view live submissions.</p>
+          </div>
+        `;
       }
-    });
+    }
 
-    // Resolve redirect sign-in results if returning from a redirect
-    getRedirectResult(auth)
-      .then((result) => {
-        if (result && result.user) {
-          console.log("Redirect login successful:", result.user.email);
-        }
-      })
-      .catch((err) => {
-        console.error("Redirect resolution error:", err);
-        errorBox.innerText = `Sign-in redirect failed: ${err.message}. Please try again.`;
-        errorBox.style.display = 'block';
+    if (auth) {
+      // Resolve redirect sign-in results if returning from a redirect
+      getRedirectResult(auth)
+        .then((result) => {
+          if (result && result.user) {
+            console.log("Redirect login successful:", result.user.email);
+          }
+        })
+        .catch((err) => {
+          console.error("Redirect resolution error:", err);
+          errorBox.innerText = `Sign-in redirect failed: ${err.message}. Please try again.`;
+          errorBox.style.display = 'block';
+        });
+
+      // Google Sign-In Action (Hybrid Popup with automatic Redirect fallback)
+      btnLogin.addEventListener('click', () => {
+        errorBox.style.display = 'none';
+        signInWithPopup(auth, provider)
+          .then((result) => {
+            console.log("Popup login successful:", result.user.email);
+          })
+          .catch(err => {
+            console.warn("Popup blocked or failed, trying redirect fallback:", err);
+            // If popup is blocked, cancelled, or fails, fallback immediately to redirect
+            signInWithRedirect(auth, provider).catch(redirectErr => {
+              console.error("Redirect fallback error:", redirectErr);
+              errorBox.innerText = "Authentication failed. Please verify browser third-party cookie permissions.";
+              errorBox.style.display = 'block';
+            });
+          });
       });
 
-    // Google Sign-In Action (Hybrid Popup with automatic Redirect fallback)
-    btnLogin.addEventListener('click', () => {
-      errorBox.style.display = 'none';
-      signInWithPopup(auth, provider)
-        .then((result) => {
-          console.log("Popup login successful:", result.user.email);
-        })
-        .catch(err => {
-          console.warn("Popup blocked or failed, trying redirect fallback:", err);
-          // If popup is blocked, cancelled, or fails, fallback immediately to redirect
-          signInWithRedirect(auth, provider).catch(redirectErr => {
-            console.error("Redirect fallback error:", redirectErr);
-            errorBox.innerText = "Authentication failed. Please verify browser third-party cookie permissions.";
-            errorBox.style.display = 'block';
-          });
-        });
-    });
-
-    // Sign-out Action
-    btnLogout.addEventListener('click', () => {
-      signOut(auth);
-    });
+      // Sign-out Action
+      btnLogout.addEventListener('click', () => {
+        signOut(auth);
+      });
+    }
 
     // Load Submissions from Firestore
     async function loadSubmissions() {
