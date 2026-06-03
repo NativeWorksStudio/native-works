@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Assessment Integration Mockup — Native Works</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,200;0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300;1,9..40,400&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<style>
+  /* Custom Styles for Mockup Display */
+  .mockup-container {
+    max-width: 1300px;
+    margin: 120px auto 60px auto;
+    padding: 0 24px;
+  }
+  
+  .mockup-header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+  
+  .mockup-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(32px, 4vw, 48px);
+    color: #12100E;
+    font-weight: 400;
+    margin-bottom: 12px;
+  }
+  
+  .mockup-subtitle {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    color: #5A5650;
+    font-weight: 300;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  .mockup-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    align-items: start;
+  }
+
+  @media (max-width: 1024px) {
+    .mockup-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .mockup-section-title {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #8E3B28;
+    font-weight: 600;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .mockup-section-title::after {
+    content: '';
+    flex-grow: 1;
+    height: 1px;
+    background: rgba(30,27,23,0.1);
+  }
+
+  /* 1. Email Mockup styling */
+  .email-client {
+    background: #FFFFFF;
+    border: 1px solid rgba(30,27,23,0.08);
+    border-radius: 8px;
+    box-shadow: 0 15px 40px rgba(18, 16, 14, 0.04);
+    overflow: hidden;
+  }
+
+  .email-header {
+    background: #F4F1EC;
+    padding: 16px 20px;
+    border-bottom: 1px solid rgba(30,27,23,0.06);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    color: #5A5650;
+  }
+
+  .email-header div {
+    margin-bottom: 6px;
+  }
+
+  .email-header div:last-child {
+    margin-bottom: 0;
+  }
+
+  .email-header strong {
+    color: #12100E;
+  }
+
+  .email-body {
+    padding: 24px 20px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    line-height: 1.6;
+    color: #12100E;
+  }
+
+  .email-body ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .email-body li {
+    margin-bottom: 12px;
+    border-bottom: 1px solid rgba(0,0,0,0.03);
+    padding-bottom: 8px;
+  }
+
+  .email-body li strong {
+    display: block;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #5A5650;
+    margin-bottom: 2px;
+  }
+
+  /* 2. Database Code Block styling */
+  .code-viewer {
+    background: #12100E;
+    color: #D8D2C8;
+    border-radius: 8px;
+    padding: 24px 20px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 12px;
+    line-height: 1.5;
+    overflow-x: auto;
+    box-shadow: 0 15px 40px rgba(18, 16, 14, 0.12);
+  }
+
+  .code-viewer pre {
+    margin: 0;
+  }
+
+  .json-key { color: #8E3B28; }
+  .json-str { color: #8FA290; }
+  .json-num { color: #D98C45; }
+  .json-bool { color: #4285F4; }
+
+  /* 3. Playbook Brief styling (matching Briefing Room Modal) */
+  .playbook-card {
+    background: #F4F1EC;
+    border: 1px solid rgba(30,27,23,0.08);
+    border-radius: 8px;
+    box-shadow: 0 15px 40px rgba(18, 16, 14, 0.04);
+    padding: 24px;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .pb-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px;
+    color: #12100E;
+    margin-bottom: 6px;
+  }
+
+  .pb-subtitle {
+    font-size: 11px;
+    color: #5A5650;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .pb-scores {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+    margin-bottom: 24px;
+  }
+
+  .pb-score-col {
+    background: #EAE6DF;
+    border: 1px solid rgba(30,27,23,0.06);
+    border-radius: 4px;
+    padding: 10px 4px;
+    text-align: center;
+  }
+
+  .pb-score-label {
+    display: block;
+    font-size: 9px;
+    color: #5A5650;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .pb-score-val {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 15px;
+    font-weight: bold;
+    color: #8E3B28;
+  }
+
+  .pb-move {
+    background: #FFFFFF;
+    border: 1px solid rgba(30,27,23,0.05);
+    border-radius: 4px;
+    padding: 16px 20px;
+    margin-bottom: 16px;
+  }
+
+  .pb-move:last-child {
+    margin-bottom: 0;
+  }
+
+  .pb-move-title {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #8E3B28;
+    font-weight: 700;
+    margin-bottom: 8px;
+    border-bottom: 1px solid rgba(142,59,40,0.1);
+    padding-bottom: 4px;
+  }
+
+  .pb-move-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-style: italic;
+    color: #12100E;
+    line-height: 1.4;
+    margin: 8px 0;
+  }
+
+  .pb-move-tip {
+    font-size: 12px;
+    color: #5A5650;
+    line-height: 1.5;
+    margin: 0;
+  }
+</style>
+</head>
+<body>
+
+<!-- custom cursor elements -->
+<div id="custom-cursor" aria-hidden="true"></div>
+<div id="custom-cursor-ring" aria-hidden="true"></div>
+
+<!-- NAVIGATION -->
+<nav id="nav" class="scrolled" style="opacity: 1 !important; pointer-events: auto !important;">
+  <a href="index.html" class="nav-logo" aria-label="Native Works home">
+    <svg width="30" height="30" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <circle cx="16" cy="16" r="14" stroke="#1E1B17" stroke-width="0.75" fill="none"/>
+      <path d="M16,16 L17.2,11 L16,2 L14.8,11 Z" fill="#8E3B28"/>
+      <path d="M16,16 L17,19.5 L16,25 L15,19.5 Z" fill="#1E1B17"/>
+      <circle cx="16" cy="16" r="2" fill="#1E1B17"/>
+    </svg>
+    <div class="nav-wordmark">NATIVE WORKS</div>
+  </a>
+  <div class="nav-menu">
+    <ul class="nav-links">
+      <li><a href="index.html#journey">The Path</a></li>
+      <li><a href="index.html#how">How it works</a></li>
+      <li><a href="index.html#products">Products</a></li>
+      <li><a href="assessment.html">Assessment</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="mockup-container">
+  <div class="mockup-header">
+    <h1 class="mockup-title">Assessment Integration Output</h1>
+    <p class="mockup-subtitle">An end-to-end simulation showing exactly how a prospect's assessment submission propagates through our stack to generate emails, database records, and sales briefings.</p>
+  </div>
+  
+  <div class="mockup-grid">
+    <!-- COLUMN 1: EMAIL -->
+    <div>
+      <h2 class="mockup-section-title">1. FormSubmit.co Email</h2>
+      <div class="email-client">
+        <div class="email-header">
+          <div><strong>From:</strong> FormSubmit.co &lt;noreply@formsubmit.co&gt;</div>
+          <div><strong>To:</strong> antonio.visceglia@nativeworks.studio</div>
+          <div><strong>Subject:</strong> Assessment [BUSINESS: Foundation + Agent] — Acme Corp — Marco Rossi</div>
+        </div>
+        <div class="email-body">
+          <ul>
+            <li><strong>Name</strong>Marco Rossi</li>
+            <li><strong>Email</strong>marco.rossi@acme.com</li>
+            <li><strong>Company</strong>Acme Corp</li>
+            <li><strong>Role</strong>CTO</li>
+            <li><strong>Track</strong>BUSINESS</li>
+            <li><strong>Scores</strong>URGENCY: 3/4 — SOPHISTICATION: 1/4 — SOVEREIGNTY: 2/4 — AUTOMATION: 3/4 — BUDGET: 4/4</li>
+            <li><strong>Recommendation</strong>Foundation + Agent [Posture: Lead with automation ROI. Sovereignty as the why-NativeWorks-not-someone-else.]</li>
+            <li><strong>Q01 — What brought you here today?</strong>We've started experimenting and want a real plan</li>
+            <li><strong>Q02 — What changed recently?</strong>Our team is stretched thin</li>
+            <li><strong>Q03 — How big is your company?</strong>250 to 1,000 people</li>
+            <li><strong>Q04 — What does your company do?</strong>Sells professional services or expertise</li>
+            <li><strong>Q05 — Where does your company operate?</strong>European or cross-border</li>
+            <li><strong>Q06 — How is your business organised today?</strong>Mixed — some inside, some outside, depending on the task</li>
+            <li><strong>Q07 — Where does most of the friction live?</strong>Back office — admin, finance, reporting, HR</li>
+            <li><strong>Q08 — What's holding the change back?</strong>We're ready, we just need the right plan</li>
+            <li><strong>Q09 — Which task area contains the most repetitive work?</strong>Communication & Reporting</li>
+            <li><strong>Q10 — Which daily task is the biggest treadmill for your team?</strong>Drafting emails & documents</li>
+            <li><strong>Q11 — What is your current experience with AI tools?</strong>We've run pilots on specific use cases</li>
+            <li><strong>Q12 — What would you want AI to do for your business ideally?</strong>Improve consistency across the company</li>
+            <li><strong>Q13 — How do you want to run your AI?</strong>Private setup for anything that touches our business</li>
+            <li><strong>Q14 — Where does your business data live?</strong>Central system most of the company uses</li>
+            <li><strong>Q15 — Do third parties have access to your data?</strong>Several, not entirely sure who has what</li>
+            <li><strong>Q16 — Where would you like to be twelve months from now? (Select 1 or more)</strong>AI woven into how the company runs</li>
+            <li><strong>Q17 — How would you like us to reach out?</strong>A short call to start</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+    <!-- COLUMN 2: FIRESTORE JSON -->
+    <div>
+      <h2 class="mockup-section-title">2. Firestore JSON Document</h2>
+      <div class="code-viewer">
+        <pre>{
+  <span class="json-key">"timestamp"</span>: <span class="json-str">"2026-06-03T09:51:00.000Z"</span>,
+  <span class="json-key">"track"</span>: <span class="json-str">"business"</span>,
+  <span class="json-key">"name"</span>: <span class="json-str">"Marco Rossi"</span>,
+  <span class="json-key">"email"</span>: <span class="json-str">"marco.rossi@acme.com"</span>,
+  <span class="json-key">"company"</span>: <span class="json-str">"Acme Corp"</span>,
+  <span class="json-key">"role"</span>: <span class="json-str">"CTO"</span>,
+  <span class="json-key">"scores"</span>: <span class="json-str">"URGENCY: 3/4 — SOPH: 1/4 — SOV: 2/4 — AUTO: 3/4 — BUDGET: 4/4"</span>,
+  <span class="json-key">"recommendation"</span>: <span class="json-str">"Foundation + Agent [Posture: Lead with automation ROI...]"</span>,
+  <span class="json-key">"answers"</span>: {
+    <span class="json-key">"q1"</span>: <span class="json-str">"We've started experimenting and..."</span>,
+    <span class="json-key">"q2"</span>: <span class="json-str">"Our team is stretched thin"</span>,
+    <span class="json-key">"q3"</span>: <span class="json-str">"250 to 1,000 people"</span>,
+    <span class="json-key">"q10"</span>: <span class="json-str">"Drafting emails & documents"</span>,
+    <span class="json-key">"q13"</span>: <span class="json-str">"Private setup for anything..."</span>,
+    <span class="json-key">"q16"</span>: <span class="json-str">"AI woven into how the company runs"</span>,
+    <span class="json-key">"q17"</span>: <span class="json-str">"A short call to start"</span>
+  },
+  <span class="json-key">"questionAnswers"</span>: {
+    <span class="json-key">"Q01 — What brought you here today?"</span>: <span class="json-str">"We've started experimenting..."</span>,
+    <span class="json-key">"Q02 — What changed recently?"</span>: <span class="json-str">"Our team is stretched thin"</span>,
+    <span class="json-key">"Q16 — Where would you like to be..."</span>: <span class="json-str">"AI woven into how the company runs"</span>
+  }
+}</pre>
+      </div>
+    </div>
+    
+    <!-- COLUMN 3: BRIEF PLAYBOOK -->
+    <div>
+      <h2 class="mockup-section-title">3. Briefing Room Playbook</h2>
+      <div class="playbook-card">
+        <h3 class="pb-title">Marco Rossi</h3>
+        <div class="pb-subtitle">CTO at Acme Corp — Business Track</div>
+        
+        <div class="pb-scores">
+          <div class="pb-score-col">
+            <span class="pb-score-label">Urgency</span>
+            <span class="pb-score-val">3/4</span>
+          </div>
+          <div class="pb-score-col">
+            <span class="pb-score-label">Soph.</span>
+            <span class="pb-score-val">1/4</span>
+          </div>
+          <div class="pb-score-col">
+            <span class="pb-score-label">Sovereignty</span>
+            <span class="pb-score-val">2/4</span>
+          </div>
+          <div class="pb-score-col">
+            <span class="pb-score-label">Auto.</span>
+            <span class="pb-score-val">3/4</span>
+          </div>
+          <div class="pb-score-col">
+            <span class="pb-score-label">Budget</span>
+            <span class="pb-score-val">4/4</span>
+          </div>
+        </div>
+        
+        <div class="pb-move">
+          <div class="pb-move-title">Move 1 — The opening bridge</div>
+          <p class="pb-move-quote">"You told us you want AI woven into how the company runs in twelve months. That's a real ambition. Let's talk about what that looks like."</p>
+          <p class="pb-move-tip"><strong>Action Tip:</strong> Proactively referencing what they want to achieve in 12 months immediately breaks standard vendor script habits and earns high trust.</p>
+        </div>
+        
+        <div class="pb-move">
+          <div class="pb-move-title">Move 2 — The bridge question</div>
+          <p class="pb-move-quote">"Where is the strain showing up first? Whose calendar tells the story?"</p>
+          <p class="pb-move-tip"><strong>Action Tip:</strong> Calibrated to their urgency trigger. Let them expand on the context behind their recent platform scare or operations bottleneck.</p>
+        </div>
+        
+        <div class="pb-move">
+          <div class="pb-move-title">Move 3 — Confirming the fragility</div>
+          <p class="pb-move-quote">"You said most of the friction lives in the back office, and that drafting feels most like a treadmill. Before I tell you what we'd do about that, walk me through a typical week — where does the time actually go?"</p>
+          <p class="pb-move-tip"><strong>Action Tip:</strong> Get them to detail how their daily treadmill or back-office operational load affects their peace of mind before presenting the solution.</p>
+        </div>
+        
+        <div class="pb-move">
+          <div class="pb-move-title">Move 4 — The Sovereignty Bridge</div>
+          <p class="pb-move-quote">"What pushed you toward private setups rather than public? Is there a specific compliance situation behind it?"</p>
+          <p class="pb-move-tip"><strong>Action Tip:</strong> Trojan Horse bridge. Highlight the scope of sensitive business data they expose to third parties and shift the focus to sovereign identity.</p>
+        </div>
+        
+        <div class="pb-move" style="border-left: 3px solid #8E3B28;">
+          <div class="pb-move-title">Move 5 — Recommendation & Close</div>
+          <p class="pb-move-tip" style="margin-bottom: 8px;"><strong>Pitch:</strong> Foundation + Agent</p>
+          <p class="pb-move-tip" style="margin-bottom: 12px; font-style: italic; color: #5A5650;"><strong>Posture:</strong> Lead with automation ROI. Sovereignty as the why-NativeWorks-not-someone-else.</p>
+          <p class="pb-move-tip"><strong>Closing Line:</strong> <span style="font-weight: 600; color: #8E3B28;">"What does it take to start in the next two weeks?"</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer style="margin-top: 100px;">
+  <div>
+    <div class="footer-mark">
+      <div class="footer-logo-wrap">
+        <svg width="24" height="24" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="16" cy="16" r="14" stroke="#D8D2C8" stroke-width="0.75" fill="none" opacity="0.4"/>
+          <path d="M16,16 L17.2,11 L16,2 L14.8,11 Z" fill="#8E3B28"/>
+          <path d="M16,16 L17,19.5 L16,25 L15,19.5 Z" fill="#D8D2C8"/>
+          <circle cx="16" cy="16" r="2" fill="#D8D2C8"/>
+        </svg>
+      </div>
+      <div class="footer-wordmark">NATIVE WORKS</div>
+    </div>
+  </div>
+  <nav class="footer-center" aria-label="Footer navigation">
+    <a href="index.html#journey">The Path</a>
+    <a href="index.html#how">How it works</a>
+    <a href="index.html#products">Products</a>
+    <a href="assessment.html">Assessment</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+  <div class="footer-right">
+    <div class="footer-copy">© 2026 Native Works &nbsp;—&nbsp; nativeworks.studio</div>
+  </div>
+</footer>
+
+<script src="js/main.js" defer></script>
+</body>
+</html>
