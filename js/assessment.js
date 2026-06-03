@@ -776,6 +776,56 @@ document.addEventListener('DOMContentLoaded', () => {
       answers[`q${i}`] = document.getElementById(`payload-q${i}`)?.value || '';
     }
 
+    // Capture readable questions and answers for human inspection in database
+    const businessQuestionTexts = {
+      q1: "Q01 — What brought you here today?",
+      q2: "Q02 — What changed recently?",
+      q3: "Q03 — How big is your company?",
+      q4: "Q04 — What does your company do?",
+      q5: "Q05 — Where does your company operate?",
+      q6: "Q06 — How is your business organised today?",
+      q7: "Q07 — Where does most of the friction live?",
+      q8: "Q08 — What's holding the change back?",
+      q9: "Q09 — Which task area contains the most repetitive work?",
+      q10: "Q10 — Which daily task is the biggest treadmill for your team?",
+      q11: "Q11 — What is your current experience with AI tools?",
+      q12: "Q12 — What would you want AI to do for your business ideally?",
+      q13: "Q13 — How do you want to run your AI?",
+      q14: "Q14 — Where does your business data live?",
+      q15: "Q15 — Do third parties have access to your data?",
+      q16: "Q16 — Where would you like to be twelve months from now? (Select 1 or more)",
+      q17: "Q17 — How would you like us to reach out?"
+    };
+
+    const creatorQuestionTexts = {
+      q1: "Q01 — What brought you here today?",
+      q2: "Q02 — What changed recently?",
+      q3: "Q03 — What is your primary platform or medium?",
+      q4: "Q04 — How large is your audience?",
+      q5: "Q05 — How long have you been creating?",
+      q6: "Q06 — Where does most of your income come from?",
+      q7: "Q07 — How exposed is your income to platform policy changes?",
+      q8: "Q08 — What is the most fragile part of your operation?",
+      q9: "Q09 — Which part of your creative process is most time-consuming?",
+      q10: "Q10 — Which daily/weekly task do you find most repetitive?",
+      q11: "Q11 — What is your current experience with AI tools?",
+      q12: "Q12 — Where would automation help you most?",
+      q13: "Q13 — If your main platform shut you down tomorrow, what could you keep?",
+      q14: "Q14 — How do you feel about your dependence on major platforms?",
+      q15: "Q15 — How do you want to manage your audience data and AI?",
+      q16: "Q16 — Where would you like to be twelve months from now? (Select 1 or more)",
+      q17: "Q17 — How would you like us to reach out?"
+    };
+
+    const texts = selectedTrack === 'business' ? businessQuestionTexts : creatorQuestionTexts;
+    const questionAnswers = {};
+    for (let i = 1; i <= 17; i++) {
+      const qText = texts[`q${i}`];
+      if (qText) {
+        questionAnswers[qText] = answers[`q${i}`];
+      }
+    }
+
     // Prevent immediate native submission to allow background Firestore write
     e.preventDefault();
 
@@ -810,7 +860,8 @@ document.addEventListener('DOMContentLoaded', () => {
         message: document.getElementById('client-message')?.value || '',
         scores: document.getElementById('payload-scores')?.value || '',
         recommendation: recType,
-        answers: answers
+        answers: answers,
+        questionAnswers: questionAnswers
       }).catch(err => {
         console.warn("Firestore write failed:", err);
       }).finally(() => {
