@@ -1398,7 +1398,7 @@ footer::before {
 .option-card {
   background: var(--plaster-light);
   border: 1px solid var(--border);
-  padding: 28px 30px;
+  padding: 13px 30px;
   border-radius: 4px;
   box-shadow: var(--shadow-raised-sm);
   cursor: none;
@@ -1849,7 +1849,7 @@ footer::before {
 
 /* Compact Option Cards with Custom Minimalist Radio Bullet */
 .assessment-container .option-card {
-  padding: 8px 12px !important;
+  padding: 13px 30px !important;
   gap: 10px !important; /* Spacing between visual indicator and description */
   border-radius: 4px !important;
   display: flex !important;
