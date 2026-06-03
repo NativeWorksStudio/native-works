@@ -1833,7 +1833,7 @@ footer::before {
 
 /* Question Sizing & Grid Spacing */
 .assessment-container .wizard-question-block {
-  margin-bottom: 12px !important; /* Reduces space between nested Q1 & Q2 / Q3 & Q4 */
+  margin-bottom: 30px !important; /* Spacing between consecutive question blocks on the same step */
 }
 
 .assessment-container .wizard-question-text {
