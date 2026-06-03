@@ -138,11 +138,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const inputCompany = document.getElementById('client-company');
 
     if (selectedTrack === 'creator') {
-      if (labelRole) labelRole.innerHTML = 'Primary Medium / Niche';
-      if (inputRole) inputRole.placeholder = 'e.g. Technology writer, Video creator';
+      // Hide Role field completely for creator track as requested
+      if (inputRole) {
+        const group = inputRole.closest('.form-group');
+        if (group) group.style.display = 'none';
+        inputRole.removeAttribute('required');
+        inputRole.value = '';
+      }
       if (labelCompany) labelCompany.innerHTML = 'Channel or Brand Name *';
       if (inputCompany) inputCompany.placeholder = 'Your channel / newsletter name';
     } else {
+      // Show and require Role field for business track
+      if (inputRole) {
+        const group = inputRole.closest('.form-group');
+        if (group) group.style.display = 'block';
+        inputRole.setAttribute('required', 'required');
+      }
       if (labelRole) labelRole.innerHTML = 'Role *';
       if (inputRole) inputRole.placeholder = 'Your role';
       if (labelCompany) labelCompany.innerHTML = 'Company *';
@@ -153,29 +164,46 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ── CARD INTERACTION (Wizard Radios) ───────────────────────────── */
 
   document.querySelectorAll('.option-card').forEach(card => {
-    const radio = card.querySelector('input[type="radio"]');
-    if (!radio) return;
+    const input = card.querySelector('input[type="radio"], input[type="checkbox"]');
+    if (!input) return;
 
-    if (radio.checked) card.classList.add('selected');
+    if (input.checked) {
+      card.classList.add('selected');
+      card.setAttribute('aria-checked', 'true');
+    }
 
     card.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
     card.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
 
     card.addEventListener('click', (e) => {
-      if (e.target !== radio) radio.checked = true;
+      const isCheckbox = input.type === 'checkbox';
 
-      // Deselect siblings in the same group
-      const groupName = radio.getAttribute('name');
-      document.querySelectorAll(`.option-card input[name="${groupName}"]`).forEach(sib => {
-        const sibCard = sib.closest('.option-card');
-        if (sibCard) {
-          sibCard.classList.remove('selected');
-          sibCard.setAttribute('aria-checked', 'false');
+      if (e.target !== input) {
+        if (isCheckbox) {
+          input.checked = !input.checked;
+        } else {
+          input.checked = true;
         }
-      });
+      }
 
-      card.classList.add('selected');
-      card.setAttribute('aria-checked', 'true');
+      if (isCheckbox) {
+        card.classList.toggle('selected', input.checked);
+        card.setAttribute('aria-checked', input.checked ? 'true' : 'false');
+      } else {
+        // Deselect siblings in the same group
+        const groupName = input.getAttribute('name');
+        document.querySelectorAll(`.option-card input[name="${groupName}"]`).forEach(sib => {
+          const sibCard = sib.closest('.option-card');
+          if (sibCard) {
+            sibCard.classList.remove('selected');
+            sibCard.setAttribute('aria-checked', 'false');
+          }
+        });
+
+        card.classList.add('selected');
+        card.setAttribute('aria-checked', 'true');
+      }
+
       document.body.classList.add('cursor-hover');
       setTimeout(() => document.body.classList.remove('cursor-hover'), 200);
 
@@ -183,13 +211,17 @@ document.addEventListener('DOMContentLoaded', () => {
       validateCurrentStep(false);
     });
 
-    radio.addEventListener('focus', () => card.classList.add('focus-within'));
-    radio.addEventListener('blur',  () => card.classList.remove('focus-within'));
+    input.addEventListener('focus', () => card.classList.add('focus-within'));
+    input.addEventListener('blur',  () => card.classList.remove('focus-within'));
 
     card.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
-        radio.checked = true;
+        if (input.type === 'checkbox') {
+          input.checked = !input.checked;
+        } else {
+          input.checked = true;
+        }
         card.click();
       }
     });
@@ -221,7 +253,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let allGroupsChecked = true;
     if (activeSection) {
       const groupNames = new Set();
-      activeSection.querySelectorAll('input[type="radio"]').forEach(r => {
+      activeSection.querySelectorAll('input[type="radio"], input[type="checkbox"]').forEach(r => {
         if (r.name) groupNames.add(r.name);
       });
 
@@ -359,6 +391,12 @@ document.addEventListener('DOMContentLoaded', () => {
   // Helper to extract radio value
   const radioVal = name => form.querySelector(`input[name="${name}"]:checked`)?.value || '';
 
+  // Helper to extract checkbox values
+  const checkboxValues = name => {
+    return Array.from(form.querySelectorAll(`input[name="${name}"]:checked`))
+      .map(cb => cb.value);
+  };
+
   // Labels for payload translation
   const businessLabels = {
     q1:  { A: "We're behind and we know it", B: "We've started experimenting and want a real plan", C: "We're doing well and want to do better", D: "We're not sure — we want an outside read" },
@@ -426,7 +464,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const q13 = radioVal('business_q13');
       const q14 = radioVal('business_q14');
       const q15 = radioVal('business_q15');
-      const q16 = radioVal('business_q16');
+      const q16Keys = checkboxValues('business_q16');
       const q17 = radioVal('business_q17');
 
       // Populate hidden answers payload
@@ -445,7 +483,7 @@ document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('payload-q13').value = businessLabels.q13[q13] || q13;
       document.getElementById('payload-q14').value = businessLabels.q14[q14] || q14;
       document.getElementById('payload-q15').value = businessLabels.q15[q15] || q15;
-      document.getElementById('payload-q16').value = businessLabels.q16[q16] || q16;
+      document.getElementById('payload-q16').value = q16Keys.map(k => businessLabels.q16[k] || k).join(', ');
       document.getElementById('payload-q17').value = businessLabels.q17[q17] || q17;
 
       // ── BUSINESS SCORING VECTORS ──
@@ -467,7 +505,10 @@ document.addEventListener('DOMContentLoaded', () => {
       // 3. Sovereignty (inputs: Q13, Q16)
       let sovScore = 0;
       if (q13 === 'D') sovScore += 2; else if (q13 === 'C') sovScore += 1; else if (q13 === 'A') sovScore -= 1;
-      if (q16 === 'D') sovScore += 2; else if (q16 === 'C') sovScore += 1; else if (q16 === 'B') sovScore += 1;
+      let q16Score = 0;
+      if (q16Keys.includes('D')) q16Score = 2;
+      else if (q16Keys.includes('C') || q16Keys.includes('B')) q16Score = 1;
+      sovScore += q16Score;
       scores.sovereignty = Math.min(4, Math.max(0, sovScore));
 
       // 4. Automation (inputs: Q7, Q9, Q10, Q12)
@@ -546,7 +587,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const q13 = radioVal('creator_q13');
       const q14 = radioVal('creator_q14');
       const q15 = radioVal('creator_q15');
-      const q16 = radioVal('creator_q16');
+      const q16Keys = checkboxValues('creator_q16');
       const q17 = radioVal('creator_q17');
 
       // Populate hidden answers payload
@@ -565,7 +606,7 @@ document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('payload-q13').value = creatorLabels.q13[q13] || q13;
       document.getElementById('payload-q14').value = creatorLabels.q14[q14] || q14;
       document.getElementById('payload-q15').value = creatorLabels.q15[q15] || q15;
-      document.getElementById('payload-q16').value = creatorLabels.q16[q16] || q16;
+      document.getElementById('payload-q16').value = q16Keys.map(k => creatorLabels.q16[k] || k).join(', ');
       document.getElementById('payload-q17').value = creatorLabels.q17[q17] || q17;
 
       // ── CREATOR SCORING VECTORS ──
@@ -588,7 +629,10 @@ document.addEventListener('DOMContentLoaded', () => {
       if (q13 === 'D') sovScore += 2; else if (q13 === 'C') sovScore += 1;
       if (q14 === 'D') sovScore += 2; else if (q14 === 'C') sovScore += 1; else if (q14 === 'B') sovScore += 1; else if (q14 === 'A') sovScore -= 1;
       if (q15 === 'B') sovScore += 1; else if (q15 === 'A') sovScore -= 1;
-      if (q16 === 'D') sovScore += 2; else if (q16 === 'C') sovScore += 1;
+      let q16Score = 0;
+      if (q16Keys.includes('D')) q16Score = 2;
+      else if (q16Keys.includes('C')) q16Score = 1;
+      sovScore += q16Score;
       scores.sovereignty = Math.min(4, Math.max(0, sovScore));
 
       // 4. Automation (inputs: Q9, Q10, Q12)
@@ -648,6 +692,55 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.getElementById('payload-scores').value          = scoreStr;
     document.getElementById('payload-recommendation').value  = `${recProduct} [Posture: ${recPosture}]`;
+
+    // Rename hidden payload inputs to display actual questions in FormSubmit emails
+    const businessQuestionTexts = {
+      q1: "Q01 — What brought you here today?",
+      q2: "Q02 — What changed recently?",
+      q3: "Q03 — How big is your company?",
+      q4: "Q04 — What does your company do?",
+      q5: "Q05 — Where does your company operate?",
+      q6: "Q06 — How is your business organised today?",
+      q7: "Q07 — Where does most of the friction live?",
+      q8: "Q08 — What's holding the change back?",
+      q9: "Q09 — Which task area contains the most repetitive work?",
+      q10: "Q10 — Which daily task is the biggest treadmill for your team?",
+      q11: "Q11 — What is your current experience with AI tools?",
+      q12: "Q12 — What would you want AI to do for your business ideally?",
+      q13: "Q13 — How do you want to run your AI?",
+      q14: "Q14 — Where does your business data live?",
+      q15: "Q15 — Do third parties have access to your data?",
+      q16: "Q16 — Where would you like to be twelve months from now? (Select 1 or more)",
+      q17: "Q17 — How would you like us to reach out?"
+    };
+
+    const creatorQuestionTexts = {
+      q1: "Q01 — What brought you here today?",
+      q2: "Q02 — What changed recently?",
+      q3: "Q03 — What is your primary platform or medium?",
+      q4: "Q04 — How large is your audience?",
+      q5: "Q05 — How long have you been creating?",
+      q6: "Q06 — Where does most of your income come from?",
+      q7: "Q07 — How exposed is your income to platform policy changes?",
+      q8: "Q08 — What is the most fragile part of your operation?",
+      q9: "Q09 — Which part of your creative process is most time-consuming?",
+      q10: "Q10 — Which daily/weekly task do you find most repetitive?",
+      q11: "Q11 — What is your current experience with AI tools?",
+      q12: "Q12 — Where would automation help you most?",
+      q13: "Q13 — If your main platform shut you down tomorrow, what could you keep?",
+      q14: "Q14 — How do you feel about your dependence on major platforms?",
+      q15: "Q15 — How do you want to manage your audience data and AI?",
+      q16: "Q16 — Where would you like to be twelve months from now? (Select 1 or more)",
+      q17: "Q17 — How would you like us to reach out?"
+    };
+
+    const texts = selectedTrack === 'business' ? businessQuestionTexts : creatorQuestionTexts;
+    for (let i = 1; i <= 17; i++) {
+      const payloadInput = document.getElementById(`payload-q${i}`);
+      if (payloadInput) {
+        payloadInput.name = texts[`q${i}`] || `q${i}`;
+      }
+    }
   }
 
   /* ── FORM SUBMIT LOGIC ──────────────────────────────────────────── */
@@ -690,6 +783,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const submitForm = () => {
       if (submitted) return;
       submitted = true;
+
+      // Disable radio and checkbox inputs so they aren't sent to FormSubmit.co
+      form.querySelectorAll('input[type="radio"], input[type="checkbox"]').forEach(input => {
+        input.disabled = true;
+      });
+
       form.submit();
     };
 

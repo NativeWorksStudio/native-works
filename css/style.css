@@ -1879,6 +1879,11 @@ footer::before {
   box-shadow: inset 0 0 0 2px var(--plaster-light) !important;
 }
 
+/* If the option card contains a checkbox, make the control box square instead of circular */
+.assessment-container .option-card:has(input[type="checkbox"])::before {
+  border-radius: 2px !important;
+}
+
 .assessment-container .option-num {
   display: none !important; /* Keep standard alphabetical lettering hidden */
 }

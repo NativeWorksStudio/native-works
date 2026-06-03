@@ -1,0 +1,35 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Submissions collection rules
+    match /submissions/{document} {
+      
+      // Allow any guest to submit their assessment data
+      // We validate critical fields to prevent junk/malformed data insertion
+      allow create: if request.resource.data.name is string 
+                    && request.resource.data.email is string
+                    && request.resource.data.track in ['business', 'creator']
+                    && request.resource.data.timestamp is string;
+      
+      // Allow read access ONLY to authenticated users with a whitelisted email address
+      // or users belonging to the corporate domain '@nativeworks.studio'
+      allow read: if request.auth != null && 
+                  (
+                    request.auth.token.email.toLowerCase() in [
+                      "jonas.karlberg@nativeworks.studio",
+                      "paolo.anziano@nativeworks.studio",
+                      "giancarlo.santos@nativeworks.studio",
+                      "antonio.visceglia@nativeworks.studio",
+                      "james.bevilacqua@nativeworks.studio",
+                      "kenneth.berthelsen@nativeworks.studio"
+                    ] 
+                    || request.auth.token.email.toLowerCase().matches('.*@nativeworks\\.studio$')
+                  );
+                  
+      // Prevent anyone from modifying or deleting historical submissions
+      allow update, delete: if false;
+    }
+  }
+}

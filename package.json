@@ -4,8 +4,11 @@
   "description": "NativeWorks Assessment Platform",
   "main": "index.html",
   "scripts": {
+    "dev": "npm run build && http-server public -p 3000",
     "build": "node inject-env.js"
   },
   "dependencies": {},
-  "devDependencies": {}
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
 }
