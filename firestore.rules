@@ -17,7 +17,7 @@ service cloud.firestore {
       // or users belonging to the corporate domain '@nativeworks.studio'
       allow read: if request.auth != null && 
                   (
-                    request.auth.token.email.toLowerCase() in [
+                    request.auth.token.email.lower() in [
                       "jonas.karlberg@nativeworks.studio",
                       "paolo.anziano@nativeworks.studio",
                       "giancarlo.santos@nativeworks.studio",
@@ -25,7 +25,7 @@ service cloud.firestore {
                       "james.bevilacqua@nativeworks.studio",
                       "kenneth.berthelsen@nativeworks.studio"
                     ] 
-                    || request.auth.token.email.toLowerCase().matches('.*@nativeworks\\.studio$')
+                    || request.auth.token.email.lower().matches('.*@nativeworks\\.studio$')
                   );
                   
       // Prevent anyone from modifying or deleting historical submissions
