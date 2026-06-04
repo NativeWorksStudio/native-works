@@ -12,7 +12,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,200;0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet">
 
 <!-- Styles -->
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/style.css?v=1.0.1">
 </head>
 <body>
 
@@ -867,13 +867,17 @@
             <!-- Q15 -->
             <div class="wizard-question-block">
               <h3 class="wizard-question-text">How do you want to manage your audience data and AI?</h3>
-              <div class="options-grid" style="grid-template-columns: 1fr 1fr;">
+              <div class="options-grid" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));">
                 <label class="option-card" for="c-q15-a">
                   <input type="radio" id="c-q15-a" name="creator_q15" value="A" class="visually-hidden" required>
                   <div class="option-card-content"><p class="option-desc">Public AI is fine</p></div>
                 </label>
                 <label class="option-card" for="c-q15-b">
                   <input type="radio" id="c-q15-b" name="creator_q15" value="B" class="visually-hidden">
+                  <div class="option-card-content"><p class="option-desc">Dedicated hosting (e.g. VPS) — private setup without running own infrastructure</p></div>
+                </label>
+                <label class="option-card" for="c-q15-c">
+                  <input type="radio" id="c-q15-c" name="creator_q15" value="C" class="visually-hidden">
                   <div class="option-card-content"><p class="option-desc">Fully mine — my AI, my data, on infrastructure I control</p></div>
                 </label>
               </div>

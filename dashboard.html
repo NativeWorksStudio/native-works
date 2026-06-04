@@ -525,6 +525,156 @@
       width: 100%;
     }
   }
+
+  /* ── MODAL TABS & EXECUTIVE SUMMARY STYLES ── */
+  .modal-tabs {
+    display: flex;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 24px;
+    gap: 8px;
+    overflow-x: auto;
+  }
+
+  .modal-tab-btn {
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    padding: 10px 16px;
+    font-family: var(--font-body);
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--mid);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+  }
+
+  .modal-tab-btn:hover {
+    color: var(--night);
+  }
+
+  .modal-tab-btn.active {
+    color: var(--true-north);
+    border-bottom-color: var(--true-north);
+  }
+
+  .tab-pane {
+    display: none;
+    animation: fadeIn 0.4s ease;
+  }
+
+  .tab-pane.active {
+    display: block;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .summary-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+
+  .summary-card {
+    background: var(--plaster);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 20px 24px;
+  }
+
+  .summary-card-full {
+    grid-column: span 2;
+  }
+
+  .summary-card h4 {
+    font-family: var(--font-body);
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--true-north);
+    font-weight: 700;
+    margin-top: 0;
+    margin-bottom: 12px;
+    border-bottom: 1px solid rgba(142, 59, 40, 0.15);
+    padding-bottom: 6px;
+  }
+
+  .summary-field {
+    font-size: 13.5px;
+    line-height: 1.6;
+    color: var(--night);
+    margin-bottom: 10px;
+  }
+
+  .summary-field:last-child {
+    margin-bottom: 0;
+  }
+
+  .summary-field strong {
+    color: var(--mid);
+    font-weight: 500;
+    display: inline-block;
+    width: 140px;
+  }
+
+  .summary-badge-rec {
+    font-family: var(--font-display);
+    font-size: 20px;
+    color: var(--true-north);
+    font-weight: 500;
+    margin-top: 4px;
+  }
+
+  .summary-text-block {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--mid);
+    margin: 0;
+  }
+
+  .qa-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .qa-item {
+    background: var(--plaster);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 16px 20px;
+  }
+
+  .qa-question {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--night);
+    margin-bottom: 8px;
+    letter-spacing: 0.5px;
+  }
+
+  .qa-answer {
+    font-size: 13.5px;
+    color: var(--true-north);
+    font-weight: 500;
+    padding-left: 12px;
+    border-left: 2px solid var(--true-north);
+  }
+
+  @media (max-width: 768px) {
+    .summary-grid {
+      grid-template-columns: 1fr;
+    }
+    .summary-card-full {
+      grid-column: span 1;
+    }
+  }
 </style>
 </head>
 <body>
@@ -614,39 +764,61 @@
           <div class="badge-col"><span id="m-fifth-label">Budget</span><span id="m-fifth-val" class="badge-col-val">0/4</span></div>
         </div>
 
-        <!-- Section 1: Opening Moves -->
-        <div class="brief-section-card">
-          <h4 class="brief-section-title">Move 1 — The opening bridge</h4>
-          <p class="brief-quote" id="play-opening-line">"Opening move here..."</p>
-          <p class="brief-action-tip"><strong>Action Tip:</strong> Proactively referencing what they want to achieve in 12 months immediately breaks standard vendor script habits and earns high trust.</p>
+        <!-- Tabs Navigation -->
+        <div class="modal-tabs">
+          <button class="modal-tab-btn active" id="tab-btn-summary">Executive Summary</button>
+          <button class="modal-tab-btn" id="tab-btn-playbook">Sales Playbook</button>
+          <button class="modal-tab-btn" id="tab-btn-questions">Assessment Q&A</button>
         </div>
 
-        <!-- Section 2: Bridge Question -->
-        <div class="brief-section-card">
-          <h4 class="brief-section-title">Move 2 — The bridge question</h4>
-          <p class="brief-quote" id="play-bridge-line">"Bridge question here..."</p>
-          <p class="brief-action-tip"><strong>Action Tip:</strong> Calibrated to their urgency trigger. Let them expand on the context behind their recent platform scare or operations bottleneck.</p>
+        <!-- Tab 1: Executive Summary -->
+        <div class="tab-pane active" id="pane-summary">
+          <!-- Dynamically generated with JS -->
+          <div id="summary-content"></div>
         </div>
 
-        <!-- Section 3: Confirm Fragility -->
-        <div class="brief-section-card">
-          <h4 class="brief-section-title">Move 3 — Confirming the fragility</h4>
-          <p class="brief-quote" id="play-fragility-line">"Confirming fragility here..."</p>
-          <p class="brief-action-tip"><strong>Action Tip:</strong> Get them to detail how their daily treadmill or back-office operational load affects their peace of mind before presenting the solution.</p>
+        <!-- Tab 2: Sales Playbook -->
+        <div class="tab-pane" id="pane-playbook">
+          <!-- Section 1: Opening Moves -->
+          <div class="brief-section-card">
+            <h4 class="brief-section-title">Move 1 — The opening bridge</h4>
+            <p class="brief-quote" id="play-opening-line">"Opening move here..."</p>
+            <p class="brief-action-tip"><strong>Action Tip:</strong> Proactively referencing what they want to achieve in 12 months immediately breaks standard vendor script habits and earns high trust.</p>
+          </div>
+
+          <!-- Section 2: Bridge Question -->
+          <div class="brief-section-card">
+            <h4 class="brief-section-title">Move 2 — The bridge question</h4>
+            <p class="brief-quote" id="play-bridge-line">"Bridge question here..."</p>
+            <p class="brief-action-tip"><strong>Action Tip:</strong> Calibrated to their urgency trigger. Let them expand on the context behind their recent platform scare or operations bottleneck.</p>
+          </div>
+
+          <!-- Section 3: Confirm Fragility -->
+          <div class="brief-section-card">
+            <h4 class="brief-section-title">Move 3 — Confirming the fragility</h4>
+            <p class="brief-quote" id="play-fragility-line">"Confirming fragility here..."</p>
+            <p class="brief-action-tip"><strong>Action Tip:</strong> Get them to detail how their daily treadmill or back-office operational load affects their peace of mind before presenting the solution.</p>
+          </div>
+
+          <!-- Section 4: Sovereignty Trojan -->
+          <div class="brief-section-card">
+            <h4 class="brief-section-title">Move 4 — The Sovereignty Bridge</h4>
+            <p class="brief-quote" id="play-sovereignty-line">"Sovereignty bridge here..."</p>
+            <p class="brief-action-tip"><strong>Action Tip:</strong> Trojan Horse bridge. Highlight the scope of sensitive business data they expose to third parties and shift the focus to sovereign identity.</p>
+          </div>
+
+          <!-- Section 5: Dynamic Recommendation -->
+          <div class="brief-section-card">
+            <h4 class="brief-section-title">Move 5 — Product recommendation & close</h4>
+            <p class="brief-quote" id="play-recommendation-line">"Recommendation here..."</p>
+            <p class="brief-action-tip" style="margin-top:12px;"><strong>Closing Line:</strong> <span id="play-close-line" style="font-weight:600;color:var(--true-north);">"What does it take to start?"</span></p>
+          </div>
         </div>
 
-        <!-- Section 4: Sovereignty Trojan -->
-        <div class="brief-section-card">
-          <h4 class="brief-section-title">Move 4 — The Sovereignty Bridge</h4>
-          <p class="brief-quote" id="play-sovereignty-line">"Sovereignty bridge here..."</p>
-          <p class="brief-action-tip"><strong>Action Tip:</strong> Trojan Horse bridge. Highlight the scope of sensitive business data they expose to third parties and shift the focus to sovereign identity.</p>
-        </div>
-
-        <!-- Section 5: Dynamic Recommendation -->
-        <div class="brief-section-card">
-          <h4 class="brief-section-title">Move 5 — Product recommendation & close</h4>
-          <p class="brief-quote" id="play-recommendation-line">"Recommendation here..."</p>
-          <p class="brief-action-tip" style="margin-top:12px;"><strong>Closing Line:</strong> <span id="play-close-line" style="font-weight:600;color:var(--true-north);">"What does it take to start?"</span></p>
+        <!-- Tab 3: Assessment Q&A -->
+        <div class="tab-pane" id="pane-questions">
+          <!-- Dynamically generated Q&A detail -->
+          <div id="questions-content" class="qa-list"></div>
         </div>
       </div>
     </div>
@@ -922,10 +1094,77 @@
     btnBiz.addEventListener('click', () => setActiveFilter('business', btnBiz));
     btnCre.addEventListener('click', () => setActiveFilter('creator', btnCre));
 
+    // Question Text Mapping for detailed Q&A list
+    const businessQuestionTexts = {
+      q1: "Q01 — What brought you here today?",
+      q2: "Q02 — What changed recently?",
+      q3: "Q03 — How big is your company?",
+      q4: "Q04 — What does your company do?",
+      q5: "Q05 — Where does your company operate?",
+      q6: "Q06 — How is your business organised today?",
+      q7: "Q07 — Where does most of the friction live?",
+      q8: "Q08 — What's holding the change back?",
+      q9: "Q09 — Which task area contains the most repetitive work?",
+      q10: "Q10 — Which daily task is the biggest treadmill for your team?",
+      q11: "Q11 — What is your current experience with AI tools?",
+      q12: "Q12 — What would you want AI to do for your business ideally?",
+      q13: "Q13 — How do you want to run your AI?",
+      q14: "Q14 — Where does your business data live?",
+      q15: "Q15 — Do third parties have access to your data?",
+      q16: "Q16 — Where would you like to be twelve months from now? (Select 1 or more)",
+      q17: "Q17 — How would you like us to reach out?"
+    };
+
+    const creatorQuestionTexts = {
+      q1: "Q01 — What brought you here today?",
+      q2: "Q02 — What changed recently?",
+      q3: "Q03 — What is your primary platform or medium?",
+      q4: "Q04 — How large is your audience?",
+      q5: "Q05 — How long have you been creating?",
+      q6: "Q06 — Where does most of your income come from?",
+      q7: "Q07 — How exposed is your income to platform policy changes?",
+      q8: "Q08 — What is the most fragile part of your operation?",
+      q9: "Q09 — Which part of your creative process is most time-consuming?",
+      q10: "Q10 — Which daily/weekly task do you find most repetitive?",
+      q11: "Q11 — What is your current experience with AI tools?",
+      q12: "Q12 — Where would automation help you most?",
+      q13: "Q13 — If your main platform shut you down tomorrow, what could you keep?",
+      q14: "Q14 — How do you feel about your dependence on major platforms?",
+      q15: "Q15 — How do you want to manage your audience data and AI?",
+      q16: "Q16 — Where would you like to be twelve months from now? (Select 1 or more)",
+      q17: "Q17 — How would you like us to reach out?"
+    };
+
+    // Helper to get answer text from legacy or new payload schema
+    function getAnswerVal(lead, num) {
+      const answers = lead.answers || {};
+      if (answers[`q${num}`]) return answers[`q${num}`];
+
+      const qa = lead.questionAnswers || {};
+      const prefix = `Q${num < 10 ? '0' + num : num}`;
+      for (const key of Object.keys(qa)) {
+        if (key.startsWith(prefix) || key.includes(`Q${num} `) || key.includes(`Q0${num} `)) {
+          return qa[key];
+        }
+      }
+      return 'N/A';
+    }
+
     // Playbook brief modal compiler
     function openBriefPlaybook(lead, scores) {
       document.getElementById('m-prospect-name').innerText = lead.name || 'N/A';
       document.getElementById('m-prospect-meta').innerText = `${lead.company || 'N/A'} (${lead.role || 'N/A'}) — ${new Date(lead.timestamp).toLocaleDateString()}`;
+
+      // Reset tabs to summary active
+      const tabsList = ['summary', 'playbook', 'questions'];
+      tabsList.forEach(t => {
+        const btn = document.getElementById(`tab-btn-${t}`);
+        const pane = document.getElementById(`pane-${t}`);
+        if (btn) btn.classList.remove('active');
+        if (pane) pane.classList.remove('active');
+      });
+      document.getElementById('tab-btn-summary').classList.add('active');
+      document.getElementById('pane-summary').classList.add('active');
 
       // Set Vector Scores
       document.getElementById('m-urgency').innerText = `${scores.urgency || 0}/4`;
@@ -937,6 +1176,107 @@
       document.getElementById('m-fifth-label').innerText = isBusiness ? 'Budget' : 'Earning';
       document.getElementById('m-fifth-val').innerText = isBusiness ? `${scores.budget || 0}/4` : `${scores.earning || 0}/4`;
 
+      // ── 1. COMPILE EXECUTIVE SUMMARY ──
+      const cleanRec = (lead.recommendation || 'N/A').split(' [Posture:')[0];
+      const posture = (lead.recommendation || '').includes('Posture:') ? (lead.recommendation || '').split('Posture: ')[1].replace(']', '') : 'Standard matching posture.';
+
+      let summaryHtml = '';
+      if (isBusiness) {
+        summaryHtml = `
+          <div class="summary-grid">
+            <div class="summary-card">
+              <h4>Prospect Profile</h4>
+              <div class="summary-field"><strong>Company Name:</strong> ${lead.company || 'N/A'}</div>
+              <div class="summary-field"><strong>Core Activity:</strong> ${getAnswerVal(lead, 4)}</div>
+              <div class="summary-field"><strong>Company Size:</strong> ${getAnswerVal(lead, 3)}</div>
+              <div class="summary-field"><strong>Operating Scope:</strong> ${getAnswerVal(lead, 5)}</div>
+            </div>
+
+            <div class="summary-card">
+              <h4>Operational Setup</h4>
+              <div class="summary-field"><strong>Structure:</strong> ${getAnswerVal(lead, 6)}</div>
+              <div class="summary-field"><strong>Main Friction:</strong> ${getAnswerVal(lead, 7)}</div>
+              <div class="summary-field"><strong>Daily Treadmill:</strong> ${getAnswerVal(lead, 10)}</div>
+              <div class="summary-field"><strong>Repetitive Task:</strong> ${getAnswerVal(lead, 9)}</div>
+            </div>
+
+            <div class="summary-card">
+              <h4>Sovereignty & Stance</h4>
+              <div class="summary-field"><strong>AI Execution:</strong> ${getAnswerVal(lead, 13)}</div>
+              <div class="summary-field"><strong>Data Location:</strong> ${getAnswerVal(lead, 14)}</div>
+              <div class="summary-field"><strong>3rd Party Access:</strong> ${getAnswerVal(lead, 15)}</div>
+            </div>
+
+            <div class="summary-card">
+              <h4>Assessment & Drivers</h4>
+              <div class="summary-field"><strong>Initial Trigger:</strong> ${getAnswerVal(lead, 1)}</div>
+              <div class="summary-field"><strong>Recent Event:</strong> ${getAnswerVal(lead, 2)}</div>
+              <div class="summary-field"><strong>Stumbling Block:</strong> ${getAnswerVal(lead, 8)}</div>
+            </div>
+
+            <div class="summary-card summary-card-full">
+              <h4>Native Works Fit & Recommendation</h4>
+              <div class="summary-field"><strong>Recommended Product:</strong> <span class="summary-badge-rec">${cleanRec}</span></div>
+              <div class="summary-field"><strong>Sales Posture:</strong> ${posture}</div>
+              <div class="summary-field"><strong>12-Month Stated Goals:</strong> ${getAnswerVal(lead, 16)}</div>
+              <div class="summary-field"><strong>Preferred Contact:</strong> ${getAnswerVal(lead, 17)}</div>
+            </div>
+        `;
+      } else {
+        summaryHtml = `
+          <div class="summary-grid">
+            <div class="summary-card">
+              <h4>Creator Profile</h4>
+              <div class="summary-field"><strong>Channel/Brand Name:</strong> ${lead.company || 'N/A'}</div>
+              <div class="summary-field"><strong>Primary Medium:</strong> ${getAnswerVal(lead, 3)}</div>
+              <div class="summary-field"><strong>Audience Size:</strong> ${getAnswerVal(lead, 4)}</div>
+              <div class="summary-field"><strong>Tenure / Experience:</strong> ${getAnswerVal(lead, 5)}</div>
+            </div>
+
+            <div class="summary-card">
+              <h4>Revenue & Friction</h4>
+              <div class="summary-field"><strong>Income Source:</strong> ${getAnswerVal(lead, 6)}</div>
+              <div class="summary-field"><strong>Platform Policy Exposure:</strong> ${getAnswerVal(lead, 7)}</div>
+              <div class="summary-field"><strong>Treadmill Task:</strong> ${getAnswerVal(lead, 10)}</div>
+              <div class="summary-field"><strong>Friction Focus:</strong> ${getAnswerVal(lead, 9)}</div>
+            </div>
+
+            <div class="summary-card">
+              <h4>Infrastructure & Stance</h4>
+              <div class="summary-field"><strong>AI & Audience Control:</strong> ${getAnswerVal(lead, 15)}</div>
+              <div class="summary-field"><strong>If Platform Shuts Down:</strong> ${getAnswerVal(lead, 13)}</div>
+              <div class="summary-field"><strong>Platform Dependency:</strong> ${getAnswerVal(lead, 14)}</div>
+            </div>
+
+            <div class="summary-card">
+              <h4>Assessment & Drivers</h4>
+              <div class="summary-field"><strong>Initial Trigger:</strong> ${getAnswerVal(lead, 1)}</div>
+              <div class="summary-field"><strong>Recent Event:</strong> ${getAnswerVal(lead, 2)}</div>
+              <div class="summary-field"><strong>Key Operational Fragility:</strong> ${getAnswerVal(lead, 8)}</div>
+            </div>
+
+            <div class="summary-card summary-card-full">
+              <h4>Native Works Fit & Recommendation</h4>
+              <div class="summary-field"><strong>Recommended Product:</strong> <span class="summary-badge-rec">${cleanRec}</span></div>
+              <div class="summary-field"><strong>Sales Posture:</strong> ${posture}</div>
+              <div class="summary-field"><strong>12-Month Stated Goals:</strong> ${getAnswerVal(lead, 16)}</div>
+              <div class="summary-field"><strong>Preferred Contact:</strong> ${getAnswerVal(lead, 17)}</div>
+            </div>
+        `;
+      }
+
+      if (lead.message) {
+        summaryHtml += `
+            <div class="summary-card summary-card-full" style="margin-top: 20px;">
+              <h4>Prospect Message (Optional Notes)</h4>
+              <p class="summary-text-block">"${lead.message}"</p>
+            </div>
+        `;
+      }
+      summaryHtml += '</div>';
+      document.getElementById('summary-content').innerHTML = summaryHtml;
+
+      // ── 2. COMPILE SALES PLAYBOOK MOVES ──
       let openingLine = '';
       let bridgeLine = '';
       let fragilityLine = '';
@@ -1025,9 +1365,6 @@
         }
       }
 
-      // Recommendation & closing close
-      const cleanRec = (lead.recommendation || 'N/A').split(' [Posture:')[0];
-      const posture = (lead.recommendation || '').includes('Posture:') ? (lead.recommendation || '').split('Posture: ')[1].replace(']', '') : 'Standard matching posture.';
       document.getElementById('play-recommendation-line').innerHTML = `<strong>Lead Product Pitch:</strong> ${cleanRec}<br><span style="display:block;margin-top:8px;font-size:13.5px;color:var(--mid);font-style:italic;"><strong>Sales Posture:</strong> ${posture}</span>`;
 
       const uScore = scores.urgency || 0;
@@ -1045,12 +1382,43 @@
       document.getElementById('play-sovereignty-line').innerText = sovereigntyLine;
       document.getElementById('play-close-line').innerText = closeLine;
 
+      // ── 3. COMPILE ASSESSMENT QUESTIONS & ANSWERS ──
+      const questionsTextMapping = isBusiness ? businessQuestionTexts : creatorQuestionTexts;
+      let qaHtml = '';
+      for (let i = 1; i <= 17; i++) {
+        const qText = questionsTextMapping[`q${i}`] || `Question ${i}`;
+        const answerVal = getAnswerVal(lead, i);
+        qaHtml += `
+          <div class="qa-item">
+            <div class="qa-question">${qText}</div>
+            <div class="qa-answer">${answerVal}</div>
+          </div>
+        `;
+      }
+      document.getElementById('questions-content').innerHTML = qaHtml;
+
       document.getElementById('brief-modal').style.display = 'flex';
     }
 
     // Close Modal Event Bind
     document.getElementById('btn-close-modal').addEventListener('click', () => {
       document.getElementById('brief-modal').style.display = 'none';
+    });
+
+    // Bind tab click events
+    const tabs = ['summary', 'playbook', 'questions'];
+    tabs.forEach(tab => {
+      const btn = document.getElementById(`tab-btn-${tab}`);
+      if (btn) {
+        btn.addEventListener('click', () => {
+          tabs.forEach(t => {
+            document.getElementById(`tab-btn-${t}`).classList.remove('active');
+            document.getElementById(`pane-${t}`).classList.remove('active');
+          });
+          btn.classList.add('active');
+          document.getElementById(`pane-${tab}`).classList.add('active');
+        });
+      }
     });
   </script>
 </body>

@@ -433,7 +433,7 @@ document.addEventListener('DOMContentLoaded', () => {
     q12: { A: "Give me back time to make better work", B: "Help me stay consistent without burning out", C: "Let me reply to my audience properly without it eating my life", D: "Run the operational layer of my business for me" },
     q13: { A: "Almost nothing — my audience lives there", B: "My subscriber emails, if I've been collecting them", C: "Most of it — I have backups and direct channels", D: "Everything — my platform is one channel among many I control" },
     q14: { A: "They're necessary, and I try not to think about it", B: "I'd leave if there were somewhere to go", C: "I'm actively trying to reduce my exposure", D: "I want to own my presence end to end" },
-    q15: { A: "Public AI is fine", B: "Fully mine — my AI, my data, on infrastructure I control" },
+    q15: { A: "Public AI is fine", B: "Dedicated hosting (e.g. VPS) — private setup without running own infrastructure", C: "Fully mine — my AI, my data, on infrastructure I control" },
     q16: { A: "Less anxious about the platforms I depend on", B: "Earning more directly from my audience", C: "Running my own publishing and payment infrastructure", D: "Fully sovereign — my audience, my keys, my rules" },
     q17: { A: "Email is fine", B: "A short call to start", C: "A video meeting", D: "In person, when it makes sense" }
   };
@@ -628,7 +628,7 @@ document.addEventListener('DOMContentLoaded', () => {
       let sovScore = 0;
       if (q13 === 'D') sovScore += 2; else if (q13 === 'C') sovScore += 1;
       if (q14 === 'D') sovScore += 2; else if (q14 === 'C') sovScore += 1; else if (q14 === 'B') sovScore += 1; else if (q14 === 'A') sovScore -= 1;
-      if (q15 === 'B') sovScore += 1; else if (q15 === 'A') sovScore -= 1;
+      if (q15 === 'C') sovScore += 2; else if (q15 === 'B') sovScore += 1; else if (q15 === 'A') sovScore -= 1;
       let q16Score = 0;
       if (q16Keys.includes('D')) q16Score = 2;
       else if (q16Keys.includes('C')) q16Score = 1;
