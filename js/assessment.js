@@ -176,15 +176,10 @@ document.addEventListener('DOMContentLoaded', () => {
     card.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
 
     card.addEventListener('click', (e) => {
-      const isCheckbox = input.type === 'checkbox';
+      // Only process when the target is the input itself (the label click will naturally trigger this input click)
+      if (e.target !== input) return;
 
-      if (e.target !== input) {
-        if (isCheckbox) {
-          input.checked = !input.checked;
-        } else {
-          input.checked = true;
-        }
-      }
+      const isCheckbox = input.type === 'checkbox';
 
       if (isCheckbox) {
         card.classList.toggle('selected', input.checked);
@@ -217,12 +212,7 @@ document.addEventListener('DOMContentLoaded', () => {
     card.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
-        if (input.type === 'checkbox') {
-          input.checked = !input.checked;
-        } else {
-          input.checked = true;
-        }
-        card.click();
+        input.click();
       }
     });
   });
