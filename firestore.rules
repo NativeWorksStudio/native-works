@@ -10,7 +10,7 @@ service cloud.firestore {
       // We validate critical fields to prevent junk/malformed data insertion
       allow create: if request.resource.data.name is string 
                     && request.resource.data.email is string
-                    && request.resource.data.track in ['business', 'creator']
+                    && request.resource.data.track in ['business', 'creator', 'business_ceo', 'business_cto']
                     && request.resource.data.timestamp is string;
       
       // Allow read access ONLY to authenticated users with a whitelisted email address
