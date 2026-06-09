@@ -28,14 +28,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('assessment-form');
   if (!form) return;
 
-  // Remove native 'required' attribute from radio/checkbox inputs to manage them with custom validation
+  // Remove native 'required' to manage validation manually
   document.querySelectorAll('input[type="radio"], input[type="checkbox"]').forEach(input => {
     input.removeAttribute('required');
   });
 
   let currentStep = 1;
-  const totalSteps = 5;
-  const selectedTrack = 'creator';
+  const totalSteps = 4;
+  const selectedTrack = 'business_ceo';
 
   // DOM references
   const stepCountText = document.getElementById('step-count');
@@ -47,8 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
     1: document.getElementById('step-1'),
     2: document.getElementById('step-2'),
     3: document.getElementById('step-3'),
-    4: document.getElementById('step-4'),
-    5: document.getElementById('step-5')
+    4: document.getElementById('step-4')
   };
 
   const btnNext   = document.getElementById('btn-next');
@@ -56,11 +55,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnSubmit = document.getElementById('btn-submit');
 
   const stepNames = {
-    1: 'Why Now',
-    2: 'Audience & Scale',
+    1: 'Strategic Context',
+    2: 'Scale & Domain',
     3: 'Friction & Automation',
-    4: 'Sovereignty & AI',
-    5: 'Looking Ahead'
+    4: 'Looking Ahead'
   };
 
   /* ── CARD INTERACTION (Wizard Radios & Checkboxes) ──────────────── */
@@ -86,7 +84,6 @@ document.addEventListener('DOMContentLoaded', () => {
         card.classList.toggle('selected', input.checked);
         card.setAttribute('aria-checked', input.checked ? 'true' : 'false');
       } else {
-        // Deselect siblings in the same group
         const groupName = input.getAttribute('name');
         document.querySelectorAll(`.option-card input[name="${groupName}"]`).forEach(sib => {
           const sibCard = sib.closest('.option-card');
@@ -103,7 +100,6 @@ document.addEventListener('DOMContentLoaded', () => {
       document.body.classList.add('cursor-hover');
       setTimeout(() => document.body.classList.remove('cursor-hover'), 200);
 
-      // Validate step silently on input selection
       validateCurrentStep(false);
     });
 
@@ -124,18 +120,14 @@ document.addEventListener('DOMContentLoaded', () => {
     if (currentStep > totalSteps) return true;
 
     const stepEl = steps[currentStep];
-
-    // Validate active radio groups inside current step
     let allGroupsChecked = true;
     const groupNames = new Set();
     
-    // Find radio and checkbox groups on this step
     stepEl.querySelectorAll('input[type="radio"], input[type="checkbox"]').forEach(r => {
       if (r.name) groupNames.add(r.name);
     });
 
     groupNames.forEach(name => {
-      // Checkboxes don't strictly require selection unless design dictates it, but radios do
       const inputSample = stepEl.querySelector(`input[name="${name}"]`);
       if (inputSample && inputSample.type === 'radio') {
         if (!stepEl.querySelector(`input[name="${name}"]:checked`)) {
@@ -144,12 +136,11 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    // On Step 5 (Contact & Vision), validate required text / email fields and checkboxes
     let allTextFilled = true;
     if (currentStep === totalSteps) {
-      const q9Checked = stepEl.querySelector('input[name="creator_q9"]:checked');
-      const q10Checked = stepEl.querySelector('input[name="creator_q10"]:checked');
-      if (!q9Checked || !q10Checked) {
+      const q7Checked = stepEl.querySelector('input[name="ceo_q7"]:checked');
+      const q8Checked = stepEl.querySelector('input[name="ceo_q8"]:checked');
+      if (!q7Checked || !q8Checked) {
         allGroupsChecked = false;
       }
 
@@ -168,7 +159,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (showAlert) {
         const msg = !allGroupsChecked 
           ? 'Please answer all questions to proceed.' 
-          : 'Please fill in your name, channel name and email to continue.';
+          : 'Please fill in your name, company and email details to continue.';
         showErrorMessage(stepEl, msg);
 
         stepEl.querySelectorAll('.options-grid').forEach(grid => {
@@ -260,141 +251,119 @@ document.addEventListener('DOMContentLoaded', () => {
       .map(cb => cb.value);
   };
 
-  const creatorLabels = {
-    q1:  { A: "A platform did something that scared me", B: "I'm growing and feel dependency tightening", C: "I want to take ownership before something happens", D: "I'm curious — explore sovereign setups" },
-    q2:  { A: "Reach dropped suddenly without explanation", B: "A platform changed rules, cuts, or policies", C: "Someone I follow lost their account and business", D: "Nothing specific — timing feels right" },
-    q3:  { A: "Under 5,000", B: "5,000 to 50,000", C: "50,000 to 500,000", D: "Over 500,000" },
-    q4:  { A: "Platform ad revenue / payouts", B: "Brand deals / sponsorships", C: "Direct audience support (memberships/subs)", D: "Products / services sold directly" },
-    q5:  { A: "My account itself — one strike and over", B: "My reach — algorithm decides if I exist", C: "My audience contact — don't own relationship", D: "My payments and payouts — platform processors" },
-    q6:  { A: "Give me back time to make better work", B: "Help me stay consistent without burning out", C: "Reply to DMs and comments automatically", D: "Run operational layer of business" },
-    q7:  { A: "Almost nothing — audience lives there", B: "Subscriber emails, if collected", C: "Most of it — backups and direct channels", D: "Everything — platform is one channel among many" },
-    q8:  { A: "Public AI is fine", B: "Dedicated hosting (VPS)", C: "Fully mine — data & AI on hardware I control" },
-    q9:  { A: "Less anxious about platform dependence", B: "Earning more directly", C: "Running own publishing and payment infrastructure", D: "Fully sovereign — audience, keys, rules" },
-    q10: { A: "Email is fine", B: "A short call to start", C: "A video meeting", D: "In person" }
+  const ceoLabels = {
+    q1:  { A: "We're behind on AI adoption and we know it", B: "We've started experimenting and want a real pipeline", C: "We're doing well and want to scale our automation", D: "We're not sure — we want an outside read on our readiness" },
+    q2:  { A: "A competitor launched an AI feature and we noticed", B: "Our operational team is stretched thin", C: "Leadership decided data security & AI is our top priority", D: "Nothing specific — the timing just feels right" },
+    q3:  { A: "Under 50 people", B: "50 to 250 people", C: "250 to 1,000 people", D: "Over 1,000 people" },
+    q4:  { A: "Makes or moves physical goods / logistics", B: "Sells professional services or expertise", C: "Serves consumers directly (B2C / e-commerce)", D: "Builds technology, software, or media platforms" },
+    q5:  { A: "Front office — sales, marketing, client communication", B: "Back office — admin, finance, reporting, HR", C: "Operations — production, logistics, client onboarding", D: "Across the board — repetitive work is everywhere" },
+    q6:  { A: "Give the team back time for higher-value work", B: "Help us scale operations without hiring proportionally", C: "Improve quality and compliance consistency", D: "Run the operational layer of our business for us" },
+    q7:  { A: "Clearer on what AI can and cannot do for us", B: "Two or three concrete things working in production", C: "AI agents woven into how the company runs daily", D: "Fully sovereign — our private models, data, and hardware" },
+    q8:  { A: "Email is fine", B: "A short call to start", C: "A video meeting", D: "In person" }
   };
 
   function calculateRouting() {
-    document.getElementById('payload-track').value = "CREATOR";
+    document.getElementById('payload-track').value = "BUSINESS_CEO";
 
-    const q1  = radioVal('creator_q1');
-    const q2  = radioVal('creator_q2');
-    const q3  = radioVal('creator_q3');
-    const q4  = radioVal('creator_q4');
-    const q5  = radioVal('creator_q5');
-    const q6Keys = checkboxValues('creator_q6');
-    const q7  = radioVal('creator_q7');
-    const q8  = radioVal('creator_q8');
-    const q9Keys = checkboxValues('creator_q9');
-    const q10 = radioVal('creator_q10');
+    const q1  = radioVal('ceo_q1');
+    const q2  = radioVal('ceo_q2');
+    const q3  = radioVal('ceo_q3');
+    const q4  = radioVal('ceo_q4');
+    const q5  = radioVal('ceo_q5');
+    const q6Keys = checkboxValues('ceo_q6');
+    const q7Keys = checkboxValues('ceo_q7');
+    const q8  = radioVal('ceo_q8');
 
     // Populate hidden answers payload
-    document.getElementById('payload-q1').value  = creatorLabels.q1[q1]   || q1;
-    document.getElementById('payload-q2').value  = creatorLabels.q2[q2]   || q2;
-    document.getElementById('payload-q3').value  = creatorLabels.q3[q3]   || q3;
-    document.getElementById('payload-q4').value  = creatorLabels.q4[q4]   || q4;
-    document.getElementById('payload-q5').value  = creatorLabels.q5[q5]   || q5;
-    document.getElementById('payload-q6').value  = q6Keys.map(k => creatorLabels.q6[k] || k).join(', ');
-    document.getElementById('payload-q7').value  = creatorLabels.q7[q7]   || q7;
-    document.getElementById('payload-q8').value  = creatorLabels.q8[q8]   || q8;
-    document.getElementById('payload-q9').value  = q9Keys.map(k => creatorLabels.q9[k] || k).join(', ');
-    document.getElementById('payload-q10').value = creatorLabels.q10[q10] || q10;
+    document.getElementById('payload-q1').value  = ceoLabels.q1[q1]   || q1;
+    document.getElementById('payload-q2').value  = ceoLabels.q2[q2]   || q2;
+    document.getElementById('payload-q3').value  = ceoLabels.q3[q3]   || q3;
+    document.getElementById('payload-q4').value  = ceoLabels.q4[q4]   || q4;
+    document.getElementById('payload-q5').value  = ceoLabels.q5[q5]   || q5;
+    document.getElementById('payload-q6').value  = q6Keys.map(k => ceoLabels.q6[k] || k).join(', ');
+    document.getElementById('payload-q7').value  = q7Keys.map(k => ceoLabels.q7[k] || k).join(', ');
+    document.getElementById('payload-q8').value  = ceoLabels.q8[q8]   || q8;
 
-    // ── CREATOR SCORING VECTORS ──
+    // ── BUSINESS CEO SCORING VECTORS ──
     const scores = {};
 
-    // 1. Urgency (inputs: Q1, Q2, Q5)
+    // 1. Urgency (inputs: Q1, Q2, Q7)
     let uScore = 0;
     if (q1 === 'A') uScore += 2; else if (q1 === 'B' || q1 === 'C') uScore += 1;
-    if (q2 === 'A' || q2 === 'B') uScore += 2; else if (q2 === 'C') uScore += 1;
-    if (q5 === 'A' || q5 === 'B') uScore += 1;
+    if (q2 === 'A' || q2 === 'C') uScore += 2; else if (q2 === 'B') uScore += 1;
+    if (q7Keys.includes('D')) uScore += 1;
     scores.urgency = Math.min(4, Math.max(0, uScore));
 
-    // 2. Sophistication (inputs: Q8)
-    let sScore = 0;
-    if (q8 === 'C') sScore += 3; else if (q8 === 'B') sScore += 2;
-    scores.sophistication = Math.min(4, Math.max(0, sScore));
-
-    // 3. Sovereignty (inputs: Q7, Q8, Q9)
-    let sovScore = 0;
-    if (q7 === 'D') sovScore += 2; else if (q7 === 'C') sovScore += 1;
-    if (q8 === 'C') sovScore += 2; else if (q8 === 'B') sovScore += 1; else if (q8 === 'A') sovScore -= 1;
-    if (q9Keys.includes('D')) sovScore += 2; else if (q9Keys.includes('C')) sovScore += 1;
-    scores.sovereignty = Math.min(4, Math.max(0, sovScore));
-
-    // 4. Automation (inputs: Q6)
+    // 2. Automation (inputs: Q5, Q6)
     let aScore = 0;
-    if (q6Keys.includes('C') || q6Keys.includes('D')) aScore += 2;
-    if (q6Keys.includes('A')) aScore += 1;
-    if (q6Keys.includes('B')) aScore += 1;
+    if (q5 === 'D' || q5 === 'C') aScore += 1;
+    if (q6Keys.includes('D')) aScore += 2;
+    else if (q6Keys.some(k => ['A', 'B', 'C'].includes(k))) aScore += 1;
     scores.automation = Math.min(4, Math.max(0, aScore));
 
-    // 5. Earning (inputs: Q3, Q4)
-    let eScore = 0;
-    if (q3 === 'D') eScore += 3; else if (q3 === 'C') eScore += 2; else if (q3 === 'B') eScore += 1;
-    if (q4 === 'D' || q4 === 'C') eScore += 1;
-    scores.earning = Math.min(4, Math.max(0, eScore));
+    // 3. Sovereignty (inputs: Q7)
+    let sovScore = 0;
+    if (q7Keys.includes('D')) sovScore += 3;
+    else if (q7Keys.includes('C')) sovScore += 2;
+    else if (q7Keys.includes('B')) sovScore += 1;
+    scores.sovereignty = Math.min(4, Math.max(0, sovScore));
 
-    // ── CREATOR RECOMMENDATION MAPPING ──
+    // 4. Budget (inputs: Q3, Q4, Role field)
+    let bScore = 0;
+    if (q3 === 'D') bScore += 2; else if (q3 === 'C' || q3 === 'B') bScore += 1;
+    if (q4 === 'B' || q4 === 'D') bScore += 1;
+    
+    const roleText = (document.getElementById('client-role')?.value || '').toLowerCase();
+    const highAuthority = ['ceo', 'founder', 'owner', 'partner', 'president', 'executive', 'director', 'coo'];
+    const lowAuthority = ['analyst', 'coordinator', 'intern', 'student'];
+    
+    if (highAuthority.some(k => roleText.includes(k))) bScore += 1;
+    else if (lowAuthority.some(k => roleText.includes(k))) bScore -= 1;
+    scores.budget = Math.min(4, Math.max(0, bScore));
+
+    // ── BUSINESS CEO RECOMMENDATION MAPPING ──
     let recProduct = '';
     let recPosture = '';
 
-    if (scores.sovereignty >= 3 && scores.sophistication >= 2 && scores.earning >= 3) {
-      recProduct = 'Stack + Chain';
-      recPosture = 'Peer-to-peer pitch. They\'re already sovereign-fluent.';
-    } else if (scores.sovereignty >= 3 && scores.sophistication <= 1 && scores.earning >= 2) {
-      recProduct = 'Publisher + Sovereign Ready';
-      recPosture = 'Guided onboarding. Lead with the platform-fear answer.';
-    } else if (scores.sovereignty >= 3 && scores.earning <= 1) {
-      recProduct = 'Publisher';
-      recPosture = 'Affordable entry. Establish the relationship.';
-    } else if (scores.automation >= 3 && scores.earning >= 2) {
-      recProduct = 'Publisher + Agent';
-      recPosture = 'Lead with automation. Sovereignty as the "and by the way."';
-    } else if (scores.urgency === 4 && scores.earning >= 2) {
-      recProduct = 'Publisher (stops the bleeding)';
-      recPosture = 'They\'re scared. The product is whatever stops the platform bleeding fastest.';
-    } else if (q4 === 'D' && scores.earning >= 3) {
-      recProduct = 'Till + Stack + Publisher';
-      recPosture = 'They already sell. Add sovereign payments and identity, then graduate.';
-    } else if (q4 === 'C' && scores.sovereignty >= 3) {
-      recProduct = 'Publisher + Stack';
-      recPosture = 'The classic creator-to-sovereign migration. High conversion.';
-    } else if (q3 === 'D' && scores.sophistication >= 2) {
-      recProduct = 'Empire (creator edition)';
-      recPosture = 'Top-tier creators with team and infrastructure needs.';
-    } else if (scores.urgency <= 1 && scores.sovereignty <= 1 && scores.earning <= 1) {
-      recProduct = 'Nurture';
-      recPosture = 'Aspiring creators, curious browsers. Don\'t burn the team\'s time.';
-    } else if (Object.values(scores).every(v => v <= 1)) {
-      recProduct = 'No call. Polite acknowledgment.';
-      recPosture = 'Tourists.';
+    if (scores.sovereignty >= 3 && scores.budget >= 3 && q3 === 'D') {
+      recProduct = 'Empire';
+      recPosture = 'Long sales cycle, enterprise-grade pitch';
+    } else if (scores.sovereignty >= 3 && scores.budget >= 3) {
+      recProduct = 'Stack + Sovereign';
+      recPosture = 'Lead with sovereignty pitch directly. They\'re already there.';
+    } else if (scores.sovereignty >= 3 && scores.budget >= 1) {
+      recProduct = 'Stack';
+      recPosture = 'Sovereignty without enterprise pricing';
+    } else if (scores.automation >= 3 && scores.sovereignty <= 2 && scores.budget >= 2) {
+      recProduct = 'Foundation + Agent';
+      recPosture = 'Lead with automation ROI. Sovereignty as the why-NativeWorks-not-someone-else.';
+    } else if (scores.automation >= 3 && scores.sovereignty <= 2 && scores.budget <= 1) {
+      recProduct = 'Foundation';
+      recPosture = 'Get them in. Show value. Earn the sovereignty conversation.';
     } else {
-      recProduct = 'Publisher + Sovereign Ready';
-      recPosture = 'Standard balanced creator engagement path.';
+      recProduct = 'Foundation + Agent';
+      recPosture = 'Standard balanced business engagement path.';
     }
 
     const scoreStr = Object.keys(scores).map(v => `${v.toUpperCase()}: ${scores[v]}/4`).join(' — ');
     document.getElementById('payload-scores').value          = scoreStr;
     document.getElementById('payload-recommendation').value  = `${recProduct} [Posture: ${recPosture}]`;
 
-    // Map hidden fields to actual question text for FormSubmit emails
-    const creatorQuestionTexts = {
+    const ceoQuestionTexts = {
       q1: "Q01 — What brought you here today?",
       q2: "Q02 — What changed recently?",
-      q3: "Q03 — How large is your audience?",
-      q4: "Q04 — Where does most of your income come from?",
-      q5: "Q05 — What is the most fragile part of your operation?",
-      q6: "Q06 — Where would automation help you most?",
-      q7: "Q07 — If your main platform shut you down tomorrow, what could you keep?",
-      q8: "Q08 — How do you want to manage your audience data and AI?",
-      q9: "Q09 — Where would you like to be twelve months from now?",
-      q10: "Q10 — How would you like us to reach out?"
+      q3: "Q03 — How big is your company?",
+      q4: "Q04 — What does your company do?",
+      q5: "Q05 — Where does most of the operational friction live?",
+      q6: "Q06 — What would you want AI to do for your business ideally?",
+      q7: "Q07 — Where would you like to be twelve months from now?",
+      q8: "Q08 — How would you like us to reach out?"
     };
 
-    for (let i = 1; i <= 10; i++) {
+    for (let i = 1; i <= 8; i++) {
       const payloadInput = document.getElementById(`payload-q${i}`);
       if (payloadInput) {
-        payloadInput.name = creatorQuestionTexts[`q${i}`] || `q${i}`;
+        payloadInput.name = ceoQuestionTexts[`q${i}`] || `q${i}`;
       }
     }
   }
@@ -411,7 +380,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (subjectEl && recType) {
       const co = clientCo ? ` — ${clientCo}` : '';
-      subjectEl.value = `Creator Assessment [${recType}]${co} — ${clientName}`;
+      subjectEl.value = `CEO Business Assessment [${recType}]${co} — ${clientName}`;
     }
 
     const nextEl = form.querySelector('input[name="_next"]');
@@ -425,26 +394,24 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const answers = {};
-    for (let i = 1; i <= 10; i++) {
+    for (let i = 1; i <= 8; i++) {
       answers[`q${i}`] = document.getElementById(`payload-q${i}`)?.value || '';
     }
 
-    const creatorQuestionTexts = {
+    const ceoQuestionTexts = {
       q1: "Q01 — What brought you here today?",
       q2: "Q02 — What changed recently?",
-      q3: "Q03 — How large is your audience?",
-      q4: "Q04 — Where does most of your income come from?",
-      q5: "Q05 — What is the most fragile part of your operation?",
-      q6: "Q06 — Where would automation help you most?",
-      q7: "Q07 — If your main platform shut you down tomorrow, what could you keep?",
-      q8: "Q08 — How do you want to manage your audience data and AI?",
-      q9: "Q09 — Where would you like to be twelve months from now?",
-      q10: "Q10 — How would you like us to reach out?"
+      q3: "Q03 — How big is your company?",
+      q4: "Q04 — What does your company do?",
+      q5: "Q05 — Where does most of the operational friction live?",
+      q6: "Q06 — What would you want AI to do for your business ideally?",
+      q7: "Q07 — Where would you like to be twelve months from now?",
+      q8: "Q08 — How would you like us to reach out?"
     };
 
     const questionAnswers = {};
-    for (let i = 1; i <= 10; i++) {
-      const qText = creatorQuestionTexts[`q${i}`];
+    for (let i = 1; i <= 8; i++) {
+      const qText = ceoQuestionTexts[`q${i}`];
       if (qText) {
         questionAnswers[qText] = answers[`q${i}`];
       }

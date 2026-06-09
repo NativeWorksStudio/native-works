@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CTO Technical Assessment — Native Works</title>
+<meta name="description" content="Map data storage architectures, active model footprints, private cloud compute target profiles, and security standards.">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,200;0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet">
+
+<!-- Styles -->
+<link rel="stylesheet" href="css/style.css?v=1.0.1">
+<link rel="stylesheet" href="css/business.css?v=1.0.0">
+</head>
+<body class="dark-theme">
+
+<!-- Cursore: dot + trailing ring -->
+<div id="custom-cursor" aria-hidden="true"></div>
+<div id="custom-cursor-ring" aria-hidden="true"></div>
+
+<!-- ── NAVIGATION ──────────────────────────────────────────────────────── -->
+<nav id="nav" class="scrolled" style="opacity: 1 !important; pointer-events: auto !important;">
+  <a href="index.html" class="nav-logo" aria-label="Native Works home">
+    <svg width="30" height="30" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <circle cx="16" cy="16" r="14" stroke="#F4F0E8" stroke-width="0.75" fill="none" opacity="0.3"/>
+      <path d="M16,16 L17.2,11 L16,2 L14.8,11 Z" fill="#8E3B28"/>
+      <path d="M16,16 L17,19.5 L16,25 L15,19.5 Z" fill="#F4F0E8"/>
+      <circle cx="16" cy="16" r="2" fill="#F4F0E8"/>
+    </svg>
+    <div class="nav-wordmark" style="color: var(--warm-white);">NATIVE WORKS</div>
+  </a>
+
+  <!-- Mobile Toggle -->
+  <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+    <span class="nav-toggle-line" style="background: var(--warm-white);"></span>
+    <span class="nav-toggle-line" style="background: var(--warm-white);"></span>
+  </button>
+
+  <div class="nav-menu" id="nav-menu">
+    <ul class="nav-links" role="list">
+      <li><a href="index.html#journey" style="color: rgba(244,240,232,0.65);">The Path</a></li>
+      <li><a href="index.html#how" style="color: rgba(244,240,232,0.65);">How it works</a></li>
+      <li><a href="index.html#products" style="color: rgba(244,240,232,0.65);">Products</a></li>
+      <li><a href="business.html" class="active" style="color: var(--warm-white);">Business</a></li>
+      <li><a href="assessment.html" style="color: rgba(244,240,232,0.65);">Creator Audit</a></li>
+      <li><a href="contact.html" style="color: rgba(244,240,232,0.65);">Contact</a></li>
+    </ul>
+
+    <a href="index.html#products" class="nav-cta" id="nav-cta" style="background: var(--night-2); color: var(--warm-white); box-shadow: none; border: 1px solid rgba(255,255,255,0.08);">Own your presence →</a>
+  </div>
+</nav>
+
+<!-- ── FORM SECTION ────────────────────────────────────────────────────── -->
+<section class="form-section assessment-section">
+  <!-- Immersive blueprint background SVG -->
+  <svg class="intro-bg-svg" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="opacity: 0.035;">
+    <circle cx="250" cy="250" r="240" stroke="#F4F0E8" stroke-width="0.5"/>
+    <circle cx="250" cy="250" r="180" stroke="#F4F0E8" stroke-width="0.5" stroke-dasharray="4 8"/>
+    <circle cx="250" cy="250" r="120" stroke="#2B5E2B" stroke-width="0.5" opacity="0.3"/>
+    <circle cx="250" cy="250" r="60"  stroke="#F4F0E8" stroke-width="0.5"/>
+    <line x1="10"  y1="250" x2="490" y2="250" stroke="#F4F0E8" stroke-width="0.4"/>
+    <line x1="250" y1="10"  x2="250" y2="490" stroke="#F4F0E8" stroke-width="0.4"/>
+  </svg>
+
+  <div class="form-container assessment-container reveal visible">
+
+    <!-- Progress tracker -->
+    <div class="assessment-progress-wrapper">
+      <div class="assessment-progress-header">
+        <span class="assessment-step-count" id="step-count">01 / 04</span>
+        <span class="assessment-step-label" id="step-label">Data & Systems</span>
+      </div>
+      <div class="assessment-progress-bar">
+        <div class="assessment-progress-line" id="progress-line" style="width: 25%; background-color: var(--forest) !important;"></div>
+      </div>
+    </div>
+
+    <form id="assessment-form" action="https://formsubmit.co/antonio.visceglia@nativeworks.studio" method="POST">
+      <!-- FormSubmit config -->
+      <input type="hidden" name="_cc"       value="info@nativeworks.studio">
+      <input type="hidden" name="_next"     value="https://www.nativeworks.studio/thank-you.html">
+      <input type="hidden" name="_captcha"  value="false">
+      <input type="hidden" name="_subject"  value="New Business CTO Assessment — Native Works">
+      <input type="hidden" name="_template" value="box">
+
+      <!-- Hidden payload fields — populated by JS before submit -->
+      <input type="hidden" id="payload-track"           name="track"          value="BUSINESS_CTO">
+      <input type="hidden" id="payload-scores"          name="scores"         value="">
+      <input type="hidden" id="payload-recommendation"  name="recommendation" value="">
+      <input type="hidden" id="payload-q1"  name="q1"  value="">
+      <input type="hidden" id="payload-q2"  name="q2"  value="">
+      <input type="hidden" id="payload-q3"  name="q3"  value="">
+      <input type="hidden" id="payload-q4"  name="q4"  value="">
+      <input type="hidden" id="payload-q5"  name="q5"  value="">
+      <input type="hidden" id="payload-q6"  name="q6"  value="">
+      <input type="hidden" id="payload-q7"  name="q7"  value="">
+      <input type="hidden" id="payload-q8"  name="q8"  value="">
+
+      <!-- ═══ STEP 1 — Data & Systems ═════════════════════════════════ -->
+      <div class="wizard-step active" id="step-1" role="group" aria-labelledby="step-1-title">
+        <div class="wizard-step-header">
+          <span class="wizard-step-num" style="color: var(--forest) !important;">Step 01</span>
+          <h2 class="wizard-step-title" id="step-1-title">Data & Systems</h2>
+          <p class="wizard-step-desc">Mapping your legacy operational data systems.</p>
+        </div>
+
+        <div class="wizard-questions-container">
+          <!-- Q1 -->
+          <div class="wizard-question-block">
+            <h3 class="wizard-question-text">Where is your primary operational data stored?</h3>
+            <div class="options-grid">
+              <label class="option-card cto-option" for="cto-q1-a">
+                <input type="radio" id="cto-q1-a" name="cto_q1" value="A" class="visually-hidden" required>
+                <div class="option-card-content"><p class="option-desc">Cloud CRMs & SaaS (HubSpot, Notion, Salesforce)</p></div>
+              </label>
+              <label class="option-card cto-option" for="cto-q1-b">
+                <input type="radio" id="cto-q1-b" name="cto_q1" value="B" class="visually-hidden">
+                <div class="option-card-content"><p class="option-desc">Managed Databases (RDS, PostgreSQL, SQL Server)</p></div>
+              </label>
+              <label class="option-card cto-option" for="cto-q1-c">
+                <input type="radio" id="cto-q1-c" name="cto_q1" value="C" class="visually-hidden">
+                <div class="option-card-content"><p class="option-desc">Legacy On-Premises (Local network attached storage, local file servers)</p></div>
+              </label>
+              <label class="option-card cto-option" for="cto-q1-d">
+                <input type="radio" id="cto-q1-d" name="cto_q1" value="D" class="visually-hidden">
+                <div class="option-card-content"><p class="option-desc">Distributed Spreadsheets (Excel / Google Sheets across teams)</p></div>
+              </label>
+            </div>
+          </div>
+          <!-- Q2 -->
+          <div class="wizard-question-block">
+            <h3 class="wizard-question-text">Which operational tools are critical to your team treadmill?</h3>
+            <div class="options-grid">
+              <label class="option-card cto-option" for="cto-q2-a">
+                <input type="checkbox" id="cto-q2-a" name="cto_q2" value="A" class="visually-hidden">
+                <div class="option-card-content"><p class="option-desc">Communication Suites (Slack, MS Teams)</p></div>
+              </label>
+              <label class="option-card cto-option" for="cto-q2-b">
+                <input type="checkbox" id="cto-q2-b" name="cto_q2" value="B" class="visually-hidden">
+                <div class="option-card-content"><p class="option-desc">Task & Project Management (Jira, Monday, Trello)</p></div>
+              </label>
+              <label class="option-card cto-option" for="cto-q2-c">
+                <input type="checkbox" id="cto-q2-c" name="cto_q2" value="C" class="visually-hidden">
+                <div class="option-card-content"><p class="option-desc">Customer Support Tools (Zendesk, Intercom)</p></div>
+              </label>
+              <label class="option-card cto-option" for="cto-q2-d">
+                <input type="checkbox" id="cto-q2-d" name="cto_q2" value="D" class="visually-hidden">
+                <div class="option-card-content"><p class="option-desc">Document Storage (Google Drive, SharePoint)</p></div>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ STEP 2 — Model & Privacy ════════════════════════════════ -->
+      <div class="wizard-step" id="step-2" role="group" aria-labelledby="step-2-title">
+        <div class="wizard-step-header">
+          <span class="wizard-step-num" style="color: var(--forest) !important;">Step 02</span>
+          <h2 class="wizard-step-title" id="step-2-title">Model & Privacy</h2>
+          <p class="wizard-step-desc">Your deployment maturity and data protection constraints.</p>
+        </div>
+
+        <div class="wizard-questions-container">
+          <!-- Q3 -->
+          <div class="wizard-question-block">
+            <h3 class="wizard-question-text">Which LLMs or AI APIs do you currently run in production or testing?</h3>
+            <div class="options-grid">
+              <label class="option-card cto-option" for="cto-q3-a">
+                <input type="radio" id="cto-q3-a" name="cto_q3" value="A" class="visually-hidden" required>
+                <div class="option-card-content"><p class="option-desc">Public Commercial APIs (GPT-4, Claude, Gemini)</p></div>
+              </label>
+              <label class="option-card cto-option" for="cto-q3-b">
+                <input type="radio" id="cto-q3-b" name="cto_q3" value="B" class="visually-hidden">
+                <div class="option-card-content"><p class="option-desc">Hosted Enterprise Instances (Azure OpenAI, Vertex AI, Bedrock)</p></div>
+              </label>
+              <label class="option-card cto-option" for="cto-q3-c">
+                <input type="radio" id="cto-q3-c" name="cto_q3" value="C" class="visually-hidden">
+                <div class="option-card-content"><p class="option-desc">Open-weights / Self-hosted models (Llama 3, Mistral, Qwen)</p></div>
+              </label>
+              <label class="option-card cto-option" for="cto-q3-d">
+                <input type="radio" id="cto-q3-d" name="cto_q3" value="D" class="visually-hidden">
+                <div class="option-card-content"><p class="option-desc">No active model deployments (Off-the-shelf tools only)</p></div>
+              </label>
+            </div>
+          </div>
+          <!-- Q4 -->
+          <div class="wizard-question-block">
+            <h3 class="wizard-question-text">What is your posture regarding AI training and data privacy?</h3>
+            <div class="options-grid">
+              <label class="option-card cto-option" for="cto-q4-a">
+                <input type="radio" id="cto-q4-a" name="cto_q4" value="A" class="visually-hidden" required>
+                <div class="option-card-content"><p class="option-desc">Convenience Priority: We send data to public APIs if they don't train on it</p></div>
+              </label>
+              <label class="option-card cto-option" for="cto-q4-b">
+                <input type="radio" id="cto-q4-b" name="cto_q4" value="B" class="visually-hidden">
+                <div class="option-card-content"><p class="option-desc">Hybrid Constraint: We use commercial APIs but mask sensitive client data</p></div>
+              </label>
+              <label class="option-card cto-option" for="cto-q4-c">
+                <input type="radio" id="cto-q4-c" name="cto_q4" value="C" class="visually-hidden">
+                <div class="option-card-content"><p class="option-desc">Strict Autonomy: Zero data leaves our network. Private model instance required</p></div>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ STEP 3 — Hosting & Hardware ═════════════════════════════ -->
+      <div class="wizard-step" id="step-3" role="group" aria-labelledby="step-3-title">
+        <div class="wizard-step-header">
+          <span class="wizard-step-num" style="color: var(--forest) !important;">Step 03</span>
+          <h2 class="wizard-step-title" id="step-3-title">Hosting & Hardware</h2>
+          <p class="wizard-step-desc">Target infrastructure environment and dedicated GPU/CPU availability.</p>
+        </div>
+
+        <div class="wizard-questions-container">
+          <!-- Q5 -->
+          <div class="wizard-question-block">
+            <h3 class="wizard-question-text">What is your preferred hosting architecture for Sovereign stacks?</h3>
+            <div class="options-grid">
+              <label class="option-card cto-option" for="cto-q5-a">
+                <input type="radio" id="cto-q5-a" name="cto_q5" value="A" class="visually-hidden" required>
+                <div class="option-card-content"><p class="option-desc">Sovereign VPS: Secure European cloud instances (Hetzner, OVH)</p></div>
+              </label>
+              <label class="option-card cto-option" for="cto-q5-b">
+                <input type="radio" id="cto-q5-b" name="cto_q5" value="B" class="visually-hidden">
+                <div class="option-card-content"><p class="option-desc">Corporate Private Cloud: Our AWS VPC / GCP / Azure Private Link</p></div>
+              </label>
+              <label class="option-card cto-option" for="cto-q5-c">
+                <input type="radio" id="cto-q5-c" name="cto_q5" value="C" class="visually-hidden">
+                <div class="option-card-content"><p class="option-desc">Bare-Metal On-Premises: Dedicated co-located server racks</p></div>
+              </label>
+              <label class="option-card cto-option" for="cto-q5-d">
+                <input type="radio" id="cto-q5-d" name="cto_q5" value="D" class="visually-hidden">
+                <div class="option-card-content"><p class="option-desc">Edge Hardware nodes: Running in physical offices (Mac Studio/NVIDIA RTX)</p></div>
+              </label>
+            </div>
+          </div>
+          <!-- Q6 -->
+          <div class="wizard-question-block">
+            <h3 class="wizard-question-text">Do you have existing hardware resources that can run local inference?</h3>
+            <div class="options-grid">
+              <label class="option-card cto-option" for="cto-q6-a">
+                <input type="radio" id="cto-q6-a" name="cto_q6" value="A" class="visually-hidden" required>
+                <div class="option-card-content"><p class="option-desc">Dedicated NVIDIA GPUs (RTX 4090, A100, H100, RTX A6000)</p></div>
+              </label>
+              <label class="option-card cto-option" for="cto-q6-b">
+                <input type="radio" id="cto-q6-b" name="cto_q6" value="B" class="visually-hidden">
+                <div class="option-card-content"><p class="option-desc">Apple Silicon workstations (M2/M3 Max/Ultra nodes)</p></div>
+              </label>
+              <label class="option-card cto-option" for="cto-q6-c">
+                <input type="radio" id="cto-q6-c" name="cto_q6" value="C" class="visually-hidden">
+                <div class="option-card-content"><p class="option-desc">Standard CPU instances (No dedicated local GPU inference hardware)</p></div>
+              </label>
+              <label class="option-card cto-option" for="cto-q6-d">
+                <input type="radio" id="cto-q6-d" name="cto_q6" value="D" class="visually-hidden">
+                <div class="option-card-content"><p class="option-desc">None — We need Native Works to specify and procure hardware</p></div>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ STEP 4 — Compliance & Contact ═══════════════════════════ -->
+      <div class="wizard-step" id="step-4" role="group" aria-labelledby="step-4-title">
+        <div class="wizard-step-header">
+          <span class="wizard-step-num" style="color: var(--forest) !important;">Step 04</span>
+          <h2 class="wizard-step-title" id="step-4-title">Compliance & Verification</h2>
+          <p class="wizard-step-desc">Confirm regulatory frameworks and project contact details.</p>
+        </div>
+
+        <div class="wizard-questions-container">
+          <!-- Q7 -->
+          <div class="wizard-question-block">
+            <h3 class="wizard-question-text">Which compliance frameworks govern your data storage? <span style="font-weight: normal; opacity: 0.7; font-size: 0.9em;">(Select 1 or more)</span></h3>
+            <div class="options-grid">
+              <label class="option-card cto-option" for="cto-q7-a">
+                <input type="checkbox" id="cto-q7-a" name="cto_q7" value="A" class="visually-hidden">
+                <div class="option-card-content"><p class="option-desc">GDPR (European Data Privacy)</p></div>
+              </label>
+              <label class="option-card cto-option" for="cto-q7-b">
+                <input type="checkbox" id="cto-q7-b" name="cto_q7" value="B" class="visually-hidden">
+                <div class="option-card-content"><p class="option-desc">HIPAA (Healthcare data privacy compliance)</p></div>
+              </label>
+              <label class="option-card cto-option" for="cto-q7-c">
+                <input type="checkbox" id="cto-q7-c" name="cto_q7" value="C" class="visually-hidden">
+                <div class="option-card-content"><p class="option-desc">SOC 2 Type II / ISO 27001 Security standards</p></div>
+              </label>
+              <label class="option-card cto-option" for="cto-q7-d">
+                <input type="checkbox" id="cto-q7-d" name="cto_q7" value="D" class="visually-hidden">
+                <div class="option-card-content"><p class="option-desc">Internal operational corporate security only</p></div>
+              </label>
+            </div>
+          </div>
+          <!-- Q8 -->
+          <div class="wizard-question-block">
+            <h3 class="wizard-question-text">How do you prefer to grant setup engineers deployment access?</h3>
+            <div class="options-grid">
+              <label class="option-card cto-option" for="cto-q8-a">
+                <input type="radio" id="cto-q8-a" name="cto_q8" value="A" class="visually-hidden" required>
+                <div class="option-card-content"><p class="option-desc">Direct Remote (Secure VPN, Bastion host, Tailscale, SSH keys)</p></div>
+              </label>
+              <label class="option-card cto-option" for="cto-q8-b">
+                <input type="radio" id="cto-q8-b" name="cto_q8" value="B" class="visually-hidden">
+                <div class="option-card-content"><p class="option-desc">Co-Working (Screen sharing session under continuous supervision)</p></div>
+              </label>
+              <label class="option-card cto-option" for="cto-q8-c">
+                <input type="radio" id="cto-q8-c" name="cto_q8" value="C" class="visually-hidden">
+                <div class="option-card-content"><p class="option-desc">Zero-Access (Native Works packages container builds; our team deploys)</p></div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Contact fields -->
+          <div class="wizard-question-block contact-block">
+            <div class="contact-fields-grid">
+              <div class="form-group">
+                <label for="client-name" class="form-label">Name *</label>
+                <input type="text" id="client-name" name="name" class="form-input" required placeholder="Your name">
+              </div>
+              <div class="form-group">
+                <label for="client-role" class="form-label">Technical Role *</label>
+                <input type="text" id="client-role" name="role" class="form-input" required placeholder="CTO, VP Eng, Systems Architect, etc.">
+              </div>
+              <div class="form-group">
+                <label for="client-company" class="form-label">Company Name *</label>
+                <input type="text" id="client-company" name="company" class="form-input" required placeholder="Company name">
+              </div>
+              <div class="form-group">
+                <label for="client-email" class="form-label">Technical Email *</label>
+                <input type="email" id="client-email" name="email" class="form-input" required placeholder="cto@company.com">
+              </div>
+              <div class="form-group" style="grid-column: 1 / -1;">
+                <label for="client-phone" class="form-label">Phone (optional)</label>
+                <input type="tel" id="client-phone" name="phone" class="form-input" placeholder="+39 ...">
+              </div>
+            </div>
+          </div>
+
+          <!-- Optional message note -->
+          <div class="wizard-question-block" style="margin-bottom: 0;">
+            <div class="form-group" style="margin-bottom: 0;">
+              <label for="client-message" class="form-label">Core system targets, database versions, or custom constraints? (Optional)</label>
+              <textarea id="client-message" name="message" class="form-textarea" placeholder="E.g., Ingesting PostgreSQL 15, SOC 2 environment rules, Hetzner VPS targets..."></textarea>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Navigation Buttons -->
+      <div class="wizard-navigation">
+        <button type="button" id="btn-back"   class="wizard-nav-btn btn-secondary wizard-btn-hidden">← Previous</button>
+        <button type="button" id="btn-next"   class="wizard-nav-btn btn-primary" enterkeyhint="next" style="background: var(--forest) !important; border-color: var(--forest) !important;">Next Step →</button>
+        <button type="submit" id="btn-submit" class="wizard-nav-btn btn-submit wizard-btn-hidden" style="background: var(--forest) !important; border-color: var(--forest) !important;">Submit Assessment →</button>
+      </div>
+
+    </form>
+  </div>
+</section>
+
+<!-- ── FOOTER ─────────────────────────────────────────────────────────── -->
+<footer>
+  <div>
+    <div class="footer-mark">
+      <div class="footer-logo-wrap">
+        <svg width="24" height="24" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="16" cy="16" r="14" stroke="#D8D2C8" stroke-width="0.75" fill="none" opacity="0.4"/>
+          <path d="M16,16 L17.2,11 L16,2 L14.8,11 Z" fill="#8E3B28"/>
+          <path d="M16,16 L17,19.5 L16,25 L15,19.5 Z" fill="#D8D2C8"/>
+          <circle cx="16" cy="16" r="2" fill="#D8D2C8"/>
+        </svg>
+      </div>
+      <div class="footer-wordmark">NATIVE WORKS</div>
+    </div>
+  </div>
+
+  <nav class="footer-center" aria-label="Footer navigation">
+    <a href="index.html#journey">The Path</a>
+    <a href="index.html#how">How it works</a>
+    <a href="index.html#products">Products</a>
+    <a href="business.html" class="active">Business</a>
+    <a href="assessment.html">Creator Audit</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+
+  <div class="footer-right">
+    <div class="footer-copy">© 2026 Native Works &nbsp;—&nbsp; nativeworks.studio</div>
+  </div>
+</footer>
+
+<!-- Scripts -->
+<script src="js/main.js" defer></script>
+<script src="js/business-cto-assessment.js" type="module"></script>
+</body>
+</html>

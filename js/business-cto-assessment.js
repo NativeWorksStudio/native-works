@@ -28,14 +28,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('assessment-form');
   if (!form) return;
 
-  // Remove native 'required' attribute from radio/checkbox inputs to manage them with custom validation
+  // Remove native 'required' to manage validation manually
   document.querySelectorAll('input[type="radio"], input[type="checkbox"]').forEach(input => {
     input.removeAttribute('required');
   });
 
   let currentStep = 1;
-  const totalSteps = 5;
-  const selectedTrack = 'creator';
+  const totalSteps = 4;
+  const selectedTrack = 'business_cto';
 
   // DOM references
   const stepCountText = document.getElementById('step-count');
@@ -47,8 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
     1: document.getElementById('step-1'),
     2: document.getElementById('step-2'),
     3: document.getElementById('step-3'),
-    4: document.getElementById('step-4'),
-    5: document.getElementById('step-5')
+    4: document.getElementById('step-4')
   };
 
   const btnNext   = document.getElementById('btn-next');
@@ -56,11 +55,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnSubmit = document.getElementById('btn-submit');
 
   const stepNames = {
-    1: 'Why Now',
-    2: 'Audience & Scale',
-    3: 'Friction & Automation',
-    4: 'Sovereignty & AI',
-    5: 'Looking Ahead'
+    1: 'Data & Systems',
+    2: 'Model & Privacy',
+    3: 'Hosting & Hardware',
+    4: 'Compliance & Onboarding'
   };
 
   /* ── CARD INTERACTION (Wizard Radios & Checkboxes) ──────────────── */
@@ -86,7 +84,6 @@ document.addEventListener('DOMContentLoaded', () => {
         card.classList.toggle('selected', input.checked);
         card.setAttribute('aria-checked', input.checked ? 'true' : 'false');
       } else {
-        // Deselect siblings in the same group
         const groupName = input.getAttribute('name');
         document.querySelectorAll(`.option-card input[name="${groupName}"]`).forEach(sib => {
           const sibCard = sib.closest('.option-card');
@@ -103,7 +100,6 @@ document.addEventListener('DOMContentLoaded', () => {
       document.body.classList.add('cursor-hover');
       setTimeout(() => document.body.classList.remove('cursor-hover'), 200);
 
-      // Validate step silently on input selection
       validateCurrentStep(false);
     });
 
@@ -124,18 +120,14 @@ document.addEventListener('DOMContentLoaded', () => {
     if (currentStep > totalSteps) return true;
 
     const stepEl = steps[currentStep];
-
-    // Validate active radio groups inside current step
     let allGroupsChecked = true;
     const groupNames = new Set();
     
-    // Find radio and checkbox groups on this step
     stepEl.querySelectorAll('input[type="radio"], input[type="checkbox"]').forEach(r => {
       if (r.name) groupNames.add(r.name);
     });
 
     groupNames.forEach(name => {
-      // Checkboxes don't strictly require selection unless design dictates it, but radios do
       const inputSample = stepEl.querySelector(`input[name="${name}"]`);
       if (inputSample && inputSample.type === 'radio') {
         if (!stepEl.querySelector(`input[name="${name}"]:checked`)) {
@@ -144,12 +136,11 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    // On Step 5 (Contact & Vision), validate required text / email fields and checkboxes
     let allTextFilled = true;
     if (currentStep === totalSteps) {
-      const q9Checked = stepEl.querySelector('input[name="creator_q9"]:checked');
-      const q10Checked = stepEl.querySelector('input[name="creator_q10"]:checked');
-      if (!q9Checked || !q10Checked) {
+      const q7Checked = stepEl.querySelector('input[name="cto_q7"]:checked');
+      const q8Checked = stepEl.querySelector('input[name="cto_q8"]:checked');
+      if (!q7Checked || !q8Checked) {
         allGroupsChecked = false;
       }
 
@@ -168,7 +159,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (showAlert) {
         const msg = !allGroupsChecked 
           ? 'Please answer all questions to proceed.' 
-          : 'Please fill in your name, channel name and email to continue.';
+          : 'Please fill in your name, company and email details to continue.';
         showErrorMessage(stepEl, msg);
 
         stepEl.querySelectorAll('.options-grid').forEach(grid => {
@@ -260,141 +251,104 @@ document.addEventListener('DOMContentLoaded', () => {
       .map(cb => cb.value);
   };
 
-  const creatorLabels = {
-    q1:  { A: "A platform did something that scared me", B: "I'm growing and feel dependency tightening", C: "I want to take ownership before something happens", D: "I'm curious — explore sovereign setups" },
-    q2:  { A: "Reach dropped suddenly without explanation", B: "A platform changed rules, cuts, or policies", C: "Someone I follow lost their account and business", D: "Nothing specific — timing feels right" },
-    q3:  { A: "Under 5,000", B: "5,000 to 50,000", C: "50,000 to 500,000", D: "Over 500,000" },
-    q4:  { A: "Platform ad revenue / payouts", B: "Brand deals / sponsorships", C: "Direct audience support (memberships/subs)", D: "Products / services sold directly" },
-    q5:  { A: "My account itself — one strike and over", B: "My reach — algorithm decides if I exist", C: "My audience contact — don't own relationship", D: "My payments and payouts — platform processors" },
-    q6:  { A: "Give me back time to make better work", B: "Help me stay consistent without burning out", C: "Reply to DMs and comments automatically", D: "Run operational layer of business" },
-    q7:  { A: "Almost nothing — audience lives there", B: "Subscriber emails, if collected", C: "Most of it — backups and direct channels", D: "Everything — platform is one channel among many" },
-    q8:  { A: "Public AI is fine", B: "Dedicated hosting (VPS)", C: "Fully mine — data & AI on hardware I control" },
-    q9:  { A: "Less anxious about platform dependence", B: "Earning more directly", C: "Running own publishing and payment infrastructure", D: "Fully sovereign — audience, keys, rules" },
-    q10: { A: "Email is fine", B: "A short call to start", C: "A video meeting", D: "In person" }
+  const ctoLabels = {
+    q1:  { A: "Cloud CRMs & SaaS (HubSpot, Notion, Salesforce)", B: "Managed Databases (RDS, PostgreSQL, SQL Server)", C: "Legacy On-Premises (Local network attached storage, local file servers)", D: "Distributed Spreadsheets (Excel / Google Sheets across teams)" },
+    q2:  { A: "Communication Suites (Slack, MS Teams)", B: "Task & Project Management (Jira, Monday, Trello)", C: "Customer Support Tools (Zendesk, Intercom)", D: "Document Storage (Google Drive, SharePoint)" },
+    q3:  { A: "Public Commercial APIs (GPT-4, Claude, Gemini)", B: "Hosted Enterprise Instances (Azure OpenAI, Vertex AI, Bedrock)", C: "Open-weights / Self-hosted models (Llama 3, Mistral, Qwen)", D: "No active model deployments (Off-the-shelf tools only)" },
+    q4:  { A: "Convenience Priority: We send data to public APIs if they don't train on it", B: "Hybrid Constraint: We use commercial APIs but mask sensitive client data", C: "Strict Autonomy: Zero data leaves our network. Private model instance required" },
+    q5:  { A: "Sovereign VPS: Secure European cloud instances (Hetzner, OVH)", B: "Corporate Private Cloud: Our AWS VPC / GCP / Azure Private Link", C: "Bare-Metal On-Premises: Dedicated co-located server racks", D: "Edge Hardware nodes: Running in physical offices (Mac Studio/NVIDIA RTX)" },
+    q6:  { A: "Dedicated NVIDIA GPUs (RTX 4090, A100, H100, RTX A6000)", B: "Apple Silicon workstations (M2/M3 Max/Ultra nodes)", C: "Standard CPU instances (No dedicated local GPU inference hardware)", D: "None — We need Native Works to specify and procure hardware" },
+    q7:  { A: "GDPR (European Data Privacy)", B: "HIPAA (Healthcare data privacy compliance)", C: "SOC 2 Type II / ISO 27001 Security standards", D: "Internal operational corporate security only" },
+    q8:  { A: "Direct Remote (Secure VPN, Bastion host, Tailscale, SSH keys)", B: "Co-Working (Screen sharing session under continuous supervision)", C: "Zero-Access (Native Works packages container builds; our team deploys)" }
   };
 
   function calculateRouting() {
-    document.getElementById('payload-track').value = "CREATOR";
+    document.getElementById('payload-track').value = "BUSINESS_CTO";
 
-    const q1  = radioVal('creator_q1');
-    const q2  = radioVal('creator_q2');
-    const q3  = radioVal('creator_q3');
-    const q4  = radioVal('creator_q4');
-    const q5  = radioVal('creator_q5');
-    const q6Keys = checkboxValues('creator_q6');
-    const q7  = radioVal('creator_q7');
-    const q8  = radioVal('creator_q8');
-    const q9Keys = checkboxValues('creator_q9');
-    const q10 = radioVal('creator_q10');
+    const q1  = radioVal('cto_q1');
+    const q2Keys = checkboxValues('cto_q2');
+    const q3  = radioVal('cto_q3');
+    const q4  = radioVal('cto_q4');
+    const q5  = radioVal('cto_q5');
+    const q6  = radioVal('cto_q6');
+    const q7Keys = checkboxValues('cto_q7');
+    const q8  = radioVal('cto_q8');
 
     // Populate hidden answers payload
-    document.getElementById('payload-q1').value  = creatorLabels.q1[q1]   || q1;
-    document.getElementById('payload-q2').value  = creatorLabels.q2[q2]   || q2;
-    document.getElementById('payload-q3').value  = creatorLabels.q3[q3]   || q3;
-    document.getElementById('payload-q4').value  = creatorLabels.q4[q4]   || q4;
-    document.getElementById('payload-q5').value  = creatorLabels.q5[q5]   || q5;
-    document.getElementById('payload-q6').value  = q6Keys.map(k => creatorLabels.q6[k] || k).join(', ');
-    document.getElementById('payload-q7').value  = creatorLabels.q7[q7]   || q7;
-    document.getElementById('payload-q8').value  = creatorLabels.q8[q8]   || q8;
-    document.getElementById('payload-q9').value  = q9Keys.map(k => creatorLabels.q9[k] || k).join(', ');
-    document.getElementById('payload-q10').value = creatorLabels.q10[q10] || q10;
+    document.getElementById('payload-q1').value  = ctoLabels.q1[q1]   || q1;
+    document.getElementById('payload-q2').value  = q2Keys.map(k => ctoLabels.q2[k] || k).join(', ');
+    document.getElementById('payload-q3').value  = ctoLabels.q3[q3]   || q3;
+    document.getElementById('payload-q4').value  = ctoLabels.q4[q4]   || q4;
+    document.getElementById('payload-q5').value  = ctoLabels.q5[q5]   || q5;
+    document.getElementById('payload-q6').value  = ctoLabels.q6[q6]   || q6;
+    document.getElementById('payload-q7').value  = q7Keys.map(k => ctoLabels.q7[k] || k).join(', ');
+    document.getElementById('payload-q8').value  = ctoLabels.q8[q8]   || q8;
 
-    // ── CREATOR SCORING VECTORS ──
+    // ── BUSINESS CTO SCORING VECTORS ──
     const scores = {};
 
-    // 1. Urgency (inputs: Q1, Q2, Q5)
-    let uScore = 0;
-    if (q1 === 'A') uScore += 2; else if (q1 === 'B' || q1 === 'C') uScore += 1;
-    if (q2 === 'A' || q2 === 'B') uScore += 2; else if (q2 === 'C') uScore += 1;
-    if (q5 === 'A' || q5 === 'B') uScore += 1;
-    scores.urgency = Math.min(4, Math.max(0, uScore));
-
-    // 2. Sophistication (inputs: Q8)
+    // 1. Sophistication (inputs: Q3, Q4)
     let sScore = 0;
-    if (q8 === 'C') sScore += 3; else if (q8 === 'B') sScore += 2;
+    if (q3 === 'C') sScore += 2; else if (q3 === 'B') sScore += 1;
+    if (q4 === 'C') sScore += 2; else if (q4 === 'B') sScore += 1;
     scores.sophistication = Math.min(4, Math.max(0, sScore));
 
-    // 3. Sovereignty (inputs: Q7, Q8, Q9)
+    // 2. Infrastructure (inputs: Q5, Q6)
+    let iScore = 0;
+    if (q5 === 'C' || q5 === 'D') iScore += 2; else if (q5 === 'B') iScore += 1;
+    if (q6 === 'A' || q6 === 'B') iScore += 2; else if (q6 === 'C') iScore += 1;
+    scores.infrastructure = Math.min(4, Math.max(0, iScore));
+
+    // 3. Sovereignty (inputs: Q4, Q5)
     let sovScore = 0;
-    if (q7 === 'D') sovScore += 2; else if (q7 === 'C') sovScore += 1;
-    if (q8 === 'C') sovScore += 2; else if (q8 === 'B') sovScore += 1; else if (q8 === 'A') sovScore -= 1;
-    if (q9Keys.includes('D')) sovScore += 2; else if (q9Keys.includes('C')) sovScore += 1;
+    if (q4 === 'C') sovScore += 2; else if (q4 === 'B') sovScore += 1; else if (q4 === 'A') sovScore -= 1;
+    if (q5 === 'C' || q5 === 'D') sovScore += 2; else if (q5 === 'B') sovScore += 1;
     scores.sovereignty = Math.min(4, Math.max(0, sovScore));
 
-    // 4. Automation (inputs: Q6)
-    let aScore = 0;
-    if (q6Keys.includes('C') || q6Keys.includes('D')) aScore += 2;
-    if (q6Keys.includes('A')) aScore += 1;
-    if (q6Keys.includes('B')) aScore += 1;
-    scores.automation = Math.min(4, Math.max(0, aScore));
+    // 4. Compliance (inputs: Q7)
+    let cScore = 0;
+    if (q7Keys.includes('A')) cScore += 1;
+    if (q7Keys.includes('B')) cScore += 1;
+    if (q7Keys.includes('C')) cScore += 2;
+    scores.compliance = Math.min(4, Math.max(0, cScore));
 
-    // 5. Earning (inputs: Q3, Q4)
-    let eScore = 0;
-    if (q3 === 'D') eScore += 3; else if (q3 === 'C') eScore += 2; else if (q3 === 'B') eScore += 1;
-    if (q4 === 'D' || q4 === 'C') eScore += 1;
-    scores.earning = Math.min(4, Math.max(0, eScore));
-
-    // ── CREATOR RECOMMENDATION MAPPING ──
+    // ── BUSINESS CTO RECOMMENDATION MAPPING ──
     let recProduct = '';
     let recPosture = '';
 
-    if (scores.sovereignty >= 3 && scores.sophistication >= 2 && scores.earning >= 3) {
-      recProduct = 'Stack + Chain';
-      recPosture = 'Peer-to-peer pitch. They\'re already sovereign-fluent.';
-    } else if (scores.sovereignty >= 3 && scores.sophistication <= 1 && scores.earning >= 2) {
-      recProduct = 'Publisher + Sovereign Ready';
-      recPosture = 'Guided onboarding. Lead with the platform-fear answer.';
-    } else if (scores.sovereignty >= 3 && scores.earning <= 1) {
-      recProduct = 'Publisher';
-      recPosture = 'Affordable entry. Establish the relationship.';
-    } else if (scores.automation >= 3 && scores.earning >= 2) {
-      recProduct = 'Publisher + Agent';
-      recPosture = 'Lead with automation. Sovereignty as the "and by the way."';
-    } else if (scores.urgency === 4 && scores.earning >= 2) {
-      recProduct = 'Publisher (stops the bleeding)';
-      recPosture = 'They\'re scared. The product is whatever stops the platform bleeding fastest.';
-    } else if (q4 === 'D' && scores.earning >= 3) {
-      recProduct = 'Till + Stack + Publisher';
-      recPosture = 'They already sell. Add sovereign payments and identity, then graduate.';
-    } else if (q4 === 'C' && scores.sovereignty >= 3) {
-      recProduct = 'Publisher + Stack';
-      recPosture = 'The classic creator-to-sovereign migration. High conversion.';
-    } else if (q3 === 'D' && scores.sophistication >= 2) {
-      recProduct = 'Empire (creator edition)';
-      recPosture = 'Top-tier creators with team and infrastructure needs.';
-    } else if (scores.urgency <= 1 && scores.sovereignty <= 1 && scores.earning <= 1) {
-      recProduct = 'Nurture';
-      recPosture = 'Aspiring creators, curious browsers. Don\'t burn the team\'s time.';
-    } else if (Object.values(scores).every(v => v <= 1)) {
-      recProduct = 'No call. Polite acknowledgment.';
-      recPosture = 'Tourists.';
+    if (scores.sovereignty >= 3 && scores.infrastructure >= 3) {
+      recProduct = 'Sovereign Private Cloud / Bare-Metal Node';
+      recPosture = 'Full sovereign infrastructure deployment pitch';
+    } else if (scores.sovereignty >= 3 && scores.infrastructure <= 2) {
+      recProduct = 'Sovereign VPS';
+      recPosture = 'European-hosted private virtual servers';
+    } else if (scores.sophistication >= 3 && scores.compliance >= 2) {
+      recProduct = 'Docker/Kubernetes Enterprise Package';
+      recPosture = 'Pre-packaged secure container nodes';
     } else {
-      recProduct = 'Publisher + Sovereign Ready';
-      recPosture = 'Standard balanced creator engagement path.';
+      recProduct = 'Sovereign VPS';
+      recPosture = 'Standard secure data pipeline setup';
     }
 
     const scoreStr = Object.keys(scores).map(v => `${v.toUpperCase()}: ${scores[v]}/4`).join(' — ');
     document.getElementById('payload-scores').value          = scoreStr;
     document.getElementById('payload-recommendation').value  = `${recProduct} [Posture: ${recPosture}]`;
 
-    // Map hidden fields to actual question text for FormSubmit emails
-    const creatorQuestionTexts = {
-      q1: "Q01 — What brought you here today?",
-      q2: "Q02 — What changed recently?",
-      q3: "Q03 — How large is your audience?",
-      q4: "Q04 — Where does most of your income come from?",
-      q5: "Q05 — What is the most fragile part of your operation?",
-      q6: "Q06 — Where would automation help you most?",
-      q7: "Q07 — If your main platform shut you down tomorrow, what could you keep?",
-      q8: "Q08 — How do you want to manage your audience data and AI?",
-      q9: "Q09 — Where would you like to be twelve months from now?",
-      q10: "Q10 — How would you like us to reach out?"
+    const ctoQuestionTexts = {
+      q1: "Q01 — Where is your primary operational data stored?",
+      q2: "Q02 — Which operational tools are critical to your team treadmill?",
+      q3: "Q03 — Which LLMs or AI APIs do you currently run?",
+      q4: "Q04 — What is your posture regarding AI privacy?",
+      q5: "Q05 — What is your preferred hosting architecture?",
+      q6: "Q06 — Do you have existing hardware resources?",
+      q7: "Q07 — Which compliance frameworks govern your data?",
+      q8: "Q08 — How do you prefer to grant setup engineers access?"
     };
 
-    for (let i = 1; i <= 10; i++) {
+    for (let i = 1; i <= 8; i++) {
       const payloadInput = document.getElementById(`payload-q${i}`);
       if (payloadInput) {
-        payloadInput.name = creatorQuestionTexts[`q${i}`] || `q${i}`;
+        payloadInput.name = ctoQuestionTexts[`q${i}`] || `q${i}`;
       }
     }
   }
@@ -411,7 +365,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (subjectEl && recType) {
       const co = clientCo ? ` — ${clientCo}` : '';
-      subjectEl.value = `Creator Assessment [${recType}]${co} — ${clientName}`;
+      subjectEl.value = `CTO Technical Assessment [${recType}]${co} — ${clientName}`;
     }
 
     const nextEl = form.querySelector('input[name="_next"]');
@@ -425,26 +379,24 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const answers = {};
-    for (let i = 1; i <= 10; i++) {
+    for (let i = 1; i <= 8; i++) {
       answers[`q${i}`] = document.getElementById(`payload-q${i}`)?.value || '';
     }
 
-    const creatorQuestionTexts = {
-      q1: "Q01 — What brought you here today?",
-      q2: "Q02 — What changed recently?",
-      q3: "Q03 — How large is your audience?",
-      q4: "Q04 — Where does most of your income come from?",
-      q5: "Q05 — What is the most fragile part of your operation?",
-      q6: "Q06 — Where would automation help you most?",
-      q7: "Q07 — If your main platform shut you down tomorrow, what could you keep?",
-      q8: "Q08 — How do you want to manage your audience data and AI?",
-      q9: "Q09 — Where would you like to be twelve months from now?",
-      q10: "Q10 — How would you like us to reach out?"
+    const ctoQuestionTexts = {
+      q1: "Q01 — Where is your primary operational data stored?",
+      q2: "Q02 — Which operational tools are critical to your team treadmill?",
+      q3: "Q03 — Which LLMs or AI APIs do you currently run?",
+      q4: "Q04 — What is your posture regarding AI privacy?",
+      q5: "Q05 — What is your preferred hosting architecture?",
+      q6: "Q06 — Do you have existing hardware resources?",
+      q7: "Q07 — Which compliance frameworks govern your data?",
+      q8: "Q08 — How do you prefer to grant setup engineers access?"
     };
 
     const questionAnswers = {};
-    for (let i = 1; i <= 10; i++) {
-      const qText = creatorQuestionTexts[`q${i}`];
+    for (let i = 1; i <= 8; i++) {
+      const qText = ctoQuestionTexts[`q${i}`];
       if (qText) {
         questionAnswers[qText] = answers[`q${i}`];
       }

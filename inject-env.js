@@ -60,6 +60,9 @@ const filesToCopy = [
   'contact.html',
   'thank-you.html',
   'dashboard.html',
+  'business.html',
+  'business-ceo-assessment.html',
+  'business-cto-assessment.html',
   'NativeWorks_Brand_Identity_v1.html',
   'NativeWorks_Canela_Licence_Brief_v1_0.html',
   'NativeWorks_MainPage_v1.html'
@@ -82,6 +85,14 @@ console.log("✅ Successfully copied all static assets to the 'public' directory
 const filesToInject = [
   {
     path: path.join(publicDir, 'js', 'assessment.js'),
+    pattern: /const\s+firebaseConfig\s*=\s*\{[\s\S]*?\};/
+  },
+  {
+    path: path.join(publicDir, 'js', 'business-ceo-assessment.js'),
+    pattern: /const\s+firebaseConfig\s*=\s*\{[\s\S]*?\};/
+  },
+  {
+    path: path.join(publicDir, 'js', 'business-cto-assessment.js'),
     pattern: /const\s+firebaseConfig\s*=\s*\{[\s\S]*?\};/
   },
   {

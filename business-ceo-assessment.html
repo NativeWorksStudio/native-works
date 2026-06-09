@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CEO Strategic Audit — Native Works</title>
+<meta name="description" content="Assess operational friction, automation opportunities, and data sovereignty posture for your business.">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,200;0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet">
+
+<!-- Styles -->
+<link rel="stylesheet" href="css/style.css?v=1.0.1">
+<link rel="stylesheet" href="css/business.css?v=1.0.0">
+</head>
+<body class="dark-theme">
+
+<!-- Cursore: dot + trailing ring -->
+<div id="custom-cursor" aria-hidden="true"></div>
+<div id="custom-cursor-ring" aria-hidden="true"></div>
+
+<!-- ── NAVIGATION ──────────────────────────────────────────────────────── -->
+<nav id="nav" class="scrolled" style="opacity: 1 !important; pointer-events: auto !important;">
+  <a href="index.html" class="nav-logo" aria-label="Native Works home">
+    <svg width="30" height="30" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <circle cx="16" cy="16" r="14" stroke="#F4F0E8" stroke-width="0.75" fill="none" opacity="0.3"/>
+      <path d="M16,16 L17.2,11 L16,2 L14.8,11 Z" fill="#8E3B28"/>
+      <path d="M16,16 L17,19.5 L16,25 L15,19.5 Z" fill="#F4F0E8"/>
+      <circle cx="16" cy="16" r="2" fill="#F4F0E8"/>
+    </svg>
+    <div class="nav-wordmark" style="color: var(--warm-white);">NATIVE WORKS</div>
+  </a>
+
+  <!-- Mobile Toggle -->
+  <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+    <span class="nav-toggle-line" style="background: var(--warm-white);"></span>
+    <span class="nav-toggle-line" style="background: var(--warm-white);"></span>
+  </button>
+
+  <div class="nav-menu" id="nav-menu">
+    <ul class="nav-links" role="list">
+      <li><a href="index.html#journey" style="color: rgba(244,240,232,0.65);">The Path</a></li>
+      <li><a href="index.html#how" style="color: rgba(244,240,232,0.65);">How it works</a></li>
+      <li><a href="index.html#products" style="color: rgba(244,240,232,0.65);">Products</a></li>
+      <li><a href="business.html" class="active" style="color: var(--warm-white);">Business</a></li>
+      <li><a href="assessment.html" style="color: rgba(244,240,232,0.65);">Creator Audit</a></li>
+      <li><a href="contact.html" style="color: rgba(244,240,232,0.65);">Contact</a></li>
+    </ul>
+
+    <a href="index.html#products" class="nav-cta" id="nav-cta" style="background: var(--night-2); color: var(--warm-white); box-shadow: none; border: 1px solid rgba(255,255,255,0.08);">Own your presence →</a>
+  </div>
+</nav>
+
+<!-- ── FORM SECTION ────────────────────────────────────────────────────── -->
+<section class="form-section assessment-section">
+  <!-- Immersive blueprint background SVG -->
+  <svg class="intro-bg-svg" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="opacity: 0.035;">
+    <circle cx="250" cy="250" r="240" stroke="#F4F0E8" stroke-width="0.5"/>
+    <circle cx="250" cy="250" r="180" stroke="#F4F0E8" stroke-width="0.5" stroke-dasharray="4 8"/>
+    <circle cx="250" cy="250" r="120" stroke="#8E3B28" stroke-width="0.5" opacity="0.3"/>
+    <circle cx="250" cy="250" r="60"  stroke="#F4F0E8" stroke-width="0.5"/>
+    <line x1="10"  y1="250" x2="490" y2="250" stroke="#F4F0E8" stroke-width="0.4"/>
+    <line x1="250" y1="10"  x2="250" y2="490" stroke="#F4F0E8" stroke-width="0.4"/>
+  </svg>
+
+  <div class="form-container assessment-container reveal visible">
+
+    <!-- Progress tracker -->
+    <div class="assessment-progress-wrapper">
+      <div class="assessment-progress-header">
+        <span class="assessment-step-count" id="step-count">01 / 04</span>
+        <span class="assessment-step-label" id="step-label">Strategic Context</span>
+      </div>
+      <div class="assessment-progress-bar">
+        <div class="assessment-progress-line" id="progress-line" style="width: 25%;"></div>
+      </div>
+    </div>
+
+    <form id="assessment-form" action="https://formsubmit.co/antonio.visceglia@nativeworks.studio" method="POST">
+      <!-- FormSubmit config -->
+      <input type="hidden" name="_cc"       value="info@nativeworks.studio">
+      <input type="hidden" name="_next"     value="https://www.nativeworks.studio/thank-you.html">
+      <input type="hidden" name="_captcha"  value="false">
+      <input type="hidden" name="_subject"  value="New Business CEO Assessment — Native Works">
+      <input type="hidden" name="_template" value="box">
+
+      <!-- Hidden payload fields — populated by JS before submit -->
+      <input type="hidden" id="payload-track"           name="track"          value="BUSINESS_CEO">
+      <input type="hidden" id="payload-scores"          name="scores"         value="">
+      <input type="hidden" id="payload-recommendation"  name="recommendation" value="">
+      <input type="hidden" id="payload-q1"  name="q1"  value="">
+      <input type="hidden" id="payload-q2"  name="q2"  value="">
+      <input type="hidden" id="payload-q3"  name="q3"  value="">
+      <input type="hidden" id="payload-q4"  name="q4"  value="">
+      <input type="hidden" id="payload-q5"  name="q5"  value="">
+      <input type="hidden" id="payload-q6"  name="q6"  value="">
+      <input type="hidden" id="payload-q7"  name="q7"  value="">
+      <input type="hidden" id="payload-q8"  name="q8"  value="">
+
+      <!-- ═══ STEP 1 — Strategic Context ═══════════════════════════════ -->
+      <div class="wizard-step active" id="step-1" role="group" aria-labelledby="step-1-title">
+        <div class="wizard-step-header">
+          <span class="wizard-step-num">Step 01</span>
+          <h2 class="wizard-step-title" id="step-1-title">Strategic Context</h2>
+          <p class="wizard-step-desc">The driving force behind your AI initiative.</p>
+        </div>
+
+        <div class="wizard-questions-container">
+          <!-- Q1 -->
+          <div class="wizard-question-block">
+            <h3 class="wizard-question-text">What brought you here today?</h3>
+            <div class="options-grid">
+              <label class="option-card" for="ceo-q1-a">
+                <input type="radio" id="ceo-q1-a" name="ceo_q1" value="A" class="visually-hidden" required>
+                <div class="option-card-content"><p class="option-desc">We're behind on AI adoption and we know it</p></div>
+              </label>
+              <label class="option-card" for="ceo-q1-b">
+                <input type="radio" id="ceo-q1-b" name="ceo_q1" value="B" class="visually-hidden">
+                <div class="option-card-content"><p class="option-desc">We've started experimenting and want a real pipeline</p></div>
+              </label>
+              <label class="option-card" for="ceo-q1-c">
+                <input type="radio" id="ceo-q1-c" name="ceo_q1" value="C" class="visually-hidden">
+                <div class="option-card-content"><p class="option-desc">We're doing well and want to scale our automation</p></div>
+              </label>
+              <label class="option-card" for="ceo-q1-d">
+                <input type="radio" id="ceo-q1-d" name="ceo_q1" value="D" class="visually-hidden">
+                <div class="option-card-content"><p class="option-desc">We're not sure — we want an outside read on our readiness</p></div>
+              </label>
+            </div>
+          </div>
+          <!-- Q2 -->
+          <div class="wizard-question-block">
+            <h3 class="wizard-question-text">What changed recently?</h3>
+            <div class="options-grid">
+              <label class="option-card" for="ceo-q2-a">
+                <input type="radio" id="ceo-q2-a" name="ceo_q2" value="A" class="visually-hidden" required>
+                <div class="option-card-content"><p class="option-desc">A competitor launched an AI feature and we noticed</p></div>
+              </label>
+              <label class="option-card" for="ceo-q2-b">
+                <input type="radio" id="ceo-q2-b" name="ceo_q2" value="B" class="visually-hidden">
+                <div class="option-card-content"><p class="option-desc">Our operational team is stretched thin</p></div>
+              </label>
+              <label class="option-card" for="ceo-q2-c">
+                <input type="radio" id="ceo-q2-c" name="ceo_q2" value="C" class="visually-hidden">
+                <div class="option-card-content"><p class="option-desc">Leadership decided data security & AI is our top priority</p></div>
+              </label>
+              <label class="option-card" for="ceo-q2-d">
+                <input type="radio" id="ceo-q2-d" name="ceo_q2" value="D" class="visually-hidden">
+                <div class="option-card-content"><p class="option-desc">Nothing specific — the timing just feels right</p></div>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ STEP 2 — Scale & Domain ═════════════════════════════════ -->
+      <div class="wizard-step" id="step-2" role="group" aria-labelledby="step-2-title">
+        <div class="wizard-step-header">
+          <span class="wizard-step-num">Step 02</span>
+          <h2 class="wizard-step-title" id="step-2-title">Scale & Domain</h2>
+          <p class="wizard-step-desc">The size and operational context of your company.</p>
+        </div>
+
+        <div class="wizard-questions-container">
+          <!-- Q3 -->
+          <div class="wizard-question-block">
+            <h3 class="wizard-question-text">How big is your company?</h3>
+            <div class="options-grid">
+              <label class="option-card" for="ceo-q3-a">
+                <input type="radio" id="ceo-q3-a" name="ceo_q3" value="A" class="visually-hidden" required>
+                <div class="option-card-content"><p class="option-desc">Under 50 people</p></div>
+              </label>
+              <label class="option-card" for="ceo-q3-b">
+                <input type="radio" id="ceo-q3-b" name="ceo_q3" value="B" class="visually-hidden">
+                <div class="option-card-content"><p class="option-desc">50 to 250 people</p></div>
+              </label>
+              <label class="option-card" for="ceo-q3-c">
+                <input type="radio" id="ceo-q3-c" name="ceo_q3" value="C" class="visually-hidden">
+                <div class="option-card-content"><p class="option-desc">250 to 1,000 people</p></div>
+              </label>
+              <label class="option-card" for="ceo-q3-d">
+                <input type="radio" id="ceo-q3-d" name="ceo_q3" value="D" class="visually-hidden">
+                <div class="option-card-content"><p class="option-desc">Over 1,000 people</p></div>
+              </label>
+            </div>
+          </div>
+          <!-- Q4 -->
+          <div class="wizard-question-block">
+            <h3 class="wizard-question-text">What does your company do?</h3>
+            <div class="options-grid">
+              <label class="option-card" for="ceo-q4-a">
+                <input type="radio" id="ceo-q4-a" name="ceo_q4" value="A" class="visually-hidden" required>
+                <div class="option-card-content"><p class="option-desc">Makes or moves physical goods / logistics</p></div>
+              </label>
+              <label class="option-card" for="ceo-q4-b">
+                <input type="radio" id="ceo-q4-b" name="ceo_q4" value="B" class="visually-hidden">
+                <div class="option-card-content"><p class="option-desc">Sells professional services or expertise</p></div>
+              </label>
+              <label class="option-card" for="ceo-q4-c">
+                <input type="radio" id="ceo-q4-c" name="ceo_q4" value="C" class="visually-hidden">
+                <div class="option-card-content"><p class="option-desc">Serves consumers directly (B2C / e-commerce)</p></div>
+              </label>
+              <label class="option-card" for="ceo-q4-d">
+                <input type="radio" id="ceo-q4-d" name="ceo_q4" value="D" class="visually-hidden">
+                <div class="option-card-content"><p class="option-desc">Builds technology, software, or media platforms</p></div>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ STEP 3 — Friction & Automation ══════════════════════════ -->
+      <div class="wizard-step" id="step-3" role="group" aria-labelledby="step-3-title">
+        <div class="wizard-step-header">
+          <span class="wizard-step-num">Step 03</span>
+          <h2 class="wizard-step-title" id="step-3-title">Friction & Automation</h2>
+          <p class="wizard-step-desc">Identifying friction points and the ideal outcomes for automation.</p>
+        </div>
+
+        <div class="wizard-questions-container">
+          <!-- Q5 -->
+          <div class="wizard-question-block">
+            <h3 class="wizard-question-text">Where does most of the operational friction live?</h3>
+            <div class="options-grid">
+              <label class="option-card" for="ceo-q5-a">
+                <input type="radio" id="ceo-q5-a" name="ceo_q5" value="A" class="visually-hidden" required>
+                <div class="option-card-content"><p class="option-desc">Front office — sales, marketing, client communication</p></div>
+              </label>
+              <label class="option-card" for="ceo-q5-b">
+                <input type="radio" id="ceo-q5-b" name="ceo_q5" value="B" class="visually-hidden">
+                <div class="option-card-content"><p class="option-desc">Back office — admin, finance, reporting, HR</p></div>
+              </label>
+              <label class="option-card" for="ceo-q5-c">
+                <input type="radio" id="ceo-q5-c" name="ceo_q5" value="C" class="visually-hidden">
+                <div class="option-card-content"><p class="option-desc">Operations — production, logistics, client onboarding</p></div>
+              </label>
+              <label class="option-card" for="ceo-q5-d">
+                <input type="radio" id="ceo-q5-d" name="ceo_q5" value="D" class="visually-hidden">
+                <div class="option-card-content"><p class="option-desc">Across the board — repetitive work is everywhere</p></div>
+              </label>
+            </div>
+          </div>
+          <!-- Q6 -->
+          <div class="wizard-question-block">
+            <h3 class="wizard-question-text">What would you want AI to do for your business ideally?</h3>
+            <div class="options-grid">
+              <label class="option-card" for="ceo-q6-a">
+                <input type="checkbox" id="ceo-q6-a" name="ceo_q6" value="A" class="visually-hidden">
+                <div class="option-card-content"><p class="option-desc">Give the team back time for higher-value work</p></div>
+              </label>
+              <label class="option-card" for="ceo-q6-b">
+                <input type="checkbox" id="ceo-q6-b" name="ceo_q6" value="B" class="visually-hidden">
+                <div class="option-card-content"><p class="option-desc">Help us scale operations without hiring proportionally</p></div>
+              </label>
+              <label class="option-card" for="ceo-q6-c">
+                <input type="checkbox" id="ceo-q6-c" name="ceo_q6" value="C" class="visually-hidden">
+                <div class="option-card-content"><p class="option-desc">Improve quality and compliance consistency</p></div>
+              </label>
+              <label class="option-card" for="ceo-q6-d">
+                <input type="checkbox" id="ceo-q6-d" name="ceo_q6" value="D" class="visually-hidden">
+                <div class="option-card-content"><p class="option-desc">Run the operational layer of our business for us</p></div>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ STEP 4 — Vision & Contact ═══════════════════════════════ -->
+      <div class="wizard-step" id="step-4" role="group" aria-labelledby="step-4-title">
+        <div class="wizard-step-header">
+          <span class="wizard-step-num">Step 04</span>
+          <h2 class="wizard-step-title" id="step-4-title">Looking Ahead</h2>
+          <p class="wizard-step-desc">Your 12-month goals and how to reach you.</p>
+        </div>
+
+        <div class="wizard-questions-container">
+          <!-- Q7 -->
+          <div class="wizard-question-block">
+            <h3 class="wizard-question-text">Where would you like to be twelve months from now? <span style="font-weight: normal; opacity: 0.7; font-size: 0.9em;">(Select 1 or more)</span></h3>
+            <div class="options-grid">
+              <label class="option-card" for="ceo-q7-a">
+                <input type="checkbox" id="ceo-q7-a" name="ceo_q7" value="A" class="visually-hidden">
+                <div class="option-card-content"><p class="option-desc">Clearer on what AI can and cannot do for us</p></div>
+              </label>
+              <label class="option-card" for="ceo-q7-b">
+                <input type="checkbox" id="ceo-q7-b" name="ceo_q7" value="B" class="visually-hidden">
+                <div class="option-card-content"><p class="option-desc">Two or three concrete things working in production</p></div>
+              </label>
+              <label class="option-card" for="ceo-q7-c">
+                <input type="checkbox" id="ceo-q7-c" name="ceo_q7" value="C" class="visually-hidden">
+                <div class="option-card-content"><p class="option-desc">AI agents woven into how the company runs daily</p></div>
+              </label>
+              <label class="option-card" for="ceo-q7-d">
+                <input type="checkbox" id="ceo-q7-d" name="ceo_q7" value="D" class="visually-hidden">
+                <div class="option-card-content"><p class="option-desc">Fully sovereign — our private models, data, and hardware</p></div>
+              </label>
+            </div>
+          </div>
+          <!-- Q8 -->
+          <div class="wizard-question-block">
+            <h3 class="wizard-question-text">How would you like us to reach out?</h3>
+            <div class="options-grid">
+              <label class="option-card" for="ceo-q8-a">
+                <input type="radio" id="ceo-q8-a" name="ceo_q8" value="A" class="visually-hidden" required>
+                <div class="option-card-content"><p class="option-desc">Email is fine</p></div>
+              </label>
+              <label class="option-card" for="ceo-q8-b">
+                <input type="radio" id="ceo-q8-b" name="ceo_q8" value="B" class="visually-hidden">
+                <div class="option-card-content"><p class="option-desc">A short call to start</p></div>
+              </label>
+              <label class="option-card" for="ceo-q8-c">
+                <input type="radio" id="ceo-q8-c" name="ceo_q8" value="C" class="visually-hidden">
+                <div class="option-card-content"><p class="option-desc">A video meeting</p></div>
+              </label>
+              <label class="option-card" for="ceo-q8-d">
+                <input type="radio" id="ceo-q8-d" name="ceo_q8" value="D" class="visually-hidden">
+                <div class="option-card-content"><p class="option-desc">In person, when it makes sense</p></div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Contact fields -->
+          <div class="wizard-question-block contact-block">
+            <div class="contact-fields-grid">
+              <div class="form-group">
+                <label for="client-name" class="form-label">Name *</label>
+                <input type="text" id="client-name" name="name" class="form-input" required placeholder="Your name">
+              </div>
+              <div class="form-group">
+                <label for="client-role" class="form-label">Role *</label>
+                <input type="text" id="client-role" name="role" class="form-input" required placeholder="CEO, COO, Founder, etc.">
+              </div>
+              <div class="form-group">
+                <label for="client-company" class="form-label">Company Name *</label>
+                <input type="text" id="client-company" name="company" class="form-input" required placeholder="Company name">
+              </div>
+              <div class="form-group">
+                <label for="client-email" class="form-label">Business Email *</label>
+                <input type="email" id="client-email" name="email" class="form-input" required placeholder="ceo@company.com">
+              </div>
+              <div class="form-group" style="grid-column: 1 / -1;">
+                <label for="client-phone" class="form-label">Phone (optional)</label>
+                <input type="tel" id="client-phone" name="phone" class="form-input" placeholder="+39 ...">
+              </div>
+            </div>
+          </div>
+
+          <!-- Optional message note -->
+          <div class="wizard-question-block" style="margin-bottom: 0;">
+            <div class="form-group" style="margin-bottom: 0;">
+              <label for="client-message" class="form-label">Anything we should know before we get in touch? (Optional)</label>
+              <textarea id="client-message" name="message" class="form-textarea" placeholder="Context, timelines, or specific objectives..."></textarea>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Navigation Buttons -->
+      <div class="wizard-navigation">
+        <button type="button" id="btn-back"   class="wizard-nav-btn btn-secondary wizard-btn-hidden">← Previous</button>
+        <button type="button" id="btn-next"   class="wizard-nav-btn btn-primary" enterkeyhint="next">Next Step →</button>
+        <button type="submit" id="btn-submit" class="wizard-nav-btn btn-submit wizard-btn-hidden">Submit Assessment →</button>
+      </div>
+
+    </form>
+  </div>
+</section>
+
+<!-- ── FOOTER ─────────────────────────────────────────────────────────── -->
+<footer>
+  <div>
+    <div class="footer-mark">
+      <div class="footer-logo-wrap">
+        <svg width="24" height="24" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="16" cy="16" r="14" stroke="#D8D2C8" stroke-width="0.75" fill="none" opacity="0.4"/>
+          <path d="M16,16 L17.2,11 L16,2 L14.8,11 Z" fill="#8E3B28"/>
+          <path d="M16,16 L17,19.5 L16,25 L15,19.5 Z" fill="#D8D2C8"/>
+          <circle cx="16" cy="16" r="2" fill="#D8D2C8"/>
+        </svg>
+      </div>
+      <div class="footer-wordmark">NATIVE WORKS</div>
+    </div>
+  </div>
+
+  <nav class="footer-center" aria-label="Footer navigation">
+    <a href="index.html#journey">The Path</a>
+    <a href="index.html#how">How it works</a>
+    <a href="index.html#products">Products</a>
+    <a href="business.html" class="active">Business</a>
+    <a href="assessment.html">Creator Audit</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+
+  <div class="footer-right">
+    <div class="footer-copy">© 2026 Native Works &nbsp;—&nbsp; nativeworks.studio</div>
+  </div>
+</footer>
+
+<!-- Scripts -->
+<script src="js/main.js" defer></script>
+<script src="js/business-ceo-assessment.js" type="module"></script>
+</body>
+</html>
