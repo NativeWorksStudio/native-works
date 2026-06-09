@@ -992,7 +992,14 @@
 
       const filtered = allLeads.filter(lead => {
         if (currentFilter === 'all') return true;
-        return (lead.track || '').toLowerCase() === currentFilter;
+        const track = (lead.track || '').toLowerCase();
+        if (currentFilter === 'business') {
+          return track === 'business' || track === 'business_ceo' || track === 'business_cto';
+        }
+        if (currentFilter === 'creator') {
+          return track === 'creator';
+        }
+        return track === currentFilter;
       });
 
       if (filtered.length === 0) {
@@ -1002,6 +1009,7 @@
 
       filtered.forEach(lead => {
         const track = (lead.track || 'business').toLowerCase();
+        const isBizTrack = track === 'business' || track === 'business_ceo' || track === 'business_cto';
         const pScores = lead.scores || '';
         
         // Parse scores into structured map
@@ -1033,8 +1041,8 @@
         card.innerHTML = `
           <div class="lead-main">
             <div class="lead-header-info">
-              <span class="lead-track-badge ${track === 'business' ? 'track-business' : 'track-creator'}">
-                ${track}
+              <span class="lead-track-badge ${isBizTrack ? 'track-business' : 'track-creator'}">
+                ${track.replace('_', ' ')}
               </span>
               <h3 class="lead-name">${lead.name || 'N/A'}</h3>
               <span style="color:var(--mid);font-size:14px;">at <strong>${lead.company || 'N/A'}</strong> (${lead.role || 'N/A'})</span>
@@ -1097,7 +1105,7 @@
     btnCre.addEventListener('click', () => setActiveFilter('creator', btnCre));
 
     // Question Text Mapping for detailed Q&A list
-    const businessQuestionTexts = {
+    const oldBusinessQuestionTexts = {
       q1: "Q01 — What brought you here today?",
       q2: "Q02 — What changed recently?",
       q3: "Q03 — How big is your company?",
@@ -1117,7 +1125,7 @@
       q17: "Q17 — How would you like us to reach out?"
     };
 
-    const creatorQuestionTexts = {
+    const oldCreatorQuestionTexts = {
       q1: "Q01 — What brought you here today?",
       q2: "Q02 — What changed recently?",
       q3: "Q03 — What is your primary platform or medium?",
@@ -1135,6 +1143,41 @@
       q15: "Q15 — How do you want to manage your audience data and AI?",
       q16: "Q16 — Where would you like to be twelve months from now? (Select 1 or more)",
       q17: "Q17 — How would you like us to reach out?"
+    };
+
+    const newCreatorQuestionTexts = {
+      q1: "Q01 — What brought you here today?",
+      q2: "Q02 — What changed recently?",
+      q3: "Q03 — How large is your audience?",
+      q4: "Q04 — Where does most of your income come from?",
+      q5: "Q05 — What is the most fragile part of your operation?",
+      q6: "Q06 — Where would automation help you most?",
+      q7: "Q07 — If your main platform shut you down tomorrow, what could you keep?",
+      q8: "Q08 — How do you want to manage your audience data and AI?",
+      q9: "Q09 — Where would you like to be twelve months from now? (Select 1 or more)",
+      q10: "Q10 — How would you like us to reach out?"
+    };
+
+    const newCeoQuestionTexts = {
+      q1: "Q01 — What brought you here today?",
+      q2: "Q02 — What changed recently?",
+      q3: "Q03 — How big is your company?",
+      q4: "Q04 — What does your company do?",
+      q5: "Q05 — Where does most of the operational friction live?",
+      q6: "Q06 — What would you want AI to do for your business ideally?",
+      q7: "Q07 — Where would you like to be twelve months from now? (Select 1 or more)",
+      q8: "Q08 — How would you like us to reach out?"
+    };
+
+    const newCtoQuestionTexts = {
+      q1: "Q01 — Where is your primary operational data stored?",
+      q2: "Q02 — Which operational tools are critical to your team treadmill?",
+      q3: "Q03 — Which LLMs or AI APIs do you currently run?",
+      q4: "Q04 — What is your posture regarding AI privacy?",
+      q5: "Q05 — What is your preferred hosting architecture?",
+      q6: "Q06 — Do you have existing hardware resources?",
+      q7: "Q07 — Which compliance frameworks govern your data?",
+      q8: "Q08 — How do you prefer to grant setup engineers access?"
     };
 
     // Helper to get answer text from legacy or new payload schema
@@ -1174,7 +1217,44 @@
       document.getElementById('m-sov').innerText = `${scores.sovereignty || 0}/4`;
       document.getElementById('m-auto').innerText = `${scores.automation || 0}/4`;
 
-      const isBusiness = (lead.track || '').toLowerCase() === 'business';
+      const trackVal = (lead.track || '').toLowerCase();
+      let questionMapping = {};
+      let numQuestions = 8;
+      let isBusiness = false;
+      let displayTrack = 'Business';
+
+      if (trackVal === 'business_ceo') {
+        questionMapping = newCeoQuestionTexts;
+        numQuestions = 8;
+        isBusiness = true;
+        displayTrack = 'Business CEO';
+      } else if (trackVal === 'business_cto') {
+        questionMapping = newCtoQuestionTexts;
+        numQuestions = 8;
+        isBusiness = true;
+        displayTrack = 'Business CTO';
+      } else if (trackVal === 'business') {
+        questionMapping = oldBusinessQuestionTexts;
+        numQuestions = 17;
+        isBusiness = true;
+        displayTrack = 'Business (Old)';
+      } else if (trackVal === 'creator') {
+        const hasOldQ = lead.answers && (lead.answers.q11 || lead.answers.q12 || lead.answers.q17);
+        if (hasOldQ) {
+          questionMapping = oldCreatorQuestionTexts;
+          numQuestions = 17;
+          displayTrack = 'Creator (Old)';
+        } else {
+          questionMapping = newCreatorQuestionTexts;
+          numQuestions = 10;
+          displayTrack = 'Creator';
+        }
+      } else {
+        questionMapping = oldBusinessQuestionTexts;
+        numQuestions = 17;
+        isBusiness = true;
+      }
+
       document.getElementById('m-fifth-label').innerText = isBusiness ? 'Budget' : 'Earning';
       document.getElementById('m-fifth-val').innerText = isBusiness ? `${scores.budget || 0}/4` : `${scores.earning || 0}/4`;
 
@@ -1183,7 +1263,104 @@
       const posture = (lead.recommendation || '').includes('Posture:') ? (lead.recommendation || '').split('Posture: ')[1].replace(']', '') : 'Standard matching posture.';
 
       let summaryHtml = '';
-      if (isBusiness) {
+      if (trackVal === 'business_ceo') {
+        summaryHtml = `
+          <div class="summary-grid">
+            <div class="summary-card">
+              <h4>Company Profile</h4>
+              <div class="summary-field"><strong>Core Activity:</strong> ${getAnswerVal(lead, 4)}</div>
+              <div class="summary-field"><strong>Company Size:</strong> ${getAnswerVal(lead, 3)}</div>
+            </div>
+
+            <div class="summary-card">
+              <h4>Friction & Automation</h4>
+              <div class="summary-field"><strong>Main Friction:</strong> ${getAnswerVal(lead, 5)}</div>
+              <div class="summary-field"><strong>Desired AI Work:</strong> ${getAnswerVal(lead, 6)}</div>
+            </div>
+
+            <div class="summary-card">
+              <h4>Strategic Context</h4>
+              <div class="summary-field"><strong>Initial Trigger:</strong> ${getAnswerVal(lead, 1)}</div>
+              <div class="summary-field"><strong>Recent Event:</strong> ${getAnswerVal(lead, 2)}</div>
+            </div>
+
+            <div class="summary-card summary-card-full">
+              <h4>Native Works Fit & Recommendation</h4>
+              <div class="summary-field"><strong>Recommended Product:</strong> <span class="summary-badge-rec">${cleanRec}</span></div>
+              <div class="summary-field"><strong>Sales Posture:</strong> ${posture}</div>
+              <div class="summary-field"><strong>12-Month Stated Goals:</strong> ${getAnswerVal(lead, 7)}</div>
+              <div class="summary-field"><strong>Preferred Contact:</strong> ${getAnswerVal(lead, 8)}</div>
+            </div>
+          </div>
+        `;
+      } else if (trackVal === 'business_cto') {
+        summaryHtml = `
+          <div class="summary-grid">
+            <div class="summary-card">
+              <h4>Data & Tools</h4>
+              <div class="summary-field"><strong>Operational Storage:</strong> ${getAnswerVal(lead, 1)}</div>
+              <div class="summary-field"><strong>Critical Tools:</strong> ${getAnswerVal(lead, 2)}</div>
+            </div>
+
+            <div class="summary-card">
+              <h4>Model & Privacy Posture</h4>
+              <div class="summary-field"><strong>Active Models:</strong> ${getAnswerVal(lead, 3)}</div>
+              <div class="summary-field"><strong>Privacy Posture:</strong> ${getAnswerVal(lead, 4)}</div>
+            </div>
+
+            <div class="summary-card">
+              <h4>Hosting & Hardware</h4>
+              <div class="summary-field"><strong>Target Hosting:</strong> ${getAnswerVal(lead, 5)}</div>
+              <div class="summary-field"><strong>Inference Hardware:</strong> ${getAnswerVal(lead, 6)}</div>
+            </div>
+
+            <div class="summary-card summary-card-full">
+              <h4>Native Works Fit & Recommendation</h4>
+              <div class="summary-field"><strong>Recommended Product:</strong> <span class="summary-badge-rec">${cleanRec}</span></div>
+              <div class="summary-field"><strong>Sales Posture:</strong> ${posture}</div>
+              <div class="summary-field"><strong>Compliance Frameworks:</strong> ${getAnswerVal(lead, 7)}</div>
+              <div class="summary-field"><strong>Setup Engineer Access:</strong> ${getAnswerVal(lead, 8)}</div>
+            </div>
+          </div>
+        `;
+      } else if (trackVal === 'creator' && numQuestions === 10) {
+        summaryHtml = `
+          <div class="summary-grid">
+            <div class="summary-card">
+              <h4>Creator Profile</h4>
+              <div class="summary-field"><strong>Channel/Brand Name:</strong> ${lead.company || 'N/A'}</div>
+              <div class="summary-field"><strong>Audience Size:</strong> ${getAnswerVal(lead, 3)}</div>
+              <div class="summary-field"><strong>Income Source:</strong> ${getAnswerVal(lead, 4)}</div>
+            </div>
+
+            <div class="summary-card">
+              <h4>Friction & Automation</h4>
+              <div class="summary-field"><strong>Key Fragility:</strong> ${getAnswerVal(lead, 5)}</div>
+              <div class="summary-field"><strong>Automation Area:</strong> ${getAnswerVal(lead, 6)}</div>
+            </div>
+
+            <div class="summary-card">
+              <h4>Sovereignty & AI</h4>
+              <div class="summary-field"><strong>If Platform Shut Down:</strong> ${getAnswerVal(lead, 7)}</div>
+              <div class="summary-field"><strong>Data & AI Posture:</strong> ${getAnswerVal(lead, 8)}</div>
+            </div>
+
+            <div class="summary-card">
+              <h4>Strategic Context</h4>
+              <div class="summary-field"><strong>Initial Trigger:</strong> ${getAnswerVal(lead, 1)}</div>
+              <div class="summary-field"><strong>Recent Event:</strong> ${getAnswerVal(lead, 2)}</div>
+            </div>
+
+            <div class="summary-card summary-card-full">
+              <h4>Native Works Fit & Recommendation</h4>
+              <div class="summary-field"><strong>Recommended Product:</strong> <span class="summary-badge-rec">${cleanRec}</span></div>
+              <div class="summary-field"><strong>Sales Posture:</strong> ${posture}</div>
+              <div class="summary-field"><strong>12-Month Stated Goals:</strong> ${getAnswerVal(lead, 9)}</div>
+              <div class="summary-field"><strong>Preferred Contact:</strong> ${getAnswerVal(lead, 10)}</div>
+            </div>
+          </div>
+        `;
+      } else if (isBusiness) {
         summaryHtml = `
           <div class="summary-grid">
             <div class="summary-card">
@@ -1223,6 +1400,7 @@
               <div class="summary-field"><strong>12-Month Stated Goals:</strong> ${getAnswerVal(lead, 16)}</div>
               <div class="summary-field"><strong>Preferred Contact:</strong> ${getAnswerVal(lead, 17)}</div>
             </div>
+          </div>
         `;
       } else {
         summaryHtml = `
@@ -1264,6 +1442,7 @@
               <div class="summary-field"><strong>12-Month Stated Goals:</strong> ${getAnswerVal(lead, 16)}</div>
               <div class="summary-field"><strong>Preferred Contact:</strong> ${getAnswerVal(lead, 17)}</div>
             </div>
+          </div>
         `;
       }
 
@@ -1287,7 +1466,90 @@
 
       const answers = lead.answers || {};
 
-      if (isBusiness) {
+      if (trackVal === 'business_ceo') {
+        const q7Ans = getAnswerVal(lead, 7);
+        if (q7Ans.includes('cannot do')) {
+          openingLine = `"You told us you want clarity on what AI can and cannot do for your business. Let's get you that clarity."`;
+        } else if (q7Ans.includes('concrete')) {
+          openingLine = `"You told us you want two or three concrete things working in production. Let's focus on which processes would save the most overhead."`;
+        } else if (q7Ans.includes('runs daily') || q7Ans.includes('runs daily')) {
+          openingLine = `"You told us you want AI agents woven into your daily operations. That's a real transformation. Let's map out that workflow."`;
+        } else {
+          openingLine = `"You told us you want full sovereignty with your private models and hardware. Let's discuss your security boundaries and target compute."`;
+        }
+
+        const q2Ans = getAnswerVal(lead, 2);
+        if (q2Ans.includes('competitor')) {
+          bridgeLine = `"Tell me about the competitor's move. What did they launch, and how is it impacting your market?"`;
+        } else if (q2Ans.includes('stretched')) {
+          bridgeLine = `"Where is the operational strain showing up first? Whose calendar tells the story?"`;
+        } else if (q2Ans.includes('Leadership decided')) {
+          bridgeLine = `"What does leadership want to achieve with AI and data security twelve months from now?"`;
+        } else {
+          bridgeLine = `"What has been on your mind lately regarding how your business runs?"`;
+        }
+
+        const q5Ans = getAnswerVal(lead, 5);
+        fragilityLine = `"You indicated most operational friction lives in ${q5Ans.toLowerCase()}. Walk me through a typical week — where does the operational time actually go?"`;
+
+        const hasSovereignGoal = q7Ans.includes('Fully sovereign');
+        if (hasSovereignGoal) {
+          sovereigntyLine = `[Sold Case] "Based on your stated 12-month goal of full private stack sovereignty, you're already sold. Let's design the migration pathway."`;
+        } else {
+          sovereigntyLine = `"How are you currently managing data privacy when team members use third-party public AI models?"`;
+        }
+
+      } else if (trackVal === 'business_cto') {
+        const q4Ans = getAnswerVal(lead, 4);
+        if (q4Ans.includes('Strict Autonomy')) {
+          openingLine = `"You indicated that zero data can leave your network, requiring strict autonomy. Let's look at deploying private models locally."`;
+        } else {
+          openingLine = `"Let's discuss your data privacy posture and constraints regarding commercial AI APIs."`;
+        }
+
+        const q1Ans = getAnswerVal(lead, 1);
+        bridgeLine = `"You noted your primary operational data resides in ${q1Ans}. What are the biggest technical integration bottlenecks you see there?"`;
+
+        const q2Ans = getAnswerVal(lead, 2);
+        fragilityLine = `"You highlighted ${q2Ans} as critical treadmill tools. How do you plan to interface these with your AI models?"`;
+
+        const q5Ans = getAnswerVal(lead, 5);
+        sovereigntyLine = `"You prefer a ${q5Ans} hosting architecture. Let's discuss how we secure the model execution boundary in that environment."`;
+
+      } else if (trackVal === 'creator' && numQuestions === 10) {
+        const q9Ans = getAnswerVal(lead, 9);
+        if (q9Ans.includes('anxious')) {
+          openingLine = `"You told us you want to feel less anxious about platforms in twelve months. Let's talk about what would actually make that true."`;
+        } else if (q9Ans.includes('Earning')) {
+          openingLine = `"You told us you want to earn more directly from your audience in twelve months. Tell me about your audience first — who are they, and what's the relationship?"`;
+        } else if (q9Ans.includes('publishing')) {
+          openingLine = `"You told us you want to run your own publishing and payment infrastructure in twelve months. That's a real ambition. Let's talk about what gets you there."`;
+        } else {
+          openingLine = `"You told us you want full sovereignty — your audience, your keys, your rules. Let's start there."`;
+        }
+
+        const q2Ans = getAnswerVal(lead, 2);
+        if (q2Ans.includes('dropped')) {
+          bridgeLine = `"Tell me about the reach drop. When did it start, what changed, and what have you tried?"`;
+        } else if (q2Ans.includes('rules')) {
+          bridgeLine = `"Which platform, and what did they change? Has it affected your income yet?"`;
+        } else if (q2Ans.includes('lost their account')) {
+          bridgeLine = `"Tell me about that. What happened to them, and what was your first thought when you saw it?"`;
+        } else {
+          bridgeLine = `"What's been on your mind lately about your situation?"`;
+        }
+
+        const q5Ans = getAnswerVal(lead, 5);
+        fragilityLine = `"You told us that ${q5Ans.toLowerCase()} is the most fragile part of your operation. Walk me through that. What does fragility actually look like in your day-to-day?"`;
+
+        const q7Ans = getAnswerVal(lead, 7);
+        if (q7Ans.includes('Almost nothing')) {
+          sovereigntyLine = `"That's the honest answer most creators don't say out loud. Let me show you what migrating your audience into your own control looks like."`;
+        } else {
+          sovereigntyLine = `"You indicated that if your main platform shut you down, you would keep ${q7Ans.toLowerCase()}. Let's look at building direct channels to secure that."`;
+        }
+
+      } else if (isBusiness) {
         const q16 = answers.q16 || '';
         if (q16.includes('clarity')) {
           openingLine = `"You told us you want clarity in twelve months. Let's get you there in this conversation."`;
@@ -1385,9 +1647,9 @@
       document.getElementById('play-close-line').innerText = closeLine;
 
       // ── 3. COMPILE ASSESSMENT QUESTIONS & ANSWERS ──
-      const questionsTextMapping = isBusiness ? businessQuestionTexts : creatorQuestionTexts;
+      const questionsTextMapping = questionMapping;
       let qaHtml = '';
-      for (let i = 1; i <= 17; i++) {
+      for (let i = 1; i <= numQuestions; i++) {
         const qText = questionsTextMapping[`q${i}`] || `Question ${i}`;
         const answerVal = getAnswerVal(lead, i);
         qaHtml += `
