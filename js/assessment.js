@@ -33,9 +33,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('assessment-form');
   if (!form) return;
 
-  // Remove native 'required' attribute from all radio inputs to prevent browser validation from blocking submit on hidden steps
-  document.querySelectorAll('input[type="radio"]').forEach(radio => {
-    radio.removeAttribute('required');
+  // Remove native 'required' attribute from all radio and checkbox inputs to prevent browser validation from blocking submit on hidden steps
+  document.querySelectorAll('input[type="radio"], input[type="checkbox"]').forEach(input => {
+    input.removeAttribute('required');
   });
 
   let currentStep = 1;
@@ -447,10 +447,10 @@ document.addEventListener('DOMContentLoaded', () => {
       const q6  = radioVal('business_q6');
       const q7  = radioVal('business_q7');
       const q8  = radioVal('business_q8');
-      const q9  = radioVal('business_q9');
-      const q10 = radioVal('business_q10');
+      const q9Keys  = checkboxValues('business_q9');
+      const q10Keys = checkboxValues('business_q10');
       const q11 = radioVal('business_q11');
-      const q12 = radioVal('business_q12');
+      const q12Keys = checkboxValues('business_q12');
       const q13 = radioVal('business_q13');
       const q14 = radioVal('business_q14');
       const q15 = radioVal('business_q15');
@@ -466,10 +466,10 @@ document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('payload-q6').value  = businessLabels.q6[q6]   || q6;
       document.getElementById('payload-q7').value  = businessLabels.q7[q7]   || q7;
       document.getElementById('payload-q8').value  = businessLabels.q8[q8]   || q8;
-      document.getElementById('payload-q9').value  = businessLabels.q9[q9]   || q9;
-      document.getElementById('payload-q10').value = businessLabels.q10[q10] || q10;
+      document.getElementById('payload-q9').value  = q9Keys.map(k => businessLabels.q9[k] || k).join(', ');
+      document.getElementById('payload-q10').value = q10Keys.map(k => businessLabels.q10[k] || k).join(', ');
       document.getElementById('payload-q11').value = businessLabels.q11[q11] || q11;
-      document.getElementById('payload-q12').value = businessLabels.q12[q12] || q12;
+      document.getElementById('payload-q12').value = q12Keys.map(k => businessLabels.q12[k] || k).join(', ');
       document.getElementById('payload-q13').value = businessLabels.q13[q13] || q13;
       document.getElementById('payload-q14').value = businessLabels.q14[q14] || q14;
       document.getElementById('payload-q15').value = businessLabels.q15[q15] || q15;
@@ -503,10 +503,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // 4. Automation (inputs: Q7, Q9, Q10, Q12)
       let aScore = 0;
-      if (q12 === 'D') aScore += 2; else if (q12 === 'C') aScore += 1; else if (q12 === 'B') aScore += 1; else if (q12 === 'A') aScore += 1;
+      if (q12Keys.includes('D')) aScore += 2;
+      else if (q12Keys.some(k => ['A', 'B', 'C'].includes(k))) aScore += 1;
       if (q7 === 'D') aScore += 1;
-      if (q9 === 'A') aScore += 1;
-      if (q10 === 'A' || q10 === 'B' || q10 === 'C') aScore += 1;
+      if (q9Keys.includes('A')) aScore += 1;
+      if (q10Keys.some(k => ['A', 'B', 'C'].includes(k))) aScore += 1;
       scores.automation = Math.min(4, Math.max(0, aScore));
 
       // 5. Budget (inputs: Q3, Q5, Q4, Role field)
@@ -570,10 +571,10 @@ document.addEventListener('DOMContentLoaded', () => {
       const q6  = radioVal('creator_q6');
       const q7  = radioVal('creator_q7');
       const q8  = radioVal('creator_q8');
-      const q9  = radioVal('creator_q9');
-      const q10 = radioVal('creator_q10');
+      const q9Keys  = checkboxValues('creator_q9');
+      const q10Keys = checkboxValues('creator_q10');
       const q11 = radioVal('creator_q11');
-      const q12 = radioVal('creator_q12');
+      const q12Keys = checkboxValues('creator_q12');
       const q13 = radioVal('creator_q13');
       const q14 = radioVal('creator_q14');
       const q15 = radioVal('creator_q15');
@@ -589,10 +590,10 @@ document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('payload-q6').value  = creatorLabels.q6[q6]   || q6;
       document.getElementById('payload-q7').value  = creatorLabels.q7[q7]   || q7;
       document.getElementById('payload-q8').value  = creatorLabels.q8[q8]   || q8;
-      document.getElementById('payload-q9').value  = creatorLabels.q9[q9]   || q9;
-      document.getElementById('payload-q10').value = creatorLabels.q10[q10] || q10;
+      document.getElementById('payload-q9').value  = q9Keys.map(k => creatorLabels.q9[k] || k).join(', ');
+      document.getElementById('payload-q10').value = q10Keys.map(k => creatorLabels.q10[k] || k).join(', ');
       document.getElementById('payload-q11').value = creatorLabels.q11[q11] || q11;
-      document.getElementById('payload-q12').value = creatorLabels.q12[q12] || q12;
+      document.getElementById('payload-q12').value = q12Keys.map(k => creatorLabels.q12[k] || k).join(', ');
       document.getElementById('payload-q13').value = creatorLabels.q13[q13] || q13;
       document.getElementById('payload-q14').value = creatorLabels.q14[q14] || q14;
       document.getElementById('payload-q15').value = creatorLabels.q15[q15] || q15;
@@ -627,9 +628,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // 4. Automation (inputs: Q9, Q10, Q12)
       let aScore = 0;
-      if (q12 === 'D' || q12 === 'C') aScore += 2; else if (q12 === 'B' || q12 === 'A') aScore += 1;
-      if (q9 === 'A' || q9 === 'B' || q9 === 'C') aScore += 1;
-      if (q10 === 'A' || q10 === 'B' || q10 === 'C') aScore += 1;
+      if (q12Keys.some(k => ['C', 'D'].includes(k))) aScore += 2;
+      else if (q12Keys.some(k => ['A', 'B'].includes(k))) aScore += 1;
+      if (q9Keys.some(k => ['A', 'B', 'C'].includes(k))) aScore += 1;
+      if (q10Keys.some(k => ['A', 'B', 'C'].includes(k))) aScore += 1;
       scores.automation = Math.min(4, Math.max(0, aScore));
 
       // 5. Earning (inputs: Q4, Q6, Q7)

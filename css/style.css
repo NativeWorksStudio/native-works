@@ -1838,6 +1838,7 @@ footer::before {
 
 .assessment-container .wizard-question-text {
   font-size: 13.5px !important;
+  margin-top: 10px !important;
   margin-bottom: 10px !important;
   font-weight: 600 !important;
 }

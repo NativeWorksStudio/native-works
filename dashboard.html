@@ -885,7 +885,9 @@
       onAuthStateChanged(auth, (user) => {
         if (user) {
           const userEmail = user.email.toLowerCase();
-          if (authorizedEmails.includes(userEmail)) {
+          const isWhitelisted = authorizedEmails.includes(userEmail);
+          const isCorporate = userEmail.endsWith('@nativeworks.studio');
+          if (isWhitelisted || isCorporate) {
             // Grant access
             loginView.style.display = 'none';
             dashboardView.style.display = 'block';
