@@ -1,0 +1,22 @@
+# Native Works
+
+Sovereign digital production studio. We build owned website infrastructure, AI-powered workflows, and private data pipelines. Your site. Your audience. Your revenue. Nobody's platform. Yours forever.
+
+## Core Products
+
+- **Stack**: The complete sovereign setup. Domain, hosting, custom site, and payment rails (Stripe, BTCPay) running on your own infrastructure. Details: [https://nativeworks.studio/#products](https://nativeworks.studio/#products).
+- **Foundation**: Brand identity and full website build deployed on sovereign infrastructure, with 90 days of guided ownership. Details: [https://nativeworks.studio/#products](https://nativeworks.studio/#products).
+- **Enterprise Private LLM Pipelines**: Local ETL preprocessing (PDF/doc ingestion, segmenting, chunking) and private LLM nodes (Llama, Mistral) running on secure VPS (Hetzner, OVH) or bare-metal hardware. Details: [https://nativeworks.studio/business.html](https://nativeworks.studio/business.html).
+
+## Diagnostic Audits
+
+We offer quick assessments to benchmark platform risk, revenue safety, data sovereignty, and AI leverage:
+- **Strategic CEO Audit**: [https://nativeworks.studio/business-ceo-assessment.html](https://nativeworks.studio/business-ceo-assessment.html)
+- **Technical CTO Audit**: [https://nativeworks.studio/business-cto-assessment.html](https://nativeworks.studio/business-cto-assessment.html)
+- **Sovereign Creator Audit**: [https://nativeworks.studio/creator-assessment.html](https://nativeworks.studio/creator-assessment.html)
+
+## Contact
+
+- Web Form: [https://nativeworks.studio/contact.html](https://nativeworks.studio/contact.html)
+- Email: info@nativeworks.studio
+- Main URL: [https://nativeworks.studio](https://nativeworks.studio/)

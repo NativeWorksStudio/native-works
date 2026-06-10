@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+Disallow: /dashboard.html
+Disallow: /dashboard
+Disallow: /NativeWorks_Brand_Identity_v1.html
+Disallow: /NativeWorks_Canela_Licence_Brief_v1_0.html
+Disallow: /NativeWorks_MainPage_v1.html
+Disallow: /TEST.html
+
+Sitemap: https://nativeworks.studio/sitemap.xml

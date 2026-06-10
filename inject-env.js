@@ -66,7 +66,12 @@ const filesToCopy = [
   'business-cto-assessment.html',
   'NativeWorks_Brand_Identity_v1.html',
   'NativeWorks_Canela_Licence_Brief_v1_0.html',
-  'NativeWorks_MainPage_v1.html'
+  'NativeWorks_MainPage_v1.html',
+  'robots.txt',
+  'sitemap.xml',
+  'favicon.svg',
+  'og-image.png',
+  'llms.txt'
 ];
 
 filesToCopy.forEach(file => {
