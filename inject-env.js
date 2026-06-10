@@ -57,6 +57,7 @@ if (!fs.existsSync(publicDir)) {
 const filesToCopy = [
   'index.html',
   'assessment.html',
+  'creator-assessment.html',
   'contact.html',
   'thank-you.html',
   'dashboard.html',

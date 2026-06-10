@@ -2138,3 +2138,23 @@ footer::before {
   visibility: hidden !important;
 }
 
+/* Questionnaire CTA Banner */
+.assessment-cta-banner {
+  background: var(--plaster-light);
+  border: 1px solid var(--border);
+  padding: 14px 24px;
+  border-radius: 4px;
+  margin-bottom: 24px;
+  text-align: center;
+  box-shadow: var(--shadow-raised-sm);
+}
+.assessment-cta-banner p {
+  font-family: var(--font-body);
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--true-north);
+  margin: 0;
+  letter-spacing: 0.25px;
+}
+
+

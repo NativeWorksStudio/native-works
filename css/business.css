@@ -1,53 +1,6 @@
 /* ═══════════════════════════════════════════════════════
-   BUSINESS LANDING PAGE STYLES (DARK THEME SPECIFIC)
+   BUSINESS LANDING PAGE STYLES (LIGHT/PLASTER THEME)
    ═══════════════════════════════════════════════════════ */
-
-/* Dark theme base overrides */
-body.dark-theme {
-  background: var(--night);
-  color: #B0A8A0;
-}
-
-/* Nav scrolling override for dark theme */
-body.dark-theme #nav.scrolled {
-  background: rgba(26, 23, 18, 0.95);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-}
-body.dark-theme #nav.scrolled .nav-logo svg circle {
-  stroke: var(--warm-white);
-}
-body.dark-theme #nav.scrolled .nav-wordmark {
-  color: var(--warm-white) !important;
-}
-body.dark-theme #nav.scrolled .nav-links a {
-  color: rgba(244, 240, 232, 0.65);
-}
-body.dark-theme #nav.scrolled .nav-links a:hover,
-body.dark-theme #nav.scrolled .nav-links a.active {
-  color: var(--warm-white);
-}
-body.dark-theme #nav.scrolled .nav-cta {
-  background: var(--night-2);
-  color: var(--warm-white);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-}
-body.dark-theme #nav.scrolled .nav-toggle-line {
-  background: var(--warm-white);
-}
-
-/* Cursor override on dark theme */
-body.dark-theme #custom-cursor {
-  background: var(--true-north);
-}
-body.dark-theme #custom-cursor-ring {
-  border-color: rgba(142, 59, 40, 0.45);
-}
-body.dark-theme.cursor-hover #custom-cursor {
-  background: var(--warm-white);
-}
-body.dark-theme.cursor-hover #custom-cursor-ring {
-  border-color: rgba(244, 240, 232, 0.35);
-}
 
 /* ── HERO SECTION ── */
 .hero-business {
@@ -103,13 +56,13 @@ body.dark-theme.cursor-hover #custom-cursor-ring {
   font-size: clamp(42px, 5vw, 76px);
   font-weight: 400;
   line-height: 1.05;
-  color: var(--warm-white);
+  color: var(--night);
   letter-spacing: -1px;
   margin-bottom: 32px;
 }
 .hero-business-lead {
   font-size: 17px;
-  color: #B0A8A0;
+  color: #4A4740;
   line-height: 1.95;
   max-width: 780px;
   margin: 0 auto 64px;
@@ -125,22 +78,22 @@ body.dark-theme.cursor-hover #custom-cursor-ring {
   margin: 0 auto;
 }
 .audit-card {
-  background: rgba(34, 30, 25, 0.45);
-  border: 1px solid rgba(255, 255, 255, 0.03);
+  background: var(--plaster-light);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-raised-sm);
   border-radius: 4px;
   padding: 48px;
   display: flex;
   gap: 24px;
   text-align: left;
   text-decoration: none;
-  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.4s, background 0.4s;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.4s, background 0.4s, box-shadow 0.4s;
   cursor: none;
 }
 .audit-card:hover {
   transform: translateY(-8px);
-  background: rgba(34, 30, 25, 0.7);
+  background: var(--plaster-light);
+  box-shadow: var(--shadow-raised-hover);
 }
 .ceo-card:hover {
   border-color: rgba(142, 59, 40, 0.35);
@@ -153,8 +106,8 @@ body.dark-theme.cursor-hover #custom-cursor-ring {
   width: 48px;
   height: 48px;
   border-radius: 4px;
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(0, 0, 0, 0.02);
+  border: 1px solid rgba(0, 0, 0, 0.05);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -163,13 +116,13 @@ body.dark-theme.cursor-hover #custom-cursor-ring {
 .audit-card-body h3 {
   font-family: var(--font-display);
   font-size: 22px;
-  color: var(--warm-white);
+  color: var(--night);
   margin-bottom: 12px;
   font-weight: 400;
 }
 .audit-card-body p {
   font-size: 14px;
-  color: #928C84;
+  color: var(--mid);
   line-height: 1.6;
   margin-bottom: 24px;
   font-weight: 300;
@@ -191,8 +144,8 @@ body.dark-theme.cursor-hover #custom-cursor-ring {
 /* ── PIPELINE SECTION ── */
 .pipeline-section {
   padding: 140px clamp(24px, 5vw, 80px);
-  background: var(--night-2);
-  border-top: 1px solid rgba(255, 255, 255, 0.03);
+  background: var(--plaster-mid);
+  border-top: 1px solid var(--border);
   position: relative;
   overflow: hidden;
   contain: paint;
@@ -208,7 +161,7 @@ body.dark-theme.cursor-hover #custom-cursor-ring {
 .pipeline-eyebrow {
   font-size: 10px;
   letter-spacing: 4px;
-  color: #8A847E;
+  color: var(--mid);
   text-transform: uppercase;
   font-weight: 500;
   display: block;
@@ -218,13 +171,13 @@ body.dark-theme.cursor-hover #custom-cursor-ring {
   font-family: var(--font-display);
   font-size: clamp(36px, 4vw, 56px);
   font-weight: 400;
-  color: var(--warm-white);
+  color: var(--night);
   line-height: 1.1;
   margin-bottom: 24px;
 }
 .pipeline-desc {
   font-size: 16px;
-  color: #928C84;
+  color: #4A4740;
   line-height: 1.8;
   font-weight: 300;
 }
@@ -234,8 +187,9 @@ body.dark-theme.cursor-hover #custom-cursor-ring {
   gap: 24px;
 }
 .pipeline-card {
-  background: var(--night);
-  border: 1px solid rgba(255, 255, 255, 0.03);
+  background: var(--plaster-light);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-raised-sm);
   padding: 40px 32px;
   border-radius: 4px;
   position: relative;
@@ -243,22 +197,22 @@ body.dark-theme.cursor-hover #custom-cursor-ring {
 .pipeline-card-num {
   font-family: var(--font-display);
   font-size: 32px;
-  color: rgba(142, 59, 40, 0.2);
+  color: rgba(142, 59, 40, 0.25);
   margin-bottom: 24px;
   font-weight: 400;
-  border-bottom: 1px solid rgba(255,255,255,0.03);
+  border-bottom: 1px solid var(--border);
   padding-bottom: 12px;
 }
 .pipeline-card h3 {
   font-family: var(--font-display);
   font-size: 20px;
-  color: var(--warm-white);
+  color: var(--night);
   margin-bottom: 14px;
   font-weight: 400;
 }
 .pipeline-card p {
   font-size: 14px;
-  color: #928C84;
+  color: var(--mid);
   line-height: 1.7;
   font-weight: 300;
   margin-bottom: 0;
@@ -267,7 +221,7 @@ body.dark-theme.cursor-hover #custom-cursor-ring {
 /* ── COMPLIANCE SECTION ── */
 .compliance-section {
   padding: 140px clamp(24px, 5vw, 80px);
-  background: var(--night);
+  background: var(--plaster);
   contain: paint;
 }
 .compliance-inner {
@@ -291,15 +245,16 @@ body.dark-theme.cursor-hover #custom-cursor-ring {
   font-family: var(--font-display);
   font-size: clamp(32px, 3.5vw, 52px);
   font-weight: 400;
-  color: var(--warm-white);
+  color: var(--night);
 }
 
 /* Comparison Table */
 .comparison-table-wrapper {
   overflow-x: auto;
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border);
   border-radius: 4px;
-  background: var(--night-2);
+  background: var(--plaster-light);
+  box-shadow: var(--shadow-raised-sm);
 }
 .comparison-table {
   width: 100%;
@@ -308,21 +263,22 @@ body.dark-theme.cursor-hover #custom-cursor-ring {
   font-size: 15px;
 }
 .comparison-table th {
-  background: #1A1712;
-  color: var(--warm-white);
+  background: var(--plaster-mid);
+  color: var(--night);
   padding: 24px 32px;
   font-family: var(--font-display);
   font-size: 18px;
   font-weight: 400;
   letter-spacing: 1px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid var(--border);
 }
 .comparison-table th:first-child {
   width: 30%;
 }
 .comparison-table td {
   padding: 24px 32px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  color: var(--night);
   line-height: 1.8;
   vertical-align: top;
 }
@@ -330,28 +286,28 @@ body.dark-theme.cursor-hover #custom-cursor-ring {
   border-bottom: none;
 }
 .comparison-table tr:nth-child(even) td {
-  background: rgba(0, 0, 0, 0.08);
+  background: rgba(0, 0, 0, 0.02);
 }
 .feature-label {
   font-family: var(--font-display);
   font-size: 17px;
-  color: var(--warm-white);
+  color: var(--night);
   font-weight: 400;
 }
 .sovereign-cell {
-  color: #D8D0C8;
+  color: var(--night);
   border-left: 1px solid rgba(142, 59, 40, 0.15);
 }
 tr:hover td.sovereign-cell {
-  background: rgba(142, 59, 40, 0.02);
+  background: rgba(142, 59, 40, 0.03);
 }
 
 /* ── CLOSE SECTION ── */
 .close-business {
-  background: var(--night-2);
+  background: var(--plaster-mid);
   padding: 160px clamp(24px, 5vw, 80px);
   text-align: center;
-  border-top: 1px solid rgba(255, 255, 255, 0.03);
+  border-top: 1px solid var(--border);
   position: relative;
 }
 .close-business-inner {
@@ -366,12 +322,12 @@ tr:hover td.sovereign-cell {
   font-size: clamp(32px, 3.8vw, 54px);
   font-weight: 400;
   line-height: 1.15;
-  color: var(--warm-white);
+  color: var(--night);
   margin-bottom: 24px;
 }
 .close-business-sub {
   font-size: 16px;
-  color: #928C84;
+  color: var(--mid);
   line-height: 1.8;
   margin-bottom: 48px;
   font-weight: 300;
@@ -384,39 +340,41 @@ tr:hover td.sovereign-cell {
   font-size: 11px;
   letter-spacing: 2.5px;
   color: var(--true-north);
-  background: var(--night);
+  background: var(--plaster-light);
   padding: 16px 36px;
   text-decoration: none;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  box-shadow: var(--shadow-raised-sm);
   border: 1px solid rgba(142,59,40,0.3);
   border-radius: 2px;
   text-transform: uppercase;
   font-weight: 600;
-  transition: transform 0.2s, background 0.2s;
+  transition: transform 0.2s, background 0.2s, box-shadow 0.2s;
   cursor: none;
 }
 .close-btn-primary:hover {
   transform: translateY(-2px);
-  background: rgba(142,59,40,0.03);
+  background: var(--plaster);
+  box-shadow: var(--shadow-raised-hover);
 }
 .close-btn-secondary {
   font-size: 11px;
   letter-spacing: 2.5px;
   color: var(--forest);
-  background: var(--night);
+  background: var(--plaster-light);
   padding: 16px 36px;
   text-decoration: none;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  box-shadow: var(--shadow-raised-sm);
   border: 1px solid rgba(43,94,43,0.4);
   border-radius: 2px;
   text-transform: uppercase;
   font-weight: 600;
-  transition: transform 0.2s, background 0.2s;
+  transition: transform 0.2s, background 0.2s, box-shadow 0.2s;
   cursor: none;
 }
 .close-btn-secondary:hover {
   transform: translateY(-2px);
-  background: rgba(43,94,43,0.03);
+  background: var(--plaster);
+  box-shadow: var(--shadow-raised-hover);
 }
 
 /* ── RESPONSIVE ADAPTATIONS ── */

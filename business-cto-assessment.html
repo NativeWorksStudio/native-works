@@ -15,7 +15,7 @@
 <link rel="stylesheet" href="css/style.css?v=1.0.1">
 <link rel="stylesheet" href="css/business.css?v=1.0.0">
 </head>
-<body class="dark-theme">
+<body>
 
 <!-- Cursore: dot + trailing ring -->
 <div id="custom-cursor" aria-hidden="true"></div>
@@ -25,47 +25,51 @@
 <nav id="nav" class="scrolled" style="opacity: 1 !important; pointer-events: auto !important;">
   <a href="index.html" class="nav-logo" aria-label="Native Works home">
     <svg width="30" height="30" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <circle cx="16" cy="16" r="14" stroke="#F4F0E8" stroke-width="0.75" fill="none" opacity="0.3"/>
+      <circle cx="16" cy="16" r="14" stroke="#1E1B17" stroke-width="0.75" fill="none"/>
       <path d="M16,16 L17.2,11 L16,2 L14.8,11 Z" fill="#8E3B28"/>
-      <path d="M16,16 L17,19.5 L16,25 L15,19.5 Z" fill="#F4F0E8"/>
-      <circle cx="16" cy="16" r="2" fill="#F4F0E8"/>
+      <path d="M16,16 L17,19.5 L16,25 L15,19.5 Z" fill="#1E1B17"/>
+      <circle cx="16" cy="16" r="2" fill="#1E1B17"/>
     </svg>
-    <div class="nav-wordmark" style="color: var(--warm-white);">NATIVE WORKS</div>
+    <div class="nav-wordmark">NATIVE WORKS</div>
   </a>
 
   <!-- Mobile Toggle -->
   <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
-    <span class="nav-toggle-line" style="background: var(--warm-white);"></span>
-    <span class="nav-toggle-line" style="background: var(--warm-white);"></span>
+    <span class="nav-toggle-line"></span>
+    <span class="nav-toggle-line"></span>
   </button>
 
   <div class="nav-menu" id="nav-menu">
     <ul class="nav-links" role="list">
-      <li><a href="index.html#journey" style="color: rgba(244,240,232,0.65);">The Path</a></li>
-      <li><a href="index.html#how" style="color: rgba(244,240,232,0.65);">How it works</a></li>
-      <li><a href="index.html#products" style="color: rgba(244,240,232,0.65);">Products</a></li>
-      <li><a href="business.html" class="active" style="color: var(--warm-white);">Business</a></li>
-      <li><a href="assessment.html" style="color: rgba(244,240,232,0.65);">Creator Audit</a></li>
-      <li><a href="contact.html" style="color: rgba(244,240,232,0.65);">Contact</a></li>
+      <li><a href="index.html#journey">The Path</a></li>
+      <li><a href="index.html#how">How it works</a></li>
+      <li><a href="index.html#products">Products</a></li>
+      <li><a href="business.html" class="active">Business</a></li>
+      <li><a href="contact.html">Contact</a></li>
     </ul>
 
-    <a href="index.html#products" class="nav-cta" id="nav-cta" style="background: var(--night-2); color: var(--warm-white); box-shadow: none; border: 1px solid rgba(255,255,255,0.08);">Own your presence →</a>
+    <a href="index.html#products" class="nav-cta" id="nav-cta">Own your presence →</a>
   </div>
 </nav>
 
 <!-- ── FORM SECTION ────────────────────────────────────────────────────── -->
 <section class="form-section assessment-section">
   <!-- Immersive blueprint background SVG -->
-  <svg class="intro-bg-svg" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="opacity: 0.035;">
-    <circle cx="250" cy="250" r="240" stroke="#F4F0E8" stroke-width="0.5"/>
-    <circle cx="250" cy="250" r="180" stroke="#F4F0E8" stroke-width="0.5" stroke-dasharray="4 8"/>
-    <circle cx="250" cy="250" r="120" stroke="#2B5E2B" stroke-width="0.5" opacity="0.3"/>
-    <circle cx="250" cy="250" r="60"  stroke="#F4F0E8" stroke-width="0.5"/>
-    <line x1="10"  y1="250" x2="490" y2="250" stroke="#F4F0E8" stroke-width="0.4"/>
-    <line x1="250" y1="10"  x2="250" y2="490" stroke="#F4F0E8" stroke-width="0.4"/>
+  <svg class="intro-bg-svg" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="opacity: 0.045;">
+    <circle cx="250" cy="250" r="240" stroke="#1E1B17" stroke-width="0.5"/>
+    <circle cx="250" cy="250" r="180" stroke="#1E1B17" stroke-width="0.5" stroke-dasharray="4 8"/>
+    <circle cx="250" cy="250" r="120" stroke="#2B5E2B" stroke-width="0.5" opacity="0.5"/>
+    <circle cx="250" cy="250" r="60"  stroke="#1E1B17" stroke-width="0.5"/>
+    <line x1="10"  y1="250" x2="490" y2="250" stroke="#1E1B17" stroke-width="0.4"/>
+    <line x1="250" y1="10"  x2="250" y2="490" stroke="#1E1B17" stroke-width="0.4"/>
   </svg>
 
   <div class="form-container assessment-container reveal visible">
+
+    <!-- Questionnaire CTA Banner -->
+    <div class="assessment-cta-banner">
+      <p>Complete the following quick assessment in order for us to return/respond with actionable next steps</p>
+    </div>
 
     <!-- Progress tracker -->
     <div class="assessment-progress-wrapper">
@@ -382,7 +386,6 @@
     <a href="index.html#how">How it works</a>
     <a href="index.html#products">Products</a>
     <a href="business.html" class="active">Business</a>
-    <a href="assessment.html">Creator Audit</a>
     <a href="contact.html">Contact</a>
   </nav>
 
