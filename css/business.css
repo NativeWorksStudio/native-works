@@ -408,3 +408,31 @@ tr:hover td.sovereign-cell {
     align-items: flex-start;
   }
 }
+
+/* ── JOURNEY BUSINESS PATH OVERRIDES (GREEN) ── */
+.journey-business .path-node.active .node-bg {
+  stroke: var(--forest) !important;
+  fill: var(--forest) !important;
+}
+.journey-business .path-node.active .node-dot {
+  fill: var(--plaster) !important;
+}
+.journey-business .path-node .node-dot {
+  transition: fill 0.4s ease;
+}
+.journey-business .path-num {
+  color: var(--mid);
+}
+.journey-business .path-num--owner {
+  color: var(--forest) !important;
+}
+.journey-business .path-name--owner {
+  color: var(--forest) !important;
+}
+.journey-business .path-num--sovereign {
+  color: var(--forest) !important;
+}
+.journey-business .path-name--sovereign {
+  color: var(--forest) !important;
+}
+
