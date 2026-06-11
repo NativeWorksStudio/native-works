@@ -53,7 +53,7 @@
 <div id="custom-cursor-ring" aria-hidden="true"></div>
 
 <!-- ── NAVIGATION ──────────────────────────────────────────────────────── -->
-<nav id="nav" class="scrolled" style="opacity: 1 !important; pointer-events: auto !important;">
+<nav id="nav">
   <a href="index.html" class="nav-logo" aria-label="Native Works home">
     <svg width="30" height="30" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       <circle cx="16" cy="16" r="14" stroke="#1E1B17" stroke-width="0.75" fill="none"/>
@@ -72,19 +72,19 @@
 
   <div class="nav-menu" id="nav-menu">
     <ul class="nav-links" role="list">
-      <li><a href="creator.html#journey">The Path</a></li>
-      <li><a href="creator.html#how">How it works</a></li>
+      <li><a href="#journey">The Path</a></li>
+      <li><a href="#how">How it works</a></li>
       <li><a href="products.html">Products</a></li>
-      <li><a href="business.html" class="active">Business</a></li>
+      <li><a href="creator.html">Creator</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
 
-    <a href="index.html#choose-path" class="nav-cta" id="nav-cta">Own your presence →</a>
+    <a href="#hero-business" class="nav-cta" id="nav-cta">Start Audit →</a>
   </div>
 </nav>
 
 <!-- ── HERO SECTION ────────────────────────────────────────────────────── -->
-<section class="hero-business">
+<section class="hero-business" id="hero-business">
   <div class="business-hero-glow"></div>
   
   <!-- Subtle Blueprint grid background -->
@@ -559,7 +559,7 @@
 <!-- ── FOOTER ─────────────────────────────────────────────────────────── -->
 <footer>
   <div>
-    <div class="footer-mark">
+    <a href="index.html" class="footer-mark" aria-label="Native Works home">
       <div class="footer-logo-wrap">
         <svg width="24" height="24" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <circle cx="16" cy="16" r="14" stroke="#D8D2C8" stroke-width="0.75" fill="none" opacity="0.4"/>
@@ -569,14 +569,14 @@
         </svg>
       </div>
       <div class="footer-wordmark">NATIVE WORKS</div>
-    </div>
+    </a>
   </div>
 
   <nav class="footer-center" aria-label="Footer navigation">
-    <a href="creator.html#journey">The Path</a>
-    <a href="creator.html#how">How it works</a>
+    <a href="#journey">The Path</a>
+    <a href="#how">How it works</a>
     <a href="products.html">Products</a>
-    <a href="business.html" class="active">Business</a>
+    <a href="creator.html">Creator</a>
     <a href="contact.html">Contact</a>
   </nav>
 
@@ -611,6 +611,10 @@
       </a>
     </div>
     <div class="footer-copy">© 2026 Native Works &nbsp;—&nbsp; nativeworks.studio</div>
+    <div class="footer-legal-links">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+    </div>
   </div>
 </footer>
 
