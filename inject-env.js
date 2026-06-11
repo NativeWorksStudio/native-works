@@ -1,6 +1,25 @@
 const fs = require('fs');
 const path = require('path');
 
+// Load .env manually if it exists
+const envPath = path.join(__dirname, '.env');
+if (fs.existsSync(envPath)) {
+  const envContent = fs.readFileSync(envPath, 'utf8');
+  envContent.split(/\r?\n/).forEach(line => {
+    const match = line.match(/^\s*([\w.-]+)\s*=\s*(.*)?\s*$/);
+    if (match) {
+      const key = match[1];
+      let value = match[2] || '';
+      if (value.startsWith('"') && value.endsWith('"')) {
+        value = value.substring(1, value.length - 1);
+      } else if (value.startsWith("'") && value.endsWith("'")) {
+        value = value.substring(1, value.length - 1);
+      }
+      process.env[key] = value;
+    }
+  });
+}
+
 // Helper to recursively copy directories
 function copyFolderSync(from, to) {
   if (!fs.existsSync(from)) return;
@@ -56,6 +75,7 @@ if (!fs.existsSync(publicDir)) {
 // 1. Copy all static files & folders from the root to public
 const filesToCopy = [
   'index.html',
+  'products.html',
   'assessment.html',
   'creator-assessment.html',
   'contact.html',

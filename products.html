@@ -3,26 +3,41 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Contact Us — Native Works</title>
-<meta name="description" content="Get in touch with Native Works. Sovereign digital production studio. Let's discuss your path to true digital ownership.">
+<title>Sovereign Products — Native Works</title>
+<meta name="description" content="Build your sovereign stack or own your digital foundation. AI-powered production, direct payment integration, and custom website builds on infrastructure you own.">
 <meta name="robots" content="index, follow">
-<link rel="canonical" href="https://nativeworks.studio/contact.html">
+<link rel="canonical" href="https://nativeworks.studio/products.html">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://nativeworks.studio/contact.html">
-<meta property="og:title" content="Contact Us — Native Works">
-<meta property="og:description" content="Get in touch with Native Works. Sovereign digital production studio. Let's discuss your path to true digital ownership.">
+<meta property="og:url" content="https://nativeworks.studio/products.html">
+<meta property="og:title" content="Sovereign Products — Native Works">
+<meta property="og:description" content="Build your sovereign stack or own your digital foundation. AI-powered production, direct payment integration, and custom website builds on infrastructure you own.">
 <meta property="og:image" content="https://nativeworks.studio/og-image.png">
 <meta property="og:site_name" content="Native Works">
 
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:url" content="https://nativeworks.studio/contact.html">
-<meta name="twitter:title" content="Contact Us — Native Works">
-<meta name="twitter:description" content="Get in touch with Native Works. Sovereign digital production studio. Let's discuss your path to true digital ownership.">
+<meta name="twitter:url" content="https://nativeworks.studio/products.html">
+<meta name="twitter:title" content="Sovereign Products — Native Works">
+<meta name="twitter:description" content="Build your sovereign stack or own your digital foundation. AI-powered production, direct payment integration, and custom website builds on infrastructure you own.">
 <meta name="twitter:image" content="https://nativeworks.studio/og-image.png">
+
+<!-- JSON-LD Structured Data Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "Native Works Sovereign Products",
+  "image": "https://nativeworks.studio/og-image.png",
+  "description": "Custom site builds, AI-powered content workflows, and direct payment integrations hosted on sovereign, client-owned infrastructure.",
+  "brand": {
+    "@type": "Brand",
+    "name": "Native Works"
+  }
+}
+</script>
 
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -30,7 +45,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,200;0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet">
 
 <!-- Styles -->
-<link rel="stylesheet" href="css/style.css?v=1.0.1">
+<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
@@ -60,61 +75,116 @@
     <ul class="nav-links" role="list">
       <li><a href="index.html#journey">The Path</a></li>
       <li><a href="index.html#how">How it works</a></li>
-      <li><a href="products.html">Products</a></li>
+      <li><a href="products.html" class="active">Products</a></li>
       <li><a href="business.html">Business</a></li>
-      <li><a href="contact.html" class="active">Contact</a></li>
+      <li><a href="contact.html">Contact</a></li>
     </ul>
 
     <a href="index.html#choose-path" class="nav-cta" id="nav-cta">Own your presence →</a>
   </div>
 </nav>
 
-<!-- ── FORM SECTION ────────────────────────────────────────────────────── -->
-<section class="form-section">
-  <div class="form-container reveal visible">
-    <div class="form-header">
-      <h1 class="form-title">Contact Us</h1>
-      <p class="form-subtitle">Reach out to begin your sovereign digital journey.</p>
+<main style="padding-top: 40px;">
+  <!-- ── PRODUCTS ───────────────────────────────────────────────────────── -->
+  <section class="products" id="products">
+    <div class="products-header focus-reveal">
+      <h1 class="products-label" style="font-size: 10px; font-weight: inherit;">Where to start</h1>
+      <h2 class="products-title">Two doors.<br>Same destination.</h2>
     </div>
-    
-    <form action="https://formsubmit.co/antonio.visceglia@nativeworks.studio" method="POST">
-      <!-- FormSubmit Config -->
-      <input type="hidden" name="_cc" value="info@nativeworks.studio">
-      <input type="hidden" name="_next" value="https://www.nativeworks.studio/thank-you.html">
-      <input type="hidden" name="_captcha" value="false">
-      <input type="hidden" name="_subject" value="New Contact Request — Native Works">
-      <input type="hidden" name="_template" value="box">
 
-      <div class="form-group">
-        <label for="name" class="form-label">Name</label>
-        <input type="text" id="name" name="name" class="form-input" required placeholder="Your name">
+    <div class="products-grid">
+      <!-- PRODUCT 01: STACK -->
+      <div class="product-card reveal" id="product-stack">
+        <div class="product-content">
+          <div class="product-tag">For those who already know what they want.</div>
+          <div class="product-name">Stack</div>
+          <p class="product-desc">The complete sovereign setup. Your identity, your infrastructure, your payment rails — owned outright, running from day one. Built for people who are done asking permission.</p>
+          <ul class="product-features">
+            <li>Domain + hosting on your infrastructure</li>
+            <li>Custom site built to your brand</li>
+            <li>AI-powered content production</li>
+            <li>Direct payment integration</li>
+          </ul>
+          <a href="assessment.html" class="product-cta" id="cta-stack">Build your stack →</a>
+        </div>
+        <div class="product-visual">
+          <div class="visual-bg-glow"></div>
+          <svg viewBox="0 0 400 400" width="100%" height="100%">
+            <g transform="translate(200, 200)">
+              <!-- Isometric Grid base -->
+              <g class="stack-base" stroke="rgba(255,255,255,0.05)" stroke-width="0.5">
+                <line x1="-150" y1="0" x2="150" y2="0" transform="rotate(30)"/>
+                <line x1="-150" y1="0" x2="150" y2="0" transform="rotate(-30)"/>
+                <line x1="0" y1="-150" x2="0" y2="150"/>
+              </g>
+
+              <!-- Outer Ring (Mid) -->
+              <g class="stack-mid">
+                <circle cx="0" cy="0" r="110" fill="none" stroke="#A8A09A" stroke-width="0.5" stroke-dasharray="1 8"/>
+              </g>
+
+              <!-- Core Stack Cylinder (Top layer) -->
+              <g class="stack-top" stroke-width="1" fill="none">
+                <polygon points="0,-120 104,-60 104,60 0,120 -104,60 -104,-60" stroke="#8E3B28" stroke-dasharray="2 6"/>
+                <circle cx="0" cy="0" r="80" stroke="#BEB8AE" opacity="0.3"/>
+                <circle cx="0" cy="0" r="50" stroke="#EAE5DC" stroke-dasharray="4 6"/>
+                <rect x="-40" y="-40" width="80" height="80" stroke="#A8A09A" transform="rotate(45)"/>
+              </g>
+
+              <!-- Fixed core dot -->
+              <g class="stack-core">
+                <circle cx="0" cy="0" r="8" fill="#8E3B28"/>
+                <circle cx="0" cy="0" r="2" fill="#EAE5DC"/>
+              </g>
+            </g>
+          </svg>
+        </div>
       </div>
 
-      <div class="form-group">
-        <label for="email" class="form-label">Email</label>
-        <input type="email" id="email" name="email" class="form-input" required placeholder="your@email.com">
-      </div>
+      <!-- PRODUCT 02: FOUNDATION -->
+      <div class="product-card reveal reveal-delay-1" id="product-foundation">
+        <div class="product-content">
+          <div class="product-tag">For those building from scratch.</div>
+          <div class="product-name">Foundation</div>
+          <p class="product-desc">A new business, a rebrand, or a presence that has never existed before. Built sovereign from the ground up — website, identity, everything owned — so you never have to migrate later.</p>
+          <ul class="product-features">
+            <li>Brand identity and visual system</li>
+            <li>Full site build, sovereign infrastructure</li>
+            <li>Publishing and distribution setup</li>
+            <li>90 days of guided ownership</li>
+          </ul>
+          <a href="assessment.html" class="product-cta" id="cta-foundation">Build your foundation →</a>
+        </div>
+        <div class="product-visual">
+          <div class="visual-bg-glow"></div>
+          <svg viewBox="0 0 400 400" width="100%" height="100%">
+            <g transform="translate(200, 200)">
+              <g class="found-outer">
+                <circle cx="0" cy="0" r="130" fill="none" stroke="#A8A09A" stroke-width="0.5"/>
+                <path d="M 0 -130 L 75 -75 L 130 0 L 75 75 L 0 130 L -75 75 L -130 0 L -75 -75 Z" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+              </g>
 
-      <div class="form-group">
-        <label for="discovery" class="form-label">How did you hear about us?</label>
-        <select id="discovery" name="discovery" class="form-select" required>
-          <option value="" disabled selected>Select an option</option>
-          <option value="X">X (Twitter)</option>
-          <option value="Nostr">Nostr</option>
-          <option value="Website">Website</option>
-          <option value="Friend">Friend</option>
-        </select>
-      </div>
+              <g class="found-mid">
+                <circle cx="0" cy="0" r="90" fill="none" stroke="#BEB8AE" stroke-width="1" stroke-dasharray="4 8"/>
+              </g>
 
-      <div class="form-group">
-        <label for="message" class="form-label">Subject of Request</label>
-        <textarea id="message" name="message" class="form-textarea" required placeholder="How can we help you?"></textarea>
-      </div>
+              <g class="found-inner">
+                <rect x="-65" y="-65" width="130" height="130" fill="none" stroke="#8E3B28" stroke-width="1.5" transform="rotate(45)"/>
+                <rect x="-65" y="-65" width="130" height="130" fill="none" stroke="#EAE5DC" stroke-width="0.5" opacity="0.6"/>
+              </g>
 
-      <button type="submit" class="form-submit">Send Message →</button>
-    </form>
-  </div>
-</section>
+              <!-- Center architectural seed -->
+              <g class="found-core">
+                <path d="M 0 -25 L 25 0 L 0 25 L -25 0 Z" fill="rgba(142,59,40,0.15)" stroke="#8E3B28" stroke-width="1"/>
+                <circle cx="0" cy="0" r="3" fill="#EAE5DC"/>
+              </g>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
 
 <!-- ── FOOTER ─────────────────────────────────────────────────────────── -->
 <footer>
@@ -135,9 +205,9 @@
   <nav class="footer-center" aria-label="Footer navigation">
     <a href="index.html#journey">The Path</a>
     <a href="index.html#how">How it works</a>
-    <a href="products.html">Products</a>
+    <a href="products.html" class="active">Products</a>
     <a href="business.html">Business</a>
-    <a href="contact.html" class="active">Contact</a>
+    <a href="contact.html">Contact</a>
   </nav>
 
   <div class="footer-right">
@@ -174,6 +244,8 @@
   </div>
 </footer>
 
+<!-- Scripts -->
 <script src="js/main.js" defer></script>
+
 </body>
 </html>
