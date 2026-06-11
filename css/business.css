@@ -1,3 +1,8 @@
+body {
+  --true-north: var(--forest);
+  --true-north-rgb: 43, 94, 43;
+}
+
 /* ═══════════════════════════════════════════════════════
    BUSINESS LANDING PAGE STYLES (LIGHT/PLASTER THEME)
    ═══════════════════════════════════════════════════════ */
@@ -20,7 +25,7 @@
   transform: translate(-50%, -50%);
   width: 900px;
   height: 900px;
-  background: radial-gradient(circle, rgba(142, 59, 40, 0.08) 0%, transparent 65%);
+  background: radial-gradient(circle, rgba(43, 94, 43, 0.08) 0%, transparent 65%);
   pointer-events: none;
   z-index: 1;
 }
@@ -96,7 +101,7 @@
   box-shadow: var(--shadow-raised-hover);
 }
 .ceo-card:hover {
-  border-color: rgba(142, 59, 40, 0.35);
+  border-color: rgba(43, 94, 43, 0.35);
 }
 .cto-card:hover {
   border-color: rgba(43, 94, 43, 0.45);
@@ -197,7 +202,7 @@
 .pipeline-card-num {
   font-family: var(--font-display);
   font-size: 32px;
-  color: rgba(142, 59, 40, 0.25);
+  color: rgba(43, 94, 43, 0.25);
   margin-bottom: 24px;
   font-weight: 400;
   border-bottom: 1px solid var(--border);
@@ -296,10 +301,10 @@
 }
 .sovereign-cell {
   color: var(--night);
-  border-left: 1px solid rgba(142, 59, 40, 0.15);
+  border-left: 1px solid rgba(43, 94, 43, 0.15);
 }
 tr:hover td.sovereign-cell {
-  background: rgba(142, 59, 40, 0.03);
+  background: rgba(43, 94, 43, 0.03);
 }
 
 /* ── CLOSE SECTION ── */
@@ -344,7 +349,7 @@ tr:hover td.sovereign-cell {
   padding: 16px 36px;
   text-decoration: none;
   box-shadow: var(--shadow-raised-sm);
-  border: 1px solid rgba(142,59,40,0.3);
+  border: 1px solid rgba(43, 94, 43,0.3);
   border-radius: 2px;
   text-transform: uppercase;
   font-weight: 600;
