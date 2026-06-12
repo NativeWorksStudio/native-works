@@ -422,7 +422,7 @@ body.cursor-on-hero #custom-cursor-ring {
   display: flex; align-items: center; gap: 48px; padding: 18px 48px; white-space: nowrap;
 }
 .manifesto-word {
-  font-family: var(--font-display); font-size: 12px; color: #4A4540;
+  font-family: var(--font-display); font-size: 12px; color: var(--plaster);
   letter-spacing: 4px; font-weight: 400; text-transform: uppercase;
 }
 .manifesto-dot {
