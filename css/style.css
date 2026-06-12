@@ -173,19 +173,30 @@ body.cursor-on-hero #custom-cursor-ring {
   position: fixed; top: 0; left: 0; right: 0;
   z-index: 500; padding: 28px 64px;
   display: flex; align-items: center; justify-content: space-between;
-  transition: background 0.5s, padding 0.4s, border-color 0.5s, opacity 0.5s ease, backdrop-filter 0.5s;
+  transition: background 0.5s, padding 0.4s, border-color 0.5s, opacity 0.5s ease, backdrop-filter 0.5s, transform 0.5s ease;
   /* Visible by default, transparent background and border at the top of the page */
   opacity: 1;
   pointer-events: auto;
   background: transparent;
   border-bottom: 1px solid transparent;
   isolation: isolate;
+  transform: translateY(0);
 }
 #nav.scrolled {
   background: rgba(234, 229, 220, 0.95);
   backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
   border-bottom: 1px solid var(--border);
   padding: 18px 64px;
+  transform: translateY(0);
+}
+
+/* Homepage hero specific nav behavior: hide header in the hero section on desktop */
+@media (min-width: 769px) {
+  body.home-page #nav:not(.scrolled) {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-15px);
+  }
 }
 /* On large viewports keep nav padding bounded */
 @media (min-width: 1600px) {
