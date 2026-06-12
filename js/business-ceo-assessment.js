@@ -128,11 +128,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     groupNames.forEach(name => {
-      const inputSample = stepEl.querySelector(`input[name="${name}"]`);
-      if (inputSample && inputSample.type === 'radio') {
-        if (!stepEl.querySelector(`input[name="${name}"]:checked`)) {
-          allGroupsChecked = false;
-        }
+      if (!stepEl.querySelector(`input[name="${name}"]:checked`)) {
+        allGroupsChecked = false;
       }
     });
 
@@ -269,7 +266,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const q2  = radioVal('ceo_q2');
     const q3  = radioVal('ceo_q3');
     const q4  = radioVal('ceo_q4');
-    const q5  = radioVal('ceo_q5');
+    const q5Keys = checkboxValues('ceo_q5');
     const q6Keys = checkboxValues('ceo_q6');
     const q7Keys = checkboxValues('ceo_q7');
     const q8  = radioVal('ceo_q8');
@@ -279,7 +276,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('payload-q2').value  = ceoLabels.q2[q2]   || q2;
     document.getElementById('payload-q3').value  = ceoLabels.q3[q3]   || q3;
     document.getElementById('payload-q4').value  = ceoLabels.q4[q4]   || q4;
-    document.getElementById('payload-q5').value  = ceoLabels.q5[q5]   || q5;
+    document.getElementById('payload-q5').value  = q5Keys.map(k => ceoLabels.q5[k] || k).join(', ');
     document.getElementById('payload-q6').value  = q6Keys.map(k => ceoLabels.q6[k] || k).join(', ');
     document.getElementById('payload-q7').value  = q7Keys.map(k => ceoLabels.q7[k] || k).join(', ');
     document.getElementById('payload-q8').value  = ceoLabels.q8[q8]   || q8;
@@ -296,7 +293,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 2. Automation (inputs: Q5, Q6)
     let aScore = 0;
-    if (q5 === 'D' || q5 === 'C') aScore += 1;
+    if (q5Keys.includes('D') || q5Keys.includes('C')) aScore += 1;
     if (q6Keys.includes('D')) aScore += 2;
     else if (q6Keys.some(k => ['A', 'B', 'C'].includes(k))) aScore += 1;
     scores.automation = Math.min(4, Math.max(0, aScore));
@@ -354,7 +351,7 @@ document.addEventListener('DOMContentLoaded', () => {
       q2: "Q02 — What changed recently?",
       q3: "Q03 — How big is your company?",
       q4: "Q04 — What does your company do?",
-      q5: "Q05 — Where does most of the operational friction live?",
+      q5: "Q05 — Where does most of the operational friction live? (Select 1 or more)",
       q6: "Q06 — What would you want AI to do for your business ideally?",
       q7: "Q07 — Where would you like to be twelve months from now?",
       q8: "Q08 — How would you like us to reach out?"
@@ -403,7 +400,7 @@ document.addEventListener('DOMContentLoaded', () => {
       q2: "Q02 — What changed recently?",
       q3: "Q03 — How big is your company?",
       q4: "Q04 — What does your company do?",
-      q5: "Q05 — Where does most of the operational friction live?",
+      q5: "Q05 — Where does most of the operational friction live? (Select 1 or more)",
       q6: "Q06 — What would you want AI to do for your business ideally?",
       q7: "Q07 — Where would you like to be twelve months from now?",
       q8: "Q08 — How would you like us to reach out?"
