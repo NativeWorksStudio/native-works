@@ -341,6 +341,16 @@ tr:hover td.sovereign-cell {
   display: flex;
   gap: 24px;
 }
+/* Variante CTA scura nella sezione close (pagina business) */
+.close .close-business-actions { margin-top: 40px; display: inline-flex; }
+.close-cta--forest {
+  border-color: rgba(43, 94, 43, 0.55);
+  color: #7FA886;
+}
+.close-cta--forest:hover {
+  border-color: var(--forest);
+  background: rgba(43, 94, 43, 0.14);
+}
 .close-btn-primary {
   font-size: 11px;
   letter-spacing: 2.5px;

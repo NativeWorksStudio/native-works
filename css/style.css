@@ -55,6 +55,74 @@ body {
   color: var(--night);
   line-height: 1.7;
   overflow-x: hidden;
+  text-rendering: optimizeLegibility;
+}
+
+/* ── MICRO-DETAILS — selection, scrollbar, focus ───────── */
+::selection {
+  background: var(--true-north);
+  color: var(--warm-white);
+  text-shadow: none;
+}
+
+/* Scrollbar coerente col tema plaster */
+html {
+  scrollbar-color: var(--plaster-dark) var(--plaster);
+  scrollbar-width: thin;
+}
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--plaster); }
+::-webkit-scrollbar-thumb {
+  background: var(--plaster-dark);
+  border-radius: 5px;
+  border: 2px solid var(--plaster);
+}
+::-webkit-scrollbar-thumb:hover { background: var(--engraved-dark); }
+
+/* Focus visibile e coerente per la navigazione da tastiera */
+a:focus-visible,
+button:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--true-north);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+.form-input:focus-visible,
+.form-select:focus-visible,
+.form-textarea:focus-visible {
+  outline: none; /* gestito da border-color + glow */
+}
+
+/* Le sezioni ancorate non finiscono sotto la nav fissa */
+[id] { scroll-margin-top: 96px; }
+
+/* Titoli display: a-capo bilanciati dove supportato */
+.intro-headline, .journey-title, .products-title, .doctrine-title,
+.how-title, .choose-path-title, .form-title,
+.hero-creator-title, .hero-business-title,
+.assessment-promo-title, .recommendation-title {
+  text-wrap: balance;
+}
+
+/* Rispetta chi preferisce meno movimento */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal, .focus-reveal, .product-card,
+  .close-mark, .close-line, .close-sub, .close-cta {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+  .intro-eyebrow, .intro-headline, .intro-sub, .intro-body, .intro-actions {
+    opacity: 1 !important;
+    animation: none !important;
+    filter: none !important;
+  }
 }
 
 /*
@@ -549,6 +617,7 @@ body.cursor-on-hero #custom-cursor-ring {
   margin: 0 auto;
   position: relative;
 }
+.journey-svg-wrap svg { width: 100%; height: auto; display: block; }
 .path-node {
   transition: all 0.3s ease;
   cursor: none;
@@ -899,6 +968,7 @@ body.cursor-on-hero #custom-cursor-ring {
   font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
   color: var(--warm-white); border: 1px solid rgba(244,240,232,0.18);
   padding: 18px 52px; text-decoration: none; font-weight: 500;
+  border-radius: 2px;
   opacity: 0; transform: translateY(20px); position: relative; z-index: 2;
   transition: all 0.5s ease, opacity 0.9s ease 0.6s, transform 0.9s ease 0.6s;
 }
@@ -1251,11 +1321,30 @@ a.footer-mark { display: flex; align-items: center; gap: 18px; text-decoration: 
   outline: none;
 }
 
+.form-input::placeholder,
+.form-textarea::placeholder {
+  color: var(--engraved-dark);
+  opacity: 1;
+  font-weight: 300;
+}
+
 .form-input:focus,
 .form-select:focus,
 .form-textarea:focus {
   border-color: var(--true-north);
+  box-shadow: var(--shadow-engraved-sm), 0 0 0 3px rgba(var(--true-north-rgb), 0.08);
 }
+
+/* Select: freccia custom coerente col tema (al posto di quella di sistema) */
+.form-select {
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%236B6860' stroke-width='1.2'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  padding-right: 40px;
+}
+.form-select:invalid { color: var(--engraved-dark); }
 
 .form-textarea {
   resize: vertical;
