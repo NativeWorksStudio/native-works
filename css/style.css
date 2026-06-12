@@ -399,13 +399,7 @@ body.cursor-on-hero #custom-cursor-ring {
 
 /* Section transition — fade bottom edge into dark strip */
 .intro::after {
-  content: '';
-  display: block;
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  height: 40px;
-  background: linear-gradient(to bottom, rgba(26,23,18,0), rgba(26,23,18,0.06));
-  pointer-events: none;
+  display: none;
 }
 
 /* ═══════════════════════════════════════════════════════
@@ -440,11 +434,7 @@ body.cursor-on-hero #custom-cursor-ring {
 }
 /* Top fade from manifesto bar */
 .problem::after {
-  content: '';
-  position: absolute; top: 0; left: 0; right: 0;
-  height: 40px;
-  background: linear-gradient(to bottom, var(--night-2), rgba(34,30,25,0));
-  pointer-events: none; z-index: 0;
+  display: none;
 }
 /* Massive ghost typography background */
 .problem-bg-word {
@@ -674,9 +664,7 @@ body.cursor-on-hero #custom-cursor-ring {
   position: relative; overflow: hidden; contain: paint;
 }
 .how-fade-top {
-  position: absolute; top: 0; left: 0; right: 0; height: 60px;
-  background: linear-gradient(to bottom, var(--plaster), rgba(234,229,220,0));
-  pointer-events: none; z-index: 1;
+  display: none;
 }
 .how-bg-word {
   position: absolute;
@@ -928,9 +916,7 @@ body.cursor-on-hero #custom-cursor-ring {
   position: relative; overflow: hidden; contain: paint;
 }
 .close-fade-top {
-  position: absolute; top: 0; left: 0; right: 0; height: 60px;
-  background: linear-gradient(to bottom, var(--plaster), rgba(234,229,220,0));
-  pointer-events: none; z-index: 1;
+  display: none;
 }
 /* Ambient glow behind mark */
 .close::before {
