@@ -365,13 +365,13 @@ body.cursor-on-hero #custom-cursor-ring {
   font-family: var(--font-display); font-size: clamp(42px, 4.8vw, 72px);
   font-weight: 400; line-height: 1.03; color: var(--night);
   letter-spacing: -0.5px; text-shadow: var(--text-engraved);
-  opacity: 0; filter: blur(12px); animation: fadeUp 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) 0.25s forwards; margin-bottom: 0;
+  opacity: 0; animation: fadeUp 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) 0.25s forwards; margin-bottom: 0;
 }
 .intro-sub {
   font-family: var(--font-display); font-size: clamp(18px, 2vw, 24px);
   font-style: italic; color: var(--mid); margin-bottom: 28px;
   line-height: 1.5; font-weight: 300; text-shadow: var(--text-engraved);
-  opacity: 0; filter: blur(12px); animation: fadeUp 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) 0.4s forwards;
+  opacity: 0; animation: fadeUp 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) 0.4s forwards;
 }
 .intro-body {
   font-size: 15px; color: #4A4740; line-height: 1.95; margin-bottom: 44px;
@@ -1024,18 +1024,15 @@ a.footer-mark { display: flex; align-items: center; gap: 18px; text-decoration: 
 .reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.8s ease, transform 0.8s ease; }
 .reveal.visible { opacity: 1; transform: translateY(0); }
 
-/* Cinematic blur-to-focus reveals */
+/* Cinematic focus reveals (without blur) */
 .focus-reveal { 
   opacity: 0; 
-  filter: blur(8px); 
   transform: translateY(20px); 
   transition: opacity 1.2s cubic-bezier(0.2, 0.8, 0.2, 1), 
-              transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1), 
-              filter 1.2s cubic-bezier(0.2, 0.8, 0.2, 1); 
+              transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1); 
 }
 .focus-reveal.visible { 
   opacity: 1; 
-  filter: blur(0); 
   transform: translateY(0); 
 }
 
@@ -1045,8 +1042,8 @@ a.footer-mark { display: flex; align-items: center; gap: 18px; text-decoration: 
 .reveal-delay-4 { transition-delay: 0.54s; }
 
 @keyframes fadeUp { 
-  from { opacity: 0; filter: blur(8px); transform: translateY(24px); } 
-  to { opacity: 1; filter: blur(0); transform: translateY(0); } 
+  from { opacity: 0; transform: translateY(24px); } 
+  to { opacity: 1; transform: translateY(0); } 
 }
 
 /* ═══════════════════════════════════════════════════════
