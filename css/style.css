@@ -1098,6 +1098,7 @@ a.footer-mark { display: flex; align-items: center; gap: 18px; text-decoration: 
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
     border-bottom: 1px solid var(--border);
+    transform: none !important;
   }
   /* Nav wordmark: smaller on mobile so it never wraps */
   .nav-wordmark { font-size: 12px; letter-spacing: 1.5px; }
@@ -1152,8 +1153,11 @@ a.footer-mark { display: flex; align-items: center; gap: 18px; text-decoration: 
   #nav.mobile-menu-open .nav-menu .nav-links li:nth-child(4) {
     opacity: 1; transform: translateY(0); transition-delay: 0.25s;
   }
-  #nav.mobile-menu-open .nav-menu .nav-cta {
+  #nav.mobile-menu-open .nav-menu .nav-links li:nth-child(5) {
     opacity: 1; transform: translateY(0); transition-delay: 0.3s;
+  }
+  #nav.mobile-menu-open .nav-menu .nav-cta {
+    opacity: 1; transform: translateY(0); transition-delay: 0.35s;
   }
 
   .nav-links { flex-direction: column; align-items: center; gap: 28px; }

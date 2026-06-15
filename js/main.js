@@ -12,6 +12,7 @@ const cursorRing = document.getElementById('custom-cursor-ring');
 const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
 if (isTouchDevice) {
   document.documentElement.classList.add('touch-device');
+  document.body.classList.add('touch-device');
 }
 
 if (!isTouchDevice) {
