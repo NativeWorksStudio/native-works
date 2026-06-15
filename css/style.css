@@ -515,9 +515,9 @@ body.cursor-on-hero #custom-cursor-ring {
 }
 .problem-item { position: relative; padding-left: 0; }
 .problem-item-num {
-  font-family: var(--font-display); font-size: 11px; letter-spacing: 4px;
-  color: rgba(200,192,184,0.45); display: block; margin-bottom: 14px;
-  font-weight: 400;
+  font-family: var(--font-display); font-size: 11px; letter-spacing: 5px;
+  color: rgba(248, 245, 239, 0.85); display: block; margin-bottom: 14px;
+  font-weight: 700;
 }
 .problem-item-text {
   font-family: var(--font-body); font-size: 17px; color: #B0A8A0;
