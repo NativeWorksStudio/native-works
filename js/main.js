@@ -107,7 +107,21 @@ if (compassWrap && isTouchDevice) {
 
 
 /* ── PATH LOGIC ─────────────────────────────────────────────────────────── */
-function updatePath(index) {
+let currentPathIndex = 0;
+const totalPathNodes = 5;
+let pathRotationInterval = null;
+
+function startPathRotation() {
+  if (pathRotationInterval) clearInterval(pathRotationInterval);
+  pathRotationInterval = setInterval(() => {
+    currentPathIndex = (currentPathIndex + 1) % totalPathNodes;
+    updatePath(currentPathIndex, false);
+  }, 3000);
+}
+
+function updatePath(index, manualClick = true) {
+  currentPathIndex = index;
+
   // Update node classes
   document.querySelectorAll('.path-node').forEach(node => {
     const nodeIndex = parseInt(node.getAttribute('data-index'));
@@ -127,9 +141,14 @@ function updatePath(index) {
     pathLine.style.strokeDasharray = '483';
     pathLine.style.strokeDashoffset = offsets[index];
   }
+
+  // If clicked manually, reset the rotation timer
+  if (manualClick) {
+    startPathRotation();
+  }
 }
-// Init with first node active
-updatePath(0);
+// Init with first node active and start auto-cycling
+updatePath(0, true);
 
 /* ── INTERSECTION REVEAL ────────────────────────────────────────────────── */
 const revealObserver = new IntersectionObserver(entries => {
