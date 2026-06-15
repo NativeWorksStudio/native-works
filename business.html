@@ -251,113 +251,8 @@
   </div>
 </div>
 
-<!-- ── MATURITY PATH (SOVEREIGNTY) ────────────────────────────────────── -->
+<!-- ── MATURITY PATH ─────────────────────────────────────────────────── -->
 <section class="journey journey-business" id="journey">
-  <div class="journey-header">
-    <div class="focus-reveal">
-      <div class="journey-label">The Enterprise AI Path</div>
-      <h2 class="journey-title">Where is your data<br>right now?</h2>
-    </div>
-    <p class="journey-intro reveal reveal-delay-1">Integrating generative AI into corporate workflows requires a transition from dependent cloud endpoints to owned, compliant private infrastructure. Identify your current stage.</p>
-  </div>
-
-  <div class="journey-grid reveal">
-    <div class="journey-svg-wrap">
-      <svg viewBox="0 0 500 500" role="img" aria-label="Enterprise AI maturity path diagram">
-        <!-- Technical blueprint grid background -->
-        <g stroke="rgba(0,0,0,0.04)" stroke-width="1">
-          <line x1="50" y1="0" x2="50" y2="500"/>
-          <line x1="150" y1="0" x2="150" y2="500"/>
-          <line x1="250" y1="0" x2="250" y2="500"/>
-          <line x1="350" y1="0" x2="350" y2="500"/>
-          <line x1="450" y1="0" x2="450" y2="500"/>
-          <line x1="0" y1="100" x2="500" y2="100"/>
-          <line x1="0" y1="200" x2="500" y2="200"/>
-          <line x1="0" y1="300" x2="500" y2="300"/>
-          <line x1="0" y1="400" x2="500" y2="400"/>
-        </g>
-
-        <circle cx="250" cy="250" r="180" fill="none" stroke="rgba(0,0,0,0.03)" stroke-width="1" stroke-dasharray="4 8"/>
-
-        <!-- The Path (grey base) -->
-        <path d="M 50 400 L 150 400 L 250 300 L 350 300 L 450 200" fill="none" stroke="#D8D2C8" stroke-width="2"/>
-
-        <!-- Active Progress Line -->
-        <path id="path-progress-line-1" d="M 50 400 L 150 400 L 250 300 L 350 300 L 450 200"
-          fill="none" stroke="var(--forest)" stroke-width="2"
-          stroke-dasharray="483" stroke-dashoffset="483"
-          style="transition: stroke-dashoffset 0.8s cubic-bezier(0.25, 1, 0.25, 1);"/>
-
-        <!-- Nodes -->
-        <g class="path-node path-node-1 active" data-index="0" onclick="updatePath1(0)">
-          <circle cx="50" cy="400" r="30" fill="transparent"/>
-          <rect x="35" y="385" width="30" height="30" fill="var(--plaster)" stroke="var(--forest)" stroke-width="1.5" class="node-bg" transform="rotate(45 50 400)"/>
-          <circle cx="50" cy="400" r="3.5" fill="var(--forest)" class="node-dot"/>
-          <text x="50" y="430" text-anchor="middle" font-size="10" fill="var(--night)" letter-spacing="1.5">00</text>
-        </g>
-
-        <g class="path-node path-node-1" data-index="1" onclick="updatePath1(1)">
-          <circle cx="150" cy="400" r="30" fill="transparent"/>
-          <rect x="135" y="385" width="30" height="30" fill="var(--plaster)" stroke="#A8A09A" stroke-width="1.5" class="node-bg" transform="rotate(45 150 400)"/>
-          <circle cx="150" cy="400" r="3.5" fill="#A8A09A" class="node-dot"/>
-          <text x="150" y="430" text-anchor="middle" font-size="10" fill="#A8A09A" letter-spacing="1.5">01</text>
-        </g>
-
-        <g class="path-node path-node-1" data-index="2" onclick="updatePath1(2)">
-          <circle cx="250" cy="300" r="30" fill="transparent"/>
-          <rect x="235" y="285" width="30" height="30" fill="var(--plaster)" stroke="#A8A09A" stroke-width="1.5" class="node-bg" transform="rotate(45 250 300)"/>
-          <circle cx="250" cy="300" r="3.5" fill="#A8A09A" class="node-dot"/>
-          <text x="250" y="330" text-anchor="middle" font-size="10" fill="#A8A09A" letter-spacing="1.5">02</text>
-        </g>
-
-        <g class="path-node path-node-1" data-index="3" onclick="updatePath1(3)">
-          <circle cx="350" cy="300" r="30" fill="transparent"/>
-          <rect x="335" y="285" width="30" height="30" fill="var(--plaster)" stroke="#A8A09A" stroke-width="1.5" class="node-bg" transform="rotate(45 350 300)"/>
-          <circle cx="350" cy="300" r="3.5" fill="#A8A09A" class="node-dot"/>
-          <text x="350" y="330" text-anchor="middle" font-size="10" fill="#A8A09A" letter-spacing="1.5">03</text>
-        </g>
-
-        <g class="path-node path-node-1" data-index="4" onclick="updatePath1(4)">
-          <circle cx="450" cy="200" r="30" fill="transparent"/>
-          <rect x="435" y="185" width="30" height="30" fill="var(--plaster)" stroke="#A8A09A" stroke-width="1.5" class="node-bg" transform="rotate(45 450 200)"/>
-          <circle cx="450" cy="200" r="3.5" fill="#A8A09A" class="node-dot"/>
-          <text x="450" y="230" text-anchor="middle" font-size="10" fill="#A8A09A" letter-spacing="1.5">04</text>
-        </g>
-      </svg>
-    </div>
-
-    <div class="path-content-blocks">
-      <div class="path-block path-block-1 active">
-        <span class="path-num">00</span>
-        <h3 class="path-name">Rented APIs</h3>
-        <p class="path-desc">You route sensitive logs and database records directly to public AI servers. High risk of telemetry leaks, locked into one vendor's models, and exposed to pricing spikes.</p>
-      </div>
-      <div class="path-block path-block-1">
-        <span class="path-num">01</span>
-        <h3 class="path-name">Basic VPS</h3>
-        <p class="path-desc">You run open-weights models inside general virtual servers. Better security, but no local ingestion pipelines, leading to slow processing and high latency.</p>
-      </div>
-      <div class="path-block path-block-1">
-        <span class="path-num">02</span>
-        <h3 class="path-name">Secure Ingestion</h3>
-        <p class="path-desc">Your documents, tables, and files are processed and organized locally on owned hardware, sanitizing your data before it ever reaches an AI model.</p>
-      </div>
-      <div class="path-block path-block-1">
-        <span class="path-num path-num--owner">03</span>
-        <h3 class="path-name path-name--owner">Model-Agnostic Nodes</h3>
-        <p class="path-desc">You deploy local AI servers behind your firewall. Swap between Llama, Mistral, or custom weights instantly without rewriting your core operational code.</p>
-      </div>
-      <div class="path-block path-block-1">
-        <span class="path-num path-num--sovereign">04</span>
-        <h3 class="path-name path-name--sovereign">Sovereign Core</h3>
-        <p class="path-desc">100% independent intelligence running entirely on owned private cloud servers or edge hardware. Zero external calls, zero API fees, and fully controlled by you.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ── MATURITY PATH (COMPLIANCE) ────────────────────────────────────── -->
-<section class="journey journey-business" id="journey-compliance" style="border-top: 1px solid var(--border); padding-top: 120px;">
   <div class="journey-header">
     <div class="focus-reveal">
       <div class="journey-label">EU AI Act Compliance</div>
@@ -388,41 +283,41 @@
         <path d="M 50 400 L 150 400 L 250 300 L 350 300 L 450 200" fill="none" stroke="#D8D2C8" stroke-width="2"/>
 
         <!-- Active Progress Line -->
-        <path id="path-progress-line-2" d="M 50 400 L 150 400 L 250 300 L 350 300 L 450 200"
+        <path id="path-progress-line" d="M 50 400 L 150 400 L 250 300 L 350 300 L 450 200"
           fill="none" stroke="var(--forest)" stroke-width="2"
           stroke-dasharray="483" stroke-dashoffset="483"
           style="transition: stroke-dashoffset 0.8s cubic-bezier(0.25, 1, 0.25, 1);"/>
 
         <!-- Nodes -->
-        <g class="path-node path-node-2 active" data-index="0" onclick="updatePath2(0)">
+        <g class="path-node active" data-index="0" onclick="updatePath(0)">
           <circle cx="50" cy="400" r="30" fill="transparent"/>
           <rect x="35" y="385" width="30" height="30" fill="var(--plaster)" stroke="var(--forest)" stroke-width="1.5" class="node-bg" transform="rotate(45 50 400)"/>
           <circle cx="50" cy="400" r="3.5" fill="var(--forest)" class="node-dot"/>
           <text x="50" y="430" text-anchor="middle" font-size="10" fill="var(--night)" letter-spacing="1.5">00</text>
         </g>
 
-        <g class="path-node path-node-2" data-index="1" onclick="updatePath2(1)">
+        <g class="path-node" data-index="1" onclick="updatePath(1)">
           <circle cx="150" cy="400" r="30" fill="transparent"/>
           <rect x="135" y="385" width="30" height="30" fill="var(--plaster)" stroke="#A8A09A" stroke-width="1.5" class="node-bg" transform="rotate(45 150 400)"/>
           <circle cx="150" cy="400" r="3.5" fill="#A8A09A" class="node-dot"/>
           <text x="150" y="430" text-anchor="middle" font-size="10" fill="#A8A09A" letter-spacing="1.5">01</text>
         </g>
 
-        <g class="path-node path-node-2" data-index="2" onclick="updatePath2(2)">
+        <g class="path-node" data-index="2" onclick="updatePath(2)">
           <circle cx="250" cy="300" r="30" fill="transparent"/>
           <rect x="235" y="285" width="30" height="30" fill="var(--plaster)" stroke="#A8A09A" stroke-width="1.5" class="node-bg" transform="rotate(45 250 300)"/>
           <circle cx="250" cy="300" r="3.5" fill="#A8A09A" class="node-dot"/>
           <text x="250" y="330" text-anchor="middle" font-size="10" fill="#A8A09A" letter-spacing="1.5">02</text>
         </g>
 
-        <g class="path-node path-node-2" data-index="3" onclick="updatePath2(3)">
+        <g class="path-node" data-index="3" onclick="updatePath(3)">
           <circle cx="350" cy="300" r="30" fill="transparent"/>
           <rect x="335" y="285" width="30" height="30" fill="var(--plaster)" stroke="#A8A09A" stroke-width="1.5" class="node-bg" transform="rotate(45 350 300)"/>
           <circle cx="350" cy="300" r="3.5" fill="#A8A09A" class="node-dot"/>
           <text x="350" y="330" text-anchor="middle" font-size="10" fill="#A8A09A" letter-spacing="1.5">03</text>
         </g>
 
-        <g class="path-node path-node-2" data-index="4" onclick="updatePath2(4)">
+        <g class="path-node" data-index="4" onclick="updatePath(4)">
           <circle cx="450" cy="200" r="30" fill="transparent"/>
           <rect x="435" y="185" width="30" height="30" fill="var(--plaster)" stroke="#A8A09A" stroke-width="1.5" class="node-bg" transform="rotate(45 450 200)"/>
           <circle cx="450" cy="200" r="3.5" fill="#A8A09A" class="node-dot"/>
@@ -432,27 +327,27 @@
     </div>
 
     <div class="path-content-blocks">
-      <div class="path-block path-block-2 active">
+      <div class="path-block active">
         <span class="path-num">00</span>
         <h3 class="path-name">Risk Classification</h3>
         <p class="path-desc">Determine your AI system's risk tier under the EU AI Act (Unacceptable, High, Limited, or Minimal) to define your regulatory path and obligations.</p>
       </div>
-      <div class="path-block path-block-2">
+      <div class="path-block">
         <span class="path-num">01</span>
         <h3 class="path-name">Data Governance</h3>
         <p class="path-desc">Implement strict data governance to ensure training and fine-tuning datasets are unbiased, high-quality, and fully compliant with data privacy mandates.</p>
       </div>
-      <div class="path-block path-block-2">
+      <div class="path-block">
         <span class="path-num">02</span>
         <h3 class="path-name">System Transparency</h3>
         <p class="path-desc">Construct comprehensive technical documentation, model cards, and clear user instructions detailing how the AI generates outputs and decisions.</p>
       </div>
-      <div class="path-block path-block-2">
+      <div class="path-block">
         <span class="path-num path-num--owner">03</span>
         <h3 class="path-name path-name--owner">Human Oversight</h3>
         <p class="path-desc">Establish "human-in-the-loop" oversight mechanisms and robust cybersecurity protocols to prevent AI drift, bias, and unauthorized access.</p>
       </div>
-      <div class="path-block path-block-2">
+      <div class="path-block">
         <span class="path-num path-num--sovereign">04</span>
         <h3 class="path-name path-name--sovereign">Continuous Audit</h3>
         <p class="path-desc">Conduct formal conformity assessments, register in the EU AI database, and maintain continuous monitoring to guarantee ongoing legal compliance.</p>

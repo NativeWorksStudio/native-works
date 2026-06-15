@@ -106,35 +106,35 @@ if (compassWrap && isTouchDevice) {
 }
 
 
-/* ── PATH LOGIC 1 (SOVEREIGNTY) ─────────────────────────────────────────── */
-let currentPathIndex1 = 0;
-const totalPathNodes1 = 5;
-let pathRotationInterval1 = null;
+/* ── PATH LOGIC ────────────────────────────────────────────────────────── */
+let currentPathIndex = 0;
+const totalPathNodes = 5;
+let pathRotationInterval = null;
 
-function startPathRotation1() {
-  if (pathRotationInterval1) clearInterval(pathRotationInterval1);
-  pathRotationInterval1 = setInterval(() => {
-    currentPathIndex1 = (currentPathIndex1 + 1) % totalPathNodes1;
-    updatePath1(currentPathIndex1, false);
+function startPathRotation() {
+  if (pathRotationInterval) clearInterval(pathRotationInterval);
+  pathRotationInterval = setInterval(() => {
+    currentPathIndex = (currentPathIndex + 1) % totalPathNodes;
+    updatePath(currentPathIndex, false);
   }, 3000);
 }
 
-function updatePath1(index, manualClick = true) {
-  currentPathIndex1 = index;
+function updatePath(index, manualClick = true) {
+  currentPathIndex = index;
 
   // Update node classes
-  document.querySelectorAll('.path-node-1').forEach(node => {
+  document.querySelectorAll('.path-node').forEach(node => {
     const nodeIndex = parseInt(node.getAttribute('data-index'));
     node.classList.toggle('active', nodeIndex <= index);
   });
 
   // Show only the active content block
-  document.querySelectorAll('.path-block-1').forEach((b, i) => {
+  document.querySelectorAll('.path-block').forEach((b, i) => {
     b.classList.toggle('active', i === index);
   });
 
   // Animate progress line
-  const pathLine = document.getElementById('path-progress-line-1');
+  const pathLine = document.getElementById('path-progress-line');
   if (pathLine) {
     const offsets = [483, 383, 241.6, 141.6, 0];
     pathLine.style.strokeDasharray = '483';
@@ -143,56 +143,15 @@ function updatePath1(index, manualClick = true) {
 
   // If clicked manually, reset the rotation timer
   if (manualClick) {
-    startPathRotation1();
+    startPathRotation();
   }
 }
-// Init first path active and start auto-cycling
-updatePath1(0, true);
 
-/* ── PATH LOGIC 2 (COMPLIANCE) ─────────────────────────────────────────── */
-let currentPathIndex2 = 0;
-const totalPathNodes2 = 5;
-let pathRotationInterval2 = null;
-
-function startPathRotation2() {
-  if (pathRotationInterval2) clearInterval(pathRotationInterval2);
-  pathRotationInterval2 = setInterval(() => {
-    currentPathIndex2 = (currentPathIndex2 + 1) % totalPathNodes2;
-    updatePath2(currentPathIndex2, false);
-  }, 3000);
+// Init path active and start auto-cycling if it exists on page
+if (document.getElementById('path-progress-line')) {
+  updatePath(0, true);
 }
 
-function updatePath2(index, manualClick = true) {
-  currentPathIndex2 = index;
-
-  // Update node classes
-  document.querySelectorAll('.path-node-2').forEach(node => {
-    const nodeIndex = parseInt(node.getAttribute('data-index'));
-    node.classList.toggle('active', nodeIndex <= index);
-  });
-
-  // Show only the active content block
-  document.querySelectorAll('.path-block-2').forEach((b, i) => {
-    b.classList.toggle('active', i === index);
-  });
-
-  // Animate progress line
-  const pathLine = document.getElementById('path-progress-line-2');
-  if (pathLine) {
-    const offsets = [483, 383, 241.6, 141.6, 0];
-    pathLine.style.strokeDasharray = '483';
-    pathLine.style.strokeDashoffset = offsets[index];
-  }
-
-  // If clicked manually, reset the rotation timer
-  if (manualClick) {
-    startPathRotation2();
-  }
-}
-// Init second path active and start auto-cycling if it exists on page
-if (document.getElementById('path-progress-line-2')) {
-  updatePath2(0, true);
-}
 
 /* ── INTERSECTION REVEAL ────────────────────────────────────────────────── */
 const revealObserver = new IntersectionObserver(entries => {
