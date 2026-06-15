@@ -514,6 +514,62 @@ div.hero-business-lead {
   line-height: 1.25;
 }
 
+/* ── HERO BUTTONS ── */
+.hero-business-actions {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 48px;
+}
+.business-hero-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 36px;
+  border: 1px solid var(--true-north);
+  border-radius: 4px;
+  color: var(--true-north);
+  font-size: 13px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  background: transparent;
+  font-weight: 500;
+  cursor: none;
+}
+.business-hero-btn--primary {
+  background: var(--true-north);
+  color: var(--plaster-light);
+}
+.business-hero-btn--primary:hover {
+  background: transparent;
+  color: var(--true-north);
+  box-shadow: var(--shadow-raised-hover);
+  transform: translateY(-2px);
+}
+.business-hero-btn--secondary {
+  background: transparent;
+  color: var(--true-north);
+}
+.business-hero-btn--secondary:hover {
+  background: var(--true-north);
+  color: var(--plaster-light);
+  box-shadow: 0 4px 20px rgba(var(--true-north-rgb), 0.25);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 600px) {
+  .hero-business-actions {
+    flex-direction: column;
+    gap: 16px;
+    padding: 0 24px;
+  }
+  .business-hero-btn {
+    width: 100%;
+  }
+}
+
 /* ── MID-PAGE CTA SECTION ── */
 .middle-cta-wrap {
   padding: 80px clamp(24px, 5vw, 80px) 0;
