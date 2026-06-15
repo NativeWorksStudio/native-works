@@ -284,19 +284,19 @@ body.cursor-on-hero #custom-cursor-ring {
 /* Mobile Toggle */
 .nav-toggle {
   display: none;
-  width: 32px; height: 32px;
+  width: 44px; height: 44px;
   background: none; border: none;
   position: relative; cursor: none;
   z-index: 600;
-  padding: 4px;
+  padding: 0;
 }
 .nav-toggle-line {
   display: block; width: 22px; height: 1.5px;
-  background: var(--night); position: absolute; left: 5px;
+  background: var(--night); position: absolute; left: 11px;
   transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.3s;
 }
-.nav-toggle-line:first-child { top: 12px; }
-.nav-toggle-line:last-child  { top: 19px; }
+.nav-toggle-line:first-child { top: 18px; }
+.nav-toggle-line:last-child  { top: 25px; }
 
 /* Toggle Animation */
 #nav.mobile-menu-open .nav-toggle-line:first-child { transform: translateY(3.5px) rotate(45deg); }
@@ -1118,16 +1118,42 @@ a.footer-mark { display: flex; align-items: center; gap: 18px; text-decoration: 
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     background: rgba(234, 229, 220, 0.98);
     backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
-    flex-direction: column; justify-content: center; align-items: center;
-    padding: 80px 24px; gap: 48px;
+    flex-direction: column; justify-content: flex-start; align-items: center;
+    padding: 120px 24px 60px; gap: 40px;
     transform: translateX(100%);
     transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
     z-index: 550;
     pointer-events: none;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
   #nav.mobile-menu-open .nav-menu {
     transform: translateX(0);
     pointer-events: auto;
+  }
+
+  /* Premium staggered entry animations for menu items when open */
+  .nav-menu .nav-links li,
+  .nav-menu .nav-cta {
+    opacity: 0;
+    transform: translateY(15px);
+    transition: opacity 0.5s cubic-bezier(0.2, 0.8, 0.2, 1),
+                transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  #nav.mobile-menu-open .nav-menu .nav-links li:nth-child(1) {
+    opacity: 1; transform: translateY(0); transition-delay: 0.1s;
+  }
+  #nav.mobile-menu-open .nav-menu .nav-links li:nth-child(2) {
+    opacity: 1; transform: translateY(0); transition-delay: 0.15s;
+  }
+  #nav.mobile-menu-open .nav-menu .nav-links li:nth-child(3) {
+    opacity: 1; transform: translateY(0); transition-delay: 0.2s;
+  }
+  #nav.mobile-menu-open .nav-menu .nav-links li:nth-child(4) {
+    opacity: 1; transform: translateY(0); transition-delay: 0.25s;
+  }
+  #nav.mobile-menu-open .nav-menu .nav-cta {
+    opacity: 1; transform: translateY(0); transition-delay: 0.3s;
   }
 
   .nav-links { flex-direction: column; align-items: center; gap: 28px; }

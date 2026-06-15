@@ -11,7 +11,7 @@ const cursorRing = document.getElementById('custom-cursor-ring');
 
 const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
 if (isTouchDevice) {
-  document.body.classList.add('touch-device');
+  document.documentElement.classList.add('touch-device');
 }
 
 if (!isTouchDevice) {
@@ -81,9 +81,11 @@ if (!isTouchDevice) {
 
 /* ── NAV SCROLL STATE ──────────────────────────────────────────────────── */
 const nav = document.getElementById('nav');
-window.addEventListener('scroll', () => {
-  nav.classList.toggle('scrolled', window.scrollY > 60);
-}, { passive: true });
+if (nav) {
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  }, { passive: true });
+}
 
 /* ── COMPASS TOUCH INTERACTION ─────────────────────────────────────────── */
 /*
@@ -147,7 +149,7 @@ document.querySelectorAll(
 const navToggle = document.getElementById('nav-toggle');
 const navLinkItems = document.querySelectorAll('.nav-links a, .nav-cta');
 
-if (navToggle) {
+if (navToggle && nav) {
   navToggle.addEventListener('click', () => {
     const isOpen = nav.classList.toggle('mobile-menu-open');
     navToggle.setAttribute('aria-expanded', isOpen);
@@ -158,8 +160,19 @@ if (navToggle) {
 // Close menu when clicking a link
 navLinkItems.forEach(link => {
   link.addEventListener('click', () => {
-    nav.classList.remove('mobile-menu-open');
+    if (nav) nav.classList.remove('mobile-menu-open');
     if (navToggle) navToggle.setAttribute('aria-expanded', 'false');
     document.body.style.overflow = '';
   });
+});
+
+// Handle window resize to close mobile menu if switching to desktop
+window.addEventListener('resize', () => {
+  if (window.innerWidth > 900) {
+    if (nav && nav.classList.contains('mobile-menu-open')) {
+      nav.classList.remove('mobile-menu-open');
+      if (navToggle) navToggle.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    }
+  }
 });
