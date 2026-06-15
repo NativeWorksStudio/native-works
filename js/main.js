@@ -116,8 +116,9 @@ function startPathRotation() {
   pathRotationInterval = setInterval(() => {
     currentPathIndex = (currentPathIndex + 1) % totalPathNodes;
     updatePath(currentPathIndex, false);
-  }, 3000);
+  }, 5000);
 }
+
 
 function updatePath(index, manualClick = true) {
   currentPathIndex = index;
