@@ -637,4 +637,22 @@ div.hero-business-lead {
   }
 }
 
+/* Reduce spacing between problem and how section */
+.problem {
+  padding-bottom: 60px !important;
+}
+.how {
+  padding-top: 60px !important;
+}
+
+@media (max-width: 900px) {
+  .problem {
+    padding-bottom: 40px !important;
+  }
+  .how {
+    padding-top: 40px !important;
+  }
+}
+
+
 
