@@ -474,14 +474,14 @@ body.cursor-on-hero #custom-cursor-ring {
   max-width: 1200px; margin: 0 auto;
 }
 .problem-eyebrow {
-  font-size: 10px; letter-spacing: 4px; color: #8A847E;
-  text-transform: uppercase; font-weight: 500; margin-bottom: 80px;
+  font-size: 11px; letter-spacing: 5px; color: var(--plaster-light);
+  text-transform: uppercase; font-weight: 700; margin-bottom: 80px;
   display: flex; align-items: center; gap: 20px;
 }
 .problem-eyebrow::after {
   content: '';
   display: block; flex: 1; height: 1px;
-  background: linear-gradient(to right, rgba(168,160,152,0.3), transparent);
+  background: linear-gradient(to right, rgba(248, 245, 239, 0.35), transparent);
 }
 
 .problem-grid {
