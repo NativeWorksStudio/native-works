@@ -32,7 +32,7 @@ if (!isTouchDevice) {
   });
 
   /* Hover state — classe CSS per dot e ring */
-  document.querySelectorAll('a, button, .product-card, .how-card, .path-node').forEach(el => {
+  document.querySelectorAll('a, button, .product-card, .how-card, .path-node, .use-case-card').forEach(el => {
     el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
     el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
   });
@@ -47,7 +47,7 @@ if (!isTouchDevice) {
 
 if (!isTouchDevice) {
   /* ── CINEMATIC HOVER TRACKING (Glint & Tilt) ────────────────────────────── */
-  document.querySelectorAll('.how-card, .product-card, .path-node').forEach(card => {
+  document.querySelectorAll('.how-card, .product-card, .path-node, .use-case-card').forEach(card => {
     card.addEventListener('mousemove', e => {
       const rect = card.getBoundingClientRect();
       const x = e.clientX - rect.left;

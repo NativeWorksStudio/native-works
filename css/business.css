@@ -469,3 +469,116 @@ tr:hover td.sovereign-cell {
   color: var(--forest) !important;
 }
 
+/* ── EDITORIAL INTRO COPY ── */
+.hero-business-subtitle {
+  font-family: var(--font-display);
+  font-size: clamp(22px, 2.6vw, 30px);
+  font-style: italic;
+  color: var(--true-north);
+  max-width: 800px;
+  margin: 0 auto 36px;
+  line-height: 1.5;
+  font-weight: 300;
+}
+div.hero-business-lead {
+  font-size: 16px;
+  color: #4A4740;
+  line-height: 1.95;
+  max-width: 780px;
+  margin: 0 auto 64px;
+  font-weight: 300;
+  text-align: center;
+}
+.hero-business-lead p {
+  margin-bottom: 24px;
+}
+.hero-business-lead p:last-child {
+  margin-bottom: 0;
+}
+.hero-business-bold-text {
+  font-size: 18px;
+  color: var(--night);
+  font-weight: 400;
+}
+.hero-business-callout {
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--true-north);
+}
+.hero-business-accent {
+  font-family: var(--font-display);
+  font-size: clamp(20px, 2.4vw, 28px);
+  color: var(--night);
+  font-style: italic;
+  margin: 36px 0 !important;
+  line-height: 1.25;
+}
+
+/* ── MID-PAGE CTA SECTION ── */
+.middle-cta-wrap {
+  padding: 80px clamp(24px, 5vw, 80px) 0;
+  background: var(--plaster);
+  display: block;
+}
+
+/* ── USE CASES SECTION ── */
+.use-cases-section {
+  margin-top: 100px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  padding-top: 80px;
+}
+.use-cases-heading {
+  font-family: var(--font-display);
+  font-size: clamp(24px, 3.2vw, 38px);
+  color: var(--warm-white);
+  margin-bottom: 48px;
+  text-align: center;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+}
+.use-cases-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+.use-case-card {
+  background: rgba(255, 255, 255, 0.015);
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  padding: 40px 32px;
+  border-radius: 4px;
+  transition: background 0.3s, border-color 0.3s;
+}
+.use-case-card:hover {
+  background: rgba(255, 255, 255, 0.025);
+  border-color: rgba(43, 94, 43, 0.3);
+}
+.use-case-icon {
+  font-size: 36px;
+  margin-bottom: 24px;
+  opacity: 0.8;
+}
+.use-case-card h4 {
+  font-family: var(--font-display);
+  font-size: 21px;
+  color: var(--warm-white);
+  margin-bottom: 16px;
+  font-weight: 400;
+}
+.use-case-card p {
+  font-size: 14px;
+  color: #B0A8A0;
+  line-height: 1.85;
+  font-weight: 300;
+}
+
+@media (max-width: 900px) {
+  .use-cases-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .use-case-card {
+    padding: 32px 24px;
+  }
+}
+
+
