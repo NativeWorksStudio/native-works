@@ -2729,6 +2729,50 @@ a.footer-mark { display: flex; align-items: center; gap: 18px; text-decoration: 
 
 .metric-item span { color: var(--sand); }
 
+/* ── Choose Your Path Extra CTA (Ask Bragi) ── */
+.choose-path-extra {
+  margin-top: 50px;
+  text-align: center;
+  position: relative;
+  z-index: 12;
+}
+
+.choose-path-bragi-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-body);
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--mid);
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 600;
+  padding: 14px 28px;
+  border: 1px dashed rgba(30, 27, 23, 0.25);
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  background: transparent;
+}
+
+.choose-path-bragi-btn:hover {
+  color: var(--true-north);
+  border-color: var(--true-north);
+  border-style: solid;
+  background: rgba(142, 59, 40, 0.03);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-raised-sm);
+}
+
+.choose-path-bragi-btn .arr {
+  transition: transform 0.2s;
+}
+
+.choose-path-bragi-btn:hover .arr {
+  transform: translateX(4px);
+}
+
+
 
 
 
