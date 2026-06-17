@@ -49,10 +49,14 @@ const firebaseKeys = {
   measurementId: process.env.FIREBASE_MEASUREMENT_ID
 };
 
-// Validate critical keys
+// Firebase keys are optional: if absent, fall back to PLACEHOLDER so the assessment
+// funnels run in offline/demo mode (firebaseReady=false) instead of FAILING the whole
+// build/deploy. The Bragi chat at /ask needs no Firebase keys, so it must never be
+// blocked by a missing key.
 if (!firebaseKeys.apiKey || !firebaseKeys.projectId) {
-  console.error("❌ Error: FIREBASE_API_KEY and FIREBASE_PROJECT_ID env variables must be set!");
-  process.exit(1);
+  console.warn("⚠️ FIREBASE_API_KEY/PROJECT_ID not set — using PLACEHOLDER config (Firebase demo mode). Build continues.");
+  firebaseKeys.apiKey = firebaseKeys.apiKey || "PLACEHOLDER_API_KEY";
+  firebaseKeys.projectId = firebaseKeys.projectId || "PLACEHOLDER_PROJECT_ID";
 }
 
 // Generate the configuration block

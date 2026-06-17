@@ -1,5 +1,5 @@
 /* ============================================================================
-   braghi.js — "Ask Braghi" chat client for the NativeWorks /ask page.
+   bragi.js — "Ask Bragi" chat client for the NativeWorks /ask page.
    Talks to the KAI relay (single-shot, no streaming). No deps, no build step.
    Contract (verified): POST /api/message { userId, text, mustReply:true } -> { text }
    Rendering is XSS-safe: all HTML entity-escaped first, then a fixed tag
@@ -18,11 +18,11 @@
   var COUNTER_THRESHOLD  = 3600;
 
   var COPY = {
-    greeting: "I'm Braghi. Tell me where you are today — building from scratch, or trying to get off rented land — and I'll help you find your bearings.",
-    slow:     'Braghi is thinking…',
+    greeting: "I'm Bragi. Tell me where you are today — building from scratch, or trying to get off rented land — and I'll help you find your bearings.",
+    slow:     'Bragi is thinking…',
     network:  'The line went quiet — looks like the connection dropped. Check your network and ask again.',
     server:   'Something faltered on my end, not yours. Give me a moment and try once more.',
-    empty:    "Braghi didn't have an answer for that — try rephrasing?",
+    empty:    "Bragi didn't have an answer for that — try rephrasing?",
     retry:    'Try again'
   };
 
@@ -86,12 +86,12 @@
 
   // ── Boot ─────────────────────────────────────────────────────────────────────
   function init() {
-    var form    = document.getElementById('braghi-form');
-    var input   = document.getElementById('braghi-input');
-    var send    = document.getElementById('braghi-send');
-    var log     = document.getElementById('braghi-log');
-    var chips   = document.getElementById('braghi-chips');
-    var counter = document.getElementById('braghi-counter');
+    var form    = document.getElementById('bragi-form');
+    var input   = document.getElementById('bragi-input');
+    var send    = document.getElementById('bragi-send');
+    var log     = document.getElementById('bragi-log');
+    var chips   = document.getElementById('bragi-chips');
+    var counter = document.getElementById('bragi-counter');
     if (!form || !input || !send || !log) return;
 
     var userId      = getUserId();
@@ -140,12 +140,12 @@
     // ---- DOM builders ----
     function buildMsg(role, vhLabel) {
       var row = document.createElement('div');
-      row.className = 'braghi-msg braghi-msg--' + role;
+      row.className = 'bragi-msg bragi-msg--' + role;
       var vh = document.createElement('span');
-      vh.className = 'braghi-visually-hidden';
+      vh.className = 'bragi-visually-hidden';
       vh.textContent = vhLabel;
       var bubble = document.createElement('div');
-      bubble.className = 'braghi-bubble';
+      bubble.className = 'bragi-bubble';
       row.appendChild(vh);
       row.appendChild(bubble);
       return { row: row, bubble: bubble };
@@ -159,7 +159,7 @@
     }
 
     function appendBotMessage(reply) {
-      var m = buildMsg('bot', 'Braghi said: ');
+      var m = buildMsg('bot', 'Bragi said: ');
       m.bubble.innerHTML = renderSafe(reply);  // safe: escaped-then-whitelisted
       log.appendChild(m.row);
       scrollToBottomIfNear();
@@ -168,14 +168,14 @@
 
     function appendTyping() {
       var row = document.createElement('div');
-      row.className = 'braghi-msg braghi-msg--bot braghi-typing';
+      row.className = 'bragi-msg bragi-msg--bot bragi-typing';
       row.setAttribute('aria-hidden', 'true');
       var bubble = document.createElement('div');
-      bubble.className = 'braghi-bubble';
+      bubble.className = 'bragi-bubble';
       if (prefersReducedMotion) {
         bubble.textContent = COPY.slow;
       } else {
-        bubble.innerHTML = '<span class="braghi-dot"></span><span class="braghi-dot"></span><span class="braghi-dot"></span>';
+        bubble.innerHTML = '<span class="bragi-dot"></span><span class="bragi-dot"></span><span class="bragi-dot"></span>';
       }
       row.appendChild(bubble);
       log.appendChild(row);
@@ -185,22 +185,22 @@
 
     function swapTypingToStatus(typingRow) {
       if (!typingRow || !typingRow.parentNode) return;
-      var bubble = typingRow.querySelector('.braghi-bubble');
+      var bubble = typingRow.querySelector('.bragi-bubble');
       if (bubble) bubble.textContent = COPY.slow;
     }
 
     function appendErrorMessage(err) {
       var row = document.createElement('div');
-      row.className = 'braghi-msg braghi-msg--bot braghi-msg--error';
+      row.className = 'bragi-msg bragi-msg--bot bragi-msg--error';
       var vh = document.createElement('span');
-      vh.className = 'braghi-visually-hidden';
-      vh.textContent = 'Braghi said: ';
+      vh.className = 'bragi-visually-hidden';
+      vh.textContent = 'Bragi said: ';
       var bubble = document.createElement('div');
-      bubble.className = 'braghi-bubble';
+      bubble.className = 'bragi-bubble';
       bubble.textContent = (err && err.kind === 'server') ? COPY.server : COPY.network;
       var retry = document.createElement('button');
       retry.type = 'button';
-      retry.className = 'braghi-retry';
+      retry.className = 'bragi-retry';
       retry.textContent = COPY.retry;
       retry.addEventListener('click', function () {
         input.focus();            // a11y: claim focus before detaching the button, else it falls to <body>
@@ -217,7 +217,7 @@
     function enterActiveState() {
       if (activated) return;
       activated = true;
-      document.body.classList.add('braghi-active');
+      document.body.classList.add('bragi-active');
       if (!log.children.length) appendBotMessage(COPY.greeting);  // greeting as message #0
     }
 
@@ -297,7 +297,7 @@
     });
     if (chips) {
       chips.addEventListener('click', function (e) {
-        var chip = e.target.closest ? e.target.closest('.braghi-chip') : null;
+        var chip = e.target.closest ? e.target.closest('.bragi-chip') : null;
         if (chip) sendMessage(chip.textContent.trim());
       });
     }
@@ -306,7 +306,7 @@
     if (isCoarse && window.visualViewport) {
       var vv = window.visualViewport;
       var onVV = function () {
-        if (!document.body.classList.contains('braghi-active')) { form.style.transform = ''; return; }
+        if (!document.body.classList.contains('bragi-active')) { form.style.transform = ''; return; }
         var offset = window.innerHeight - vv.height - vv.offsetTop;
         form.style.transform = offset > 0 ? 'translateY(' + (-offset) + 'px)' : '';
       };

@@ -4,28 +4,28 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, interactive-widget=resizes-content">
 <meta name="theme-color" content="#EAE5DC">
-<title>Ask Braghi — Native Works</title>
-<meta name="description" content="Not sure where to start? Ask Braghi, Native Works' AI guide to owning your site, audience, and revenue.">
+<title>Ask Bragi — Native Works</title>
+<meta name="description" content="Not sure where to start? Ask Bragi, Native Works' AI guide to owning your site, audience, and revenue.">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://nativeworks.studio/ask.html">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 
-<!-- Defense-in-depth: rendering is already XSS-safe (escape-first in braghi.js); this is a backstop. -->
+<!-- Defense-in-depth: rendering is already XSS-safe (escape-first in bragi.js); this is a backstop. -->
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: https:; font-src https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; connect-src 'self' https://chat-api.178.104.31.77.sslip.io; script-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'self'">
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://nativeworks.studio/ask.html">
-<meta property="og:title" content="Ask Braghi — Native Works">
-<meta property="og:description" content="Not sure where to start? Ask Braghi, Native Works' AI guide to owning your site, audience, and revenue.">
+<meta property="og:title" content="Ask Bragi — Native Works">
+<meta property="og:description" content="Not sure where to start? Ask Bragi, Native Works' AI guide to owning your site, audience, and revenue.">
 <meta property="og:image" content="https://nativeworks.studio/og-image.png">
 <meta property="og:site_name" content="Native Works">
 
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:url" content="https://nativeworks.studio/ask.html">
-<meta name="twitter:title" content="Ask Braghi — Native Works">
-<meta name="twitter:description" content="Not sure where to start? Ask Braghi, Native Works' AI guide to owning your site, audience, and revenue.">
+<meta name="twitter:title" content="Ask Bragi — Native Works">
+<meta name="twitter:description" content="Not sure where to start? Ask Bragi, Native Works' AI guide to owning your site, audience, and revenue.">
 <meta name="twitter:image" content="https://nativeworks.studio/og-image.png">
 
 <!-- Fonts -->
@@ -35,7 +35,7 @@
 
 <!-- Styles -->
 <link rel="stylesheet" href="css/style.css?v=1.1.0">
-<link rel="stylesheet" href="css/braghi.css?v=1.0.0">
+<link rel="stylesheet" href="css/bragi.css?v=1.0.0">
 </head>
 <body>
 
@@ -67,68 +67,68 @@
       <li><a href="creator.html">Creator</a></li>
       <li><a href="business.html">Business</a></li>
       <li><a href="contact.html">Contact</a></li>
-      <li><a href="ask.html" class="active" aria-current="page">Talk to Braghi</a></li>
+      <li><a href="ask.html" class="active" aria-current="page">Talk to Bragi</a></li>
     </ul>
 
     <a href="index.html#choose-path" class="nav-cta" id="nav-cta">Own your presence →</a>
   </div>
 </nav>
 
-<!-- ── ASK BRAGHI ──────────────────────────────────────────────────────── -->
+<!-- ── ASK BRAGI ──────────────────────────────────────────────────────── -->
 <main>
-<section class="braghi-ask" id="braghi-ask">
-  <div class="braghi-shell">
+<section class="bragi-ask" id="bragi-ask">
+  <div class="bragi-shell">
 
-    <!-- HERO / landing copy (hidden once a conversation starts, via body.braghi-active) -->
-    <header class="braghi-hero reveal visible">
-      <span class="braghi-eyebrow">Ask Braghi</span>
-      <h1 class="braghi-headline">Not sure where to start?<br><em>Ask Braghi.</em></h1>
-      <p class="braghi-subhead">A quiet guide to owning your site, your audience, and your revenue — ask anything, and find your bearings before you commit to a path.</p>
+    <!-- HERO / landing copy (hidden once a conversation starts, via body.bragi-active) -->
+    <header class="bragi-hero reveal visible">
+      <span class="bragi-eyebrow">Ask Bragi</span>
+      <h1 class="bragi-headline">Not sure where to start?<br><em>Ask Bragi.</em></h1>
+      <p class="bragi-subhead">A quiet guide to owning your site, your audience, and your revenue — ask anything, and find your bearings before you commit to a path.</p>
     </header>
 
     <!-- CONVERSATION LOG (empty in landing state; populated after first send) -->
-    <div class="braghi-log"
-         id="braghi-log"
+    <div class="bragi-log"
+         id="bragi-log"
          role="log"
          aria-live="polite"
          aria-relevant="additions"
-         aria-label="Conversation with Braghi"
+         aria-label="Conversation with Bragi"
          aria-busy="false"></div>
 
-    <!-- COMPOSER (single element; moves center → docked via body.braghi-active) -->
-    <form class="braghi-composer" id="braghi-form" autocomplete="off">
-      <label for="braghi-input" class="braghi-visually-hidden">Ask Braghi a question</label>
-      <div class="braghi-inputwrap">
-        <textarea id="braghi-input"
-                  class="braghi-input"
-                  name="braghi-input"
+    <!-- COMPOSER (single element; moves center → docked via body.bragi-active) -->
+    <form class="bragi-composer" id="bragi-form" autocomplete="off">
+      <label for="bragi-input" class="bragi-visually-hidden">Ask Bragi a question</label>
+      <div class="bragi-inputwrap">
+        <textarea id="bragi-input"
+                  class="bragi-input"
+                  name="bragi-input"
                   rows="1"
                   maxlength="4000"
                   enterkeyhint="enter"
-                  placeholder="Ask Braghi anything about owning your presence…"
-                  aria-label="Ask Braghi a question"></textarea>
+                  placeholder="Ask Bragi anything about owning your presence…"
+                  aria-label="Ask Bragi a question"></textarea>
         <button type="submit"
-                class="braghi-send"
-                id="braghi-send"
-                aria-label="Send your question to Braghi"
+                class="bragi-send"
+                id="bragi-send"
+                aria-label="Send your question to Bragi"
                 disabled>
-          <span class="braghi-send-label">Ask</span>
-          <span class="braghi-send-arrow" aria-hidden="true">↑</span>
+          <span class="bragi-send-label">Ask</span>
+          <span class="bragi-send-arrow" aria-hidden="true">↑</span>
         </button>
       </div>
-      <p class="braghi-counter" id="braghi-counter" aria-hidden="true"></p>
+      <p class="bragi-counter" id="bragi-counter" aria-hidden="true"></p>
     </form>
 
     <!-- SUGGESTION CHIPS (landing only; hidden once a conversation starts) -->
-    <div class="braghi-chips" id="braghi-chips" role="group" aria-label="Suggested questions">
-      <button type="button" class="braghi-chip">Creator or Business — which path is mine?</button>
-      <button type="button" class="braghi-chip">What does "owning my presence" actually mean?</button>
-      <button type="button" class="braghi-chip">How do I leave a platform without losing my audience?</button>
-      <button type="button" class="braghi-chip">Stack or Foundation — where should I begin?</button>
+    <div class="bragi-chips" id="bragi-chips" role="group" aria-label="Suggested questions">
+      <button type="button" class="bragi-chip">Creator or Business — which path is mine?</button>
+      <button type="button" class="bragi-chip">What does "owning my presence" actually mean?</button>
+      <button type="button" class="bragi-chip">How do I leave a platform without losing my audience?</button>
+      <button type="button" class="bragi-chip">Stack or Foundation — where should I begin?</button>
     </div>
 
     <!-- DEMO DISCLAIMER -->
-    <p class="braghi-disclaimer">Braghi is an AI guide, here in preview. For this demo he answers from AmaZix's knowledge base, so treat his replies as orientation — not the final word on Native Works.</p>
+    <p class="bragi-disclaimer">Bragi is an AI guide, here in preview. For this demo he answers from AmaZix's knowledge base, so treat his replies as orientation — not the final word on Native Works.</p>
 
   </div>
 </section>
@@ -191,6 +191,6 @@
 </footer>
 
 <script src="js/main.js" defer></script>
-<script src="js/braghi.js" defer></script>
+<script src="js/bragi.js" defer></script>
 </body>
 </html>

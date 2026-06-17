@@ -2543,8 +2543,8 @@ a.footer-mark { display: flex; align-items: center; gap: 18px; text-decoration: 
   }
 }
 
-/* (Braghi marketing page disregarded — its hero CSS removed to avoid clashing with
-   the chat's braghi.css namespace. The unused sandbox/doctrine rules below are harmless.) */
+/* (Bragi marketing page disregarded — its hero CSS removed to avoid clashing with
+   the chat's bragi.css namespace. The unused sandbox/doctrine rules below are harmless.) */
 
 /* Sandbox section */
 .sandbox-section {
@@ -2697,7 +2697,7 @@ a.footer-mark { display: flex; align-items: center; gap: 18px; text-decoration: 
 
 .metric-item span { color: var(--sand); }
 
-/* ── Choose Your Path Extra CTA (Ask Braghi) ── */
+/* ── Choose Your Path Extra CTA (Ask Bragi) ── */
 .choose-path-extra {
   margin-top: 50px;
   text-align: center;
@@ -2705,7 +2705,7 @@ a.footer-mark { display: flex; align-items: center; gap: 18px; text-decoration: 
   z-index: 12;
 }
 
-.choose-path-braghi-btn {
+.choose-path-bragi-btn {
   display: inline-flex;
   align-items: center;
   gap: 12px;
@@ -2723,7 +2723,7 @@ a.footer-mark { display: flex; align-items: center; gap: 18px; text-decoration: 
   background: transparent;
 }
 
-.choose-path-braghi-btn:hover {
+.choose-path-bragi-btn:hover {
   color: var(--true-north);
   border-color: var(--true-north);
   border-style: solid;
@@ -2732,11 +2732,11 @@ a.footer-mark { display: flex; align-items: center; gap: 18px; text-decoration: 
   box-shadow: var(--shadow-raised-sm);
 }
 
-.choose-path-braghi-btn .arr {
+.choose-path-bragi-btn .arr {
   transition: transform 0.2s;
 }
 
-.choose-path-braghi-btn:hover .arr {
+.choose-path-bragi-btn:hover .arr {
   transform: translateX(4px);
 }
 
