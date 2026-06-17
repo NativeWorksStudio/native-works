@@ -2543,40 +2543,8 @@ a.footer-mark { display: flex; align-items: center; gap: 18px; text-decoration: 
   }
 }
 
-/* ── BRAGI PAGE & SANDBOX STYLES ─────────────────────────────────────────── */
-.bragi-hero {
-  padding: 180px clamp(24px, 5vw, 80px) 100px;
-  background: var(--plaster-light);
-  position: relative;
-  overflow: hidden;
-  text-align: center;
-}
-
-.bragi-hero-glow {
-  position: absolute; top: -10%; right: -5%;
-  width: 600px; height: 600px;
-  background: radial-gradient(ellipse at center, rgba(142, 59, 40, 0.04) 0%, transparent 70%);
-  pointer-events: none; z-index: 0;
-}
-
-.bragi-hero-content {
-  max-width: 800px; margin: 0 auto; position: relative; z-index: 1;
-}
-
-.bragi-eyebrow {
-  font-family: var(--font-body); font-size: 11px; letter-spacing: 3px;
-  color: var(--true-north); text-transform: uppercase; font-weight: 600; margin-bottom: 20px;
-}
-
-.bragi-title {
-  font-family: var(--font-display); font-size: clamp(38px, 6vw, 72px);
-  line-height: 1.1; color: var(--night); margin-bottom: 24px; font-weight: 300;
-}
-
-.bragi-lead {
-  font-size: clamp(16px, 1.8vw, 19px); color: #4A4740; line-height: 1.6;
-  font-weight: 300; max-width: 680px; margin: 0 auto 40px;
-}
+/* (Braghi marketing page disregarded — its hero CSS removed to avoid clashing with
+   the chat's braghi.css namespace. The unused sandbox/doctrine rules below are harmless.) */
 
 /* Sandbox section */
 .sandbox-section {
@@ -2729,7 +2697,7 @@ a.footer-mark { display: flex; align-items: center; gap: 18px; text-decoration: 
 
 .metric-item span { color: var(--sand); }
 
-/* ── Choose Your Path Extra CTA (Ask Bragi) ── */
+/* ── Choose Your Path Extra CTA (Ask Braghi) ── */
 .choose-path-extra {
   margin-top: 50px;
   text-align: center;
@@ -2737,7 +2705,7 @@ a.footer-mark { display: flex; align-items: center; gap: 18px; text-decoration: 
   z-index: 12;
 }
 
-.choose-path-bragi-btn {
+.choose-path-braghi-btn {
   display: inline-flex;
   align-items: center;
   gap: 12px;
@@ -2755,7 +2723,7 @@ a.footer-mark { display: flex; align-items: center; gap: 18px; text-decoration: 
   background: transparent;
 }
 
-.choose-path-bragi-btn:hover {
+.choose-path-braghi-btn:hover {
   color: var(--true-north);
   border-color: var(--true-north);
   border-style: solid;
@@ -2764,11 +2732,11 @@ a.footer-mark { display: flex; align-items: center; gap: 18px; text-decoration: 
   box-shadow: var(--shadow-raised-sm);
 }
 
-.choose-path-bragi-btn .arr {
+.choose-path-braghi-btn .arr {
   transition: transform 0.2s;
 }
 
-.choose-path-bragi-btn:hover .arr {
+.choose-path-braghi-btn:hover .arr {
   transform: translateX(4px);
 }
 

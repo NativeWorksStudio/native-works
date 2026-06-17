@@ -80,6 +80,7 @@ const filesToCopy = [
   'assessment.html',
   'creator-assessment.html',
   'contact.html',
+  'ask.html',
   'thank-you.html',
   'dashboard.html',
   'business.html',

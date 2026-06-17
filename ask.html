@@ -2,27 +2,30 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, interactive-widget=resizes-content">
 <meta name="theme-color" content="#EAE5DC">
-<title>Sovereign Diagnostic Audit — Native Works</title>
-<meta name="description" content="Measure your platform dependencies, discover digital risk vectors, and plan your transition to owned sovereign infrastructure.">
+<title>Ask Braghi — Native Works</title>
+<meta name="description" content="Not sure where to start? Ask Braghi, Native Works' AI guide to owning your site, audience, and revenue.">
 <meta name="robots" content="index, follow">
-<link rel="canonical" href="https://nativeworks.studio/assessment.html">
+<link rel="canonical" href="https://nativeworks.studio/ask.html">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+<!-- Defense-in-depth: rendering is already XSS-safe (escape-first in braghi.js); this is a backstop. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: https:; font-src https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; connect-src 'self' https://chat-api.178.104.31.77.sslip.io; script-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'self'">
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://nativeworks.studio/assessment.html">
-<meta property="og:title" content="Sovereign Diagnostic Audit — Native Works">
-<meta property="og:description" content="Measure your platform dependencies, discover digital risk vectors, and plan your transition to owned sovereign infrastructure.">
+<meta property="og:url" content="https://nativeworks.studio/ask.html">
+<meta property="og:title" content="Ask Braghi — Native Works">
+<meta property="og:description" content="Not sure where to start? Ask Braghi, Native Works' AI guide to owning your site, audience, and revenue.">
 <meta property="og:image" content="https://nativeworks.studio/og-image.png">
 <meta property="og:site_name" content="Native Works">
 
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:url" content="https://nativeworks.studio/assessment.html">
-<meta name="twitter:title" content="Sovereign Diagnostic Audit — Native Works">
-<meta name="twitter:description" content="Measure your platform dependencies, discover digital risk vectors, and plan your transition to owned sovereign infrastructure.">
+<meta name="twitter:url" content="https://nativeworks.studio/ask.html">
+<meta name="twitter:title" content="Ask Braghi — Native Works">
+<meta name="twitter:description" content="Not sure where to start? Ask Braghi, Native Works' AI guide to owning your site, audience, and revenue.">
 <meta name="twitter:image" content="https://nativeworks.studio/og-image.png">
 
 <!-- Fonts -->
@@ -32,7 +35,7 @@
 
 <!-- Styles -->
 <link rel="stylesheet" href="css/style.css?v=1.1.0">
-<link rel="stylesheet" href="css/business.css?v=1.1.0">
+<link rel="stylesheet" href="css/braghi.css?v=1.0.0">
 </head>
 <body>
 
@@ -64,159 +67,72 @@
       <li><a href="creator.html">Creator</a></li>
       <li><a href="business.html">Business</a></li>
       <li><a href="contact.html">Contact</a></li>
-      <li><a href="ask.html">Talk to Braghi</a></li>
+      <li><a href="ask.html" class="active" aria-current="page">Talk to Braghi</a></li>
     </ul>
 
     <a href="index.html#choose-path" class="nav-cta" id="nav-cta">Own your presence →</a>
   </div>
 </nav>
 
-<!-- ── HERO SECTION ────────────────────────────────────────────────────── -->
-<section class="hero-business">
-  <div class="business-hero-glow"></div>
-  
-  <!-- Subtle Blueprint grid background -->
-  <svg class="business-hero-bg-svg" viewBox="0 0 800 800" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-    <circle cx="400" cy="400" r="380" stroke="rgba(30,27,22,0.04)" stroke-width="0.5"/>
-    <circle cx="400" cy="400" r="280" stroke="rgba(30,27,22,0.02)" stroke-width="0.5" stroke-dasharray="4 8"/>
-    <line x1="400" y1="0" x2="400" y2="800" stroke="rgba(30,27,22,0.02)" stroke-width="0.5"/>
-    <line x1="0" y1="400" x2="800" y2="400" stroke="rgba(30,27,22,0.02)" stroke-width="0.5"/>
-    <g class="spin-cw">
-      <rect x="250" y="250" width="300" height="300" stroke="rgba(142,59,40,0.08)" stroke-width="0.5" transform="rotate(45 400 400)"/>
-    </g>
-  </svg>
+<!-- ── ASK BRAGHI ──────────────────────────────────────────────────────── -->
+<main>
+<section class="braghi-ask" id="braghi-ask">
+  <div class="braghi-shell">
 
-  <div class="hero-business-content">
-    <span class="hero-business-eyebrow">Sovereignty & Dependency Analysis</span>
-    <h1 class="hero-business-title">Own your audience.<br>Own your revenue.</h1>
-    <p class="hero-business-lead">Most digital builders are tenants on rented platform land. Instagram, YouTube, Substack, and TikTok control your reach, set your fees, and own your relationships. Native Works helps you break free. Evaluate your platform risk, discover your vulnerabilities, and map a direct path to independent, sovereign infrastructure that you own forever.</p>
-    
-    <!-- CTA CARDS -->
-    <div class="audit-selection-grid" style="display: flex; justify-content: center; max-width: 500px; margin: 0 auto;">
-      <!-- Self-Service Audit Card -->
-      <a href="creator-assessment.html" class="audit-card ceo-card" style="width: 100%;">
-        <div class="audit-card-icon">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <circle cx="12" cy="12" r="10"/>
-            <polyline points="12 6 12 12 16 14"/>
-          </svg>
-        </div>
-        <div class="audit-card-body">
-          <h3>Sovereign Audit Quiz</h3>
-          <p>Evaluate your digital footprint, platform risk, and database readiness. Recommended for all independent creators. (Estimated time: 2 minutes)</p>
-          <span class="audit-card-cta">Start Assessment →</span>
-        </div>
-      </a>
+    <!-- HERO / landing copy (hidden once a conversation starts, via body.braghi-active) -->
+    <header class="braghi-hero reveal visible">
+      <span class="braghi-eyebrow">Ask Braghi</span>
+      <h1 class="braghi-headline">Not sure where to start?<br><em>Ask Braghi.</em></h1>
+      <p class="braghi-subhead">A quiet guide to owning your site, your audience, and your revenue — ask anything, and find your bearings before you commit to a path.</p>
+    </header>
+
+    <!-- CONVERSATION LOG (empty in landing state; populated after first send) -->
+    <div class="braghi-log"
+         id="braghi-log"
+         role="log"
+         aria-live="polite"
+         aria-relevant="additions"
+         aria-label="Conversation with Braghi"
+         aria-busy="false"></div>
+
+    <!-- COMPOSER (single element; moves center → docked via body.braghi-active) -->
+    <form class="braghi-composer" id="braghi-form" autocomplete="off">
+      <label for="braghi-input" class="braghi-visually-hidden">Ask Braghi a question</label>
+      <div class="braghi-inputwrap">
+        <textarea id="braghi-input"
+                  class="braghi-input"
+                  name="braghi-input"
+                  rows="1"
+                  maxlength="4000"
+                  enterkeyhint="enter"
+                  placeholder="Ask Braghi anything about owning your presence…"
+                  aria-label="Ask Braghi a question"></textarea>
+        <button type="submit"
+                class="braghi-send"
+                id="braghi-send"
+                aria-label="Send your question to Braghi"
+                disabled>
+          <span class="braghi-send-label">Ask</span>
+          <span class="braghi-send-arrow" aria-hidden="true">↑</span>
+        </button>
+      </div>
+      <p class="braghi-counter" id="braghi-counter" aria-hidden="true"></p>
+    </form>
+
+    <!-- SUGGESTION CHIPS (landing only; hidden once a conversation starts) -->
+    <div class="braghi-chips" id="braghi-chips" role="group" aria-label="Suggested questions">
+      <button type="button" class="braghi-chip">Creator or Business — which path is mine?</button>
+      <button type="button" class="braghi-chip">What does "owning my presence" actually mean?</button>
+      <button type="button" class="braghi-chip">How do I leave a platform without losing my audience?</button>
+      <button type="button" class="braghi-chip">Stack or Foundation — where should I begin?</button>
     </div>
+
+    <!-- DEMO DISCLAIMER -->
+    <p class="braghi-disclaimer">Braghi is an AI guide, here in preview. For this demo he answers from AmaZix's knowledge base, so treat his replies as orientation — not the final word on Native Works.</p>
+
   </div>
 </section>
-
-<!-- ── WHAT WE ANALYZE ─────────────────────────────────────────────────── -->
-<section class="pipeline-section">
-  <div class="pipeline-inner">
-    <div class="pipeline-header">
-      <span class="pipeline-eyebrow">The Audit Framework</span>
-      <h2 class="pipeline-title">What We Analyze</h2>
-      <p class="pipeline-desc">Our diagnostic framework translates your current operational footprint into a clear sovereignty score across four critical pillars, helping us size your transition roadmap.</p>
-    </div>
-
-    <!-- 4-step framework grid -->
-    <div class="pipeline-grid">
-      <!-- step 1 -->
-      <div class="pipeline-card">
-        <div class="pipeline-card-num">01</div>
-        <h3>Platform Risk</h3>
-        <p>We evaluate your risk of sudden reach drops, shadowbans, or account suspensions based on your platform distribution mix.</p>
-      </div>
-
-      <!-- step 2 -->
-      <div class="pipeline-card">
-        <div class="pipeline-card-num">02</div>
-        <h3>Revenue Safety</h3>
-        <p>We map your payment dependencies, platform transaction cuts, and the stability of your direct-to-audience monetization streams.</p>
-      </div>
-
-      <!-- step 3 -->
-      <div class="pipeline-card">
-        <div class="pipeline-card-num">03</div>
-        <h3>Data Sovereignty</h3>
-        <p>We check if you have a direct, exportable relationship with your audience, such as owned databases, mailing lists, and domain control.</p>
-      </div>
-
-      <!-- step 4 -->
-      <div class="pipeline-card">
-        <div class="pipeline-card-num">04</div>
-        <h3>AI Leverage</h3>
-        <p>We assess operational tasks (community management, content formatting, editing) that can be automated on private model pipelines.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ── DATA PRIVACY & COMPLIANCE ──────────────────────────────────────── -->
-<section class="compliance-section">
-  <div class="compliance-inner">
-    <div class="compliance-header">
-      <span class="compliance-eyebrow">Sovereign Advantage</span>
-      <h2 class="compliance-title">Rented Platforms vs. Sovereign Stack</h2>
-    </div>
-
-    <div class="comparison-table-wrapper">
-      <table class="comparison-table">
-        <thead>
-          <tr>
-            <th>Operational Dimension</th>
-            <th>Rented Land (IG, Substack, YouTube)</th>
-            <th>Native Works Sovereign Stack</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="feature-label">Audience Connection</td>
-            <td>Rented. Algorithm filters who sees you. The platform owns the follower graph.</td>
-            <td class="sovereign-cell">Owned. Direct channels (Email, RSS, SMS) that bypass filters and answer only to you.</td>
-          </tr>
-          <tr>
-            <td class="feature-label">Revenue Retention</td>
-            <td>Taxed. Platforms take 10% to 30% cuts. Payout rules can shift overnight.</td>
-            <td class="sovereign-cell">100% Yours. Direct payment processing integrations (Stripe, BTCPay) with standard base fees.</td>
-          </tr>
-          <tr>
-            <td class="feature-label">Account Security</td>
-            <td>Fragile. One automated moderation strike or policy change can erase years of work.</td>
-            <td class="sovereign-cell">Unstoppable. Deployed on your private compute nodes. Censorship-resistant and secure.</td>
-          </tr>
-          <tr>
-            <td class="feature-label">AI & Automation</td>
-            <td>Public. Generic tools that ingest your content to train proprietary corporate models.</td>
-            <td class="sovereign-cell">Private. Dedicated AI nodes running open models on your hardware, tuned strictly to your brand.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</section>
-
-<!-- ── FINAL CALL TO ACTION ────────────────────────────────────────────── -->
-<section class="close-business">
-  <div class="close-business-inner">
-    <svg width="64" height="64" viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="margin-bottom: 32px; opacity: 0.85;">
-      <circle cx="48" cy="48" r="44" stroke="#1E1B17" stroke-width="0.75" fill="none" opacity="0.12"/>
-      <circle cx="48" cy="48" r="34" stroke="#1E1B17" stroke-width="0.5"  fill="none" opacity="0.06"/>
-      <path d="M48,48 L50.5,32 L48,5  L45.5,32 Z" fill="#8E3B28"/>
-      <path d="M48,48 L50,57  L48,74 L46,57 Z"    fill="#1E1B17" opacity="0.2"/>
-      <circle cx="48" cy="48" r="4.5" fill="#1E1B17" opacity="0.25"/>
-      <circle cx="48" cy="48" r="1.8" fill="#8E3B28"/>
-    </svg>
-    
-    <h2 class="close-business-title">Benchmark your platform independence.</h2>
-    <p class="close-business-sub">Start with our 2-minute diagnostic audit to evaluate your digital footprint and unlock your tailored migration path.</p>
-    
-    <div class="close-business-actions">
-      <a href="creator-assessment.html" class="close-btn-primary">Start Creator Audit →</a>
-    </div>
-  </div>
-</section>
+</main>
 
 <!-- ── FOOTER ─────────────────────────────────────────────────────────── -->
 <footer>
@@ -271,16 +187,10 @@
       </a>
     </div>
     <div class="footer-copy">© 2026 Native Works &nbsp;—&nbsp; nativeworks.studio</div>
-    <!-- Link legali disattivati finché Privacy Policy e Terms non sono pronti
-    <div class="footer-legal-links">
-      <a href="privacy.html">Privacy Policy</a>
-      <a href="terms.html">Terms of Service</a>
-    </div>
-    -->
   </div>
 </footer>
 
-<!-- Scripts -->
 <script src="js/main.js" defer></script>
+<script src="js/braghi.js" defer></script>
 </body>
 </html>
