@@ -255,7 +255,7 @@ document.addEventListener('DOMContentLoaded', () => {
     q4:  { A: "Makes or moves physical goods / logistics", B: "Sells professional services or expertise", C: "Serves consumers directly (B2C / e-commerce)", D: "Builds technology, software, or media platforms" },
     q5:  { A: "Front office — sales, marketing, client communication", B: "Back office — admin, finance, reporting, HR", C: "Operations — production, logistics, client onboarding", D: "Across the board — repetitive work is everywhere" },
     q6:  { A: "Give the team back time for higher-value work", B: "Help us scale operations without hiring proportionally", C: "Improve quality and compliance consistency", D: "Run the operational layer of our business for us" },
-    q7:  { A: "Clearer on what AI can and cannot do for us", B: "Two or three concrete things working in production", C: "AI agents woven into how the company runs daily", D: "Fully sovereign — our private models, data, and hardware" },
+    q7:  { A: "Clearer on what AI can and cannot do for us", B: "Two or three concrete things working in production", C: "AI agents woven into how the company runs daily", D: "Fully private — our private models, data, and hardware" },
     q8:  { A: "Email is fine", B: "A short call to start", C: "A video meeting", D: "In person" }
   };
 
@@ -326,17 +326,17 @@ document.addEventListener('DOMContentLoaded', () => {
       recProduct = 'Empire';
       recPosture = 'Long sales cycle, enterprise-grade pitch';
     } else if (scores.sovereignty >= 3 && scores.budget >= 3) {
-      recProduct = 'Stack + Sovereign';
-      recPosture = 'Lead with sovereignty pitch directly. They\'re already there.';
+      recProduct = 'Stack + Private';
+      recPosture = 'Lead with private stack pitch directly. They\'re already there.';
     } else if (scores.sovereignty >= 3 && scores.budget >= 1) {
       recProduct = 'Stack';
-      recPosture = 'Sovereignty without enterprise pricing';
+      recPosture = 'Ownership without enterprise pricing';
     } else if (scores.automation >= 3 && scores.sovereignty <= 2 && scores.budget >= 2) {
       recProduct = 'Foundation + Agent';
-      recPosture = 'Lead with automation ROI. Sovereignty as the why-NativeWorks-not-someone-else.';
+      recPosture = 'Lead with automation ROI. Ownership as the why-NativeWorks-not-someone-else.';
     } else if (scores.automation >= 3 && scores.sovereignty <= 2 && scores.budget <= 1) {
       recProduct = 'Foundation';
-      recPosture = 'Get them in. Show value. Earn the sovereignty conversation.';
+      recPosture = 'Get them in. Show value. Earn the ownership conversation.';
     } else {
       recProduct = 'Foundation + Agent';
       recPosture = 'Standard balanced business engagement path.';

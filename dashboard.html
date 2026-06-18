@@ -692,7 +692,7 @@
       </svg>
     </div>
     <h2 class="auth-title">Briefing Room</h2>
-    <p class="auth-subtitle">Sales Briefings & Sovereign Auditing Panel</p>
+    <p class="auth-subtitle">Sales Briefings & Auditing Panel</p>
 
     <button id="btn-login" class="btn-google">
       <svg width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -761,7 +761,7 @@
         <div class="badge-row">
           <div class="badge-col"><span>Urgency</span><span id="m-urgency" class="badge-col-val">0/4</span></div>
           <div class="badge-col"><span>Sophistication</span><span id="m-soph" class="badge-col-val">0/4</span></div>
-          <div class="badge-col"><span>Sovereignty</span><span id="m-sov" class="badge-col-val">0/4</span></div>
+          <div class="badge-col"><span>Independence</span><span id="m-sov" class="badge-col-val">0/4</span></div>
           <div class="badge-col"><span>Automation</span><span id="m-auto" class="badge-col-val">0/4</span></div>
           <div class="badge-col"><span id="m-fifth-label">Budget</span><span id="m-fifth-val" class="badge-col-val">0/4</span></div>
         </div>
@@ -804,9 +804,9 @@
 
           <!-- Section 4: Sovereignty Trojan -->
           <div class="brief-section-card">
-            <h4 class="brief-section-title">Move 4 — The Sovereignty Bridge</h4>
+            <h4 class="brief-section-title">Move 4 — The Ownership Bridge</h4>
             <p class="brief-quote" id="play-sovereignty-line">"Sovereignty bridge here..."</p>
-            <p class="brief-action-tip"><strong>Action Tip:</strong> Trojan Horse bridge. Highlight the scope of sensitive business data they expose to third parties and shift the focus to sovereign identity.</p>
+            <p class="brief-action-tip"><strong>Action Tip:</strong> Trojan Horse bridge. Highlight the scope of sensitive business data they expose to third parties and shift the focus to private identity.</p>
           </div>
 
           <!-- Section 5: Dynamic Recommendation -->
@@ -1342,7 +1342,7 @@
             </div>
 
             <div class="summary-card">
-              <h4>Sovereignty & AI</h4>
+              <h4>Independence & AI</h4>
               <div class="summary-field"><strong>If Platform Shut Down:</strong> ${getAnswerVal(lead, 7)}</div>
               <div class="summary-field"><strong>Data & AI Posture:</strong> ${getAnswerVal(lead, 8)}</div>
             </div>
@@ -1382,7 +1382,7 @@
             </div>
 
             <div class="summary-card">
-              <h4>Sovereignty & Stance</h4>
+              <h4>Independence & Stance</h4>
               <div class="summary-field"><strong>AI Execution:</strong> ${getAnswerVal(lead, 13)}</div>
               <div class="summary-field"><strong>Data Location:</strong> ${getAnswerVal(lead, 14)}</div>
               <div class="summary-field"><strong>3rd Party Access:</strong> ${getAnswerVal(lead, 15)}</div>
@@ -1477,7 +1477,7 @@
         } else if (q7Ans.includes('runs daily') || q7Ans.includes('runs daily')) {
           openingLine = `"You told us you want AI agents woven into your daily operations. That's a real transformation. Let's map out that workflow."`;
         } else {
-          openingLine = `"You told us you want full sovereignty with your private models and hardware. Let's discuss your security boundaries and target compute."`;
+          openingLine = `"You told us you want full ownership with your private models and hardware. Let's discuss your security boundaries and target compute."`;
         }
 
         const q2Ans = getAnswerVal(lead, 2);
@@ -1494,9 +1494,9 @@
         const q5Ans = getAnswerVal(lead, 5);
         fragilityLine = `"You indicated most operational friction lives in ${q5Ans.toLowerCase()}. Walk me through a typical week — where does the operational time actually go?"`;
 
-        const hasSovereignGoal = q7Ans.includes('Fully sovereign');
+        const hasSovereignGoal = q7Ans.includes('Fully private') || q7Ans.includes('Fully owned');
         if (hasSovereignGoal) {
-          sovereigntyLine = `[Sold Case] "Based on your stated 12-month goal of full private stack sovereignty, you're already sold. Let's design the migration pathway."`;
+          sovereigntyLine = `[Sold Case] "Based on your stated 12-month goal of full private stack ownership, you're already sold. Let's design the migration pathway."`;
         } else {
           sovereigntyLine = `"How are you currently managing data privacy when team members use third-party public AI models?"`;
         }
@@ -1527,7 +1527,7 @@
         } else if (q9Ans.includes('publishing')) {
           openingLine = `"You told us you want to run your own publishing and payment infrastructure in twelve months. That's a real ambition. Let's talk about what gets you there."`;
         } else {
-          openingLine = `"You told us you want full sovereignty — your audience, your keys, your rules. Let's start there."`;
+          openingLine = `"You told us you want full ownership — your audience, your keys, your rules. Let's start there."`;
         }
 
         const q2Ans = getAnswerVal(lead, 2);
@@ -1560,7 +1560,7 @@
         } else if (q16.includes('woven')) {
           openingLine = `"You told us you want AI woven into how the company runs in twelve months. That's a real ambition. Let's talk about what that looks like."`;
         } else {
-          openingLine = `"You told us you want full sovereignty in twelve months. That tells us a lot about what kind of partner you're looking for. Let's start there."`;
+          openingLine = `"You told us you want full ownership in twelve months. That tells us a lot about what kind of partner you're looking for. Let's start there."`;
         }
 
         const q2 = answers.q2 || '';
@@ -1582,7 +1582,7 @@
 
         const q13 = answers.q13 || '';
         if (q13.includes('in-house')) {
-          sovereigntyLine = `[Sold Case] "Based on your focus on maximum infrastructure privacy, you're already sold on sovereignty. Let me skip the standard pitch and show you what this actually looks like."`;
+          sovereigntyLine = `[Sold Case] "Based on your focus on maximum infrastructure privacy, you're already sold on private setups. Let me skip the standard pitch and show you what this actually looks like."`;
         } else if (q13.includes('Private setup')) {
           sovereigntyLine = `"What pushed you toward private setups rather than public? Is there a specific compliance situation behind it?"`;
         } else if (q13.includes('acceptable for non-sensitive')) {
@@ -1601,7 +1601,7 @@
         } else if (q16.includes('publishing')) {
           openingLine = `"You told us you want to run your own publishing and payment infrastructure in twelve months. That's a real ambition. Let's talk about what gets you there."`;
         } else {
-          openingLine = `"You told us you want full sovereignty. That tells us a lot about what kind of partner you're looking for. Let's start there."`;
+          openingLine = `"You told us you want full ownership. That tells us a lot about what kind of partner you're looking for. Let's start there."`;
         }
 
         const q2 = answers.q2 || '';

@@ -256,7 +256,7 @@ document.addEventListener('DOMContentLoaded', () => {
     q2:  { A: "Communication Suites (Slack, MS Teams)", B: "Task & Project Management (Jira, Monday, Trello)", C: "Customer Support Tools (Zendesk, Intercom)", D: "Document Storage (Google Drive, SharePoint)" },
     q3:  { A: "Public Commercial APIs (GPT, Claude, Gemini)", B: "Hosted Enterprise Instances (Azure OpenAI, Vertex AI, Bedrock)", C: "Open-weights / Self-hosted models (Llama 3, Mistral, Qwen)", D: "No active model deployments (Off-the-shelf tools only)" },
     q4:  { A: "Convenience Priority: We send data to public APIs if they don't train on it", B: "Hybrid Constraint: We use commercial APIs but mask sensitive client data", C: "Strict Autonomy: Zero data leaves our network. Private model instance required" },
-    q5:  { A: "Sovereign VPS: Secure European cloud instances (Hetzner, OVH)", B: "Corporate Private Cloud: Our AWS VPC / GCP / Azure Private Link", C: "Bare-Metal On-Premises: Dedicated co-located server racks", D: "Edge Hardware nodes: Running in physical offices (Mac Studio/NVIDIA RTX)" },
+    q5:  { A: "Private VPS: Secure European cloud instances (Hetzner, OVH)", B: "Corporate Private Cloud: Our AWS VPC / GCP / Azure Private Link", C: "Bare-Metal On-Premises: Dedicated co-located server racks", D: "Edge Hardware nodes: Running in physical offices (Mac Studio/NVIDIA RTX)" },
     q6:  { A: "Dedicated NVIDIA GPUs (RTX 4090, A100, H100, RTX A6000)", B: "Apple Silicon workstations (M2/M3 Max/Ultra nodes)", C: "Standard CPU instances (No dedicated local GPU inference hardware)", D: "None — We need Native Works to specify and procure hardware" },
     q7:  { A: "GDPR (European Data Privacy)", B: "HIPAA (Healthcare data privacy compliance)", C: "SOC 2 Type II / ISO 27001 Security standards", D: "Internal operational corporate security only" },
     q8:  { A: "Direct Remote (Secure VPN, Bastion host, Tailscale, SSH keys)", B: "Co-Working (Screen sharing session under continuous supervision)", C: "Zero-Access (Native Works packages container builds; our team deploys)" }
@@ -317,16 +317,16 @@ document.addEventListener('DOMContentLoaded', () => {
     let recPosture = '';
 
     if (scores.sovereignty >= 3 && scores.infrastructure >= 3) {
-      recProduct = 'Sovereign Private Cloud / Bare-Metal Node';
-      recPosture = 'Full sovereign infrastructure deployment pitch';
+      recProduct = 'Private Cloud / Bare-Metal Node';
+      recPosture = 'Full private infrastructure deployment pitch';
     } else if (scores.sovereignty >= 3 && scores.infrastructure <= 2) {
-      recProduct = 'Sovereign VPS';
+      recProduct = 'Private VPS';
       recPosture = 'European-hosted private virtual servers';
     } else if (scores.sophistication >= 3 && scores.compliance >= 2) {
       recProduct = 'Docker/Kubernetes Enterprise Package';
       recPosture = 'Pre-packaged secure container nodes';
     } else {
-      recProduct = 'Sovereign VPS';
+      recProduct = 'Private VPS';
       recPosture = 'Standard secure data pipeline setup';
     }
 

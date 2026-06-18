@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
     1: 'Why Now',
     2: 'Audience & Scale',
     3: 'Friction & Automation',
-    4: 'Sovereignty & AI',
+    4: 'Independence & AI',
     5: 'Looking Ahead'
   };
 
@@ -261,7 +261,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const creatorLabels = {
-    q1:  { A: "A platform did something that scared me", B: "I'm growing and feel dependency tightening", C: "I want to take ownership before something happens", D: "I'm curious — explore sovereign setups" },
+    q1:  { A: "A platform did something that scared me", B: "I'm growing and feel dependency tightening", C: "I want to take ownership before something happens", D: "I'm curious — explore owned setups" },
     q2:  { A: "Reach dropped suddenly without explanation", B: "A platform changed rules, cuts, or policies", C: "Someone I follow lost their account and business", D: "Nothing specific — timing feels right" },
     q3:  { A: "Under 5,000", B: "5,000 to 50,000", C: "50,000 to 500,000", D: "Over 500,000" },
     q4:  { A: "Platform ad revenue / payouts", B: "Brand deals / sponsorships", C: "Direct audience support (memberships/subs)", D: "Products / services sold directly" },
@@ -269,7 +269,7 @@ document.addEventListener('DOMContentLoaded', () => {
     q6:  { A: "Give me back time to make better work", B: "Help me stay consistent without burning out", C: "Reply to DMs and comments automatically", D: "Run operational layer of business" },
     q7:  { A: "Almost nothing — audience lives there", B: "Subscriber emails, if collected", C: "Most of it — backups and direct channels", D: "Everything — platform is one channel among many" },
     q8:  { A: "Public AI is fine", B: "Dedicated hosting (VPS)", C: "Fully mine — data & AI on hardware I control" },
-    q9:  { A: "Less anxious about platform dependence", B: "Earning more directly", C: "Running own publishing and payment infrastructure", D: "Fully sovereign — audience, keys, rules" },
+    q9:  { A: "Less anxious about platform dependence", B: "Earning more directly", C: "Running own publishing and payment infrastructure", D: "Fully independent — audience, keys, rules" },
     q10: { A: "Email is fine", B: "A short call to start", C: "A video meeting", D: "In person" }
   };
 
