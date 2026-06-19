@@ -26,8 +26,8 @@ body.bragi-active .bragi-chips{ display:none; }
 body.bragi-active{ overflow:hidden; }            /* lock page scroll */
 body.bragi-active footer{ display:none; }         /* footer isn't part of the chat fold */
 body.bragi-active .bragi-ask{
-  position:fixed; inset:0; z-index:1;             /* fill viewport, below the fixed nav (z 500) */
-  height:100dvh; min-height:0; overflow:hidden;
+  position:fixed; top:0; right:0; bottom:0; left:0; inset:0; z-index:1;  /* fill viewport (longhand fallback for inset) */
+  height:100vh; height:100dvh; min-height:0; overflow:hidden;            /* vh fallback for dvh */
   padding:96px clamp(24px,5vw,80px) calc(20px + env(safe-area-inset-bottom));
   align-items:stretch;
 }
