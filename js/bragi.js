@@ -282,6 +282,7 @@
     function enterActiveState() {
       if (activated) return;
       activated = true;
+      document.documentElement.classList.add('bragi-active');   // lock <html>; body becomes the page scroller
       document.body.classList.add('bragi-active');
       if (!log.children.length) appendBotMessage(COPY.greeting);  // greeting as message #0
     }
