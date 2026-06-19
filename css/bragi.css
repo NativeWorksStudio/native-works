@@ -125,7 +125,6 @@ body.bragi-active .bragi-composer{
   border:1px solid var(--border); box-shadow:var(--shadow-engraved-sm);
 }
 .bragi-msg--bot .bragi-bubble strong{ color:var(--night); font-weight:600; }
-.bragi-msg--bot .bragi-bubble a{ color:var(--true-north); text-decoration:underline; }
 .bragi-msg--bot .bragi-bubble code{
   font-family:ui-monospace,monospace; background:var(--plaster-mid);
   padding:1px 5px; border-radius:2px; font-size:.92em;
@@ -162,6 +161,22 @@ body.bragi-active .bragi-composer{
 .bragi-retry:hover{ box-shadow:var(--shadow-engraved-sm); transform:translateY(1px); }
 .bragi-retry:focus-visible{ outline:2px solid var(--true-north); outline-offset:2px; }
 
+/* CTA button rendered from any URL Bragi emits in a reply (e.g. the assessment link) */
+.bragi-cta-button{
+  display:inline-flex; align-items:center; justify-content:center; gap:8px; align-self:flex-start;
+  margin-top:12px; padding:11px 24px; min-height:44px; max-width:100%;
+  font-family:var(--font-body); font-size:12px; letter-spacing:1.5px; font-weight:600;
+  text-transform:uppercase; text-decoration:none; overflow-wrap:anywhere; text-align:left;
+  color:var(--plaster); background:var(--true-north);
+  border:none; border-radius:2px; cursor:none;
+  box-shadow:var(--shadow-raised-sm);
+  transition:background .3s, transform .3s, box-shadow .3s;
+}
+.bragi-cta-button::after{ content:'→'; flex:0 0 auto; }
+.bragi-cta-button:hover{ background:var(--night); transform:translateY(-1px); box-shadow:var(--shadow-raised-hover); }
+.bragi-cta-button:active{ transform:translateY(1px); box-shadow:var(--shadow-engraved-sm); }
+.bragi-cta-button:focus-visible{ outline:2px solid var(--true-north); outline-offset:2px; }
+
 /* ── 9. Utilities ────────────────────────────────────────────────────────── */
 .bragi-visually-hidden{
   position:absolute!important; width:1px; height:1px; padding:0; margin:-1px;
@@ -193,5 +208,5 @@ body.bragi-active .bragi-composer{
   .bragi-log{ opacity:1; }
   body.bragi-active .bragi-log{ scroll-behavior:auto; }
   .bragi-dot{ animation:none; opacity:.6; }
-  .bragi-chip,.bragi-send,.bragi-retry,.intro-cta-secondary{ transition:none; }
+  .bragi-chip,.bragi-send,.bragi-retry,.bragi-cta-button,.intro-cta-secondary{ transition:none; }
 }

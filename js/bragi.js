@@ -63,11 +63,8 @@
     s = s.replace(/(^|[\s(])\*([^*\n]+?)\*(?=[\s).,!?]|$)/g, '$1<em>$2</em>');
     s = s.replace(/(^|[\s(])_([^_\n]+?)_(?=[\s).,!?]|$)/g, '$1<em>$2</em>');
 
-    // links [label](url) — http/https/mailto only; javascript:/data: cannot match
-    s = s.replace(/\[([^\]]+?)\]\((https?:\/\/[^\s)]+|mailto:[^\s)]+)\)/g,
-      function (_, label, url) {
-        return '<a href="' + url + '" target="_blank" rel="noopener noreferrer">' + label + '</a>';
-      });
+    // (Links are NOT rendered inline — extractLinks() pulls every URL out and
+    //  appendBotMessage renders each as a button below the message.)
 
     // bullet lists: consecutive lines starting "- " or "* " → <ul><li>
     s = s.replace(/(?:^|\n)((?:[-*] .+(?:\n|$))+)/g, function (m, block) {
@@ -78,6 +75,65 @@
     });
 
     return s;
+  }
+
+  // ── Links → buttons ─────────────────────────────────────────────────────────
+  // Pull every URL out of a reply so each can be shown as a button (not an inline
+  // link). Markdown [label](url) keeps `label` inline; bare URLs are removed from
+  // the text (the button carries them). Scheme is allowlisted (http/https/mailto).
+  function extractLinks(raw) {
+    var links = [], seen = {}, text = String(raw);
+    function add(url, label) {
+      url = url.replace(/[.,!?;:]+$/, '');                 // drop trailing sentence punctuation
+      if (!/^(https?:|mailto:)/i.test(url)) return;        // scheme allowlist (no javascript:/data:)
+      if (seen[url]) return; seen[url] = 1;
+      if (label) label = label.replace(/[*_`]/g, '').trim();  // strip stray markdown from the label
+      links.push({ url: url, label: label || null });
+    }
+    text = text.replace(/\[([^\]]+?)\]\((https?:\/\/[^\s)]+|mailto:[^\s)]+)\)/g, function (_, label, url) {
+      add(url, label); return label;                       // keep the label inline as plain text
+    });
+    text = text.replace(/(^|[\s(])((?:https?:\/\/|mailto:)[^\s)]+)/g, function (_, pre, url) {
+      add(url, null); return pre;                          // drop the bare URL from the prose
+    });
+    // tidy the seam left by removed bare URLs: empty parens, doubled spaces, trailing space
+    text = text.replace(/\(\s*\)/g, '').replace(/[ \t]{2,}/g, ' ').replace(/[ \t]+\n/g, '\n').trim();
+    return { text: text, links: links };
+  }
+
+  function prettyLabel(url) {
+    if (/^mailto:/i.test(url)) return url.replace(/^mailto:/i, '');
+    var noq = url.replace(/^https?:\/\//i, '').replace(/[#?].*$/, '').replace(/\/+$/, '');
+    var host = noq.split('/')[0];
+    var seg = noq.split('/').slice(1).pop();               // last path segment (after host)
+    if (seg) seg = seg.replace(/\.[a-z0-9]+$/i, '').replace(/[-_]+/g, ' ').trim();
+    if (!seg || seg.length > 40) return host;              // no slug / over-long → hostname
+    if (/^[a-z0-9 ]+$/.test(seg)) {                        // title-case only fully-lowercase slugs
+      seg = seg.replace(/\b[a-z]/g, function (c) { return c.toUpperCase(); });
+    }
+    return seg;
+  }
+
+  // Dynamically-created controls miss main.js's static hover binding — mirror it so the
+  // site's custom cursor still gives hover feedback on chat buttons.
+  function bindCursor(el) {
+    el.addEventListener('mouseenter', function () { document.body.classList.add('cursor-hover'); });
+    el.addEventListener('mouseleave', function () { document.body.classList.remove('cursor-hover'); });
+  }
+
+  // href set via DOM property + scheme already allowlisted in extractLinks ⇒ no injection.
+  function makeLinkButton(lnk) {
+    var a = document.createElement('a');
+    a.className = 'bragi-cta-button';
+    a.href = lnk.url;
+    var label = lnk.label || prettyLabel(lnk.url);
+    a.textContent = label;                                 // '→' is a CSS ::after (kept out of the a11y name)
+    if (/^https?:/i.test(lnk.url)) {
+      a.target = '_blank'; a.rel = 'noopener noreferrer';
+      a.setAttribute('aria-label', label + ' (opens in a new tab)');
+    }
+    bindCursor(a);
+    return a;
   }
 
   // ── Small helpers ───────────────────────────────────────────────────────────
@@ -135,7 +191,15 @@
       return log.scrollHeight - log.scrollTop - log.clientHeight < 120;
     }
     function scrollToBottom() { log.scrollTop = log.scrollHeight; }
-    function scrollToBottomIfNear() { if (isNearBottom()) scrollToBottom(); }
+    // Reveal a newly-added message: jump to the START of a tall reply (so the user
+    // reads from its top), or to the bottom for a short one.
+    function showNewMessage(row) {
+      if (row && row.getBoundingClientRect().height > log.clientHeight - 40) {
+        log.scrollTop += row.getBoundingClientRect().top - log.getBoundingClientRect().top - 12;
+      } else {
+        scrollToBottom();
+      }
+    }
 
     // ---- DOM builders ----
     function buildMsg(role, vhLabel) {
@@ -160,9 +224,10 @@
 
     function appendBotMessage(reply) {
       var m = buildMsg('bot', 'Bragi said: ');
-      m.bubble.innerHTML = renderSafe(reply);  // safe: escaped-then-whitelisted
+      var parsed = extractLinks(reply);
+      m.bubble.innerHTML = renderSafe(parsed.text);  // safe: escaped-then-whitelisted
+      parsed.links.forEach(function (lnk) { m.row.appendChild(makeLinkButton(lnk)); });  // URLs → buttons
       log.appendChild(m.row);
-      scrollToBottomIfNear();
       return m.row;
     }
 
@@ -179,7 +244,6 @@
       }
       row.appendChild(bubble);
       log.appendChild(row);
-      scrollToBottomIfNear();
       return row;
     }
 
@@ -202,6 +266,7 @@
       retry.type = 'button';
       retry.className = 'bragi-retry';
       retry.textContent = COPY.retry;
+      bindCursor(retry);
       retry.addEventListener('click', function () {
         input.focus();            // a11y: claim focus before detaching the button, else it falls to <body>
         removeNode(row);
@@ -211,7 +276,7 @@
       row.appendChild(bubble);
       row.appendChild(retry);
       log.appendChild(row);
-      scrollToBottomIfNear();
+      return row;
     }
 
     function enterActiveState() {
@@ -256,6 +321,7 @@
       if (!isRetry) appendUserMessage(text);   // on retry the original user bubble is still in the log
       if (!isRetry) clearInput();
       var typing = appendTyping();
+      scrollToBottom();                  // user just sent/retried — show the typing indicator
       setInFlight(true);
 
       var slowTimer = setTimeout(function () { swapTypingToStatus(typing); }, SLOW_STATUS_MS);
@@ -263,19 +329,24 @@
 
       fetchReply(text).then(function (reply) {
         return minDelay.then(function () {
-          clearTimeout(slowTimer); removeNode(typing);
+          clearTimeout(slowTimer);
+          var stick = isNearBottom();    // was the user following? measure BEFORE the DOM grows
+          removeNode(typing);
           var clean = (reply == null ? '' : String(reply)).trim();
-          appendBotMessage(clean || COPY.empty);
+          var row = appendBotMessage(clean || COPY.empty);
+          if (stick) showNewMessage(row);
         });
       }).catch(function (err) {
         return minDelay.then(function () {
-          clearTimeout(slowTimer); removeNode(typing);
-          appendErrorMessage(err);
+          clearTimeout(slowTimer);
+          var stick = isNearBottom();
+          removeNode(typing);
+          var row = appendErrorMessage(err);
+          if (stick) showNewMessage(row);
         });
       }).then(function () {
         setInFlight(false);
         input.focus();
-        scrollToBottomIfNear();
       });
     }
 
