@@ -1,0 +1,11 @@
+name = "native-works"
+compatibility_date = "2026-06-20"
+
+[assets]
+directory = "public"
+
+[observability]
+enabled = true
+
+[compatibility_flags]
+"nodejs_compat" = true
