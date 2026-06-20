@@ -9,6 +9,7 @@
   },
   "devDependencies": {
     "firebase-tools": "^15.19.1",
-    "http-server": "^14.1.1"
+    "http-server": "^14.1.1",
+    "picomatch": "^4.0.4"
   }
 }
