@@ -306,6 +306,7 @@ body.cursor-on-hero #custom-cursor-ring {
 .nav-links a {
   font-size: 11px; letter-spacing: 2px; color: var(--mid);
   text-decoration: none; transition: color 0.2s; text-transform: uppercase;
+  white-space: nowrap;
 }
 .nav-links a:hover,
 .nav-links a.active { color: var(--night); font-weight: 500; }
@@ -358,6 +359,14 @@ body.cursor-on-hero #custom-cursor-ring {
   .lang-separator {
     font-size: 14px;
   }
+}
+
+@media (max-width: 1200px) and (min-width: 901px) {
+  #nav { padding: 18px 32px; }
+  #nav.scrolled { padding: 14px 32px; }
+  .nav-menu { gap: 20px; }
+  .nav-links { gap: 20px; }
+  .nav-cta { padding: 8px 18px; }
 }
 
 
