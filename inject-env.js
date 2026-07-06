@@ -110,6 +110,8 @@ filesToCopy.forEach(file => {
 // Copy directories
 copyFolderSync(path.join(__dirname, 'css'), path.join(publicDir, 'css'));
 copyFolderSync(path.join(__dirname, 'js'), path.join(publicDir, 'js'));
+copyFolderSync(path.join(__dirname, 'da'), path.join(publicDir, 'da'));
+copyFolderSync(path.join(__dirname, 'it'), path.join(publicDir, 'it'));
 
 console.log("✅ Successfully copied all static assets to the 'public' directory.");
 

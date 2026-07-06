@@ -55,13 +55,51 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnBack   = document.getElementById('btn-back');
   const btnSubmit = document.getElementById('btn-submit');
 
-  const stepNames = {
-    1: 'Why Now',
-    2: 'Audience & Scale',
-    3: 'Friction & Automation',
-    4: 'Independence & AI',
-    5: 'Looking Ahead'
+  const lang = document.documentElement.lang || 'en';
+  const TRANSLATIONS = {
+    en: {
+      stepNames: {
+        1: 'Why Now',
+        2: 'Audience & Scale',
+        3: 'Friction & Automation',
+        4: 'Independence & AI',
+        5: 'Looking Ahead'
+      },
+      errorAllQuestions: 'Please answer all questions to proceed.',
+      errorAllFields: 'Please fill in your name, channel name and email to continue.',
+      finalStep: 'Final Step →',
+      nextStep: 'Next Step →'
+    },
+    da: {
+      stepNames: {
+        1: 'Hvorfor nu',
+        2: 'Publikum & Skala',
+        3: 'Friktion & Automatisering',
+        4: 'Uafhængighed & AI',
+        5: 'Fremtiden'
+      },
+      errorAllQuestions: 'Besvar venligst alle spørgsmål for at fortsætte.',
+      errorAllFields: 'Udfyld venligst dit navn, kanalnavn og e-mail for at fortsætte.',
+      finalStep: 'Sidste Trin →',
+      nextStep: 'Næste Trin →'
+    },
+    it: {
+      stepNames: {
+        1: 'Perché Ora',
+        2: 'Pubblico & Scala',
+        3: 'Attrito & Automazione',
+        4: 'Indipendenza & IA',
+        5: 'Sguardo al Futuro'
+      },
+      errorAllQuestions: 'Rispondi a tutte le domande per procedere.',
+      errorAllFields: 'Inserisci il tuo nome, nome del canale ed email per continuare.',
+      finalStep: 'Ultimo Passaggio →',
+      nextStep: 'Passaggio Successivo →'
+    }
   };
+
+  const t = TRANSLATIONS[lang] || TRANSLATIONS.en;
+  const stepNames = t.stepNames;
 
   /* ── CARD INTERACTION (Wizard Radios & Checkboxes) ──────────────── */
 
@@ -167,8 +205,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!allGroupsChecked || !allTextFilled) {
       if (showAlert) {
         const msg = !allGroupsChecked 
-          ? 'Please answer all questions to proceed.' 
-          : 'Please fill in your name, channel name and email to continue.';
+          ? t.errorAllQuestions 
+          : t.errorAllFields;
         showErrorMessage(stepEl, msg);
 
         stepEl.querySelectorAll('.options-grid').forEach(grid => {
@@ -225,7 +263,7 @@ document.addEventListener('DOMContentLoaded', () => {
     btnBack.classList.toggle('wizard-btn-hidden', currentStep === 1);
 
     if (currentStep < totalSteps) {
-      btnNext.textContent = currentStep === totalSteps - 1 ? 'Final Step →' : 'Next Step →';
+      btnNext.textContent = currentStep === totalSteps - 1 ? t.finalStep : t.nextStep;
       btnNext.classList.remove('wizard-btn-hidden');
       btnSubmit.classList.add('wizard-btn-hidden');
     } else {

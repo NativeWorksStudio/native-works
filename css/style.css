@@ -318,6 +318,49 @@ body.cursor-on-hero #custom-cursor-ring {
 }
 .nav-cta:hover { box-shadow: var(--shadow-engraved-sm); transform: translateY(1px); }
 
+/* Language Selector Styles */
+.lang-selector {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.lang-link {
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: var(--mid);
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: color 0.2s;
+  font-weight: 400;
+}
+.lang-link:hover,
+.lang-link.active {
+  color: var(--night);
+  font-weight: 500;
+}
+.lang-separator {
+  color: var(--border);
+  font-size: 10px;
+  user-select: none;
+}
+@media (max-width: 900px) {
+  .lang-selector {
+    margin-top: 10px;
+    gap: 12px;
+  }
+  .lang-link {
+    font-size: 16px;
+    letter-spacing: 2px;
+  }
+  .lang-separator {
+    font-size: 14px;
+  }
+}
+
+
 /* ═══════════════════════════════════════════════════════
    HERO
 ═══════════════════════════════════════════════════════ */

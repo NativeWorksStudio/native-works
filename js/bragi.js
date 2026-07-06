@@ -17,14 +17,35 @@
   var MAXLEN             = 4000;
   var COUNTER_THRESHOLD  = 3600;
 
-  var COPY = {
-    greeting: "I'm Bragi. Tell me where you are today — building from scratch, or trying to get off rented land — and I'll help you find your bearings.",
-    slow:     'Bragi is thinking…',
-    network:  'The line went quiet — looks like the connection dropped. Check your network and ask again.',
-    server:   'Something faltered on my end, not yours. Give me a moment and try once more.',
-    empty:    "Bragi didn't have an answer for that — try rephrasing?",
-    retry:    'Try again'
+  var lang = document.documentElement.lang || 'en';
+  var COPY_ALL = {
+    en: {
+      greeting: "I'm Bragi. Tell me where you are today — building from scratch, or trying to get off rented land — and I'll help you find your bearings.",
+      slow:     'Bragi is thinking…',
+      network:  'The line went quiet — looks like the connection dropped. Check your network and ask again.',
+      server:   'Something faltered on my end, not yours. Give me a moment and try once more.',
+      empty:    "Bragi didn't have an answer for that — try rephrasing?",
+      retry:    'Try again'
+    },
+    da: {
+      greeting: "Jeg er Bragi. Fortæl mig, hvor du står i dag — om du bygger fra bunden eller forsøger at komme væk fra lejet jord — så vil jeg hjælpe dig med at finde retningen.",
+      slow:     'Bragi tænker…',
+      network:  'Forbindelsen blev afbrudt — det ser ud til, at netværket gik ned. Tjek din forbindelse, og prøv igen.',
+      server:   'Noget gik galt på min side, ikke din. Giv mig et øjeblik, og prøv igen.',
+      empty:    "Bragi havde ikke et svar på det — prøv at omformulere?",
+      retry:    'Prøv igen'
+    },
+    it: {
+      greeting: "Sono Bragi. Dimmi dove ti trovi oggi — se stai partendo da zero o se stai cercando di liberarti da piattaforme in affitto — e ti aiuterò a orientarti.",
+      slow:     'Bragi sta pensando…',
+      network:  'La linea è caduta — sembra che la connessione sia stata interrotta. Controlla la tua rete e riprova.',
+      server:   'Qualcosa è andato storto da parte mia, non tua. Dammi un attimo e riprova.',
+      empty:    "Bragi non ha una risposta per questa domanda — prova a riformulare?",
+      retry:    'Riprova'
+    }
   };
+  var COPY = COPY_ALL[lang] || COPY_ALL.en;
+
 
   var prefersReducedMotion = window.matchMedia &&
     window.matchMedia('(prefers-reduced-motion: reduce)').matches;

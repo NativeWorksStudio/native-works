@@ -54,12 +54,48 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnBack   = document.getElementById('btn-back');
   const btnSubmit = document.getElementById('btn-submit');
 
-  const stepNames = {
-    1: 'Data & Systems',
-    2: 'Model & Privacy',
-    3: 'Hosting & Hardware',
-    4: 'Compliance & Onboarding'
+  const lang = document.documentElement.lang || 'en';
+  const TRANSLATIONS = {
+    en: {
+      stepNames: {
+        1: 'Data & Systems',
+        2: 'Model & Privacy',
+        3: 'Hosting & Hardware',
+        4: 'Compliance & Onboarding'
+      },
+      errorAllQuestions: 'Please answer all questions to proceed.',
+      errorAllFields: 'Please fill in your name, company and email details to continue.',
+      finalStep: 'Final Step →',
+      nextStep: 'Next Step →'
+    },
+    da: {
+      stepNames: {
+        1: 'Data & Systemer',
+        2: 'Model & Privatliv',
+        3: 'Hosting & Hardware',
+        4: 'Overholdelse & Integrering'
+      },
+      errorAllQuestions: 'Besvar venligst alle spørgsmål for at fortsætte.',
+      errorAllFields: 'Udfyld venligst dit navn, virksomhed og e-mail for at fortsætte.',
+      finalStep: 'Sidste Trin →',
+      nextStep: 'Næste Trin →'
+    },
+    it: {
+      stepNames: {
+        1: 'Dati & Sistemi',
+        2: 'Modello & Privacy',
+        3: 'Hosting & Hardware',
+        4: 'Conformità & Onboarding'
+      },
+      errorAllQuestions: 'Rispondi a tutte le domande per procedere.',
+      errorAllFields: 'Inserisci il tuo nome, azienda ed email per continuare.',
+      finalStep: 'Ultimo Passaggio →',
+      nextStep: 'Passaggio Successivo →'
+    }
   };
+
+  const t = TRANSLATIONS[lang] || TRANSLATIONS.en;
+  const stepNames = t.stepNames;
 
   /* ── CARD INTERACTION (Wizard Radios & Checkboxes) ──────────────── */
 
@@ -158,8 +194,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!allGroupsChecked || !allTextFilled) {
       if (showAlert) {
         const msg = !allGroupsChecked 
-          ? 'Please answer all questions to proceed.' 
-          : 'Please fill in your name, company and email details to continue.';
+          ? t.errorAllQuestions 
+          : t.errorAllFields;
         showErrorMessage(stepEl, msg);
 
         stepEl.querySelectorAll('.options-grid').forEach(grid => {
@@ -216,7 +252,7 @@ document.addEventListener('DOMContentLoaded', () => {
     btnBack.classList.toggle('wizard-btn-hidden', currentStep === 1);
 
     if (currentStep < totalSteps) {
-      btnNext.textContent = currentStep === totalSteps - 1 ? 'Final Step →' : 'Next Step →';
+      btnNext.textContent = currentStep === totalSteps - 1 ? t.finalStep : t.nextStep;
       btnNext.classList.remove('wizard-btn-hidden');
       btnSubmit.classList.add('wizard-btn-hidden');
     } else {
