@@ -8,7 +8,7 @@
 
 const FROM_ADDRESS   = "NativeWorks <hello@nativeworks.studio>";
 const NOTIFY_TO      = ["antonio.visceglia@nativeworks.studio"];
-const NOTIFY_CC      = ["info@nativeworks.studio"];
+const NOTIFY_CC      = ["info@nativeworks.studio", "paolo.anziano@nativeworks.studio", "jonas.karlberg@nativeworks.studio"];
 const SITE_ORIGIN    = "https://www.nativeworks.studio";
 
 /* ── Localized confirmation copy ─────────────────────────────────── */
