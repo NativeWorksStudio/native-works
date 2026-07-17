@@ -85,14 +85,12 @@
       <p class="form-subtitle">Reach out to begin your digital journey.</p>
     </div>
     
-    <form action="https://formsubmit.co/antonio.visceglia@nativeworks.studio" method="POST">
+    <form action="/api/submit" method="POST">
       <!-- FormSubmit Config -->
-      <input type="hidden" name="_cc" value="info@nativeworks.studio,paolo.anziano@nativeworks.studio,jonas.karlberg@nativeworks.studio">
       <input type="hidden" name="_next" value="https://www.nativeworks.studio/thank-you.html">
-      <input type="hidden" name="_captcha" value="false">
       <input type="hidden" name="_subject" value="New Contact Request — NativeWorks">
-      <input type="hidden" name="_template" value="box">
-      <input type="hidden" name="_autoresponse" value="Thank you for reaching out to NativeWorks. We've received your message and will get back to you shortly.">
+      <input type="hidden" name="lang"      value="en">
+      <input type="hidden" name="form_type" value="contact">
 
       <div class="form-group">
         <label for="name" class="form-label">Name</label>
