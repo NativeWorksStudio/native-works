@@ -16,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Set the recipient email address
-    $recipient = "info@nativeworks.studio";
+    $recipient = "info@nativeworks.studio, antonio.visceglia@nativeworks.studio, paolo.anziano@nativeworks.studio, jonas.karlberg@nativeworks.studio";
 
     // Set the email subject
     $subject = "New Contact Request from $name (Native Works)";
